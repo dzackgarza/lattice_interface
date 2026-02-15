@@ -4,15 +4,8 @@ import sys
 import pytest
 
 sage = pytest.importorskip("sage.all")
-from sage.all import IntegralLattice, ZZ, matrix
+from sage.all import IntegralLattice, ZZ, matrix, vector
 from .conftest import assert_runtime_methods_covered
-
-
-TOKEN_MAP = {
-    'constructor("U")': set(),
-    "minimum_maximum": {"minimum", "maximum", "min", "max"},
-    "LLL": {"LLL", "lll"},
-}
 
 
 def test_integrallattice_constructor_u_hyperbolic_plane():
@@ -91,12 +84,12 @@ def test_integrallattice_discriminant_group_has_expected_order_rank_one():
     )
 
 
-def test_integrallattice_minimum_and_maximum_extremes_by_signature():
+def test_integrallattice_minimum_extremes_by_signature():
     """
-    method: minimum_maximum
+    method: minimum
 
-    minimum()/maximum() return extremal values of (x,x) over nonzero lattice vectors.
-    Assertion: Positive-definite and indefinite signatures show the documented finite/infinite behavior.
+    minimum() returns the lower extreme of (x,x) over nonzero lattice vectors.
+    Assertion: Positive-definite and indefinite examples give 2 and -Infinity respectively.
     """
     L_pd = IntegralLattice(matrix(ZZ, [[2, 0], [0, 2]]))
     L_ind = IntegralLattice(matrix(ZZ, [[2, 0], [0, -2]]))
@@ -105,15 +98,26 @@ def test_integrallattice_minimum_and_maximum_extremes_by_signature():
     assert actual_pd_min == expected_pd_min, (
         f"IntegralLattice.minimum (PD) mismatch: actual={actual_pd_min}, expected={expected_pd_min}"
     )
-    actual_pd_max = str(L_pd.maximum())
-    expected_pd_max = "+Infinity"
-    assert actual_pd_max == expected_pd_max, (
-        f"IntegralLattice.maximum (PD) mismatch: actual={actual_pd_max}, expected={expected_pd_max}"
-    )
     actual_ind_min = str(L_ind.minimum())
     expected_ind_min = "-Infinity"
     assert actual_ind_min == expected_ind_min, (
         f"IntegralLattice.minimum (indefinite) mismatch: actual={actual_ind_min}, expected={expected_ind_min}"
+    )
+
+
+def test_integrallattice_maximum_extremes_by_signature():
+    """
+    method: maximum
+
+    maximum() returns the upper extreme of (x,x) over lattice vectors.
+    Assertion: Both positive-definite and indefinite examples have +Infinity as upper bound.
+    """
+    L_pd = IntegralLattice(matrix(ZZ, [[2, 0], [0, 2]]))
+    L_ind = IntegralLattice(matrix(ZZ, [[2, 0], [0, -2]]))
+    actual_pd_max = str(L_pd.maximum())
+    expected_pd_max = "+Infinity"
+    assert actual_pd_max == expected_pd_max, (
+        f"IntegralLattice.maximum (PD) mismatch: actual={actual_pd_max}, expected={expected_pd_max}"
     )
     actual_ind_max = str(L_ind.maximum())
     expected_ind_max = "+Infinity"
@@ -134,6 +138,45 @@ def test_integrallattice_lll_returns_lattice_with_same_rank():
     actual = R.rank()
     expected = L.rank()
     assert actual == expected, f"IntegralLattice.LLL rank mismatch: actual={actual}, expected={expected}"
+
+
+def test_integrallattice_lll_alias_matches_LLL_discriminant():
+    """
+    method: lll
+
+    lll() is the lowercase alias for LLL() reduction.
+    Assertion: lll() and LLL() return lattices with equal discriminant.
+    """
+    L = IntegralLattice(matrix(ZZ, [[4, 1], [1, 3]]))
+    actual = L.lll().discriminant()
+    expected = L.LLL().discriminant()
+    assert actual == expected, f"IntegralLattice.lll alias mismatch: actual={actual}, expected={expected}"
+
+
+def test_integrallattice_min_alias_matches_minimum():
+    """
+    method: min
+
+    min() is an alias for minimum().
+    Assertion: Alias equals minimum on a positive-definite example.
+    """
+    L = IntegralLattice(matrix(ZZ, [[2, 0], [0, 2]]))
+    actual = L.min()
+    expected = L.minimum()
+    assert actual == expected, f"IntegralLattice.min alias mismatch: actual={actual}, expected={expected}"
+
+
+def test_integrallattice_max_alias_matches_maximum():
+    """
+    method: max
+
+    max() is an alias for maximum().
+    Assertion: Alias equals maximum on an indefinite example.
+    """
+    L = IntegralLattice(matrix(ZZ, [[2, 0], [0, -2]]))
+    actual = L.max()
+    expected = L.maximum()
+    assert actual == expected, f"IntegralLattice.max alias mismatch: actual={actual}, expected={expected}"
 
 
 def test_integrallattice_orthogonal_group_requires_definite():
@@ -307,6 +350,90 @@ def test_integrallattice_orthogonal_complement_dimension():
     )
 
 
+def test_integrallattice_short_vectors_contains_minimal_vector():
+    """
+    method: short_vectors
+
+    short_vectors(n) lists vectors by norm buckets up to a cutoff.
+    Assertion: For Gram [2], vectors ±1 appear in the bucket for norm 2.
+    """
+    L = IntegralLattice(matrix(ZZ, [[2]]))
+    buckets = L.short_vectors(3)
+    V = [v for bucket in buckets for v in bucket]
+    actual = any(len(v) == 1 and abs(v[0]) == 1 for v in V)
+    expected = True
+    assert actual == expected, (
+        f"IntegralLattice.short_vectors mismatch: actual={actual}, expected={expected}, vectors={V}"
+    )
+
+
+def test_integrallattice_enumerate_short_vectors_iterator_nonempty():
+    """
+    method: enumerate_short_vectors
+
+    enumerate_short_vectors() yields lattice vectors in increasing norm order.
+    Assertion: First yielded vector has coordinate norm matching minimum for Gram [2].
+    """
+    L = IntegralLattice(matrix(ZZ, [[2]]))
+    it = L.enumerate_short_vectors()
+    first = next(it)
+    actual = 2 * first[0] ** 2
+    expected = L.minimum()
+    assert actual == expected, (
+        f"IntegralLattice.enumerate_short_vectors mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_integrallattice_enumerate_close_vectors_returns_candidate():
+    """
+    method: enumerate_close_vectors
+
+    enumerate_close_vectors(target) enumerates vectors by increasing distance to target.
+    Assertion: For target 1/3 in rank one, first candidate is 0 and second has larger squared distance.
+    """
+    L = IntegralLattice(matrix(ZZ, [[2]]))
+    it = L.enumerate_close_vectors(vector(sage.QQ, [sage.QQ((1, 3))]))
+    first = next(it)
+    second = next(it)
+    dist_first = 2 * (first[0] - sage.QQ((1, 3))) ** 2
+    dist_second = 2 * (second[0] - sage.QQ((1, 3))) ** 2
+    actual = (first[0], dist_first < dist_second)
+    expected = (0, True)
+    assert actual == expected, (
+        "IntegralLattice.enumerate_close_vectors mismatch: "
+        f"actual={actual}, expected={expected}, second={second}"
+    )
+
+
+def test_integrallattice_tensor_product_rank_multiplies():
+    """
+    method: tensor_product
+
+    tensor_product(other) builds tensor product lattice.
+    Assertion: Rank multiplies under tensor product.
+    """
+    A = IntegralLattice(matrix(ZZ, [[2, 0], [0, 2]]))
+    B = IntegralLattice(matrix(ZZ, [[4]]))
+    T = A.tensor_product(B)
+    actual = T.rank()
+    expected = A.rank() * B.rank()
+    assert actual == expected, f"IntegralLattice.tensor_product rank mismatch: actual={actual}, expected={expected}"
+
+
+def test_integrallattice_is_primitive_detects_nonprimitive_submodule():
+    """
+    method: is_primitive
+
+    is_primitive(M) checks whether submodule quotient is torsion free.
+    Assertion: Submodule generated by 2e1 in Z^2 is not primitive.
+    """
+    L = IntegralLattice(matrix.identity(2))
+    M = L.sublattice([[2, 0]])
+    actual = L.is_primitive(M)
+    expected = False
+    assert actual == expected, f"IntegralLattice.is_primitive mismatch: actual={actual}, expected={expected}"
+
+
 def test_integrallattice_coverage():
     """
     method: runtime_coverage
@@ -319,5 +446,4 @@ def test_integrallattice_coverage():
         test_module=sys.modules[__name__],
         sample_object=sample,
         module_prefixes=("sage.modules.free_quadratic_module_integer_symmetric",),
-        token_map=TOKEN_MAP,
     )

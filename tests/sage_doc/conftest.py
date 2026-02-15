@@ -47,9 +47,7 @@ def _method_token_from_docstring(func) -> str | None:
 
 def covered_methods_from_module(
     module: ModuleType,
-    token_map: dict[str, set[str]] | None = None,
 ) -> set[str]:
-    token_map = token_map or {}
     covered: set[str] = set()
     for name, func in inspect.getmembers(module, inspect.isfunction):
         if not name.startswith("test_") or name.endswith("_coverage"):
@@ -57,10 +55,7 @@ def covered_methods_from_module(
         token = _method_token_from_docstring(func)
         if token is None:
             continue
-        if token in token_map:
-            covered.update(token_map[token])
-        else:
-            covered.add(token)
+        covered.add(token)
     return covered
 
 
@@ -96,10 +91,9 @@ def assert_runtime_methods_covered(
     test_module: ModuleType,
     sample_object,
     module_prefixes: tuple[str, ...],
-    token_map: dict[str, set[str]] | None = None,
     extra_irrelevant: set[str] | None = None,
 ) -> None:
-    covered = covered_methods_from_module(test_module, token_map=token_map)
+    covered = covered_methods_from_module(test_module)
     relevant = relevant_runtime_methods(
         sample_object,
         module_prefixes=module_prefixes,

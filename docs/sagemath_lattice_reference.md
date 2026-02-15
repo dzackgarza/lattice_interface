@@ -279,7 +279,10 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 | `shortest_vector()` | Exact shortest vector (SVP) | `[FPLLL]` |
 | `closest_vector(t)` | Exact closest vector to target t (CVP) | `[FPLLL]` |
 | `approximate_closest_vector(t, delta=None, algorithm='embedding', ...)` | Approx CVP; runs LLL if not already δ-reduced; `algorithm`: `'embedding'`, `'nearest_plane'` (Babai), `'rounding_off'` | |
+| `babai(target, *args, **kwds)` | Babai nearest-plane approximation to CVP; convenience wrapper around reduction data | `[FPLLL]` |
+| `update_reduced_basis(*args, **kwds)` | Refresh cached reduced basis used by approximate-CVP helpers | `[FPLLL]` |
 | `discriminant()` | det(B·Bᵀ) | |
+| `volume()` | Covolume of the lattice in the ambient Euclidean space | |
 | `reduced_basis` | Property: current basis matrix after last reduction call | |
 | `voronoi_cell()` | Voronoi cell as a polytope | `[PD]` |
 | `voronoi_relevant_vectors()` | Vectors defining Voronoi cell facets | `[PD]` |
@@ -374,6 +377,11 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 | `minimum(proof)` | Minimum nonzero value Q(x) | `[PD, INT]` |
 | `maximum(b)` | Maximum Q(x) for x with Q(x)≤b | `[PD, INT]` |
 | `count_congruence_solutions(B, n, m, p, k)` | Count Q(x)≡m (mod p^k) | `[INT]` |
+| `count_congruence_solutions__bad_type(B, n, m, p, k, NZvec, Zvec, p2)` | Conway-Sloane local counting helper: bad-type contribution in p-adic density decomposition | `[INT]` |
+| `count_congruence_solutions__bad_type_I(B, n, m, p, k, NZvec, Zvec, p2)` | Type-I bad-part contribution for local density counts | `[INT]` |
+| `count_congruence_solutions__bad_type_II(B, n, m, p, k, NZvec, Zvec, p2)` | Type-II bad-part contribution for local density counts | `[INT]` |
+| `count_congruence_solutions__good_type(B, n, m, p, k, NZvec, Zvec, p2)` | Good-type contribution in local counting decomposition | `[INT]` |
+| `count_congruence_solutions__zero_type(B, n, m, p, k, NZvec, Zvec, p2)` | Zero-type contribution in local counting decomposition | `[INT]` |
 
 ### Automorphisms
 | Method | Description | Tags |
@@ -388,6 +396,16 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 | `theta_series(prec)` | Formal power series Σ r(n) q^n | `[PD, INT]` |
 | `theta_series_degree_2(prec)` | Siegel modular form | `[PD, INT]` |
 | `mass(M=None)` | Total mass of genus = Σ 1/\|Aut(Q')\| over genus representatives; uses GHY formula | `[PD?, INT]` |
+| `conway_mass()` | Conway-Sloane mass formula implementation for integral forms | `[INT, PD]` |
+| `conway_standard_mass()` | Conway-Sloane standard mass term | `[INT, PD]` |
+| `conway_p_mass(p)` | Conway local p-mass factor | `[INT, PD]` |
+| `conway_standard_p_mass(p)` | Standardized local p-mass contribution in Conway mass formula | `[INT, PD]` |
+| `conway_type_factor(p)` | Type factor in Conway-Sloane local mass expression | `[INT, PD]` |
+| `conway_diagonal_factor(p)` | Diagonal factor in Conway local mass term | `[INT, PD]` |
+| `conway_cross_product_doubled_power(p)` | Cross-product doubled-power exponent term in Conway local mass | `[INT, PD]` |
+| `conway_species_list_at_2()` | 2-adic species data used in Conway local mass calculations | `[INT, PD]` |
+| `conway_species_list_at_odd_prime(p)` | Odd-prime species data used in Conway local mass calculations | `[INT, PD]` |
+| `conway_octane_of_this_unimodular_Jordan_block_at_2(block)` | Octane invariant for a 2-adic unimodular Jordan block in Conway notation | `[INT, PD]` |
 | `GHY_mass__maximal()` | Mass via GHY formula for maximal lattices; valid over any number field; returns a rational number | `[PD, INT]` |
 | `Kitaoka_mass_at_2()` | Local mass factor at p=2 per Kitaoka Thrm 5.6.3; returns a rational > 0; **docstring warns verification needed** | `[INT, PD]` |
 | `Watson_mass_at_2()` | Local mass factor at p=2 per Watson 1976; requires `sage.symbolic`; returns a rational number | `[INT, PD]` |
@@ -616,6 +634,19 @@ These operate on integer matrices directly (no lattice wrapper). `M.LLL()` / `M.
 | `M.LLL_gram(flag=0)` | Given Gram matrix M, returns unimodular U s.t. Uᵀ·M·U is LLL-reduced (flag 0=float rescaling, 1=integral); **correctness guaranteed only for PD; for semidefinite or indefinite inputs the algorithm has no correctness guarantee and may silently return wrong output** | `[PARI, PD only]` |
 | `M.smith_form()` | Smith normal form (module structure only, no bilinear form) | |
 | `M.hermite_form()` / `M.echelon_form()` | Hermite Normal Form | |
+| `M.nrows()` / `M.ncols()` / `M.dimensions()` | Shape information | |
+| `M.rref()` / `M.pivots()` / `M.pivot_rows()` | Row-reduction data | |
+| `M.rank()` / `M.left_nullity()` / `M.right_nullity()` | Rank and nullities | |
+| `M.left_kernel()` / `M.right_kernel()` | Kernel modules | |
+| `M.left_kernel_matrix()` / `M.right_kernel_matrix()` / `M.integer_kernel()` | Kernel bases as matrices | |
+| `M.charpoly()` / `M.characteristic_polynomial()` / `M.minpoly()` / `M.minimal_polynomial()` | Characteristic/minimal polynomial variants | |
+| `M.is_square()` / `M.is_invertible()` / `M.is_unit()` | Basic invertibility predicates | |
+| `M.is_symmetric()` / `M.is_hermitian()` / `M.is_diagonal()` | Structure predicates | |
+| `M.row_space()` / `M.column_space()` | Row/column span modules | |
+| `M.submatrix(...)` / `M.matrix_from_rows(...)` / `M.matrix_from_columns(...)` | Matrix extraction helpers | |
+| `M.swap_rows(...)` / `M.swap_columns(...)` / `M.with_swapped_rows(...)` / `M.with_swapped_columns(...)` | Row/column swap operations | |
+| `M.add_multiple_of_row(...)` / `M.add_multiple_of_column(...)` / `M.add_to_entry(...)` | Elementary row/column updates | |
+| `M.numpy()` / `M.sparse_matrix()` | Conversion helpers | |
 
 ---
 
@@ -634,6 +665,9 @@ These operate on integer matrices directly (no lattice wrapper). `M.LLL()` / `M.
 | `qfsolve(G)` | `sage.quadratic_forms.qfsolve` | Find isotropic vector for rational form; uses PARI `qfsolve` | `[RAT, INDEF, PARI]` |
 | `qfparam(G, sol)` | `sage.quadratic_forms.qfsolve` | Parametrize conic G(x)=0; returns triple of polynomials | `[RAT, PARI]` |
 | `genera(sig, det, even, max_scale)` | `sage.quadratic_forms.genera.genus` | All genera with given invariants | `[INT]` |
+| `collect_small_blocks(...)` | `sage.quadratic_forms.genera.normal_form` | Helper for p-adic/Jordan normal-form block assembly | `[INT]` |
+| `count_all_local_good_types_normal_form(...)` | `sage.quadratic_forms.count_local_2` | Enumerate/count local good types in normal-form computations | `[INT]` |
+| `Genus_Symbol_p_adic_ring.compartments()` | `sage.quadratic_forms.genera.genus` | Return 2-adic compartments in the genus-symbol representation | `[INT]` |
 | `BezoutianQuadraticForm(f, g)` | `sage.quadratic_forms.constructions` | Quadratic form of dim=max(deg f, deg g) whose Gram matrix is the Bézout matrix of f,g; Q(x,y) = (f(x)g(y)−f(y)g(x))/(y−x); requires Singular | `[RING, DEG ok]` |
 | `HyperbolicPlane_quadratic_form(R, r=1)` | `sage.quadratic_forms.constructions` | Direct sum of r hyperbolic planes over ring R; each plane has Gram [[0,1],[1,0]]; result is indefinite rank-2r form | `[RING, INDEF]` |
 | `quadratic_form_from_invariants(F, rk, det, P, sminus)` | `sage.quadratic_forms.quadratic_form` | Construct a ℚ-form over field F with specified rank, determinant, Hasse prime factor invariants P, and s⁻ signature count; provides a representative of the specified genus | `[FIELD:ℚ or NF, ND]` |
@@ -967,6 +1001,21 @@ Key methods on number fields and ideals as ℤ-modules:
 | `I.integral_basis()` | `NumberFieldFractionalIdeal` | ℤ-basis of the integral part of I |
 | `I.coordinates(a)` | `NumberFieldFractionalIdeal` | Coordinates of element a in the ℤ-basis |
 | `I.norm()` | `NumberFieldFractionalIdeal` | Norm N(I) = [O_K : I] (as rational number) |
+
+Extended number-field API frequently used alongside lattice bridges:
+
+| Method | Object | Description |
+|--------|--------|-------------|
+| `K.absolute_degree()` / `K.relative_degree()` | `NumberField` | Absolute/relative extension degree |
+| `K.absolute_field()` / `K.base_field()` | `NumberField` | View as absolute field / retrieve base field |
+| `K.absolute_polynomial()` / `K.relative_polynomial()` / `K.defining_polynomial()` | `NumberField` | Defining polynomial variants |
+| `K.real_embeddings()` / `K.complex_embeddings()` / `K.real_places()` | `NumberField` | Archimedean embedding data |
+| `K.is_totally_real()` / `K.is_totally_imaginary()` / `K.is_galois()` | `NumberField` | Signature/Galois predicates |
+| `K.class_group()` / `K.narrow_class_group()` / `K.unit_group()` | `NumberField` | Arithmetic invariants used before/after lattice construction |
+| `K.S_class_group(S)` / `K.S_unit_group(S)` / `K.S_units(S)` | `NumberField` | S-arithmetic variants |
+| `K.maximal_order()` / `K.ring_of_integers()` | `NumberField` | Integral structure objects |
+| `K.primes_above(p)` / `K.primes_of_bounded_norm(B)` | `NumberField` | Prime-ideal search for local checks |
+| `K.absolute_different()` / `K.relative_discriminant()` | `NumberField` | Different/discriminant data for trace-form analysis |
 
 ### 17.2 Trace form (exact, algebraic)
 

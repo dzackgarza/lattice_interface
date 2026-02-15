@@ -146,14 +146,58 @@ def test_integerlattice_update_reduced_basis_sets_attribute():
     method: update_reduced_basis
 
     update_reduced_basis() refreshes internal reduced basis state.
-    Assertion: reduced_basis exists after explicit update.
+    Assertion: Updated reduced basis has full lattice rank.
     """
     L = IntegerLattice([[2, 1], [1, 2]])
     L.update_reduced_basis(L.basis_matrix())
-    actual = hasattr(L, "reduced_basis")
-    expected = True
+    actual = L.reduced_basis.rank()
+    expected = L.rank()
     assert actual == expected, (
         f"IntegerLattice.update_reduced_basis mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_integerlattice_babai_returns_lattice_vector_rank_one():
+    """
+    method: babai
+
+    babai(t) returns a nearest-plane approximation to CVP target t.
+    Assertion: For basis [[4]], output coordinate is divisible by 4.
+    """
+    L = IntegerLattice([[4]])
+    v = L.babai((7,))
+    actual = (v[0] % 4 == 0)
+    expected = True
+    assert actual == expected, f"IntegerLattice.babai mismatch: actual={actual}, expected={expected}, v={v}"
+
+
+def test_integerlattice_voronoi_cell_has_vertices():
+    """
+    method: voronoi_cell
+
+    voronoi_cell() returns the Voronoi polytope for a positive definite lattice.
+    Assertion: Standard Z^2 Voronoi cell has four vertices.
+    """
+    L = IntegerLattice([[1, 0], [0, 1]])
+    P = L.voronoi_cell()
+    actual = len(P.vertices())
+    expected = 4
+    assert actual == expected, f"IntegerLattice.voronoi_cell mismatch: actual={actual}, expected={expected}"
+
+
+def test_integerlattice_voronoi_relevant_vectors_nonempty():
+    """
+    method: voronoi_relevant_vectors
+
+    voronoi_relevant_vectors() returns facet-defining vectors of Voronoi cell.
+    Assertion: Standard Z^2 has four Voronoi-relevant vectors.
+    """
+    L = IntegerLattice([[1, 0], [0, 1]])
+    V = L.voronoi_relevant_vectors()
+    actual = len(V)
+    expected = 4
+    assert actual == expected, (
+        f"IntegerLattice.voronoi_relevant_vectors mismatch: actual={actual}, expected={expected}"
     )
 
 

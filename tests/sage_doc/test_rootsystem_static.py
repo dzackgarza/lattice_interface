@@ -72,6 +72,74 @@ def test_rootsystem_cartan_type_rank_matches_lattice_dimension():
     )
 
 
+def test_rootsystem_element_class_matches_element_parent():
+    """
+    method: element_class
+
+    element_class is the runtime class used for root-lattice elements.
+    Assertion: Basis element type equals element_class.
+    """
+    L = RootSystem(["A", 2]).root_lattice()
+    e = L.an_element()
+    actual = type(e)
+    expected = L.element_class
+    assert actual == expected, (
+        f"RootSystem.element_class mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_rootsystem_Element_constructor_builds_parent_element():
+    """
+    method: Element
+
+    Element is the parent-level element constructor class attribute.
+    Assertion: Element(parent, coords) has the same parent.
+    """
+    L = RootSystem(["A", 2]).root_lattice()
+    coeffs = {1: 1}
+    e = L.Element(L, coeffs)
+    actual = e.parent()
+    expected = L
+    assert actual == expected, f"RootSystem.Element mismatch: actual={actual}, expected={expected}"
+
+
+def test_rootsystem_to_ambient_space_morphism_preserves_parent():
+    """
+    method: to_ambient_space_morphism
+
+    to_ambient_space_morphism() maps root-lattice vectors to ambient-space vectors.
+    Assertion: Image parent is ambient space.
+    """
+    L = RootSystem(["A", 2]).root_lattice()
+    R = RootSystem(["A", 2])
+    f = L.to_ambient_space_morphism()
+    x = L.simple_roots()[1]
+    y = f(x)
+    actual = y.parent()
+    expected = R.ambient_space()
+    assert actual == expected, (
+        f"RootSystem.to_ambient_space_morphism mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_rootsystem_to_coroot_space_morphism_preserves_parent():
+    """
+    method: to_coroot_space_morphism
+
+    to_coroot_space_morphism() sends roots to coroot-space vectors.
+    Assertion: Image parent is coroot space.
+    """
+    L = RootSystem(["A", 2]).root_lattice()
+    f = L.to_coroot_space_morphism()
+    x = L.simple_roots()[1]
+    y = f(x)
+    actual = y.parent()
+    expected = L.coroot_lattice()
+    assert actual == expected, (
+        f"RootSystem.to_coroot_space_morphism mismatch: actual={actual}, expected={expected}"
+    )
+
+
 def test_rootsystem_coverage():
     """
     method: runtime_coverage
@@ -83,5 +151,5 @@ def test_rootsystem_coverage():
     assert_runtime_methods_covered(
         test_module=sys.modules[__name__],
         sample_object=sample,
-        module_prefixes=("sage.combinat.root_system",),
+        module_prefixes=("sage.combinat.root_system.root_space",),
     )

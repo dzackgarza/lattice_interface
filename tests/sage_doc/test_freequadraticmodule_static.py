@@ -7,10 +7,6 @@ pytest.importorskip("sage.all")
 from sage.all import FreeQuadraticModule, ZZ, matrix
 from .conftest import assert_runtime_methods_covered
 
-TOKEN_MAP = {
-    "span": {"span", "span_of_basis"},
-}
-
 def test_freequadraticmodule_gram_matrix_on_submodule_basis():
     """
     method: gram_matrix
@@ -107,15 +103,30 @@ def test_freequadraticmodule_span_and_span_of_basis_agree_on_rank():
     """
     method: span
 
-    span(gens) and span_of_basis(basis) construct submodules from generators/bases.
-    Assertion: Both constructions on independent vectors produce rank 2.
+    span(gens) constructs a submodule from generators.
+    Assertion: Two independent generators produce rank 2.
     """
     M = FreeQuadraticModule(ZZ, 3, matrix(ZZ, [[2, 0, 0], [0, 3, 0], [0, 0, 5]]))
     S1 = M.span([[1, 0, 0], [0, 1, 0]])
-    S2 = M.span_of_basis([[1, 0, 0], [0, 1, 0]])
-    actual = (S1.rank(), S2.rank())
-    expected = (2, 2)
+    actual = S1.rank()
+    expected = 2
     assert actual == expected, f"FreeQuadraticModule.span rank mismatch: actual={actual}, expected={expected}"
+
+
+def test_freequadraticmodule_span_of_basis_rank_two_on_independent_basis():
+    """
+    method: span_of_basis
+
+    span_of_basis(basis) constructs a submodule from a basis.
+    Assertion: Independent basis vectors produce rank 2.
+    """
+    M = FreeQuadraticModule(ZZ, 3, matrix(ZZ, [[2, 0, 0], [0, 3, 0], [0, 0, 5]]))
+    S = M.span_of_basis([[1, 0, 0], [0, 1, 0]])
+    actual = S.rank()
+    expected = 2
+    assert actual == expected, (
+        f"FreeQuadraticModule.span_of_basis rank mismatch: actual={actual}, expected={expected}"
+    )
 
 
 def test_freequadraticmodule_ambient_vector_space_keeps_dimension():
@@ -146,5 +157,4 @@ def test_freequadraticmodule_coverage():
         test_module=sys.modules[__name__],
         sample_object=sample,
         module_prefixes=("sage.modules.free_quadratic_module",),
-        token_map=TOKEN_MAP,
     )

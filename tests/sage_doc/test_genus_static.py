@@ -136,6 +136,181 @@ def test_genus_level_positive_integer():
     assert expected, f"Genus.level positivity mismatch: actual={actual}, expected=>0"
 
 
+def test_genus_dim_and_dimension_aliases_match_rank():
+    """
+    method: dim
+
+    dim()/dimension()/rank() are alias accessors for genus dimension.
+    Assertion: All alias values are equal.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    actual = (g.dim(), g.dimension(), g.rank())
+    expected = (g.rank(), g.rank(), g.rank())
+    assert actual == expected, f"Genus dim aliases mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_det_alias_matches_determinant():
+    """
+    method: det
+
+    det() aliases determinant() for genus determinant.
+    Assertion: det equals determinant.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    actual = g.det()
+    expected = g.determinant()
+    assert actual == expected, f"Genus.det alias mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_signature_pair_of_matrix_alias():
+    """
+    method: signature_pair_of_matrix
+
+    signature_pair_of_matrix() aliases signature_pair().
+    Assertion: Alias value equals primary method.
+    """
+    g = Genus(matrix(ZZ, [[2, 0], [0, -2]]))
+    actual = g.signature_pair_of_matrix()
+    expected = g.signature_pair()
+    assert actual == expected, (
+        f"Genus.signature_pair_of_matrix alias mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_genus_scale_and_norm_are_positive():
+    """
+    method: scale
+
+    scale() and norm() return positive integer invariants for positive lattices.
+    Assertion: Both invariants are > 0.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    actual = (g.scale() > 0, g.norm() > 0)
+    expected = (True, True)
+    assert actual == expected, f"Genus.scale/norm positivity mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_dimension_matches_representative_size():
+    """
+    method: dimension
+
+    dimension() is the rank of representative Gram matrices in the genus.
+    Assertion: dimension equals representative matrix row count.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    R = g.representative()
+    actual = g.dimension()
+    expected = R.nrows()
+    assert actual == expected, f"Genus.dimension mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_mass_positive_rational():
+    """
+    method: mass
+
+    mass() is the Minkowski-Siegel mass of the genus.
+    Assertion: Mass is a positive rational number.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    m = g.mass()
+    actual = m > 0
+    expected = True
+    assert actual == expected, f"Genus.mass positivity mismatch: actual={m}, expected=>0"
+
+
+def test_genus_norm_divides_scale_times_two():
+    """
+    method: norm
+
+    norm() is a positive integer invariant related to value ideal.
+    Assertion: norm is positive and divides 2*scale in this even example.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    n = g.norm()
+    s = g.scale()
+    actual = (n > 0, (2 * s) % n == 0)
+    expected = (True, True)
+    assert actual == expected, f"Genus.norm divisibility mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_representatives_returns_nonempty_same_rank_matrices():
+    """
+    method: representatives
+
+    representatives() returns explicit Gram representatives in the genus.
+    Assertion: For this genus there is one representative, with matching dimension and local symbols.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    reps = g.representatives()
+    actual = (
+        len(reps),
+        all(M.nrows() == g.dimension() for M in reps),
+        all(Genus(M).local_symbols() == g.local_symbols() for M in reps),
+    )
+    expected = (1, True, True)
+    assert actual == expected, f"Genus.representatives mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_spinor_generators_nonempty_for_proper_and_improper():
+    """
+    method: spinor_generators
+
+    spinor_generators(proper) returns generators for spinor kernel classes.
+    Assertion: For this genus, proper and full generator lists coincide and equal [5].
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    sp_proper = g.spinor_generators(True)
+    sp_all = g.spinor_generators(False)
+    actual = (sp_proper, sp_all)
+    expected = ([5], [5])
+    assert actual == expected, (
+        f"Genus.spinor_generators mismatch: actual={actual}, expected={expected}"
+    )
+
+
+def test_genus_is_even_true_for_even_diagonal():
+    """
+    method: is_even
+
+    is_even() checks parity of norms in the genus.
+    Assertion: Diagonal Gram [2,2] genus is even.
+    """
+    g = Genus(matrix(ZZ, [[2, 0], [0, 2]]))
+    actual = g.is_even()
+    expected = True
+    assert actual == expected, f"Genus.is_even mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_local_symbol_returns_prime_data():
+    """
+    method: local_symbol
+
+    local_symbol(p) returns the p-adic local symbol.
+    Assertion: local_symbol(2) matches the 2-adic entry in local_symbols().
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    sym = g.local_symbols()
+    actual = g.local_symbol(2)
+    expected = sym[0]
+    assert actual == expected, f"Genus.local_symbol mismatch: actual={actual}, expected={expected}"
+
+
+def test_genus_rational_representative_shape():
+    """
+    method: rational_representative
+
+    rational_representative() gives a diagonal rational representative.
+    Assertion: Matrix size matches genus dimension.
+    """
+    g = Genus(matrix(ZZ, [[2, 1], [1, 2]]))
+    R = g.rational_representative()
+    actual = (R.nrows(), R.ncols())
+    expected = (g.dimension(), g.dimension())
+    assert actual == expected, (
+        f"Genus.rational_representative shape mismatch: actual={actual}, expected={expected}"
+    )
+
+
 def test_genus_coverage():
     """
     method: runtime_coverage
