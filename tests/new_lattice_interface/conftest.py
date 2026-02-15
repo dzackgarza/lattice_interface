@@ -40,10 +40,7 @@ def _to_rows(gram) -> tuple[tuple[Fraction, ...], ...]:
         den = getattr(x, "denominator", None)
         if callable(num) and callable(den):
             return Fraction(int(num()), int(den()))
-        try:
-            return Fraction(str(x))
-        except Exception:
-            return Fraction(float(x)).limit_denominator()
+        return Fraction(str(x))
 
     if isinstance(gram, tuple):
         return tuple(tuple(_frac(x) for x in row) for row in gram)

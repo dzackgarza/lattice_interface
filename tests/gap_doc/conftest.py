@@ -5,7 +5,7 @@ from types import ModuleType
 
 import pytest
 
-pytest.importorskip("sage.all")
+import sage.all  # noqa: F401
 from sage.all import libgap
 
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 import pytest
 
-pytest.importorskip("sage.all")
+import sage.all  # noqa: F401
 from sage.all import NumberField, QQ, QuadraticField, ZZ, infinity, matrix
 from .conftest import assert_runtime_methods_covered
 

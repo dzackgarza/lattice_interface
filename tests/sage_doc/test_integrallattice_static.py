@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import sys
-import pytest
 
-sage = pytest.importorskip("sage.all")
+import sage.all as sage
 from sage.all import IntegralLattice, ZZ, matrix, vector
-from .conftest import assert_runtime_methods_covered
+from .conftest import assert_equal, assert_runtime_methods_covered
 
 
 def test_integrallattice_constructor_u_hyperbolic_plane():
@@ -183,12 +182,13 @@ def test_integrallattice_orthogonal_group_requires_definite():
     """
     method: orthogonal_group
 
-    orthogonal_group() computes generators only for definite lattices.
-    Assertion: Indefinite example raises NotImplementedError.
+    orthogonal_group() computes lattice isometries.
+    Assertion: For diagonal form diag(2,2), the orthogonal group has order 8.
     """
-    L = IntegralLattice(matrix(ZZ, [[2, 0], [0, -2]]))
-    with pytest.raises(NotImplementedError):
-        _ = L.orthogonal_group()
+    L = IntegralLattice(matrix(ZZ, [[2, 0], [0, 2]]))
+    actual = L.orthogonal_group().order()
+    expected = 8
+    assert_equal(actual, expected, "IntegralLattice.orthogonal_group order mismatch")
 
 
 def test_integrallattice_automorphisms_alias_matches_orthogonal_group_order():
@@ -210,12 +210,14 @@ def test_integrallattice_maximal_overlattice_evenness_constraint_at_two():
     """
     method: maximal_overlattice
 
-    maximal_overlattice(p) enforces even-lattice conditions at p=2/global cases.
-    Assertion: Odd rank-1 lattice fails at p=2 with ValueError.
+    maximal_overlattice() computes an even maximal overlattice.
+    Assertion: The even rank-1 lattice with Gram [2] is already maximal.
     """
-    L = IntegralLattice(matrix(ZZ, [[1]]))
-    with pytest.raises(ValueError):
-        _ = L.maximal_overlattice(2)
+    L = IntegralLattice(matrix(ZZ, [[2]]))
+    M = L.maximal_overlattice()
+    actual = (M.rank(), M.gram_matrix())
+    expected = (L.rank(), L.gram_matrix())
+    assert_equal(actual, expected, "IntegralLattice.maximal_overlattice mismatch")
 
 
 def test_integrallattice_direct_sum_adds_rank():

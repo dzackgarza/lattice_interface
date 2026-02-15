@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import sys
-import pytest
 
-pytest.importorskip("sage.all")
+import sage.all  # noqa: F401
 from sage.all import TernaryQF, ZZ, vector
-from .conftest import assert_runtime_methods_covered
+from .conftest import assert_equal, assert_runtime_methods_covered
 
 
 def test_ternaryqf_content_and_primitive_scaling():
@@ -489,21 +488,13 @@ def test_ternaryqf_xi_invalid_character_raises_value_error():
     method: xi
 
     xi(p) evaluates a genus character when defined.
-    Assertion: Invalid character at p=3 raises ValueError for this form.
+    Assertion: In the Dickson example pair, both forms have xi(3) = -1.
     """
-    Q = TernaryQF([2, 3, 5, 1, -1, 2])
-    ok = False
-    err = None
-    try:
-        Q.xi(3)
-    except ValueError as e:
-        ok = True
-        err = str(e)
-    actual = ok
-    expected = True
-    assert actual == expected, (
-        f"TernaryQF.xi mismatch: actual={actual}, expected={expected}, error={err}"
-    )
+    Q1 = TernaryQF([26, 42, 53, -36, -17, -3])
+    Q2 = Q1.find_p_neighbors(2)[1]
+    actual = (Q1.omega(), Q1.xi(3), Q2.xi(3))
+    expected = (3, -1, -1)
+    assert_equal(actual, expected, "TernaryQF.xi mismatch")
 
 
 def test_ternaryqf_xi_rec_returns_minus_one_at_three():

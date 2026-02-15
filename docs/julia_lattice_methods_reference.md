@@ -418,6 +418,8 @@ All standard `ZZLat` attributes (`rank`, `det`, `gram_matrix`, `genus`, `is_even
 | `is_of_same_type(Lf, Mg)` | Whether two lattices-with-isometry share the same type | |
 | `is_of_hermitian_type(Lf)` | Whether the isometry gives a hermitian structure | |
 | `hermitian_structure(Lf)` | Extract hermitian lattice from hermitian-type isometry | |
+| `trace_lattice_with_isometry(H)` | Recover `ZZLatWithIsom` from hermitian lattice via trace form | |
+| `is_hermitian(t::Dict)` | Whether a type dictionary corresponds to hermitian type | |
 
 #### Operations
 
@@ -463,6 +465,11 @@ All standard `ZZLat` attributes (`rank`, `det`, `gram_matrix`, `genus`, `is_even
 | `representatives_of_hermitian_type(gen, poly, ...)` | Representatives of hermitian type | |
 | `admissible_triples(gen, p, ...)` | Tuples of genera satisfying admissibility conditions | |
 | `is_admissible_triple(gen_triple, p)` | Validate admissibility | |
+| `splitting(Lf)` | Generic splitting of `ZZLatWithIsom` into irreducible components | |
+| `splitting_of_hermitian_type(Lf)` | Split hermitian-type lattice-with-isometry into hermitian sublattices | |
+| `splitting_of_prime_power(Lf, p)` | Split lattice-with-isometry at a prime power | |
+| `splitting_of_pure_mixed_prime_power(Lf, p)` | Split pure/mixed part at prime power | |
+| `splitting_of_mixed_prime_power(Lf, p)` | Split mixed part at prime power | |
 
 ### 2.15 Primitive embeddings
 
@@ -472,8 +479,8 @@ All standard `ZZLat` attributes (`rank`, `det`, `gram_matrix`, `genus`, `is_even
 | `primitive_embeddings(G::ZZGenus, M)` | Primitive embeddings into lattices of genus $G$ | |
 | `primitive_embeddings(q::TorQuadModule, sig, M)` | Via discriminant form + signature | |
 | `primitive_extensions(M, N)` | Isomorphism classes of primitive extensions of $M \oplus N$ | |
-| `equivariant_primitive_extensions(M, N)` | Equivariant primitive extensions (with isometries) | |
-| `admissible_equivariant_primitive_extensions(Af, Bf, Cf, p, q)` | Admissible equivariant extensions satisfying type conditions | |
+| `equivariant_primitive_extensions(Mf::ZZLatWithIsom, Nf::ZZLatWithIsom; glue_only=false)` | Equivariant primitive extensions (with isometries); returns `Vector{ZZLatWithIsom}` | |
+| `admissible_equivariant_primitive_extensions(Mf, Nf, gen, poly, p)` | Admissible equivariant extensions satisfying type conditions for a target genus | |
 
 ### 2.16 Hermitian genera
 

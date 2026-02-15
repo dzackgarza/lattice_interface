@@ -3,9 +3,9 @@ from __future__ import annotations
 import sys
 import pytest
 
-pytest.importorskip("sage.all")
+import sage.all  # noqa: F401
 from sage.all import QQ, ZZ, QuadraticForm, vector
-from .conftest import assert_runtime_methods_covered
+from .conftest import assert_equal, assert_runtime_methods_covered
 
 
 def test_quadraticform_gram_and_hessian_relation():
@@ -537,19 +537,13 @@ def test_quadraticform_xi_invalid_character_raises_value_error():
     method: xi
 
     xi(p) evaluates a character when defined.
-    Assertion: For this form and p=3, xi is undefined and raises ValueError.
+    Assertion: In the documented genus pair, xi(5) distinguishes local class.
     """
-    Q = QuadraticForm(ZZ, 3, [2, 0, 0, 3, 0, 5])
-    ok = False
-    err = None
-    try:
-        Q.xi(3)
-    except ValueError as e:
-        ok = True
-        err = str(e)
-    actual = ok
-    expected = True
-    assert actual == expected, f"QuadraticForm.xi mismatch: actual={actual}, expected={expected}, error={err}"
+    Q1 = QuadraticForm(ZZ, 3, [1, 1, 1, 14, 3, 14])
+    Q2 = QuadraticForm(ZZ, 3, [2, -1, 0, 2, 0, 50])
+    actual = (Q1.omega(), Q2.omega(), Q1.xi(5), Q2.xi(5))
+    expected = (5, 5, 1, -1)
+    assert_equal(actual, expected, "QuadraticForm.xi mismatch")
 
 
 def test_quadraticform_xi_rec_defined_for_prime_three():
@@ -1649,12 +1643,17 @@ def test_quadraticform_conway_octane_requires_odd_unimodular_block():
     """
     method: conway_octane_of_this_unimodular_Jordan_block_at_2
 
-    conway_octane_of_this_unimodular_Jordan_block_at_2() requires odd diagonal data.
-    Assertion: Current form raises RuntimeError for unmet precondition.
+    conway_octane_of_this_unimodular_Jordan_block_at_2() returns the 2-adic octane.
+    Assertion: For x^2 + y^2 + z^2, the octane value is 3.
     """
-    Q = QuadraticForm(ZZ, 3, [2, 0, 0, 3, 0, 5])
-    with pytest.raises(RuntimeError):
-        _ = Q.conway_octane_of_this_unimodular_Jordan_block_at_2()
+    Q = QuadraticForm(ZZ, 3, [1, 0, 0, 1, 0, 1])
+    actual = Q.conway_octane_of_this_unimodular_Jordan_block_at_2()
+    expected = 3
+    assert_equal(
+        actual,
+        expected,
+        "QuadraticForm.conway_octane_of_this_unimodular_Jordan_block_at_2 mismatch",
+    )
 
 
 def test_quadraticform_conway_p_mass_positive_at_three():
@@ -1801,12 +1800,13 @@ def test_quadraticform_count_modp_solutions_by_gauss_sum_raises_on_singular_case
     """
     method: count_modp_solutions__by_Gauss_sum
 
-    count_modp_solutions__by_Gauss_sum(p,m) requires nonzero determinant modulo p.
-    Assertion: For p=3 on this form, method raises RuntimeError.
+    count_modp_solutions__by_Gauss_sum(p,m) computes local solution counts.
+    Assertion: For p=7 and m=1 on this form, the count is 42.
     """
     Q = QuadraticForm(ZZ, 3, [2, 0, 0, 3, 0, 5])
-    with pytest.raises(RuntimeError):
-        _ = Q.count_modp_solutions__by_Gauss_sum(3, 1)
+    actual = Q.count_modp_solutions__by_Gauss_sum(7, 1)
+    expected = 42
+    assert_equal(actual, expected, "QuadraticForm.count_modp_solutions__by_Gauss_sum mismatch")
 
 
 def test_quadraticform_jordan_blocks_by_scale_and_unimodular_nonempty():
@@ -2043,8 +2043,8 @@ def test_quadraticform_reduced_ternary_form_Dickson_notimplemented_here():
     """
     method: reduced_ternary_form__Dickson
 
-    reduced_ternary_form__Dickson() may be unavailable for some forms/builds.
-    Assertion: Current sample raises NotImplementedError.
+    reduced_ternary_form__Dickson() is documented but currently unimplemented upstream.
+    Assertion: The method raises NotImplementedError on a ternary integral form.
     """
     Q = QuadraticForm(ZZ, 3, [2, 0, 0, 3, 0, 5])
     with pytest.raises(NotImplementedError):
@@ -2068,12 +2068,13 @@ def test_quadraticform_siegel_product_raises_for_nonsquare_root_rationality():
     """
     method: siegel_product
 
-    siegel_product(u) may fail when symbolic square roots cannot coerce to QQ.
-    Assertion: Current sample at u=2 raises TypeError.
+    siegel_product(u) computes the local-density product factor.
+    Assertion: For x^2 + y^2 + z^2 and u=2, siegel_product equals 9/4.
     """
-    Q = QuadraticForm(ZZ, 3, [2, 0, 0, 3, 0, 5])
-    with pytest.raises(TypeError):
-        _ = Q.siegel_product(2)
+    Q = QuadraticForm(ZZ, 3, [1, 0, 0, 1, 0, 1])
+    actual = Q.siegel_product(2)
+    expected = QQ(9) / QQ(4)
+    assert_equal(actual, expected, "QuadraticForm.siegel_product mismatch")
 
 
 def test_quadraticform_split_local_cover_preserves_discriminant():

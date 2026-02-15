@@ -3,15 +3,7 @@ from __future__ import annotations
 from abc import ABC
 from fractions import Fraction
 
-try:
-    from pydantic import BaseModel, ConfigDict
-except ModuleNotFoundError:
-    class BaseModel:  # pragma: no cover - fallback for minimal test environments
-        pass
-
-    class ConfigDict(dict):  # pragma: no cover - fallback for minimal test environments
-        def __init__(self, **kwargs):
-            super().__init__(**kwargs)
+from pydantic import BaseModel, ConfigDict
 
 
 def assert_equal(actual, expected, label: str) -> None:

@@ -3,7 +3,7 @@ from __future__ import annotations
 import sys
 import pytest
 
-pytest.importorskip("sage.all")
+import sage.all  # noqa: F401
 from sage.modules.free_module_integer import IntegerLattice
 from .conftest import assert_runtime_methods_covered
 

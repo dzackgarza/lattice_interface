@@ -35,6 +35,10 @@ GLOBAL_IRRELEVANT_METHODS = {
     "hash",
 }
 
+def assert_equal(actual, expected, label: str) -> None:
+    if actual != expected:
+        raise AssertionError(f"{label}: actual={actual}, expected={expected}")
+
 
 def _method_token_from_docstring(func) -> str | None:
     doc = inspect.getdoc(func) or ""
@@ -69,12 +73,8 @@ def relevant_runtime_methods(
         irrelevant.update(extra_irrelevant)
 
     methods: set[str] = set()
-    for name in dir(sample_object):
+    for name, attr in inspect.getmembers(sample_object):
         if name.startswith("_") or name in irrelevant:
-            continue
-        try:
-            attr = getattr(sample_object, name)
-        except Exception:
             continue
         if not callable(attr):
             continue
