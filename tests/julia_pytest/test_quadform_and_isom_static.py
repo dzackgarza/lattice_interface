@@ -2,6 +2,7 @@ import os
 import sys
 
 import pytest
+from tests.sage_doc.conftest import assert_equal
 
 os.environ.setdefault("HOME", "/tmp/sage-home")
 os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", "/tmp/sage-home/julia_env")
@@ -74,7 +75,7 @@ def test_primitive_embeddings_lattice_to_lattice():
     actual = _jl_true(
         "begin M = root_lattice(:A, 1); L1 = root_lattice(:A, 2); L2 = root_lattice(:A, 1); L = direct_sum(L1, L2)[1]; length(primitive_embeddings(L, M)) >= 1 end"
     )
-    assert actual is True, f"primitive_embeddings(L, M) contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"primitive_embeddings(L, M) contract mismatch: actual={actual}, expected=True")
 
 
 def test_primitive_embeddings_genus_overload():
@@ -84,7 +85,7 @@ def test_primitive_embeddings_genus_overload():
     actual = _jl_true(
         "begin M = root_lattice(:A, 1); G = genus(root_lattice(:A, 2)); length(primitive_embeddings(G, M)) >= 0 end"
     )
-    assert actual is True, f"primitive_embeddings(G::ZZGenus, M) contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"primitive_embeddings(G::ZZGenus, M) contract mismatch: actual={actual}, expected=True")
 
 
 def test_primitive_extensions_two_lattices():
@@ -94,7 +95,7 @@ def test_primitive_extensions_two_lattices():
     actual = _jl_true(
         "begin L1 = root_lattice(:A, 1); L2 = root_lattice(:A, 1); length(primitive_extensions(L1, L2)) >= 1 end"
     )
-    assert actual is True, f"primitive_extensions contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"primitive_extensions contract mismatch: actual={actual}, expected=True")
 
 
 def test_extend_to_ambient_space_identity_round_trip():
@@ -104,7 +105,7 @@ def test_extend_to_ambient_space_identity_round_trip():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); f = identity_matrix(ZZ, rank(L)); F = extend_to_ambient_space(L, f); nrows(F) == degree(L) && ncols(F) == degree(L) end"
     )
-    assert actual is True, f"extend_to_ambient_space contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"extend_to_ambient_space contract mismatch: actual={actual}, expected=True")
 
 
 def test_restrict_to_lattice_inverse_of_extension_on_identity():
@@ -114,7 +115,7 @@ def test_restrict_to_lattice_inverse_of_extension_on_identity():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); f = identity_matrix(ZZ, rank(L)); F = extend_to_ambient_space(L, f); R = restrict_to_lattice(L, F); R == f end"
     )
-    assert actual is True, f"restrict_to_lattice contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"restrict_to_lattice contract mismatch: actual={actual}, expected=True")
 
 
 def test_special_orthogonal_group_is_isometry_group():
@@ -122,7 +123,7 @@ def test_special_orthogonal_group_is_isometry_group():
     method: special_orthogonal_group
     """
     actual = _jl_true("begin L = root_lattice(:A, 2); G = special_orthogonal_group(L); is_isometry_group(L, G) && order(G) > 0 end")
-    assert actual is True, f"special_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"special_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_special_subgroup_refines_orthogonal_group():
@@ -132,7 +133,7 @@ def test_special_subgroup_refines_orthogonal_group():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); G = orthogonal_group(L); H = special_subgroup(G); order(H) > 0 && order(H) <= order(G) end"
     )
-    assert actual is True, f"special_subgroup contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"special_subgroup contract mismatch: actual={actual}, expected=True")
 
 
 def test_stable_orthogonal_group_stabilizes_sublattice():
@@ -142,7 +143,7 @@ def test_stable_orthogonal_group_stabilizes_sublattice():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); G = stable_orthogonal_group(L, S); is_isometry_group(L, G) && order(G) > 0 end"
     )
-    assert actual is True, f"stable_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"stable_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_stable_subgroup_refines_orthogonal_group():
@@ -152,7 +153,7 @@ def test_stable_subgroup_refines_orthogonal_group():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); G = orthogonal_group(L); H = stable_subgroup(G, S); order(H) > 0 && order(H) <= order(G) end"
     )
-    assert actual is True, f"stable_subgroup contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"stable_subgroup contract mismatch: actual={actual}, expected=True")
 
 
 def test_stabilizer_discriminant_subgroup_refines_group_order():
@@ -162,7 +163,7 @@ def test_stabilizer_discriminant_subgroup_refines_group_order():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); G = orthogonal_group(L); T = discriminant_group(L); H = stabilizer_discriminant_subgroup(G, T); order(H) > 0 && order(H) <= order(G) end"
     )
-    assert actual is True, f"stabilizer_discriminant_subgroup contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"stabilizer_discriminant_subgroup contract mismatch: actual={actual}, expected=True")
 
 
 def test_stabilizer_in_diagonal_action_produces_finite_group():
@@ -172,7 +173,7 @@ def test_stabilizer_in_diagonal_action_produces_finite_group():
     actual = _jl_true(
         "begin L1 = root_lattice(:A, 1); L2 = root_lattice(:A, 1); G = orthogonal_group(L1); H = stabilizer_in_diagonal_action(L1, L2, G); order(H) > 0 end"
     )
-    assert actual is True, f"stabilizer_in_diagonal_action contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"stabilizer_in_diagonal_action contract mismatch: actual={actual}, expected=True")
 
 
 def test_maximal_extension_contains_input_group():
@@ -182,7 +183,7 @@ def test_maximal_extension_contains_input_group():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); G = special_orthogonal_group(L); H = maximal_extension(G); order(H) >= order(G) end"
     )
-    assert actual is True, f"maximal_extension contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"maximal_extension contract mismatch: actual={actual}, expected=True")
 
 
 def test_stabilizer_in_orthogonal_group_refines_orthogonal_group():
@@ -192,7 +193,7 @@ def test_stabilizer_in_orthogonal_group_refines_orthogonal_group():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); G = stabilizer_in_orthogonal_group(L, S); is_isometry_group(L, G) && order(G) > 0 end"
     )
-    assert actual is True, f"stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_pointwise_stabilizer_in_orthogonal_group_nested_in_setwise():
@@ -202,7 +203,7 @@ def test_pointwise_stabilizer_in_orthogonal_group_nested_in_setwise():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); P = pointwise_stabilizer_in_orthogonal_group(L, S); Q = setwise_stabilizer_in_orthogonal_group(L, S); order(P) > 0 && order(P) <= order(Q) end"
     )
-    assert actual is True, f"pointwise_stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"pointwise_stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_setwise_stabilizer_in_orthogonal_group_refines_full_group():
@@ -212,7 +213,7 @@ def test_setwise_stabilizer_in_orthogonal_group_refines_full_group():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); H = setwise_stabilizer_in_orthogonal_group(L, S); G = orthogonal_group(L); order(H) > 0 && order(H) <= order(G) end"
     )
-    assert actual is True, f"setwise_stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"setwise_stabilizer_in_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_pointwise_stabilizer_orthogonal_complement_refines_group():
@@ -222,7 +223,7 @@ def test_pointwise_stabilizer_orthogonal_complement_refines_group():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); H = pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S); G = orthogonal_group(L); order(H) > 0 && order(H) <= order(G) end"
     )
-    assert actual is True, f"pointwise_stabilizer_orthogonal_complement_in_orthogonal_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"pointwise_stabilizer_orthogonal_complement_in_orthogonal_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_is_isometry_list_recognizes_true_and_false_cases():
@@ -232,7 +233,7 @@ def test_is_isometry_list_recognizes_true_and_false_cases():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); fs = [identity_matrix(ZZ, 2), -identity_matrix(ZZ, 2)]; gs = [identity_matrix(ZZ, 2), ZZ[2 0; 0 1]]; is_isometry_list(L, fs) && !is_isometry_list(L, gs) end"
     )
-    assert actual is True, f"is_isometry_list contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"is_isometry_list contract mismatch: actual={actual}, expected=True")
 
 
 def test_is_isometry_group_true_for_orthogonal_group():
@@ -240,7 +241,7 @@ def test_is_isometry_group_true_for_orthogonal_group():
     method: is_isometry_group
     """
     actual = _jl_true("begin L = root_lattice(:A, 2); G = orthogonal_group(L); is_isometry_group(L, G) end")
-    assert actual is True, f"is_isometry_group contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"is_isometry_group contract mismatch: actual={actual}, expected=True")
 
 
 def test_is_stable_isometry_identity_stabilizes_sublattice():
@@ -250,7 +251,7 @@ def test_is_stable_isometry_identity_stabilizes_sublattice():
     actual = _jl_true(
         "begin L = integer_lattice(gram = ZZ[1 0; 0 1]); S = lattice_in_same_ambient_space(L, 2 * basis_matrix(L)); f = identity_matrix(ZZ, 2); is_stable_isometry(L, S, f) end"
     )
-    assert actual is True, f"is_stable_isometry contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"is_stable_isometry contract mismatch: actual={actual}, expected=True")
 
 
 def test_is_special_isometry_distinguishes_det_sign():
@@ -260,7 +261,7 @@ def test_is_special_isometry_distinguishes_det_sign():
     actual = _jl_true(
         "begin L = root_lattice(:A, 2); f = identity_matrix(ZZ, 2); g = ZZ[-1 0; 0 1]; is_special_isometry(L, f) && !is_special_isometry(L, g) end"
     )
-    assert actual is True, f"is_special_isometry contract mismatch: actual={actual}, expected=True"
+    assert_equal(actual, True, f"is_special_isometry contract mismatch: actual={actual}, expected=True")
 
 
 def test_quadform_and_isom_missing_methods_coverage():
