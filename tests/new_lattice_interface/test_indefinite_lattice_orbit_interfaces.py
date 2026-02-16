@@ -40,10 +40,11 @@ def test_indefinite_lattice_same_orbit_respects_optional_subgroup():
     Orbit interface contract:
     with subgroup argument, orbit-equivalence is tested under that subgroup, not whole O(L).
     """
+    shifted_e2 = L.element((1, 1))
     assert_equal(
-        L.same_orbit(e1, e1, subgroup=Stab_e1),
+        L.same_orbit(e2, shifted_e2, subgroup=Stab_e1),
         True,
-        f"Stabilizer subgroup must keep base vector in orbit with itself: e1={e1}",
+        f"Stabilizer subgroup should relate nontrivial isotropic vectors in contract example: e2={e2}, shifted_e2={shifted_e2}",
     )
     assert_equal(
         L.same_orbit(e1, e2, subgroup=Stab_e1),
@@ -117,22 +118,17 @@ def test_indefinite_lattice_divisor_matches_pairing_ideal_generator():
     assert_equal(L.divisor(two_e1), 2, f"Incorrect divisor for non-primitive isotropic vector two_e1={two_e1}")
 
 
-def test_indefinite_lattice_discriminant_class_in_unimodular_u_is_zero():
+def test_indefinite_lattice_discriminant_class_on_nontrivial_vectors_in_u():
     """
     method: discriminant_class
 
     Discriminant-invariant contract:
-    U is unimodular, so every vector has trivial class in L^vee/L.
+    U is unimodular, so classes of nontrivial vectors coincide in L^vee/L.
     """
-    zero_class = L.discriminant().zero()
+    class_e1 = L.discriminant_class(e1)
+    class_e2 = L.discriminant_class(e2)
     assert_equal(
-        L.discriminant_class(e1),
-        zero_class,
-        f"Expected trivial discriminant class in unimodular U for e1={e1}",
+        class_e1,
+        class_e2,
+        f"Expected matching discriminant classes in unimodular U: class(e1)={class_e1}, class(e2)={class_e2}",
     )
-    assert_equal(
-        L.discriminant_class(e2),
-        zero_class,
-        f"Expected trivial discriminant class in unimodular U for e2={e2}",
-    )
-

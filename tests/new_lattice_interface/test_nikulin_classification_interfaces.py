@@ -8,17 +8,17 @@ from .conftest import assert_equal
 from .types import Lattice, LatticeDiscriminantGroup, LatticeGenus
 
 
-def test_lattice_in_genus_of_reflexive_and_alias_hyperbolic_plane():
+def test_lattice_in_genus_of_nontrivial_equal_model_examples():
     """
     method: in_genus_of
 
     Classification-query contract:
-    genus membership must be reflexive and invariant under equal-model aliases of U.
+    genus membership on nontrivial lattices is stable across equal-model constructors.
     """
-    u: Lattice = Lattice.U()
-    h: Lattice = Lattice.H()
-    assert_equal(u.in_genus_of(u), True, f"Genus relation must be reflexive: lattice={u}")
-    assert_equal(u.in_genus_of(h), True, f"U and H aliases should be in same genus: U={u}, H={h}")
+    a2: Lattice = Lattice.A(2)
+    a2_copy: Lattice = Lattice.B(2)
+    assert_equal(a2.in_genus_of(a2_copy), True, f"Expected equal-model A2 constructors to share genus: A2={a2}, copy={a2_copy}")
+    assert_equal(a2_copy.in_genus_of(a2), True, f"Genus membership should be symmetric for equal-model A2 constructors")
 
 
 def test_lattice_in_genus_of_detects_signature_obstruction():
@@ -42,42 +42,42 @@ def test_discriminant_form_exists_even_lattice_for_small_unimodular_examples():
     method: exists_even_lattice
 
     Existence-query contract:
-    for trivial discriminant form, even lattice existence agrees with small known examples:
-    U exists at (1,1), while odd signature difference case (2,1) is rejected.
+    for nontrivial A2 discriminant form, existence query distinguishes
+    compatible and incompatible signature requests in the contract model.
     """
-    a_u: LatticeDiscriminantGroup = Lattice.U().discriminant()
+    a_u: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
+    assert_equal(
+        a_u.exists_even_lattice(t_plus=2, t_minus=0),
+        True,
+        "A2 discriminant form should admit the known A2 signature (2,0) in contract model",
+    )
     assert_equal(
         a_u.exists_even_lattice(t_plus=1, t_minus=1),
-        True,
-        "Trivial discriminant form should admit the known even lattice U of signature (1,1)",
-    )
-    assert_equal(
-        a_u.exists_even_lattice(t_plus=2, t_minus=1),
         False,
-        "Trivial discriminant form should reject incompatible odd signature-difference example (2,1)",
+        "A2 discriminant form should reject incompatible contract signature example (1,1)",
     )
 
 
-def test_lattice_class_number_for_u_is_one():
+def test_lattice_class_number_for_a2_contract_example():
     """
     method: class_number
 
     Classification-query contract:
-    in this small interface example, U has single class in its genus.
+    in this small interface example, A2 has single class in its genus.
     """
-    u: Lattice = Lattice.U()
-    assert_equal(u.class_number(), 1, f"Expected class_number(U)=1 in contract example, got {u.class_number()}")
+    a2: Lattice = Lattice.A(2)
+    assert_equal(a2.class_number(), 1, f"Expected class_number(A2)=1 in contract example, got {a2.class_number()}")
 
 
-def test_lattice_is_unique_in_genus_for_u():
+def test_lattice_is_unique_in_genus_for_a2():
     """
     method: is_unique_in_genus
 
     Classification-query contract:
-    uniqueness predicate agrees with class-number one on U.
+    uniqueness predicate agrees with class-number one on A2.
     """
-    u: Lattice = Lattice.U()
-    assert_equal(u.is_unique_in_genus(), True, f"Expected U to be unique in genus in contract example: U={u}")
+    a2: Lattice = Lattice.A(2)
+    assert_equal(a2.is_unique_in_genus(), True, f"Expected A2 to be unique in genus in contract example: A2={a2}")
 
 
 def test_lattice_genus_object_exposes_classification_invariants():
@@ -87,15 +87,15 @@ def test_lattice_genus_object_exposes_classification_invariants():
     Genus-object contract:
     `L.genus()` exposes signature, discriminant form, membership, and class-number answers.
     """
-    u: Lattice = Lattice.U()
-    g: LatticeGenus = u.genus()
-    a_u: LatticeDiscriminantGroup = u.discriminant()
+    a2: Lattice = Lattice.A(2)
+    g: LatticeGenus = a2.genus()
+    a_u: LatticeDiscriminantGroup = a2.discriminant()
     a_g: LatticeDiscriminantGroup = g.discriminant_form()
 
-    assert_equal(g.signature(), (1, 1), f"Genus signature mismatch for U: got {g.signature()}")
-    assert_equal(g.contains(u), True, f"Genus must contain its defining lattice: genus={g}, lattice={u}")
-    assert_equal(g.class_number(), 1, f"Expected class number 1 for contract genus of U: genus={g}")
-    assert_equal(g.is_single_class(), True, f"Single-class predicate mismatch for contract genus of U: genus={g}")
+    assert_equal(g.signature(), (2, 0), f"Genus signature mismatch for A2: got {g.signature()}")
+    assert_equal(g.contains(a2), True, f"Genus must contain its defining lattice: genus={g}, lattice={a2}")
+    assert_equal(g.class_number(), 1, f"Expected class number 1 for contract genus of A2: genus={g}")
+    assert_equal(g.is_single_class(), True, f"Single-class predicate mismatch for contract genus of A2: genus={g}")
     assert_equal(
         a_g.is_isomorphic(a_u),
         True,
@@ -110,28 +110,28 @@ def test_discriminant_form_invariants_support_classification_queries():
     Invariant contract:
     discriminant-form helper invariants used by classification queries are explicitly available.
     """
-    a_u: LatticeDiscriminantGroup = Lattice.U().discriminant()
+    a_u: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
     assert_equal(
         a_u.minimal_number_of_generators(),
-        0,
-        "Trivial discriminant form of U should have generator length 0",
+        1,
+        "A2 discriminant form should have one generator in contract model",
     )
     assert_equal(
         a_u.minimal_number_of_generators(prime=2),
         0,
-        "2-primary generator length should be 0 for trivial discriminant form",
+        "2-primary generator length should be 0 for A2 discriminant form",
     )
 
 
-def test_discriminant_form_signature_mod_8_for_u():
+def test_discriminant_form_signature_mod_8_for_a2():
     """
     method: signature_mod_8
 
     Invariant contract:
-    trivial discriminant form in the U example reports signature congruence class 0 mod 8.
+    nontrivial A2 discriminant form reports its expected signature class in contract model.
     """
-    a_u: LatticeDiscriminantGroup = Lattice.U().discriminant()
-    assert_equal(a_u.signature_mod_8(), 0, "Expected signature_mod_8=0 for U contract discriminant form")
+    a_u: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
+    assert_equal(a_u.signature_mod_8(), 2, "Expected signature_mod_8=2 for A2 contract discriminant form")
 
 
 def test_discriminant_form_isomorphism_small_examples():
@@ -139,15 +139,15 @@ def test_discriminant_form_isomorphism_small_examples():
     method: is_isomorphic
 
     Invariant contract:
-    discriminant-form isomorphism recognizes identical trivial forms and rejects A2-vs-U mismatch.
+    discriminant-form isomorphism recognizes identical nontrivial forms and rejects A2-vs-U mismatch.
     """
-    a_u: LatticeDiscriminantGroup = Lattice.U().discriminant()
-    a_h: LatticeDiscriminantGroup = Lattice.H().discriminant()
+    a_u: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
+    a_h: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
     a_a2: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
 
-    assert_equal(a_u.is_isomorphic(a_h), True, "U and H should have isomorphic trivial discriminant forms")
+    assert_equal(a_u.is_isomorphic(a_h), True, "Two A2 discriminant forms should be isomorphic")
     assert_equal(
-        a_u.is_isomorphic(a_a2),
+        a_u.is_isomorphic(Lattice.U().discriminant()),
         False,
-        "U trivial discriminant form should not be isomorphic to nontrivial A2 discriminant form",
+        "Nontrivial A2 discriminant form should not be isomorphic to trivial U discriminant form",
     )

@@ -4,7 +4,7 @@ import pytest
 
 pytestmark = pytest.mark.tdd_red
 
-from .conftest import Lattice, assert_equal
+from .conftest import Lattice, LatticeAutomorphism, assert_equal
 
 L = Lattice.U()
 O = L.orthogonal_group()
@@ -89,14 +89,14 @@ def test_orthogonal_group_orbit_of_isotropic_vector_contract():
         assert_equal(O.same_orbit(x, y), True, f"Orbit membership mismatch: x={x}, y={y}")
 
 
-def test_orthogonal_group_stabilizer_contains_identity():
+def test_orthogonal_group_stabilizer_contains_nontrivial_isometry():
     """
     method: stabilizer
 
     Orbit contract:
-    stabilizer subgroup of any vector contains the identity isometry.
+    stabilizer subgroup is checked with a nontrivial lattice isometry witness.
     """
     x = L.isotropic_vector()
     stab = O.stabilizer(x)
-    identity = O.identity()
-    assert_equal(stab.contains(identity), True, f"Stabilizer should contain identity: vector={x}")
+    swap = LatticeAutomorphism(L, ((0, 1), (1, 0)))
+    assert_equal(stab.contains(swap), True, f"Stabilizer should contain nontrivial swap isometry: vector={x}")

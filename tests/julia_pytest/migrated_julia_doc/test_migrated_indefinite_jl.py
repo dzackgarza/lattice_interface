@@ -43,9 +43,6 @@ def _covered_methods_from_module(module) -> set[str]:
         if token is not None:
             covered.add(token)
     return covered
-
-
-@pytest.mark.tdd_red
 def test_1_indef_form_test_equivalence_two_equivalent_forms():
     """
     method: INDEF_FORM_TestEquivalence
@@ -66,9 +63,6 @@ def test_1_indef_form_test_equivalence_two_equivalent_forms():
     @test abs(det(T)) == 1
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_2_indef_form_automorphism_group_hyperbolic_plane():
     """
     method: INDEF_FORM_AutomorphismGroup
@@ -88,9 +82,6 @@ def test_2_indef_form_automorphism_group_hyperbolic_plane():
     end
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_3_indef_form_get_orbit_representative_isotropic_vectors():
     """
     method: INDEF_FORM_GetOrbitRepresentative
@@ -110,9 +101,6 @@ def test_3_indef_form_get_orbit_representative_isotropic_vectors():
     end
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_4_indef_form_get_orbit_isotropic_kplane():
     """
     method: INDEF_FORM_GetOrbit_IsotropicKplane
@@ -129,9 +117,6 @@ def test_4_indef_form_get_orbit_isotropic_kplane():
     @test length(orbits) >= 1
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_5_indef_form_get_orbit_isotropic_kflag():
     """
     method: INDEF_FORM_GetOrbit_IsotropicKflag

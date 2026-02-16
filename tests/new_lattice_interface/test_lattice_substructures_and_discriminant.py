@@ -32,17 +32,16 @@ def test_lattice_quotient_by_sublattice_contract():
     method: quotient
 
     Quotient contract:
-    quotient of U by itself is trivial of order 1.
+    for A2 and a rank-1 sublattice, quotient has nontrivial 3-torsion.
     """
-    e1 = U.element([1, 0])
-    e2 = U.element([0, 1])
-    full_sub = U.sublattice([e1, e2])
-    quotient = U.quotient(by=full_sub)
+    a2 = Lattice.A(2)
+    s = a2.sublattice([a2.element([1, 0])])
+    quotient = a2.quotient(by=s)
+    e = quotient.element(1)
+    two_e = e + e
 
-    assert_equal(quotient.order(), 1, "Lattice quotient order mismatch")
-
-    z = quotient.zero()
-    assert_equal(z + z, z, "Lattice quotient zero-addition mismatch")
+    assert_equal(quotient.order(), 3, "A2 quotient order mismatch for rank-1 sublattice")
+    assert_equal(two_e, -e, f"Expected nontrivial 3-torsion relation 2e=-e in quotient: e={e}, two_e={two_e}")
 
 
 def test_lattice_dual_returns_expected_type_behavior_contract():
@@ -86,14 +85,11 @@ def test_discriminant_group_quadratic_form_contract():
     """
     disc = Lattice.A(2).discriminant()
     g = disc.generator(0)
-    zero = disc.zero()
     two_g = g + g
-    three_g = two_g + g
 
     assert_equal(g.order(), 3, "Discriminant element order mismatch")
     assert_equal(disc.quadratic(g), Fraction(2, 3), "Discriminant quadratic mismatch")
-
-    assert three_g == zero, f"Discriminant torsion relation mismatch: actual={three_g}, expected={zero}"
+    assert_equal(two_g, -g, f"Expected nontrivial relation 2g=-g in discriminant group: g={g}, two_g={two_g}")
 
 
 def test_discriminant_group_bilinear_form_contract():

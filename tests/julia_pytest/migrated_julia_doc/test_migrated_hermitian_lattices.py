@@ -331,9 +331,6 @@ def test_18_is_modular_hermitian_lattice():
     @test result isa Tuple || result isa Bool
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_19_can_scale_totally_positive():
     """
     method: can_scale_totally_positive

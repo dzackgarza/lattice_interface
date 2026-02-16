@@ -233,9 +233,6 @@ def test_12_is_isotropic_at_prime():
     @test is_isotropic(V, 3) == true
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_13_is_locally_hyperbolic_hermitian_space():
     """
     method: is_locally_hyperbolic
@@ -252,9 +249,6 @@ def test_13_is_locally_hyperbolic_hermitian_space():
     @test is_locally_hyperbolic(V, p) isa Bool
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_14_restrict_scalars():
     """
     method: restrict_scalars

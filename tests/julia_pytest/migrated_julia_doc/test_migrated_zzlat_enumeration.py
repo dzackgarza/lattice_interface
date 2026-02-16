@@ -168,9 +168,6 @@ def test_9_short_vectors_iterator_lazy_enumeration():
     @test count == 3  # A2 has 3 pairs of roots (up to sign)
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_10_vectors_of_square_and_divisibility():
     """
     method: vectors_of_square_and_divisibility
@@ -184,9 +181,6 @@ def test_10_vectors_of_square_and_divisibility():
     @test length(vecs) >= 1
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_11_enumerate_quadratic_triples():
     """
     method: enumerate_quadratic_triples

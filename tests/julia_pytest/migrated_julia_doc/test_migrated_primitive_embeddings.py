@@ -89,8 +89,6 @@ def test_3_primitive_extensions_glue_two_lattices():
     @test length(exts) >= 1
 '''
     _jl_eval_testitem(code)
-
-@pytest.mark.tdd_red
 def test_4_primitive_embeddings_via_torquadmodule():
     """
     method: primitive_embeddings(q::TorQuadModule, sig, M)

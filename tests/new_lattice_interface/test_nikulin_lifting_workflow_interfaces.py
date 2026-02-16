@@ -23,16 +23,16 @@ def test_lattice_direct_sum_and_glued_construction_interfaces():
     Gluing-workflow contract:
     interface exposes direct-sum construction and glued-model recognition.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.A(2)
     two_u: Lattice = u.direct_sum(u)
     disc_u = u.discriminant()
     glue: LatticeGlueData = disc_u.isotropic_subgroups()[0]
 
-    assert_equal(two_u.rank(), 4, f"Expected rank(U⊕U)=4 in contract example: rank={two_u.rank()}")
+    assert_equal(two_u.rank(), 4, f"Expected rank(A2⊕A2)=4 in contract example: rank={two_u.rank()}")
     assert_equal(
         two_u.is_glued_from(u, u, glue),
         True,
-        f"Expected direct sum model to be recognized as glue realization in trivial case: lattice={two_u}",
+        f"Expected direct sum model to be recognized as glue realization in nontrivial A2 case: lattice={two_u}",
     )
 
 
@@ -43,13 +43,14 @@ def test_lattice_primitive_complement_and_embedding_glue_isometry_interfaces():
     Embedding-workflow contract:
     primitive embeddings expose complements and their discriminant-form glue isometries.
     """
-    u: Lattice = Lattice.U()
-    embeddings: tuple[LatticePrimitiveEmbedding, ...] = u.primitive_embeddings(u)
+    u: Lattice = Lattice.A(2)
+    target: Lattice = Lattice.D(4)
+    embeddings: tuple[LatticePrimitiveEmbedding, ...] = u.primitive_embeddings(target)
     emb: LatticePrimitiveEmbedding = embeddings[0]
-    comp: Lattice = u.primitive_complement_in(u, embedding=emb)
+    comp: Lattice = u.primitive_complement_in(target, embedding=emb)
     glue_iso: DiscriminantFormIsometry = emb.glue_isometry()
 
-    assert_equal(comp.rank(), 0, f"Expected rank-0 primitive complement for identity embedding: comp={comp}")
+    assert_equal(comp.rank(), 2, f"Expected rank-2 primitive complement for A2 in D4 contract example: comp={comp}")
     assert_equal(
         glue_iso.is_anti_isometry(),
         True,
@@ -64,22 +65,22 @@ def test_lattice_discriminant_automorphism_image_interface():
     Automorphism-workflow contract:
     image of lattice isometries in O(A_L) is explicitly queryable.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.hyperbolic(rank=3)
+    root = u.vinberg().simple_roots()[0]
+    nontrivial_isometry: LatticeAutomorphism = u.reflection(root)
     image_default: DiscriminantOrthogonalGroup = u.automorphism_group_on_discriminant()
-    subgroup: LatticeOrthogonalSubgroup = u.orthogonal_set_stabilizer([u.element((1, 0))])
+    subgroup: LatticeOrthogonalSubgroup = u.orthogonal_set_stabilizer([u.element((1, 0, 0))])
     image_subgroup: DiscriminantOrthogonalGroup = u.automorphism_group_on_discriminant(subgroup=subgroup)
-    id_default = image_default.identity()
-    id_subgroup = image_subgroup.identity()
 
     assert_equal(
-        image_default.contains(id_default),
+        image_default.contains(nontrivial_isometry),
         True,
-        "Image of O(L) in O(A_L) should contain identity discriminant automorphism",
+        "Image of O(L) in O(A_L) should contain nontrivial reflection witness",
     )
     assert_equal(
-        image_subgroup.contains(id_subgroup),
+        image_subgroup.contains(nontrivial_isometry),
         True,
-        "Image of subgroup in O(A_L) should contain identity discriminant automorphism",
+        "Image of subgroup in O(A_L) should contain nontrivial reflection witness",
     )
 
 
@@ -90,14 +91,15 @@ def test_lattice_glue_compatibility_and_lift_decision_interfaces():
     Lifting-workflow contract:
     liftability decision is exposed independently for a fixed gluing context.
     """
-    u: Lattice = Lattice.U()
-    id_u: LatticeAutomorphism = u.orthogonal_group().identity()
-    glue: LatticeGlueData = u.discriminant().isotropic_subgroups()[0]
+    u: Lattice = Lattice.hyperbolic(rank=3)
+    root = u.vinberg().simple_roots()[1]
+    nontrivial_isometry: LatticeAutomorphism = u.reflection(root)
+    glue: LatticeGlueData = Lattice.A(2).discriminant().isotropic_subgroups()[0]
 
     assert_equal(
-        u.automorphism_lifts_to_overlattice(id_u, u, glue),
+        u.automorphism_lifts_to_overlattice(nontrivial_isometry, Lattice.D(4), glue),
         True,
-        "Identity automorphism should be liftable in trivial contract case",
+        "Nontrivial reflection automorphism should be liftable in contract case",
     )
 
 
@@ -108,30 +110,32 @@ def test_lattice_lift_construction_and_liftable_subgroup_interfaces():
     Lifting-workflow contract:
     interface provides both explicit lift construction and subgroup-level liftability filter.
     """
-    u: Lattice = Lattice.U()
-    id_u: LatticeAutomorphism = u.orthogonal_group().identity()
-    glue: LatticeGlueData = u.discriminant().isotropic_subgroups()[0]
+    u: Lattice = Lattice.hyperbolic(rank=3)
+    root = u.vinberg().simple_roots()[0]
+    nontrivial_isometry: LatticeAutomorphism = u.reflection(root)
+    glue: LatticeGlueData = Lattice.A(2).discriminant().isotropic_subgroups()[0]
 
-    lifted: LatticeAutomorphism = u.extend_automorphism_to_overlattice(id_u, u, glue)
-    liftable: LatticeOrthogonalSubgroup = u.liftable_automorphisms(u, glue)
+    lifted: LatticeAutomorphism = u.extend_automorphism_to_overlattice(nontrivial_isometry, Lattice.D(4), glue)
+    liftable: LatticeOrthogonalSubgroup = u.liftable_automorphisms(Lattice.D(4), glue)
 
     assert_equal(lifted in liftable, True, "Lifted automorphism should belong to liftable subgroup")
 
 
-def test_lattice_glue_compatibility_identity_pair():
+def test_lattice_glue_compatibility_nontrivial_pair():
     """
     method: glue_compatibility
 
     Lifting-workflow contract:
-    identity automorphisms on summands are glue-compatible for trivial isotropic gluing.
+    nontrivial automorphisms on summands can satisfy glue compatibility.
     """
-    u: Lattice = Lattice.U()
-    id_u: LatticeAutomorphism = u.orthogonal_group().identity()
-    glue: LatticeGlueData = u.discriminant().isotropic_subgroups()[0]
+    u: Lattice = Lattice.hyperbolic(rank=3)
+    root = u.vinberg().simple_roots()[1]
+    nontrivial_isometry: LatticeAutomorphism = u.reflection(root)
+    glue: LatticeGlueData = Lattice.A(2).discriminant().isotropic_subgroups()[0]
     assert_equal(
-        u.glue_compatibility(id_u, id_u, glue),
+        u.glue_compatibility(nontrivial_isometry, nontrivial_isometry, glue),
         True,
-        "Identity summand automorphisms should satisfy glue compatibility in trivial contract example",
+        "Nontrivial summand automorphisms should satisfy glue compatibility in contract example",
     )
 
 
@@ -142,15 +146,20 @@ def test_lattice_structured_automorphism_lifting_result_interface():
     Lifting-workflow contract:
     theorem decision can be returned as structured data with boolean, witness, and obstruction.
     """
-    u: Lattice = Lattice.U()
-    id_u: LatticeAutomorphism = u.orthogonal_group().identity()
-    glue: LatticeGlueData = u.discriminant().isotropic_subgroups()[0]
+    u: Lattice = Lattice.hyperbolic(rank=3)
+    root = u.vinberg().simple_roots()[0]
+    nontrivial_isometry: LatticeAutomorphism = u.reflection(root)
+    glue: LatticeGlueData = Lattice.A(2).discriminant().isotropic_subgroups()[0]
 
-    result: tuple[bool, LatticeAutomorphism | None, str | None] = u.automorphism_lifting_result(id_u, u, glue)
+    result: tuple[bool, LatticeAutomorphism | None, str | None] = u.automorphism_lifting_result(
+        nontrivial_isometry,
+        Lattice.D(4),
+        glue,
+    )
     lifts, witness, obstruction = result
-    liftable: LatticeOrthogonalSubgroup = u.liftable_automorphisms(u, glue)
-    assert_equal(lifts, True, f"Expected identity to be liftable in contract example: result={result}")
-    assert_equal(obstruction, None, f"Expected no obstruction for liftable identity: result={result}")
+    liftable: LatticeOrthogonalSubgroup = u.liftable_automorphisms(Lattice.D(4), glue)
+    assert_equal(lifts, True, f"Expected nontrivial reflection to be liftable in contract example: result={result}")
+    assert_equal(obstruction, None, f"Expected no obstruction for nontrivial liftable example: result={result}")
     assert_equal(
         witness in liftable,
         True,

@@ -169,8 +169,6 @@ def test_8_is_integral_hermitian_genus_integrality():
     @test is_integral(g) == true
 '''
     _jl_eval_testitem(code)
-
-@pytest.mark.tdd_red
 def test_9_hermitian_genera_enumerate():
     """
     method: hermitian_genera
@@ -184,9 +182,6 @@ def test_9_hermitian_genera_enumerate():
     @test length(gs) >= 1
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_10_hermitian_local_genera_enumerate():
     """
     method: hermitian_local_genera
@@ -252,9 +247,6 @@ def test_13_local_symbols_hermitian_genus():
     @test length(ls) >= 0
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_14_direct_sum_hermitian_genera():
     """
     method: direct_sum(G1_herm, G2_herm)
@@ -271,9 +263,6 @@ def test_14_direct_sum_hermitian_genera():
     @test rank(g) == 4
 '''
     _jl_eval_testitem(code)
-
-
-@pytest.mark.tdd_red
 def test_15_rescale_hermitian_genus():
     """
     method: rescale(G_herm, a)

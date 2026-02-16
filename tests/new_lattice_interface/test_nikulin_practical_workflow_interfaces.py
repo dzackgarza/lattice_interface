@@ -32,18 +32,19 @@ def test_lattice_is_isometric_small_known_examples():
     )
 
 
-def test_lattice_primitive_embedding_queries_for_identity_case():
+def test_lattice_primitive_embedding_queries_for_a2_into_d4_case():
     """
     method: primitive_embedding_exists
 
     Practical classification contract:
-    any lattice admits the identity primitive embedding into itself.
+    nontrivial embedding existence check on a classical pair A2 -> D4.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.A(2)
+    target: Lattice = Lattice.D(4)
     assert_equal(
-        u.primitive_embedding_exists(u),
+        u.primitive_embedding_exists(target),
         True,
-        f"Expected identity primitive embedding to exist for lattice: U={u}",
+        f"Expected primitive embedding existence for A2 into D4 in contract example: source={u}, target={target}",
     )
 
 
@@ -52,26 +53,28 @@ def test_lattice_primitive_embeddings_returns_typed_embedding_objects():
     method: primitive_embeddings
 
     Practical classification contract:
-    primitive embedding enumeration returns typed embedding records for small identity case.
+    primitive embedding enumeration returns typed embedding records for A2 -> D4.
     """
-    u: Lattice = Lattice.U()
-    embeddings: tuple[LatticePrimitiveEmbedding, ...] = u.primitive_embeddings(u)
-    assert_equal(len(embeddings), 1, f"Expected unique identity primitive embedding in contract model: {embeddings}")
+    u: Lattice = Lattice.A(2)
+    target: Lattice = Lattice.D(4)
+    embeddings: tuple[LatticePrimitiveEmbedding, ...] = u.primitive_embeddings(target)
+    assert_equal(len(embeddings), 1, f"Expected one primitive embedding witness in contract model: {embeddings}")
     emb = embeddings[0]
-    assert_equal(emb.source().is_isometric(u), True, f"Embedding source mismatch for U->U identity case: emb={emb}")
-    assert_equal(emb.target().is_isometric(u), True, f"Embedding target mismatch for U->U identity case: emb={emb}")
+    assert_equal(emb.source().is_isometric(u), True, f"Embedding source mismatch for A2->D4 case: emb={emb}")
+    assert_equal(emb.target().is_isometric(target), True, f"Embedding target mismatch for A2->D4 case: emb={emb}")
 
 
-def test_lattice_orthogonal_complement_in_for_identity_embedding():
+def test_lattice_orthogonal_complement_in_for_a2_into_d4_embedding():
     """
     method: orthogonal_complement_in
 
     Practical classification contract:
-    orthogonal complement of identity embedding U -> U is rank-0 in this contract model.
+    orthogonal complement for a nontrivial embedding A2 -> D4 has positive rank.
     """
-    u: Lattice = Lattice.U()
-    comp: Lattice = u.orthogonal_complement_in(u)
-    assert_equal(comp.rank(), 0, f"Expected rank-0 orthogonal complement for identity embedding: comp={comp}")
+    source: Lattice = Lattice.A(2)
+    target: Lattice = Lattice.D(4)
+    comp: Lattice = source.orthogonal_complement_in(target)
+    assert_equal(comp.rank(), 2, f"Expected rank-2 orthogonal complement for A2 in D4 contract example: comp={comp}")
 
 
 def test_discriminant_form_isotropic_subgroups_returns_glue_data():
@@ -81,31 +84,29 @@ def test_discriminant_form_isotropic_subgroups_returns_glue_data():
     Practical classification contract:
     isotropic-subgroup enumeration on discriminant form returns typed glue data.
     """
-    disc_u: LatticeDiscriminantGroup = Lattice.U().discriminant()
+    disc_u: LatticeDiscriminantGroup = Lattice.A(2).discriminant()
     glue_candidates: tuple[LatticeGlueData, ...] = disc_u.isotropic_subgroups()
-    assert_equal(len(glue_candidates), 1, f"Expected unique trivial isotropic subgroup for A_U=0: {glue_candidates}")
+    assert_equal(len(glue_candidates), 1, f"Expected one isotropic-subgroup datum in contract model: {glue_candidates}")
     glue0 = glue_candidates[0]
-    assert_equal(glue0.is_isotropic(), True, f"Trivial glue datum should be isotropic: glue={glue0}")
-    assert_equal(
-        glue0.subgroup_generators(),
-        tuple(),
-        f"Trivial isotropic subgroup should have empty generator set in contract model: glue={glue0}",
-    )
+    gens = glue0.subgroup_generators()
+    assert_equal(glue0.is_isotropic(), True, f"Contract glue datum should be isotropic: glue={glue0}")
+    assert_equal(len(gens), 1, f"Expected one nontrivial isotropic-subgroup generator in contract model: glue={glue0}")
+    assert_equal(gens[0].order(), 3, f"Expected order-3 generator in contract model: generator={gens[0]}")
 
 
-def test_lattice_overlattice_from_glue_roundtrip_on_trivial_glue():
+def test_lattice_overlattice_from_glue_roundtrip_on_nontrivial_glue():
     """
     method: overlattice_from_glue
 
     Practical classification contract:
-    applying trivial isotropic glue for U returns an overlattice isometric to U.
+    applying nontrivial glue datum over A2 returns a contract overlattice witness.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.A(2)
     disc_u: LatticeDiscriminantGroup = u.discriminant()
-    trivial_glue: LatticeGlueData = disc_u.isotropic_subgroups()[0]
-    over_u: Lattice = u.overlattice_from_glue(trivial_glue)
+    nontrivial_glue: LatticeGlueData = disc_u.isotropic_subgroups()[0]
+    over_u: Lattice = u.overlattice_from_glue(nontrivial_glue)
 
-    assert_equal(over_u.is_isometric(u), True, f"Expected trivial-glue overlattice to stay isometric to U: over={over_u}")
+    assert_equal(over_u.is_isometric(Lattice.D(4)), True, f"Expected contract glued lattice to match D4 witness: over={over_u}")
 
 
 def test_lattice_glue_data_inverse_direction_contract():
@@ -115,10 +116,10 @@ def test_lattice_glue_data_inverse_direction_contract():
     Practical classification contract:
     glue-data extraction from an overlattice produces isotropic glue compatible with base discriminant form.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.A(2)
     disc_u: LatticeDiscriminantGroup = u.discriminant()
-    trivial_glue: LatticeGlueData = disc_u.isotropic_subgroups()[0]
-    over_u: Lattice = u.overlattice_from_glue(trivial_glue)
+    nontrivial_glue: LatticeGlueData = disc_u.isotropic_subgroups()[0]
+    over_u: Lattice = u.overlattice_from_glue(nontrivial_glue)
     recovered: LatticeGlueData = u.glue_data(over_u)
 
     assert_equal(recovered.is_isotropic(), True, f"Recovered glue should be isotropic: recovered={recovered}")
@@ -134,9 +135,10 @@ def test_lattice_overlattices_lists_concrete_small_candidates():
     method: overlattices
 
     Practical classification contract:
-    overlattice enumeration contains at least the base lattice itself for U.
+    overlattice enumeration contains expected nontrivial candidate for A2 contract data.
     """
-    u: Lattice = Lattice.U()
+    u: Lattice = Lattice.A(2)
     candidates: tuple[Lattice, ...] = u.overlattices()
-    assert_equal(len(candidates), 1, f"Expected only base lattice as overlattice in trivial contract model: {candidates}")
-    assert_equal(candidates[0].is_isometric(u), True, f"Expected sole overlattice candidate to be isometric to U: {candidates}")
+    assert_equal(len(candidates), 2, f"Expected two overlattice candidates in nontrivial contract model: {candidates}")
+    n_d4 = sum(1 for c in candidates if c.is_isometric(Lattice.D(4)))
+    assert_equal(n_d4, 1, f"Expected exactly one D4-type overlattice witness: candidates={candidates}")
