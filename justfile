@@ -10,6 +10,13 @@ setup:
     # PYTHON_JULIAPKG_EXE=/home/codespace/.juliaup/bin/julia 
     conda run -n sage python -c "from juliacall import Main as jl; print(jl.seval(\"VERSION\"))"
 
+install-sage:
+    curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh
+    conda create -n sage sage
+    conda activate sage
+    sage -c "print('Hello')"
+
 # Run all repository tests (non-Sage + Sage static docs tests, then Julia/Oscar).
 test:
     HOME=/tmp/sage-home conda run -n sage /opt/conda/envs/sage/bin/python -m pytest -q tests --ignore=tests/new_lattice_interface

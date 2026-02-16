@@ -362,7 +362,7 @@ git commit -m "test: add parity non-regression gates for wrapper capabilities"
 
 **Step 5: Final commit**
 ```bash
-git add tests/new_lattice_interface docs/plans/2026-02-15-lattice-wrapper-tdd-implementation.md
+git add tests/new_lattice_interface docs/project/plans/2026-02-15-lattice-wrapper-tdd-implementation.md
 git commit -m "test: finalize lattice wrapper capability-first TDD program"
 ```
 
