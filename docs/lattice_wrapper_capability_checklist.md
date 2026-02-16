@@ -1063,3 +1063,6 @@ Computes class-group search bounds: Minkowski bound $B_M$ and (under GRH) Bach b
 
 - [ ] `bach_bound` - bach_bound() returns the GRH Bach bound for class-group ideal representatives (documented value $12\log(5)^2$ for $\mathbf Q(\sqrt{5})$). [source: sage_doc/test_numberfield_bridge_static.py::test_numberfield_bach_bound_is_positive]
 - [ ] `minkowski_bound` - minkowski_bound() gives class-group search bound. [source: sage_doc/test_numberfield_bridge_static.py::test_numberfield_minkowski_bound_positive]
+
+---
+
