@@ -25,12 +25,22 @@
 - No `xfail`/expected-failure markers.
 - Do not assert on exceptions as a substitute for behavior tests.
 
+## Interface Design Rule (Non-Negotiable)
+- NEVER prioritize backward compatibility during interface design stage.
+- If the interface is still being defined, backward compatibility is not a valid constraint.
+- Prioritize mathematical correctness, coherent type ontology, and clear contracts first.
+- Remove/rename incorrect interface types immediately rather than preserving legacy names.
+
+## TDD Marker
+- Use `@pytest.mark.tdd_red` only as an annotation for tests intentionally in RED phase.
+- `tdd_red` is metadata only; it does not change test behavior.
+- `tdd_red` tests must still run normally and fail naturally until implementation is complete.
+- Do not replace failing tests with `skip`/`xfail`; remove `tdd_red` when the test turns green.
+- `tdd_red` is reserved ONLY for NEW interface-contract development.
+- NEVER use `tdd_red` when testing behavior of EXISTING libraries, existing tools, or already-implemented external APIs.
+
 ## Test Quality Rules
-- Assertions must be mathematically nontrivial.
-- Avoid `is not None`, `hasattr`, `isinstance` as primary assertions.
-- Use small examples, keep tests fast (<30s when possible).
-- Use precise types and contract-correct inputs.
-- Every assertion message should be explicit f-string diagnostics.
+- Follow `TEST_QUALITY.md` as the complete, authoritative test-quality standard for this repository.
 
 ## Coverage Policy
 - Global irrelevant methods live only in `tests/sage/sage_doc/conftest.py`.

@@ -280,18 +280,117 @@ def test_17_kernel_lattice_kernel_of_endomorphism():
 '''
     _jl_eval_testitem(code)
 
+def test_18_lattice_sum_in_common_ambient():
+    """
+    method: +(L1, L2)
+    """
+    code = r'''
+    # method: +(L1, L2)
+    using Oscar
+    L = integer_lattice(gram = ZZ[1 0; 0 1])
+    M = lattice_in_same_ambient_space(L, 2 * basis_matrix(L))
+    S = L + M
+    # Sum should equal L since M is a sublattice
+    @test rank(S) == 2
+'''
+    _jl_eval_testitem(code)
+
+
+def test_19_scalar_multiple_of_lattice():
+    """
+    method: *(n, L)
+    """
+    code = r'''
+    # method: *(n, L)
+    using Oscar
+    L = integer_lattice(gram = ZZ[1 0; 0 1])
+    M = 2 * L
+    @test rank(M) == 2
+    # 2*L has basis 2*I, so Gram of 2L in ambient is 4*I
+'''
+    _jl_eval_testitem(code)
+
+
+def test_20_is_sublattice_with_relations():
+    """
+    method: is_sublattice_with_relations
+    """
+    code = r'''
+    # method: is_sublattice_with_relations
+    using Oscar
+    L = integer_lattice(gram = ZZ[1 0; 0 1])
+    M = lattice_in_same_ambient_space(L, 2 * basis_matrix(L))
+    flag, rels = is_sublattice_with_relations(L, M)
+    @test flag == true
+'''
+    _jl_eval_testitem(code)
+
+
+def test_21_divisibility_of_vector():
+    """
+    method: divisibility
+    """
+    code = r'''
+    # method: divisibility
+    using Oscar
+    L = integer_lattice(gram = ZZ[2 0; 0 2])
+    v = ZZ[1, 0]
+    d = divisibility(L, v)
+    # divisibility = gcd of b(v, w) for w in L = gcd(2, 0) = 2
+    @test d == 2
+'''
+    _jl_eval_testitem(code)
+
+
+def test_22_vector_membership_test():
+    """
+    method: in(v, L)
+    """
+    code = r'''
+    # method: in(v, L)
+    using Oscar
+    L = integer_lattice(gram = ZZ[1 0; 0 1])
+    v = ZZ[1, 0]
+    # Standard basis vector should be in L
+    @test v in L
+'''
+    _jl_eval_testitem(code)
+
+
+def test_23_irreducible_components_of_direct_sum():
+    """
+    method: irreducible_components
+    """
+    code = r'''
+    # method: irreducible_components
+    using Oscar
+    L1 = root_lattice(:A, 1)
+    L2 = root_lattice(:A, 2)
+    L, _, _ = direct_sum(L1, L2)
+    comps = irreducible_components(L)
+    @test length(comps) == 2
+'''
+    _jl_eval_testitem(code)
+
+
 MIGRATED_METHODS = {
+    '*(n, L)',
+    '+(L1, L2)',
     'ADE_type',
     'biproduct',
     'coxeter_number',
     'direct_product',
     'direct_sum',
+    'divisibility',
     'dual',
     'highest_root',
+    'in(v, L)',
     'intersect',
+    'irreducible_components',
     'is_maximal_integral',
     'is_primitive',
     'is_sublattice',
+    'is_sublattice_with_relations',
     'kernel_lattice',
     'lattice_in_same_ambient_space',
     'maximal_integral_lattice',

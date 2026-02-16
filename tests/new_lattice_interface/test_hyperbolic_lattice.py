@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import pytest
+
+pytestmark = pytest.mark.tdd_red
+
 from .conftest import Lattice, LatticeRootSystem, assert_equal
 
 U = Lattice.U()

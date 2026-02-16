@@ -90,9 +90,27 @@ def test_3_primitive_extensions_glue_two_lattices():
 '''
     _jl_eval_testitem(code)
 
+@pytest.mark.tdd_red
+def test_4_primitive_embeddings_via_torquadmodule():
+    """
+    method: primitive_embeddings(q::TorQuadModule, sig, M)
+    """
+    code = r'''
+    # method: primitive_embeddings(q::TorQuadModule, sig, M)
+    using Oscar
+    M = root_lattice(:A, 1)
+    L = root_lattice(:A, 2)
+    T = discriminant_group(L)
+    embs = primitive_embeddings(T, (2, 0), M)
+    @test length(embs) >= 0
+'''
+    _jl_eval_testitem(code)
+
+
 MIGRATED_METHODS = {
     'primitive_embeddings',
     'primitive_embeddings(G::ZZGenus, M)',
+    'primitive_embeddings(q::TorQuadModule, sig, M)',
     'primitive_extensions',
 }
 

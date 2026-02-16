@@ -205,13 +205,46 @@ def test_12_rescale_scales_gram_by_integer():
 '''
     _jl_eval_testitem(code)
 
+def test_13_mukai_lattice_rank_24_indefinite():
+    """
+    method: mukai_lattice
+    """
+    code = r'''
+    # method: mukai_lattice
+    using Oscar
+    L = mukai_lattice()
+    @test rank(L) == 24
+    p, n, z = signature_tuple(L)
+    # Mukai lattice has signature (4, 20)
+    @test p == 4
+    @test n == 20
+'''
+    _jl_eval_testitem(code)
+
+def test_14_hyperkaehler_lattice_k3_type():
+    """
+    method: hyperkaehler_lattice
+    """
+    code = r'''
+    # method: hyperkaehler_lattice
+    using Oscar
+    L = hyperkaehler_lattice(:K3)
+    @test rank(L) >= 3
+    p, n, z = signature_tuple(L)
+    @test p == 3
+    @test n == 20
+'''
+    _jl_eval_testitem(code)
+
 MIGRATED_METHODS = {
+    'hyperkaehler_lattice',
     'hyperbolic_plane_lattice',
     'integer_lattice',
     'integer_lattice(B; gram)',
     'k3_lattice',
     'lattice',
     'leech_lattice',
+    'mukai_lattice',
     'quadratic_lattice',
     'rescale',
     'root_lattice',

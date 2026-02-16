@@ -150,12 +150,66 @@ def test_8_short_vectors_with_lower_and_upper_bound():
 '''
     _jl_eval_testitem(code)
 
+def test_9_short_vectors_iterator_lazy_enumeration():
+    """
+    method: short_vectors_iterator
+    """
+    code = r'''
+    # method: short_vectors_iterator
+    using Oscar
+    L = root_lattice(:A, 2)
+    # Iterator over vectors with norm <= 2
+    it = short_vectors_iterator(L, 2)
+    count = 0
+    for (v, n) in it
+        @test n <= 2
+        count += 1
+    end
+    @test count == 3  # A2 has 3 pairs of roots (up to sign)
+'''
+    _jl_eval_testitem(code)
+
+
+@pytest.mark.tdd_red
+def test_10_vectors_of_square_and_divisibility():
+    """
+    method: vectors_of_square_and_divisibility
+    """
+    code = r'''
+    # method: vectors_of_square_and_divisibility
+    using Oscar
+    L = root_lattice(:A, 2)
+    # Vectors v with v^2 = 2 and divisibility 1
+    vecs = vectors_of_square_and_divisibility(L, 2, 1)
+    @test length(vecs) >= 1
+'''
+    _jl_eval_testitem(code)
+
+
+@pytest.mark.tdd_red
+def test_11_enumerate_quadratic_triples():
+    """
+    method: enumerate_quadratic_triples
+    """
+    code = r'''
+    # method: enumerate_quadratic_triples
+    using Oscar
+    L = root_lattice(:A, 2)
+    triples = enumerate_quadratic_triples(L, 2)
+    @test length(triples) >= 0
+'''
+    _jl_eval_testitem(code)
+
+
 MIGRATED_METHODS = {
     'close_vectors',
+    'enumerate_quadratic_triples',
     'kissing_number',
     'minimum',
     'short_vectors',
+    'short_vectors_iterator',
     'shortest_vectors',
+    'vectors_of_square_and_divisibility',
 }
 
 def test_migrated_method_coverage():

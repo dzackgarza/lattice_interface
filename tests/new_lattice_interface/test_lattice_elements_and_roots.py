@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import pytest
+
+pytestmark = pytest.mark.tdd_red
+
 from sage.all import ZZ, matrix
 
 from .conftest import Lattice, assert_equal

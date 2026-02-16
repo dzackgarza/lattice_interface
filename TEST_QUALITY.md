@@ -62,6 +62,16 @@ Why this is not useful for mathematical documentation:
 
 Instead, assert relations between computed values and mathematically expected outcomes.
 
+### 3.1 No Trivial Primary Witnesses
+
+- Do not use trivial objects as the primary witness for a method test.
+- Trivial objects include:
+  - zero vectors/elements,
+  - identity maps/group elements,
+  - empty/default structural objects.
+- Use nontrivial mathematical witnesses as the primary example (for example nonzero vectors, non-identity automorphisms, nontrivial glue/invariant data).
+- Trivial objects may appear only as secondary consistency checks after a nontrivial primary assertion.
+
 Examples of acceptable replacements:
 
 - Verify exact known values for canonical small examples.

@@ -155,12 +155,28 @@ def test_8_witt_invariant_a2_at_prime_2():
 '''
     _jl_eval_testitem(code)
 
+def test_9_is_locally_isometric_same_lattice_at_prime_2():
+    """
+    method: is_locally_isometric
+    """
+    code = r'''
+    # method: is_locally_isometric
+    using Oscar
+    L = root_lattice(:A, 2)
+    M = root_lattice(:A, 2)
+    @test is_locally_isometric(L, M, 2) == true
+    @test is_locally_isometric(L, M, 3) == true
+'''
+    _jl_eval_testitem(code)
+
+
 MIGRATED_METHODS = {
     'automorphism_group_generators',
     'automorphism_group_order',
     'hasse_invariant',
     'is_isometric',
     'is_isometric_with_isometry',
+    'is_locally_isometric',
     'is_rationally_isometric',
     'witt_invariant',
 }

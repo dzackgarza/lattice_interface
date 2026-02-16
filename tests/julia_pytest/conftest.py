@@ -6,12 +6,11 @@ from pathlib import Path
 import pytest
 
 
-# Julia runtime for juliacall must come from the managed project runtime,
-# not from any system-wide Julia installation.
+# Julia runtime for juliacall must come from juliaup.
 _HOME = Path("/tmp/sage-home")
 _PROJECT = _HOME / "julia_env"
 _DEPOT = _HOME / ".julia"
-_MANAGED_JULIA = _PROJECT / "pyjuliapkg" / "install" / "bin" / "julia"
+_JULIAUP_JULIA = Path("/home/codespace/.julia/juliaup/julia-1.11.9+0.x64.linux.gnu/bin/julia")
 
 _HOME.mkdir(parents=True, exist_ok=True)
 _PROJECT.mkdir(parents=True, exist_ok=True)
@@ -20,14 +19,14 @@ _DEPOT.mkdir(parents=True, exist_ok=True)
 os.environ["HOME"] = str(_HOME)
 os.environ["PYTHON_JULIAPKG_PROJECT"] = str(_PROJECT)
 os.environ["JULIA_DEPOT_PATH"] = str(_DEPOT)
-os.environ["PYTHON_JULIAPKG_EXE"] = str(_MANAGED_JULIA)
-os.environ["PYTHON_JULIAPKG_OFFLINE"] = "yes"
+os.environ["PYTHON_JULIAPKG_EXE"] = str(_JULIAUP_JULIA)
+os.environ["JULIAUP_CHANNEL"] = "1.11"
+os.environ["JULIA_PKG_SERVER"] = ""
 
-if not _MANAGED_JULIA.exists():
+if not _JULIAUP_JULIA.exists():
     raise RuntimeError(
-        "Managed Julia runtime not found at "
-        f"{_MANAGED_JULIA}. Install/initialize juliacall runtime first; "
-        "system Julia is intentionally not allowed for these tests."
+        "juliaup Julia runtime not found at "
+        f"{_JULIAUP_JULIA}. Install juliaup first."
     )
 
 from juliacall import Main as jl

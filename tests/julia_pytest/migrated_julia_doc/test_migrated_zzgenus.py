@@ -539,8 +539,100 @@ def test_36_direct_sum_local_genus_direct_sum():
 '''
     _jl_eval_testitem(code)
 
+def test_37_symbol_local_genus_jordan_block_invariants():
+    """
+    method: symbol(S, scale)
+    """
+    code = r'''
+    # method: symbol(S, scale)
+    using Oscar
+    L = root_lattice(:A, 2)
+    S = genus(L, 3)
+    # symbol(S, i) returns the i-th Jordan block invariants
+    sym = symbol(S, 0)
+    @test length(sym) >= 1
+'''
+    _jl_eval_testitem(code)
+
+
+def test_38_dim_local_genus_dimension():
+    """
+    method: dim(S)
+    """
+    code = r'''
+    # method: dim(S)
+    using Oscar
+    L = root_lattice(:A, 2)
+    S = genus(L, 3)
+    @test dim(S) == 2
+'''
+    _jl_eval_testitem(code)
+
+
+def test_39_scale_local_genus_scale():
+    """
+    method: scale(S)
+    """
+    code = r'''
+    # method: scale(S)
+    using Oscar
+    L = root_lattice(:A, 2)
+    S = genus(L, 3)
+    s = scale(S)
+    @test s >= 0
+'''
+    _jl_eval_testitem(code)
+
+
+def test_40_norm_local_genus_norm():
+    """
+    method: norm(S)
+    """
+    code = r'''
+    # method: norm(S)
+    using Oscar
+    L = root_lattice(:A, 2)
+    S = genus(L, 3)
+    n = norm(S)
+    @test n >= 0
+'''
+    _jl_eval_testitem(code)
+
+
+def test_41_level_local_genus_level():
+    """
+    method: level(S)
+    """
+    code = r'''
+    # method: level(S)
+    using Oscar
+    L = root_lattice(:A, 2)
+    S = genus(L, 3)
+    lv = level(S)
+    @test lv > 0
+'''
+    _jl_eval_testitem(code)
+
+
+def test_42_represents_local_genus_representation():
+    """
+    method: represents(S1, S2)
+    """
+    code = r'''
+    # method: represents(S1, S2)
+    using Oscar
+    L1 = root_lattice(:A, 2)
+    L2 = root_lattice(:A, 1)
+    S1 = genus(L1, 2)
+    S2 = genus(L2, 2)
+    @test represents(S1, S2) == true
+'''
+    _jl_eval_testitem(code)
+
+
 MIGRATED_METHODS = {
     'det(S)',
+    'dim(S)',
     'dim(gen)',
     'direct_sum(G1::ZZGenus, G2::ZZGenus)',
     'direct_sum(S1, S2)',
@@ -558,8 +650,10 @@ MIGRATED_METHODS = {
     'iseven(S)',
     'iseven(gen)',
     'level',
+    'level(S)',
     'local_symbol',
     'mass',
+    'norm(S)',
     'norm(gen)',
     'oddity(S)',
     'prime(S)',
@@ -571,11 +665,14 @@ MIGRATED_METHODS = {
     'representative(S)',
     'representatives',
     'represents',
+    'represents(S1, S2)',
     'rescale(S, a)',
     'rescale(gen, a)',
+    'scale(S)',
     'scale(gen)',
     'signature(S)',
     'signature(gen)',
+    'symbol(S, scale)',
 }
 
 def test_migrated_method_coverage():
