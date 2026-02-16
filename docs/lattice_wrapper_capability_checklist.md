@@ -1,5 +1,8 @@
 # Documented Mathematical Capability Checklist
 
+PURPOSE OF THIS DOCUMENT: group ALL methods in checklists into extremely fine-grained buckets to define the new lattice interface.
+It should have every *capability* reflected in the union of methods in checklists for all lattice-related tools, but e.g. if both Julia and Sage define LLL algorithms, they should be placed in the same bucket, since the new interface only needs *one* LLL computation method.
+
 ## Bridge Design Requirement
 Number-field capabilities in this checklist impose a required interface-design bridge via trace-form constructions.
 The wrapper design is incomplete unless it explicitly supports number-field to lattice integration end-to-end (construction plus downstream lattice algorithms through the same standardized interface paths).

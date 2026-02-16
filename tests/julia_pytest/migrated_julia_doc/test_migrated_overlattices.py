@@ -1,48 +1,13 @@
-import os
-import re
 import sys
 
-import pytest
-
-os.environ.setdefault("HOME", "/tmp/sage-home")
-os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", "/tmp/sage-home/julia_env")
-os.environ.setdefault("JULIA_DEPOT_PATH", "/tmp/sage-home/.julia")
 
 from juliacall import Main as jl
 
-
-@pytest.fixture(scope="session", autouse=True)
-def _init_julia_oscar() -> None:
-    jl.seval("using Pkg")
-    jl.seval('Pkg.activate("tests/julia_doc")')
-    jl.seval("using Nemo")
-    jl.seval("using Hecke")
-    jl.seval("using Oscar")
-    jl.seval("using Test")
+from tests.conftest import covered_methods_from_module as _covered_methods_from_module
 
 
 def _jl_eval_testitem(code: str) -> None:
     jl.seval(f"begin\n{code}\nnothing\nend")
-
-
-def _method_token_from_docstring(func) -> str | None:
-    doc = getattr(func, "__doc__", "") or ""
-    for line in doc.splitlines():
-        line = line.strip()
-        if line.startswith("method:"):
-            return line.split(":", 1)[1].strip()
-    return None
-
-
-def _covered_methods_from_module(module) -> set[str]:
-    covered: set[str] = set()
-    for name, func in module.__dict__.items():
-        if not name.startswith("test_") or not callable(func) or name.endswith("_coverage"):
-            continue
-        token = _method_token_from_docstring(func)
-        if token is not None:
-            covered.add(token)
-    return covered
 
 
 def test_1_glue_map_construct_glue_map():

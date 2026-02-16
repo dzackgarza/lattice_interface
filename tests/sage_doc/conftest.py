@@ -5,6 +5,11 @@ import os
 from pathlib import Path
 from types import ModuleType
 
+from tests.conftest import (  # noqa: F401 — re-exported for test imports
+    assert_equal,
+    covered_methods_from_module,
+)
+
 
 # Sage writes caches under HOME/.sage; keep this writable in sandboxed runs.
 _sage_home = Path("/tmp/sage-home")
@@ -34,33 +39,6 @@ GLOBAL_IRRELEVANT_METHODS = {
     "repr",
     "hash",
 }
-
-def assert_equal(actual, expected, label: str) -> None:
-    if actual != expected:
-        raise AssertionError(f"{label}: actual={actual}, expected={expected}")
-
-
-def _method_token_from_docstring(func) -> str | None:
-    doc = inspect.getdoc(func) or ""
-    for line in doc.splitlines():
-        line = line.strip()
-        if line.startswith("method:"):
-            return line.split(":", 1)[1].strip()
-    return None
-
-
-def covered_methods_from_module(
-    module: ModuleType,
-) -> set[str]:
-    covered: set[str] = set()
-    for name, func in inspect.getmembers(module, inspect.isfunction):
-        if not name.startswith("test_") or name.endswith("_coverage"):
-            continue
-        token = _method_token_from_docstring(func)
-        if token is None:
-            continue
-        covered.add(token)
-    return covered
 
 
 def relevant_runtime_methods(

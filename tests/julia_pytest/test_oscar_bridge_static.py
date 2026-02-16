@@ -2,7 +2,7 @@ import os
 import sys
 
 import pytest
-from tests.sage_doc.conftest import assert_equal
+from tests.conftest import assert_equal, covered_methods_from_module
 
 os.environ.setdefault("HOME", "/tmp/sage-home")
 os.environ.setdefault("PYTHON_JULIAPKG_PROJECT", "/tmp/sage-home/julia_env")
@@ -21,26 +21,6 @@ def _init_julia_oscar() -> None:
 
 def _jl_true(expr: str) -> bool:
     return bool(jl.seval(expr))
-
-
-def _method_token_from_docstring(func) -> str | None:
-    doc = getattr(func, "__doc__", "") or ""
-    for line in doc.splitlines():
-        line = line.strip()
-        if line.startswith("method:"):
-            return line.split(":", 1)[1].strip()
-    return None
-
-
-def _covered_methods_from_module(module) -> set[str]:
-    covered: set[str] = set()
-    for name, func in module.__dict__.items():
-        if not name.startswith("test_") or not callable(func) or name.endswith("_coverage"):
-            continue
-        token = _method_token_from_docstring(func)
-        if token is not None:
-            covered.add(token)
-    return covered
 
 
 JULIA_BRIDGE_METHODS = {
@@ -593,7 +573,7 @@ def test_julia_bridge_coverage():
     Coverage guard: every declared Julia bridge lattice method should have
     at least one explicit `method:`-tagged pytest in this module.
     """
-    covered = _covered_methods_from_module(sys.modules[__name__])
+    covered = covered_methods_from_module(sys.modules[__name__])
     missing = sorted(JULIA_BRIDGE_METHODS - covered)
     assert not missing, (
         "Coverage failure: uncovered Julia bridge methods found.\n"
