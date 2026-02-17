@@ -8,7 +8,7 @@ Autonomous documentation agents.
 
 Increase lattice-theoretic documentation coverage quality over repeated scheduled executions.
 
-## Scope
+## Task Boundaries
 
 In scope:
 
@@ -16,7 +16,7 @@ In scope:
 - documentation completion,
 - documentation organization.
 
-Out of scope:
+Not in scope:
 
 - code implementation,
 - runtime behavior changes,
@@ -25,7 +25,7 @@ Out of scope:
 ## Non-Negotiables
 
 - Never check off checklist items.
-- Never hide missing methods by narrowing scope or expanding ignore lists.
+- Never hide missing methods by narrowing coverage boundaries or expanding ignore lists.
 - Never replace precise mathematical contracts with vague wording.
 - Never claim method coverage from memory when local source snapshots or canonical references are required.
 
@@ -44,7 +44,7 @@ Documentation changes should be:
 - Handoff tasks and recent changelog gaps are starting signals.
 - Do not stop after the first valid fix if adjacent high-signal improvements remain.
 - Expand audit breadth as needed while quality gradient remains positive.
-- Work until the scoped audit objective is reasonably complete for the current execution.
+- Work until the high-signal audit frontier is reasonably complete for the current execution.
 
 ## Required Run Artifacts
 

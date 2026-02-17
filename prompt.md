@@ -11,9 +11,9 @@ Read first:
 
 ## Primary Goal
 
-Produce the strongest source-backed documentation improvement you can within scope, not the smallest valid edit.
+Produce the strongest source-backed documentation improvement you can within task boundaries, not the smallest valid edit.
 
-## Scope Constraints
+## Task Boundaries
 
 - Documentation work only.
 - No code implementation or runtime behavior changes.
@@ -26,7 +26,7 @@ Produce the strongest source-backed documentation improvement you can within sco
 - Keep expanding to adjacent high-signal gaps while expected quality gradient remains positive.
 - Prefer coherent section/family-level improvements over isolated micro-edits.
 - Maintain mathematical precision and source-backed claims.
-- Drive the audit until the scoped work is reasonably complete and the remaining frontier is clearly lower value or explicitly queued.
+- Drive the audit until the current high-signal frontier is reasonably complete and the remaining frontier is clearly lower value or explicitly queued.
 
 ## Required Artifacts
 
