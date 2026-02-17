@@ -743,19 +743,45 @@ All algorithms require PD (Euclidean distance minimization). GKP symplectic form
 
 ### 7.1 LatticeBasisReduction.jl
 
-`[PD, EUCLID]` — Lattice reduction algorithms. Provides LLL and related reductions. Minimal package; use LLLplus or Nemo for more features.
+`[PD, EUCLID]` — Minimal Julia package for LLL basis reduction.
 
-Method-signature status:
+### Methods
 
-- checklist anchor only for now; explicit runtime signatures should be added when authoritative upstream API docs/source snapshots are captured.
+| Function | Description | Tags |
+|----------|-------------|------|
+| `lll(B::AbstractMatrix{<:Integer}; delta=0.99, eta=0.51)` | LLL reduction on an integer basis matrix. | `[PD, EUCLID]` |
+| `lll!(B::Matrix{BigFloat}; delta=0.99, eta=0.51)` | In-place LLL reduction on a `BigFloat` matrix. | `[PD, EUCLID]` |
+| `islllreduced(B::AbstractMatrix{BigFloat}; delta=0.99, eta=0.51)` | Predicate for LLL-reducedness conditions. | `[PD, EUCLID]` |
+
+Caveats:
+
+- The package exports `lll`; `lll!` and `islllreduced` are documented API surfaces but non-exported.
+- Implementation is Euclidean/Gram-Schmidt based and does not provide indefinite-form classification methods.
 
 ### 7.2 MinkowskiReduction.jl
 
-`[PD, EUCLID]` — Minkowski reduction of lattice bases. Computes Minkowski-reduced bases (all basis vectors are successive minima). Exact but exponential cost; practical only in low dimensions.
+`[PD, EUCLID]` — Minkowski reduction for integer lattice bases.
 
-Method-signature status:
+### Methods
 
-- checklist anchor only for now; explicit runtime signatures should be added when authoritative upstream API docs/source snapshots are captured.
+| Function | Description | Tags |
+|----------|-------------|------|
+| `minkReduce(B::AbstractMatrix{<:Integer}; stable=true)` | Returns a Minkowski-reduced basis. | `[PD, EUCLID]` |
+| `deviousMat(n::Int64, m::Int64)` | Generator for difficult benchmark-style integer bases. | `[PD, EUCLID]` |
+
+Caveats:
+
+- Package scope is low-dimensional Euclidean reduction; no indefinite-form or genus/isometry classification APIs are documented.
+- Upstream notes implementation tested only up to rank `n <= 7`.
+
+### References
+
+- `https://github.com/MGBoom/LatticeBasisReduction.jl`
+- `https://mgboom.github.io/LatticeBasisReduction.jl/stable/API/`
+- `https://github.com/MGBoom/LatticeBasisReduction.jl/blob/master/src/LatticeBasisReduction.jl`
+- `https://github.com/glwhart/MinkowskiReduction.jl`
+- `https://github.com/glwhart/MinkowskiReduction.jl/blob/master/src/MinkowskiReduction.jl`
+- `https://github.com/glwhart/MinkowskiReduction.jl/blob/master/README.md`
 
 ---
 

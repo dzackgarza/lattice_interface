@@ -530,16 +530,23 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ### 7.1 LatticeBasisReduction.jl
 
-- [ ] `package checklist anchor: LatticeBasisReduction.jl`
-  - Caveat: local reference currently documents this package at capability level only; add explicit runtime method signatures when authoritative upstream API docs are captured.
+- [ ] ``lll(B::AbstractMatrix{<:Integer}; delta=0.99, eta=0.51)``
+- [ ] ``lll!(B::Matrix{BigFloat}; delta=0.99, eta=0.51)``
+- [ ] ``islllreduced(B::AbstractMatrix{BigFloat}; delta=0.99, eta=0.51)``
+  - Caveat: package exports `lll`; `lll!` and `islllreduced` are documented API surfaces but non-exported.
 
 ### 7.2 MinkowskiReduction.jl
 
-- [ ] `package checklist anchor: MinkowskiReduction.jl`
-  - Caveat: local reference currently documents this package at capability level only; add explicit runtime method signatures when authoritative upstream API docs are captured.
+- [ ] ``minkReduce(B::AbstractMatrix{<:Integer}; stable=true)``
+- [ ] ``deviousMat(n::Int64, m::Int64)``
+  - Caveat: upstream documents testing only for low ranks (`n <= 7`) and Euclidean workflows.
 
 ### References
 
 - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (section 7)
+- `https://github.com/MGBoom/LatticeBasisReduction.jl`
+- `https://mgboom.github.io/LatticeBasisReduction.jl/stable/API/`
+- `https://github.com/glwhart/MinkowskiReduction.jl`
+- `https://github.com/glwhart/MinkowskiReduction.jl/blob/master/README.md`
 
 Last updated: 2026-02-17
