@@ -309,3 +309,35 @@ Rules:
 - Planned non-edits: no checklist state changes; no scope/ignore-list manipulation; no code/test/runtime edits; no caveats that are not explicitly supported by local upstream snapshots.
 - Risk notes: local helper methods include nuanced assumptions, so caveat text must stay strictly aligned with upstream wording to avoid over-claiming.
 - Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 13:37:26 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/project/doc_coverage_audit_changelog.md`, `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
+- Method families actually touched: `QuadraticForm` local Jordan decomposition helpers and local density precondition caveats
+- Edits made (with rationale):
+  - Added missing source-backed methods `jordan_blocks_by_scale_and_unimodular(p, safe_flag=True)`, `jordan_blocks_in_unimodular_list_by_scale_power(p)`, and `has_equivalent_Jordan_decomposition_at_prime(other, p)` to `docs/sage_methods_checklist.md` to close checklist inventory gaps adjacent to `local_normal_form(p)`.
+  - Added explicit caveats in `docs/sage_methods_checklist.md` for `jordan_blocks_in_unimodular_list_by_scale_power(p)` (integer-valued and `p=2` integer-Gram precondition) and for `local_density(p, m)`/`local_primitive_density(p, m)` (internal local-normal-form requirement).
+  - Reorganized `docs/sage/quadratic_form/sage_quadratic_form_reference.md` section 11 into two subsections (`Global, Local, and Rational Isometry`; `Local Jordan Decomposition Helpers`) and added aligned method table entries for the missing Jordan helpers to reduce lookup ambiguity.
+  - Added aligned local-density precondition caveats in `docs/sage/quadratic_form/sage_quadratic_form_reference.md` so checklist and detailed reference surfaces remain contract-consistent.
+- Non-edits made intentionally (with rationale):
+  - Did not add lower-level congruence-density helper methods (`local_good_density_congruence_*`, `local_bad*_density_congruence`, etc.) because this pass was scoped to the immediate local-normal-form/Jordan neighborhood and not a full local-density helper expansion.
+  - Did not modify checklist completion state, ignore lists, module scope boundaries, or runtime/test code.
+  - Did not update upstream snapshots because the existing local snapshot already contains the required method/caveat provenance.
+- Source snapshots added/updated: none
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes concrete missing-method gaps on the checklist, strengthens mathematically relevant precondition caveats, and improves organization of local Jordan material in the detailed reference.
+- Remaining gaps:
+  - The checklist/reference still omit several nearby local-density congruence helper methods present in upstream (`local_density_congruence`, `local_primitive_density_congruence`, and type-split helpers), including their input-contract caveats.
+  - Section coverage for `QuadraticForm` caching/mutability caveats (for example `safe_flag` copy-vs-reference behavior) is still minimal and could be expanded for auditability.
+- Next-pass focus: continue `QuadraticForm` local-density neighborhood reconciliation by adding the congruence-density helper family with strict source-backed input/precondition caveats.
+- Handoff tasks for next agent:
+  - [ ] Priority 1: Add `local_density_congruence(p, m, Zvec=None, NZvec=None)` and `local_primitive_density_congruence(p, m, Zvec=None, NZvec=None)` to `docs/sage_methods_checklist.md` with upstream-backed argument-contract caveats.
+    - Gap category: missing_method
+    - Files: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`
+    - Acceptance condition: both methods appear in checklist with caveats about assumed block-diagonal/p-integral inputs and `Zvec`/`NZvec` semantics where explicitly documented.
+  - [ ] Priority 2: Add a compact “local congruence-density helpers” table to `docs/sage/quadratic_form/sage_quadratic_form_reference.md` aligned with checklist naming and caveats.
+    - Gap category: organization_defect
+    - Files: `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
+    - Acceptance condition: reference includes the two congruence-density wrappers (and optionally split helper variants) with no contradiction vs checklist caveat language.
+- Commit hash: `5fb4535`
