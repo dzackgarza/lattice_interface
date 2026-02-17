@@ -154,6 +154,47 @@ At minimum, consider:
 - `docs/method_ground_truth_tracker.csv`
 - source manifests and local upstream snapshots under `docs/**/upstream/`
 
+## Known Upstream Project Repositories (Living Map)
+
+Use these as primary upstream anchors when surveying for missing methods, changing contracts, and ecosystem drift.
+Treat this list as living and update it when better canonical sources are identified.
+
+- SageMath:
+  - source: `https://github.com/sagemath/sage`
+  - docs: `https://doc.sagemath.org`
+- Oscar.jl:
+  - source: `https://github.com/oscar-system/Oscar.jl`
+  - docs: `https://docs.oscar-system.org`
+- Hecke.jl:
+  - source: `https://github.com/thofma/Hecke.jl`
+  - docs: `https://docs.hecke.thofma.com`
+- Nemo.jl (official):
+  - source: `https://github.com/Nemocas/Nemo.jl`
+  - docs: `https://nemocas.github.io/Nemo.jl/stable/`
+- AbstractAlgebra.jl (upstream dependency surface used by OSCAR/Nemo):
+  - source: `https://github.com/Nemocas/AbstractAlgebra.jl`
+  - docs: `https://nemocas.github.io/AbstractAlgebra.jl/stable/`
+- GAP system:
+  - source: `https://github.com/gap-system/gap`
+  - main docs hub: `https://www.gap-system.org/doc/`
+  - release manuals (HTML): `https://docs.gap-system.org/doc/ref/chap0.html`
+  - docs source location in repo: `https://github.com/gap-system/gap/tree/master/doc`
+  - package docs/index: `https://gap-packages.github.io`
+  - package repos org: `https://github.com/gap-packages`
+  - GAP-maintained GitHub Pages hub: `https://gap-system.github.io/`
+- fplll / fpylll:
+  - fplll source: `https://github.com/fplll/fplll`
+  - fpylll source: `https://github.com/fplll/fpylll`
+- PARI/GP:
+  - project site: `https://pari.math.u-bordeaux.fr`
+  - VCS/development gateway: `https://pari.math.u-bordeaux.fr/git.html`
+
+When using online survey results:
+
+- resolve ambiguous package names to the mathematically relevant project (for example official `Nemo.jl` vs unrelated projects named \"Nemo\"),
+- localize critical references into repository docs/snapshot structure for reproducibility,
+- record provenance in changelog continuity notes.
+
 ## Long-Run Completion Signal
 
 Across scheduled executions, completion is approached when repeated audits produce no high-signal improvements and remaining gaps are explicitly queued or clearly source-blocked.
