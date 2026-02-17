@@ -472,4 +472,4 @@ Each execution record must still include, at minimum:
     - Gap category: missing_method
     - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`
     - Acceptance condition: map-level family is represented with runtime names and source-backed contracts.
-- Commit hash(es): `pending`
+- Commit hash(es): `9497375`
