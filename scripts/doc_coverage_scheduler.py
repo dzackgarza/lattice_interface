@@ -76,14 +76,14 @@ def main() -> int:
     scheduler.add_job(
         run_job,
         trigger="cron",
-        minute=0,
+        minute=7,
         id="lattice_doc_coverage",
         replace_existing=True,
         max_instances=1,
         coalesce=True,
         misfire_grace_time=300,
     )
-    print(f"[{utc_now()}] scheduler started; next runs at minute 00 each hour (UTC).", flush=True)
+    print(f"[{utc_now()}] scheduler started; next runs at minute 07 each hour (UTC).", flush=True)
     scheduler.start()
     return 0
 
