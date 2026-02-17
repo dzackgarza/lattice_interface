@@ -529,18 +529,21 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | `is_special_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry has determinant $+1$ (special isometry) | |
 | `special_orthogonal_group(::ZZLat)` / `special_subgroup(::ZZLat, ::MatGroup)` | $SO(L)$ and special subgroup of a finite isometry group | |
 | `stable_orthogonal_group(::ZZLat)` / `stable_subgroup(::ZZLat, ::MatGroup)` | Stable orthogonal group $O^{\#}(L)$ and stable subgroup of a finite isometry group | |
-| `stabilizer_discriminant_subgroup(G, T)` | Stabilizer of discriminant subgroup | |
-| `stabilizer_in_orthogonal_group(L, S)` | Stabilizer of sublattice in $O(L)$ | |
-| `pointwise_stabilizer_in_orthogonal_group(L, S)` | Pointwise stabilizer | |
-| `setwise_stabilizer_in_orthogonal_group(L, S)` | Setwise stabilizer | |
-| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S)` | Pointwise stabilizer of $S^\perp$ | |
-| `stabilizer_in_diagonal_action(L1, L2, ...)` | Stabilizer under diagonal action | |
+| `stabilizer_discriminant_subgroup(...)` | Stabilizer of a discriminant-group subobject under a finite isometry-group action | |
+| `stabilizer_in_orthogonal_group(...)` | Stabilizer of a chosen sublattice inside the orthogonal group action | |
+| `pointwise_stabilizer_in_orthogonal_group(...)` | Pointwise stabilizer (fixes each vector of the chosen sublattice) | |
+| `setwise_stabilizer_in_orthogonal_group(...)` | Setwise stabilizer (preserves the chosen sublattice as a set) | |
+| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(...)` | Pointwise stabilizer of the orthogonal complement $S^\perp$ | |
+| `stabilizer_in_diagonal_action(...)` | Stabilizer under a diagonal-action construction in the primitive-extension/group-action workflow | |
 | `maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)` | Maximal extension in the group-action framework | |
 | `saturation(::ZZLat, ::MatGroup, ::MatGroup)` | Saturation of subgroup $H \le G$; current docs state this explicit computation for finite `G` | |
 | `saturation(::ZZLat, ::MatGroup)` | Saturation inside $O(L)$; current docs require coinvariant lattice definite or rank 2 | |
 | `is_saturated_with_saturation(...)` | Saturation predicate plus witness; current docs state availability when coinvariant lattice is definite | |
-| `extend_to_ambient_space(L, f)` | Convert matrix representation of a collection of isometries from fixed lattice basis to ambient-space basis | |
-| `restrict_to_lattice(L, f)` | Convert matrix representation of ambient-space isometries preserving `L` back to fixed lattice basis | |
+| `extend_to_ambient_space(::ZZLat, ...)` | Convert a collection of isometries from fixed lattice-basis coordinates to ambient-space coordinates | |
+| `restrict_to_lattice(::ZZLat, ...)` | Convert ambient-space isometries preserving `L` back to fixed lattice-basis coordinates | |
+
+- Signature-fidelity caveat: current upstream `Collections of isometries` docs expose fully typed dispatch signatures for selected methods (`is_isometry*`, `special_*`, `stable_*`, `maximal_extension`, `saturation`) but list stabilizer-family names without explicit typed dispatch blocks. This reference therefore keeps those methods runtime-name exact and avoids speculative argument typing.
+- Representation caveat: upstream text frames `extend_to_ambient_space` / `restrict_to_lattice` as basis-representation conversion for collections of isometries, with `restrict_to_lattice` also usable for ambient-space isometries preserving `L`.
 
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
 

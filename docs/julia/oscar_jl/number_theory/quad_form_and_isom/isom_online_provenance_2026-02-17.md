@@ -58,6 +58,21 @@ Access date (UTC): 2026-02-17
   - `invariant_coinvariant_pair(::ZZLat, ::Union{QQMatrix, Vector{QQMatrix}, MatGroup})`.
 - `fingrpact` section wording identifies `is_isometry*` and `is_isometry_group*` helpers as non-exported input-check utilities and frames `extend_to_ambient_space` / `restrict_to_lattice` as coordinate-representation conversion between ambient-space and fixed lattice bases for collections of isometries.
 
+## Pass-14 addendum (2026-02-17): stabilizer signature-surface fidelity
+
+- Re-surveyed online index surfaces for `Collections of isometries` method names:
+  - stable manual index: https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/manualindex/
+  - dev manual index: https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/manualindex/
+  - v1 manual index: https://docs.oscar-system.org/v1/Experimental/QuadFormAndIsom/manualindex/
+- Local snapshot source for the same section:
+  - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/fingrpact.md`
+- Verified from these sources:
+  - typed dispatch entries are explicitly shown for `is_isometry*`, `is_isometry_group*`, `special_*`, `stable_*`, `maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)`, and `saturation` overloads,
+  - stabilizer-family entries are currently listed by runtime method name (`stabilizer_*`) without explicit typed dispatch blocks in the available docs surfaces.
+- Inference recorded for local docs/checklist alignment:
+  - keep stabilizer-family methods runtime-name exact (`...` placeholders) rather than asserting speculative argument types,
+  - keep `extend_to_ambient_space(::ZZLat, ...)` / `restrict_to_lattice(::ZZLat, ...)` framed as basis-representation conversion for collections of isometries, matching upstream section text.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

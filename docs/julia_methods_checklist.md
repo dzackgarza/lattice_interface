@@ -389,12 +389,13 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_special_isometry(::ZZLatWithIsom)``
 - [ ] ``special_orthogonal_group(::ZZLat)`` / ``special_subgroup(::ZZLat, ::MatGroup)``
 - [ ] ``stable_orthogonal_group(::ZZLat)`` / ``stable_subgroup(::ZZLat, ::MatGroup)``
-- [ ] ``stabilizer_discriminant_subgroup(G, T)``
-- [ ] ``stabilizer_in_orthogonal_group(L, S)``
-- [ ] ``pointwise_stabilizer_in_orthogonal_group(L, S)``
-- [ ] ``setwise_stabilizer_in_orthogonal_group(L, S)``
-- [ ] ``pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S)``
-- [ ] ``stabilizer_in_diagonal_action(L1, L2, ...)``
+- [ ] ``stabilizer_discriminant_subgroup(...)``
+- [ ] ``stabilizer_in_orthogonal_group(...)``
+- [ ] ``pointwise_stabilizer_in_orthogonal_group(...)``
+- [ ] ``setwise_stabilizer_in_orthogonal_group(...)``
+- [ ] ``pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(...)``
+- [ ] ``stabilizer_in_diagonal_action(...)``
+  - Caveat: current upstream `fingrpact` docs list these runtime names but do not expose typed dispatch signatures for this stabilizer family.
 - [ ] ``maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)``
 - [ ] ``saturation(::ZZLat, ::MatGroup, ::MatGroup)``
   - Caveat: upstream presents this explicit saturation computation for finite ambient group input.
@@ -402,9 +403,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: upstream states this form is available when the coinvariant lattice is definite or rank 2.
 - [ ] ``is_saturated_with_saturation(...)``
   - Caveat: upstream states availability when the coinvariant lattice is definite.
-- [ ] ``extend_to_ambient_space(L, f)``
+- [ ] ``extend_to_ambient_space(::ZZLat, ...)``
   - Caveat: upstream positions this as matrix-representation conversion from lattice-basis coordinates to ambient-space coordinates for collections of isometries.
-- [ ] ``restrict_to_lattice(L, f)``
+- [ ] ``restrict_to_lattice(::ZZLat, ...)``
   - Caveat: upstream positions this as the inverse conversion, restricting ambient-space matrix representation back to lattice-basis coordinates.
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
 
