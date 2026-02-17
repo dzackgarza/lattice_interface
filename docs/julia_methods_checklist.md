@@ -271,7 +271,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)``
 - [ ] ``characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)``
 - [ ] ``^(Vf, n)``
-- [ ] ``direct_sum(Vf, Wg, ...)``
+- [ ] ``direct_sum([Vf1, Vf2, ...])``
 - [ ] ``rescale(Vf, a)``
 - [ ] ``rational_spinor_norm(Vf; b)``
 ### 2.14 Lattices with isometry (`ZZLatWithIsom`)
@@ -279,8 +279,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 #### Construction
 
 - [ ] ``integer_lattice_with_isometry(L, f; check, ambient_representation)``
+  - Caveat: upstream distinguishes matrix representation via `ambient_representation` (ambient-space basis vs fixed basis of `L`).
 - [ ] ``integer_lattice_with_isometry(L; neg=false)``
 - [ ] ``lattice(Vf::QuadSpaceWithIsom)``
+- [ ] ``lattice(Vf::QuadSpaceWithIsom, B)``
 - [ ] ``lattice_in_same_ambient_space(Lf, B)``
 #### Accessors
 
@@ -320,7 +322,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 #### Operations
 
 - [ ] ``^(Lf, n)``
-- [ ] ``direct_sum(Lf, Mg, ...)``
+- [ ] ``direct_sum([Lf1, Lf2, ...])``
 - [ ] ``dual(Lf)``
 - [ ] ``lll(Lf)``
 - [ ] ``rescale(Lf, a)``
@@ -346,15 +348,16 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``rational_spinor_norm(Lf; b)``
 #### Enumeration
 
-- [ ] ``enumerate_classes_of_lattices_with_isometry(gen, poly, ...)``
-- [ ] ``representatives_of_hermitian_type(gen, poly, ...)``
-- [ ] ``admissible_triples(gen, p, ...)``
-- [ ] ``is_admissible_triple(gen_triple, p)``
-- [ ] ``splitting(Lf)``
-- [ ] ``splitting_of_hermitian_type(Lf)``
-- [ ] ``splitting_of_prime_power(Lf, p)``
-- [ ] ``splitting_of_pure_mixed_prime_power(Lf, p)``
-- [ ] ``splitting_of_mixed_prime_power(Lf, p)``
+- [ ] ``enumerate_classes_of_lattices_with_isometry(::Union{ZZGenus, ZZLat}, ::Int)``
+- [ ] ``representatives_of_hermitian_type(::Union{ZZLat, ZZGenus}, ::Union{ZZPolyRingElem, QQPolyRingElem}, ::Int)``
+- [ ] ``representatives_of_hermitian_type(::Union{ZZGenus, ZZLat}, ::Int, ::Int)``
+- [ ] ``admissible_triples(::ZZGenus, ::Int)``
+- [ ] ``is_admissible_triple(::ZZGenus, ::ZZGenus, ::ZZGenus, ::Int)``
+- [ ] ``splitting(::ZZLatWithIsom, ::Int, ::Int)``
+- [ ] ``splitting_of_hermitian_type(::ZZLatWithIsom, ::Int, ::Int)``
+- [ ] ``splitting_of_prime_power(::ZZLatWithIsom, ::Int, ::Int)``
+- [ ] ``splitting_of_pure_mixed_prime_power(::ZZLatWithIsom, ::Int)``
+- [ ] ``splitting_of_mixed_prime_power(::ZZLatWithIsom, ::Int, ::Int)``
 ### 2.15 Primitive embeddings
 
 - [ ] ``primitive_embeddings(L, M)``
@@ -377,22 +380,26 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_ramified(g)` / `is_split(g)` / `is_inert(g)` / `is_dyadic(g)``
 ### 2.17 Isometry group actions on lattices
 
-- [ ] ``is_isometry(L, f)``
-- [ ] ``is_isometry_list(L, fs)``
-- [ ] ``is_isometry_group(L, G)``
-- [ ] ``is_stable_isometry(L, S, f)``
-- [ ] ``is_special_isometry(L, f)``
-- [ ] ``special_orthogonal_group(L)` / `special_subgroup(G)``
-- [ ] ``stable_orthogonal_group(L, S)` / `stable_subgroup(G, S)``
+- [ ] ``is_isometry(::Hecke.QuadSpace, ::QQMatrix)`` / ``is_isometry(::ZZLat, ::QQMatrix)``
+- [ ] ``is_isometry_list(::Hecke.QuadSpace, ::Vector{QQMatrix})`` / ``is_isometry_list(::ZZLat, ::Vector{QQMatrix})``
+- [ ] ``is_isometry_group(::Hecke.QuadSpace, ::MatGroup)`` / ``is_isometry_group(::ZZLat, ::MatGroup)``
+- [ ] ``is_stable_isometry(::ZZLatWithIsom)``
+- [ ] ``is_special_isometry(::ZZLatWithIsom)``
+- [ ] ``special_orthogonal_group(::ZZLat)`` / ``special_subgroup(::ZZLat, ::MatGroup)``
+- [ ] ``stable_orthogonal_group(::ZZLat)`` / ``stable_subgroup(::ZZLat, ::MatGroup)``
 - [ ] ``stabilizer_discriminant_subgroup(G, T)``
 - [ ] ``stabilizer_in_orthogonal_group(L, S)``
 - [ ] ``pointwise_stabilizer_in_orthogonal_group(L, S)``
 - [ ] ``setwise_stabilizer_in_orthogonal_group(L, S)``
 - [ ] ``pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S)``
 - [ ] ``stabilizer_in_diagonal_action(L1, L2, ...)``
-- [ ] ``maximal_extension(G, ...)``
-- [ ] ``saturation(L, S)``
-- [ ] ``is_saturated_with_saturation(L, S)``
+- [ ] ``maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)``
+- [ ] ``saturation(::ZZLat, ::MatGroup, ::MatGroup)``
+  - Caveat: upstream presents this explicit saturation computation for finite ambient group input.
+- [ ] ``saturation(::ZZLat, ::MatGroup)``
+  - Caveat: upstream states this form is available when the coinvariant lattice is definite or rank 2.
+- [ ] ``is_saturated_with_saturation(...)``
+  - Caveat: upstream states availability when the coinvariant lattice is definite.
 - [ ] ``extend_to_ambient_space(L, f)``
 - [ ] ``restrict_to_lattice(L, f)``
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
@@ -404,7 +411,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``order_of_isometry(Tf)``
   - Caveat: upstream states this is finite-order data cached after first computation; order is not precomputed on object construction.
 - [ ] ``torsion_quadratic_module_with_isometry(T, f; check=true)``
-  - Caveat: upstream documents `check=true` by default and validates compatibility; current method list accepts `TorQuadModuleMap` and automorphism-group elements as action data.
+  - Caveat: upstream documents `check=true` by default and validates compatibility; current method list accepts map/hom/matrix/group-element action data (`TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, `MatGroupElem`).
 - [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)``
   - Caveat: upstream documents `check=true` by default and validates the matrix data as a torsion quadratic module with isometry.
 - [ ] ``sub(Tf, gens)``

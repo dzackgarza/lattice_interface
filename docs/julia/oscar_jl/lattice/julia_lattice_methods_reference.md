@@ -376,7 +376,7 @@ Methods shared with `ZZLat` (construction, rank, det, etc.) are listed in §2.2�
 | `is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)` | Definiteness | |
 | `characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)` | Polynomials of isometry | |
 | `^(Vf, n)` | Raise isometry to power | |
-| `direct_sum(Vf, Wg, ...)` | Equivariant direct sum | |
+| `direct_sum([Vf1, Vf2, ...])` | Equivariant direct sum of quadratic spaces with isometry (vector-input API in current upstream docs) | |
 | `rescale(Vf, a)` | Rescale preserving isometry | |
 | `rational_spinor_norm(Vf; b)` | Rational spinor norm | |
 
@@ -388,9 +388,10 @@ Pairs an integer lattice with a finite- or infinite-order isometry. Used for equ
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `integer_lattice_with_isometry(L, f; check, ambient_representation)` | Pair lattice $L$ with isometry matrix $f$ | |
+| `integer_lattice_with_isometry(L, f; check, ambient_representation)` | Pair lattice $L$ with isometry matrix $f$; `ambient_representation` selects whether `f` is interpreted in the ambient-space basis (`true`) or in the fixed basis of `L` (`false`) | |
 | `integer_lattice_with_isometry(L; neg=false)` | Pair with identity (or negation if `neg=true`) | |
 | `lattice(Vf::QuadSpaceWithIsom)` | Extract lattice from space-with-isometry | |
+| `lattice(Vf::QuadSpaceWithIsom, B)` | Construct an integral lattice in ambient `Vf` from basis/generator matrix `B`; induced isometry is defined when the lattice is stable under ambient action | |
 | `lattice_in_same_ambient_space(Lf, B)` | Sublattice preserving ambient isometry | |
 
 #### Accessors
@@ -441,7 +442,7 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | Method | Description | Tags |
 |--------|-------------|------|
 | `^(Lf, n)` | Raise isometry to power $n$ | |
-| `direct_sum(Lf, Mg, ...)` | Equivariant direct sum | |
+| `direct_sum([Lf1, Lf2, ...])` | Equivariant direct sum of lattices with isometry (vector-input API in current upstream docs) | |
 | `dual(Lf)` | Dual with induced isometry | |
 | `lll(Lf)` | LLL with isometry carried along | |
 | `rescale(Lf, a)` | Rescale with isometry preserved | |
@@ -478,15 +479,16 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `enumerate_classes_of_lattices_with_isometry(gen, poly, ...)` | Representatives of isomorphism classes in a genus | |
-| `representatives_of_hermitian_type(gen, poly, ...)` | Representatives of hermitian type | |
-| `admissible_triples(gen, p, ...)` | Tuples of genera satisfying admissibility conditions | |
-| `is_admissible_triple(gen_triple, p)` | Validate admissibility | |
-| `splitting(Lf)` | Generic splitting of `ZZLatWithIsom` into irreducible components | |
-| `splitting_of_hermitian_type(Lf)` | Split hermitian-type lattice-with-isometry into hermitian sublattices | |
-| `splitting_of_prime_power(Lf, p)` | Split lattice-with-isometry at a prime power | |
-| `splitting_of_pure_mixed_prime_power(Lf, p)` | Split pure/mixed part at prime power | |
-| `splitting_of_mixed_prime_power(Lf, p)` | Split mixed part at prime power | |
+| `enumerate_classes_of_lattices_with_isometry(::Union{ZZGenus, ZZLat}, ::Int)` | Enumerate isomorphism-class representatives for even lattices with finite-order isometry in a fixed genus/lattice context | |
+| `representatives_of_hermitian_type(::Union{ZZLat, ZZGenus}, ::Union{ZZPolyRingElem, QQPolyRingElem}, ::Int)` | Hermitian-type representatives for irreducible reciprocal polynomial input | |
+| `representatives_of_hermitian_type(::Union{ZZGenus, ZZLat}, ::Int, ::Int)` | Cyclotomic finite-order shortcut for hermitian-type representatives | |
+| `admissible_triples(::ZZGenus, ::Int)` | Tuples of genera satisfying $p$-admissibility constraints | |
+| `is_admissible_triple(::ZZGenus, ::ZZGenus, ::ZZGenus, ::Int)` | Validate $p$-admissibility for a genus triple | |
+| `splitting(::ZZLatWithIsom, ::Int, ::Int)` | Generic splitting routine in the finite-order enumeration machinery | |
+| `splitting_of_hermitian_type(::ZZLatWithIsom, ::Int, ::Int)` | Split hermitian-type lattice-with-isometry into hermitian sublattices | |
+| `splitting_of_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | Split lattice-with-isometry at a prime-power stage | |
+| `splitting_of_pure_mixed_prime_power(::ZZLatWithIsom, ::Int)` | Split pure/mixed part at fixed prime | |
+| `splitting_of_mixed_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | Split mixed part at prime-power stage | |
 
 ### 2.15 Primitive embeddings
 
@@ -519,22 +521,23 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `is_isometry(L, f)` | Whether $f$ is an isometry of $L$ | |
-| `is_isometry_list(L, fs)` | Test list of matrices | |
-| `is_isometry_group(L, G)` | Test matrix group | |
-| `is_stable_isometry(L, S, f)` | Whether $f$ stabilizes sublattice $S$ | |
-| `is_special_isometry(L, f)` | Whether $f \in SO(L)$ (det = +1) | |
-| `special_orthogonal_group(L)` / `special_subgroup(G)` | $SO(L)$ / $SO$ subgroup of isometry group | |
-| `stable_orthogonal_group(L, S)` / `stable_subgroup(G, S)` | Isometries stabilizing $S$ | |
+| `is_isometry(::Hecke.QuadSpace, ::QQMatrix)` / `is_isometry(::ZZLat, ::QQMatrix)` | Matrix-level isometry check for quadratic spaces / integer lattices | |
+| `is_isometry_list(::Hecke.QuadSpace, ::Vector{QQMatrix})` / `is_isometry_list(::ZZLat, ::Vector{QQMatrix})` | Batch isometry checks for matrix lists | |
+| `is_isometry_group(::Hecke.QuadSpace, ::MatGroup)` / `is_isometry_group(::ZZLat, ::MatGroup)` | Group-level isometry check | |
+| `is_stable_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry acts trivially on the discriminant group (stable isometry) | |
+| `is_special_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry has determinant $+1$ (special isometry) | |
+| `special_orthogonal_group(::ZZLat)` / `special_subgroup(::ZZLat, ::MatGroup)` | $SO(L)$ and special subgroup of a finite isometry group | |
+| `stable_orthogonal_group(::ZZLat)` / `stable_subgroup(::ZZLat, ::MatGroup)` | Stable orthogonal group $O^{\#}(L)$ and stable subgroup of a finite isometry group | |
 | `stabilizer_discriminant_subgroup(G, T)` | Stabilizer of discriminant subgroup | |
 | `stabilizer_in_orthogonal_group(L, S)` | Stabilizer of sublattice in $O(L)$ | |
 | `pointwise_stabilizer_in_orthogonal_group(L, S)` | Pointwise stabilizer | |
 | `setwise_stabilizer_in_orthogonal_group(L, S)` | Setwise stabilizer | |
 | `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S)` | Pointwise stabilizer of $S^\perp$ | |
 | `stabilizer_in_diagonal_action(L1, L2, ...)` | Stabilizer under diagonal action | |
-| `maximal_extension(G, ...)` | Maximal extension of isometry group | |
-| `saturation(L, S)` | Saturation of sublattice (primitive closure in $L$) | |
-| `is_saturated_with_saturation(L, S)` | Test + compute saturation | |
+| `maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)` | Maximal extension in the group-action framework | |
+| `saturation(::ZZLat, ::MatGroup, ::MatGroup)` | Saturation of subgroup $H \le G$; current docs state this explicit computation for finite `G` | |
+| `saturation(::ZZLat, ::MatGroup)` | Saturation inside $O(L)$; current docs require coinvariant lattice definite or rank 2 | |
+| `is_saturated_with_saturation(...)` | Saturation predicate plus witness; current docs state availability when coinvariant lattice is definite | |
 | `extend_to_ambient_space(L, f)` | Extend isometry to ambient space | |
 | `restrict_to_lattice(L, f)` | Restrict ambient isometry to lattice | |
 
@@ -547,7 +550,7 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `TorQuadModuleWithIsom` | Type for a torsion quadratic module paired with an isometry | `[NT]` |
 | `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
 | `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
-| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and compatible action data (`TorQuadModuleMap` or automorphism-group element in current docs); `check=true` validates compatibility | `[NT]` |
+| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and compatible action data; current upstream signatures include map/hom/matrix/group-element styles (`TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, `MatGroupElem`) with `check=true` compatibility validation | `[NT]` |
 | `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from quadratic-form matrix data and action matrix; `check=true` validates constraints | `[NT]` |
 | `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
 | `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
@@ -558,7 +561,7 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs, with explicit map when successful | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs, with explicit map when successful | `[NT]` |
 
-Source note: contracts in §2.13/§2.14/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev pages for `spacewithisom`, `latwithisom`, and `torquadmodwithisom` (accessed 2026-02-17). See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
+Source note: contracts in §2.13/§2.14/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) accessed 2026-02-17. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 
 ### References
 
