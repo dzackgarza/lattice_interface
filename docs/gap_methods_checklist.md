@@ -137,7 +137,21 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `Cdd_IsCone(P)`
 - [ ] `Cdd_IsPointed(P)`
 
-### 2.7 fplll hooks exposed in GAP
+### 2.7 Forms package (detailed checklist surface)
+
+- [ ] `AsSesquilinearForm(obj[, field][, antiautomorphism])`
+- [ ] `AsQuadraticForm(obj[, field])`
+- [ ] `SesquilinearFormByMatrix(matrix[, field][, antiautomorphism])`
+- [ ] `QuadraticFormByMatrix(matrix[, field])`
+- [ ] `IsometricForms(form1, form2)`
+- [ ] `SimilarityForms(form1, form2)`
+- [ ] `PreservedSesquilinearForms(G)`
+- [ ] `PreservedQuadraticForms(G)`
+- [ ] `OrthogonalSubgroups(G, n[, s])`
+- [ ] `WittIndex(form)`
+  - Caveat: finite-field form workflow; characteristic and irreducibility assumptions are documented in `docs/forms_methods_checklist.md`.
+
+### 2.8 fplll hooks exposed in GAP
 
 - [ ] `FPLLLReducedBasis(...)`
 - [ ] `FPLLLShortestVector(...)`
@@ -147,6 +161,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ## References
 
 - `docs/gap/lattice/gap_lattice_methods_reference.md`
+- `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
 - GAP docs hub: `https://www.gap-system.org/doc/`
 - GAP package index: `https://gap-packages.github.io`
@@ -155,3 +170,5 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - toric package page: `https://gap-packages.github.io/toric/`
 - 4ti2Interface package page: `https://homalg-project.github.io/homalg_project/4ti2Interface/`
 - CddInterface package page: `https://homalg-project.github.io/CddInterface/`
+- Forms package page: `https://gap-packages.github.io/forms/`
+- Forms manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`

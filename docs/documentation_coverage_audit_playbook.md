@@ -83,6 +83,7 @@ Core repository references:
 - `docs/sage_methods_checklist.md`
 - `docs/julia_methods_checklist.md`
 - `docs/gap_methods_checklist.md`
+- `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
 - `docs/4ti2_methods_checklist.md`
 - `docs/normaliz_methods_checklist.md`
@@ -120,6 +121,9 @@ Upstream living map:
 - HyperCells (GAP package):
   - package page: `https://gap-packages.github.io/HyperCells/`
   - manual: `https://www.hypercells.net/chap0_mj.html`
+- Forms (GAP package):
+  - package page: `https://gap-packages.github.io/forms/`
+  - manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
 - fplll / fpylll:
   - `https://github.com/fplll/fplll`
   - `https://github.com/fplll/fpylll`

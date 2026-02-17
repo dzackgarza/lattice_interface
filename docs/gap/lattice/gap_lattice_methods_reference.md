@@ -17,6 +17,8 @@
 | `[POLY]` | Polyhedral / cone / affine-monoid setting |
 | `[TORIC]` | Toric/lattice-point algebraic-geometry setting |
 | `[FFORM]` | Finite-field forms (no real-signature definiteness notion) |
+| `[GRP]` | Matrix-group action / preserved-form setting |
+| `[DECOMP]` | Orthogonal decomposition or Witt-index workflow |
 
 ---
 
@@ -200,6 +202,22 @@ Representative `CddInterface` methods:
 |---------|------|------|
 | `Forms` | Bilinear/sesquilinear/quadratic forms and isometry groups over finite fields | `[PKG, FFORM]` |
 
+Representative `Forms` methods:
+
+| Function | Description | Tags |
+|----------|-------------|------|
+| `AsSesquilinearForm(obj[, field][, antiautomorphism])` / `AsQuadraticForm(obj[, field])` | Coercion constructors for sesquilinear/quadratic form objects | `[PKG, FFORM]` |
+| `SesquilinearFormByMatrix(matrix[, field][, antiautomorphism])` / `QuadraticFormByMatrix(matrix[, field])` | Matrix-backed form constructors | `[PKG, FFORM]` |
+| `MatrixOfSesquilinearForm(form)` / `MatrixOfQuadraticForm(form)` / `RankOfForm(form)` / `BaseField(form)` | Core structural attributes/invariants | `[PKG, FFORM]` |
+| `IsometricForms(form1, form2)` / `SimilarityForms(form1, form2)` | Form equivalence checks | `[PKG, FFORM]` |
+| `IsometryGroup(form)` / `SimilarityGroup(form)` | Isometry/similarity group constructors | `[PKG, FFORM]` |
+| `InvariantBilinearForm(G[, involution][, isom])` / `InvariantQuadraticForm(G[, involution][, isom])` | Matrix-group invariant form extraction | `[PKG, FFORM]` |
+| `PreservedSesquilinearForms(G)` / `PreservedQuadraticForms(G)` | Preserved-form families for matrix groups | `[PKG, FFORM, GRP]` |
+| `OrthogonalSubgroups(G, n[, s])` / `OrthogonalSubgroupsAsList(G, n[, s])` | Orthogonal subgroup decomposition helpers | `[PKG, FFORM, DECOMP]` |
+| `OrthogonalComponents(G, n)` / `OrthogonalComponentsOfSubgroup(U, n)` / `WittIndex(form)` | Orthogonal component and Witt-index workflows | `[PKG, FFORM, DECOMP]` |
+
+Detailed method inventory is maintained in `docs/forms_methods_checklist.md` and `docs/forms/lattice/forms_lattice_reference.md`.
+
 Definiteness note:
 - Real-signature PD/INDEF language is not applicable in the finite-field setting.
 
@@ -372,7 +390,39 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `Cdd_PolyhedronByInequalities`
 - `Cdd_V_Rep`
 
-### 4.9 HyperCells methods (top-level entry points)
+### 4.9 Forms methods
+
+- `AsSesquilinearForm`
+- `AsQuadraticForm`
+- `SesquilinearFormByMatrix`
+- `QuadraticFormByMatrix`
+- `IsSesquilinearForm`
+- `IsQuadraticForm`
+- `UnderlyingVectorSpace`
+- `MatrixOfSesquilinearForm`
+- `MatrixOfQuadraticForm`
+- `RankOfForm`
+- `BaseField`
+- `IsReflexiveForm`
+- `IsSymmetricForm`
+- `IsAlternatingForm`
+- `IsDegenerateForm`
+- `RadicalOfForm`
+- `IsometricForms`
+- `SimilarityForms`
+- `IsometryGroup`
+- `SimilarityGroup`
+- `InvariantBilinearForm`
+- `InvariantQuadraticForm`
+- `PreservedSesquilinearForms`
+- `PreservedQuadraticForms`
+- `OrthogonalSubgroups`
+- `OrthogonalSubgroupsAsList`
+- `OrthogonalComponents`
+- `OrthogonalComponentsOfSubgroup`
+- `WittIndex`
+
+### 4.10 HyperCells methods (top-level entry points)
 
 - `HyperCell`
 - `TGCell`

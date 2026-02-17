@@ -529,3 +529,51 @@ Each execution record must still include, at minimum:
     - Gap category: missing_test_evidence
     - Files: `tests/**`, `docs/hypercells_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one method-tagged test per major HyperCells family with tracker rows aligned.
+
+---
+
+### Pass ID: `20260217-13`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 18:05:41 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): missing package checklist surface for GAP `Forms` package and method-surface completeness in GAP package docs
+- Target selection rationale: `Forms` is in-scope and currently represented only as a package-load anchor in GAP docs/checklist, which leaves a first-goal checklist-surface gap and second-goal method-signature gap.
+- Target ecosystems/modules: `docs/forms_methods_checklist.md` (new), `docs/forms/lattice/forms_lattice_reference.md` (new), `docs/forms/upstream/forms_online_provenance_2026-02-17.md` (new), `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: finite-field sesquilinear/quadratic-form constructors, attributes, equivalence and invariant forms, preserved-form extraction, orthogonal-subgroup and Witt-index workflows from GAP Forms manual chapters 4 and 5
+- Proposed edits: add first-class `Forms` checklist and detailed reference with source-backed signatures/caveats; wire the new package surface into GAP and playbook navigation; localize online provenance snapshot
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no claims for methods lacking source-backed signatures in accessible upstream docs
+- Risk notes: GAP `NConvex` method surface remains under-documented due inaccessible canonical method-index pages in current fetch environment; this pass will triage that residual gap explicitly rather than invent signatures
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 18:08:26 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/forms_methods_checklist.md`, `docs/forms/lattice/forms_lattice_reference.md`, `docs/forms/upstream/forms_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: GAP `Forms` constructors/coercions, form attributes/predicates, isometry/similarity, matrix-group invariant/preserved forms, orthogonal subgroup decomposition, and Witt-index workflows
+- Concise outcome summary: closed a first-goal missing-package checklist-surface gap by adding a dedicated top-level `Forms` checklist/reference/provenance set and wired it into GAP/playbook navigation with source-backed signatures and caveats.
+- Key decisions and intentional non-edits:
+  - Added `Forms` as a first-class checklist (`docs/forms_methods_checklist.md`) instead of leaving it as a package-load anchor only in GAP docs.
+  - Documented only source-backed signatures/caveats from manual chapters 4 and 5; avoided speculative contracts for inaccessible package docs.
+  - Left checklist boxes unchecked (no new `method:`-tagged test evidence introduced).
+  - Did not modify unrelated pre-existing dirty files (`scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - Surveyed `https://gap-packages.github.io/forms/`, `https://gap-packages.github.io/forms/doc/chap0_mj.html`, `https://gap-packages.github.io/forms/doc/chap4_mj.html`, and `https://gap-packages.github.io/forms/doc/chap5_mj.html` on 2026-02-17.
+  - Localized evidence/caveats into `docs/forms/upstream/forms_online_provenance_2026-02-17.md` and cross-linked from checklist/reference surfaces.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass removes a concrete package-surface omission and upgrades finite-field form contracts from package-name-only to explicit method-level documentation.
+- Remaining gaps:
+  - GAP `NConvex` still lacks method-level checklist/reference coverage; canonical method-index docs were not retrievable through current web fetch path in this pass.
+  - `Forms` method checklist still has no method-tagged runtime/static tests backing completion states.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: add first-class `NConvex` method checklist/reference surfaces once canonical method-index documentation is fetchable (or local package docs are mirrored).
+    - Gap category: missing_method
+    - Files: `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, plus new `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md` if method inventory is confirmed.
+    - Acceptance condition: package-load-only `NConvex` anchor is replaced with source-backed method-level checklist entries and constraints.
+  - [ ] Priority 2: add `method:`-tagged tests for representative `Forms` methods and reconcile tracker/checklist state.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/forms_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one method-tagged test for each major `Forms` family (constructor, preserved forms, orthogonal decomposition/Witt index).
+- Commit hash(es): `pending`
