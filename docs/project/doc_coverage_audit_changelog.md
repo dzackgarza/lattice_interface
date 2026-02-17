@@ -335,3 +335,40 @@ Each execution record must still include, at minimum:
 - Planned non-edits: no checklist box state changes; no runtime/code/test edits; no ignore-list/scope manipulation; no unsupported caveats beyond source text.
 - Risk notes: low-level density helper docs include TODO sections upstream; caveat wording must distinguish documented assumptions from unresolved upstream documentation TODOs.
 - Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 14:53:43 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`, `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched:
+  - Sage `QuadraticForm` local congruence-density wrappers/splits (`local_density_congruence`, `local_primitive_density_congruence`, `local_good/bad/badI/badII_density_congruence`)
+  - Hecke `ZZLat` contract caveats for signature tuple arity, definiteness requirements for automorphism-group routines, local modification argument semantics, and unimodular embedding parity constraint
+- Edits made (with rationale):
+  - Added missing Sage congruence-density methods to `docs/sage_methods_checklist.md` with explicit block-diagonal/`p`-integral and `Zvec`/`NZvec` input-contract caveats from upstream docs.
+  - Expanded section 13 in `docs/sage/quadratic_form/sage_quadratic_form_reference.md` to a local-density/congruence-helper table aligned with checklist naming and caveats, including source note provenance.
+  - Corrected Julia/Hecke contract text in `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, and `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` where local docs had drifted from current official manuals (`signature_tuple(L)` tuple shape and `local_modification(M, L, p)` assumptions).
+  - Localized online provenance in Julia references by adding explicit stable manual URLs and access date.
+- Non-edits made intentionally (with rationale):
+  - Did not check off any checklist boxes (coverage status unchanged by policy).
+  - Did not add undocumented speculative caveats (for example, no expansion beyond upstream-stated assumptions/TODO scope for low-level congruence helpers).
+  - Did not modify runtime/test code, module-prefix scope, or ignore/blacklist surfaces.
+- Online survey and provenance:
+  - Surveyed official sources `https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/quadratic_form.html` and `https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/` plus `https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/` on 2026-02-17.
+  - Critical references were localized in touched docs via explicit source notes/URLs.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes known Sage missing-method gaps in a high-priority p-adic area and removes mathematically significant Hecke contract inaccuracies that could mislead indefinite/local workflows.
+- Remaining gaps:
+  - Sage parity-specific congruence split helpers (`local_good_density_congruence_even`, `local_good_density_congruence_odd`) remain undocumented in checklist/reference despite explicit contracts upstream.
+  - Hecke constructor variants such as symbol-based `integer_lattice(S::Symbol, ...)` remain only partially surfaced in checklist-level contracts.
+  - Local congruence helper docs still inherit upstream TODO ambiguity about full `Zvec`/`NZvec` semantics for some wrappers; only explicit documented assumptions were recorded here.
+- Next-pass focus: continue local-method completeness by adding parity-specific congruence split helpers and then reconcile constructor-surface completeness in Hecke integer-lattice docs.
+- Handoff tasks for next agent:
+  - [ ] Priority 1: Add `local_good_density_congruence_even(m, Zvec, NZvec)` and `local_good_density_congruence_odd(p, m, Zvec, NZvec)` to Sage checklist/reference with exact index/Jordan-component caveats where documented.
+    - Gap category: missing_method
+    - Files: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`
+    - Acceptance condition: both methods appear in checklist/reference with source-backed assumptions and no unsupported extrapolation.
+  - [ ] Priority 2: Reconcile Hecke constructor surface in checklist/reference (including symbol-based `integer_lattice` forms) against current stable docs.
+    - Gap category: missing_method
+    - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+    - Acceptance condition: constructor signatures and caveats match current official docs for the integer-lattice constructor family.
+- Commit hash: `d2c9114`
