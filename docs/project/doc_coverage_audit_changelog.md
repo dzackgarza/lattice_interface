@@ -748,3 +748,59 @@ Each execution record must still include, at minimum:
     - Files: `tests/**`, `docs/lrslib_methods_checklist.md`, `docs/polymake_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one method-tagged test per major family and aligned tracker rows.
 - Commit hash(es): `pending`
+
+---
+
+### Pass ID: `20260217-17`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 23:45:00 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): missing first-class PALP package checklist surface and method-contract inventory
+- Target selection rationale: ecosystem resurvey found PALP as an active lattice-polytope package referenced in Sage docs but lacking a dedicated checklist/reference/provenance surface in this repository.
+- Target ecosystems/modules: `docs/palp_methods_checklist.md` (new), `docs/palp/lattice/palp_lattice_reference.md` (new), `docs/palp/upstream/palp_online_provenance_2026-02-17.md` (new), `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: PALP CLI programs (`poly.x`, `class.x`, `cws.x`, `nef.x`, `mori.x`), command option surfaces, and Sage optional-package PALP wrapper methods.
+- Proposed edits: add first-class PALP checklist/reference/provenance surfaces with source-backed synopsis/argument constraints and package-domain caveats.
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no tracker CSV promotions without method-tagged tests.
+- Risk notes: option grammars in PALP manpages use compact notation (`*`, parameter placeholders), so this pass will keep contracts at source-backed synopsis level and mark deeper option typing as follow-up.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 23:45:00 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/palp_methods_checklist.md`, `docs/palp/lattice/palp_lattice_reference.md`, `docs/palp/upstream/palp_online_provenance_2026-02-17.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: PALP core CLI programs and options; Sage optional PALP-backed lattice-polytope wrapper methods.
+- Concise outcome summary: closed a first-goal checklist-surface omission by adding a dedicated PALP package checklist/reference/provenance set with source-backed command inventory, argument synopsis, option surfaces, and constraints.
+- Key decisions and intentional non-edits:
+  - Added PALP as a first-class top-level checklist surface instead of leaving it implicit in Sage lattice-polytope references.
+  - Captured source-backed synopsis-level option contracts and explicitly documented remaining typed-option fidelity work.
+  - Kept all checklist boxes unchecked (no new `method:`-tagged tests in this pass).
+  - Did not modify unrelated pre-existing dirty files (`README.md`, `docs/documentation_coverage_audit_playbook.md`, `scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - Surveyed package metadata/manpages and Sage optional-PALP docs on 2026-02-17:
+    - `https://packages.ubuntu.com/jammy/math/palp`
+    - `https://manpages.debian.org/unstable/palp/palp.1.en.html`
+    - `https://manpages.org/polyx`
+    - `https://manpages.org/classx`
+    - `https://manpages.org/cwsx`
+    - `https://manpages.debian.org/unstable/palp/nef.x.1.en.html`
+    - `https://manpages.org/morix`
+    - `https://doc.sagemath.org/html/en/reference/discrete_geometry/sage/geometry/lattice_polytope.html`
+  - Localized evidence into `docs/palp/upstream/palp_online_provenance_2026-02-17.md`.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes a concrete missing package surface while adding source-backed method and argument coverage for an in-scope lattice-polytope stack.
+- Remaining gaps:
+  - PALP option families with compact notation (`-f*`, `-c*`, multi-parameter switches) still need full typed argument expansion from the complete PALP manual text.
+  - No `method:`-tagged tests yet back PALP checklist completion state.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: expand PALP option schemas from synopsis-level to typed per-option argument contracts.
+    - Gap category: missing_argument_surface
+    - Files: `docs/palp/lattice/palp_lattice_reference.md`, `docs/palp_methods_checklist.md`, `docs/palp/upstream/palp_online_provenance_2026-02-17.md`
+    - Acceptance condition: each listed PALP option has explicit parameter typing/domain notes where upstream manual text provides them.
+  - [ ] Priority 2: add method-tagged tests for representative PALP surfaces (at minimum one core CLI command and one Sage PALP-backed wrapper method), then reconcile checklist/tracker states.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/palp_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one PALP CLI method and one wrapper method have `method:`-tagged evidence aligned with checklist/tracker rows.
+- Commit hash(es): `pending`
