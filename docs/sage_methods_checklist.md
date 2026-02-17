@@ -153,6 +153,8 @@ Tracks Sage-relevant methods from the Sage docs set.
 - [ ] `is_rationally_isometric(other)`
 - [ ] `global_genus_symbol()`
 - [ ] `local_genus_symbol(p)`
+- [ ] `local_normal_form(p)`
+  - Caveat: upstream warning states this currently only works for quadratic forms defined over `ZZ`.
 - [ ] `genera(sig_pair, det, ...)`
 - [ ] `mass__by_Siegel_densities()`
 - [ ] `conway_mass()`

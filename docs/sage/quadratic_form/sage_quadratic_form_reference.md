@@ -233,6 +233,7 @@ Q.automorphism_group()                  # matrix group of order 8
 | `is_globally_equivalent_to(other)` | `bool` or `Matrix` | Tests GL_n(ℤ) equivalence. Returns transformation matrix if equivalent. |
 | `is_locally_equivalent_to(other, p)` | `bool` | Tests equivalence over ℤ_p (p-adic integers). |
 | `is_rationally_isometric(other)` | `bool` | Tests equivalence over ℚ (Hasse–Minkowski). |
+| `local_normal_form(p)` | `QuadraticForm` | Returns a locally equivalent Jordan-normal form over ℤ_p; upstream warning: currently only for forms over `ZZ`. |
 | `has_equivalent_Jordan_decomposition_at_prime(other, p)` | `bool` | Tests whether Q and other have equivalent Jordan decompositions at prime p. |
 
 ```python
