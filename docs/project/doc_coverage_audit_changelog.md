@@ -293,3 +293,19 @@ Rules:
     - Gap category: organization_defect
     - Files: `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
     - Acceptance condition: reference file has a dedicated local/p-adic subsection with aligned method table entries and no contradictory caveat language vs checklist.
+
+### Pass ID: `20260217-08`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 13:35:55 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): Sage `QuadraticForm` local/Jordan method documentation surfaces
+- Target selection rationale: previous pass handoff prioritized reconciling additional local/Jordan helpers near `local_normal_form(p)` and improving local-method organization in the detailed reference.
+- Target ecosystems/modules: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: local Jordan decomposition helpers and local density precondition caveats
+- Proposed edits: add missing source-backed methods `jordan_blocks_by_scale_and_unimodular(p, safe_flag=True)` and `jordan_blocks_in_unimodular_list_by_scale_power(p)` to the Sage checklist/reference; reorganize the reference’s equivalence/local-Jordan area into clearer subsections; add explicit upstream-backed caveats for local-density preconditions.
+- Planned non-edits: no checklist state changes; no scope/ignore-list manipulation; no code/test/runtime edits; no caveats that are not explicitly supported by local upstream snapshots.
+- Risk notes: local helper methods include nuanced assumptions, so caveat text must stay strictly aligned with upstream wording to avoid over-claiming.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive

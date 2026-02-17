@@ -228,19 +228,34 @@ Q.automorphism_group()                  # matrix group of order 8
 
 ## 11. Equivalence Testing
 
+### Global, Local, and Rational Isometry
+
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `is_globally_equivalent_to(other)` | `bool` or `Matrix` | Tests GL_n(ℤ) equivalence. Returns transformation matrix if equivalent. |
 | `is_locally_equivalent_to(other, p)` | `bool` | Tests equivalence over ℤ_p (p-adic integers). |
 | `is_rationally_isometric(other)` | `bool` | Tests equivalence over ℚ (Hasse–Minkowski). |
-| `local_normal_form(p)` | `QuadraticForm` | Returns a locally equivalent Jordan-normal form over ℤ_p; upstream warning: currently only for forms over `ZZ`. |
-| `has_equivalent_Jordan_decomposition_at_prime(other, p)` | `bool` | Tests whether Q and other have equivalent Jordan decompositions at prime p. |
 
 ```python
 Q1 = DiagonalQuadraticForm(ZZ, [1, 1])
 Q2 = QuadraticForm(ZZ, 2, [1, 0, 1])
 Q1.is_globally_equivalent_to(Q2)       # True (same form)
 Q1.is_rationally_isometric(Q2)         # True
+```
+
+### Local Jordan Decomposition Helpers
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `local_normal_form(p)` | `QuadraticForm` | Returns a locally equivalent Jordan-normal form over ℤ_p; upstream warning: currently only for forms over `ZZ`. |
+| `jordan_blocks_by_scale_and_unimodular(p, safe_flag=True)` | `list[tuple[int, QuadraticForm]]` | Returns Jordan components grouped by scale exponent with unimodular block forms; decomposition into smaller blocks is not unique. |
+| `jordan_blocks_in_unimodular_list_by_scale_power(p)` | `list[QuadraticForm]` | Returns a scale-indexed list of p-unimodular Jordan components; upstream caveat: defined for integer-valued forms, and for `p=2` indexing is guaranteed only with integer Gram matrix. |
+| `has_equivalent_Jordan_decomposition_at_prime(other, p)` | `bool` | Tests whether Q and `other` have equivalent Jordan decompositions at prime `p`. |
+
+```python
+Q = QuadraticForm(ZZ, 2, [10, 4, 1])
+Q.local_normal_form(5)
+Q.jordan_blocks_by_scale_and_unimodular(5)
 ```
 
 ---
@@ -271,8 +286,8 @@ Q.mass__by_Siegel_densities()
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| `local_density(p, m)` | `Rational` | Local density of representing m at prime p. |
-| `local_primitive_density(p, m)` | `Rational` | Local primitive density of representing m at prime p. |
+| `local_density(p, m)` | `Rational` | Local density of representing m at prime p; upstream notes this wrapper enforces a local-normal-form precondition internally before density computation. |
+| `local_primitive_density(p, m)` | `Rational` | Local primitive density of representing m at prime p; upstream notes this wrapper enforces a local-normal-form precondition internally before primitive-density computation. |
 
 ```python
 Q = DiagonalQuadraticForm(ZZ, [1, 1, 1, 1])

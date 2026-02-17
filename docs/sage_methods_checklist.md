@@ -155,13 +155,20 @@ Tracks Sage-relevant methods from the Sage docs set.
 - [ ] `local_genus_symbol(p)`
 - [ ] `local_normal_form(p)`
   - Caveat: upstream warning states this currently only works for quadratic forms defined over `ZZ`.
+- [ ] `jordan_blocks_by_scale_and_unimodular(p, safe_flag=True)`
+  - Caveat: upstream notes Jordan decomposition into smaller blocks is not unique.
+- [ ] `jordan_blocks_in_unimodular_list_by_scale_power(p)`
+  - Caveat: upstream states this is defined for integer-valued forms; for `p = 2`, indexing works correctly only when the form has an integer Gram matrix.
+- [ ] `has_equivalent_Jordan_decomposition_at_prime(other, p)`
 - [ ] `genera(sig_pair, det, ...)`
 - [ ] `mass__by_Siegel_densities()`
 - [ ] `conway_mass()`
 - [ ] `conway_standard_mass()`
 - [ ] `siegel_product()`
 - [ ] `local_density(p, m)`
+  - Caveat: upstream notes this routine internally puts the form in local normal form (a required precondition for density computations).
 - [ ] `local_primitive_density(p, m)`
+  - Caveat: upstream notes this routine internally puts the form in local normal form (a required precondition for primitive density computations).
 - [ ] `local_representation_conditions(...)`
 - [ ] `is_locally_universal_at_prime(p)`
 - [ ] `is_locally_universal_at_all_primes()`
