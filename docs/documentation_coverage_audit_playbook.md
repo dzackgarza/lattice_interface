@@ -14,6 +14,16 @@ It is not for:
 
 The sole output target is higher-integrity documentation coverage for lattice-theoretic methods across the research ecosystem.
 
+## Autonomous Cron Contract (One Pass Per Run)
+
+Each cron trigger performs exactly one async audit pass.
+
+- [ ] One run = one pass ID = one pre-pass entry + one post-pass entry.
+- [ ] The run is documentation-only; no code/test/runtime edits.
+- [ ] The run must be non-interactive and deterministic from repository state.
+- [ ] If no positive-gradient edit exists, record a no-edit pass and exit cleanly.
+- [ ] Never perform a second pass in the same run.
+
 ## Hard Constraints
 
 - [ ] Never check off checklist items in this playbook or in top-level method checklists.
@@ -33,6 +43,33 @@ The sole output target is higher-integrity documentation coverage for lattice-th
 - [ ] `docs/method_ground_truth_tracker.csv`
 - [ ] Source manifests and local upstream snapshots (for example `docs/sage/SOURCES.md`, `docs/*/upstream/*`)
 
+## Deterministic Preflight (Required)
+
+Run in this order before any edit:
+
+- [ ] `git status --short`
+- [ ] `git log --oneline -- docs | head -n 20`
+- [ ] `date -u +"%Y-%m-%d %H:%M:%S UTC"`
+
+Abort pass (no edits) if any is true:
+
+- [ ] Worktree is dirty before pass start.
+- [ ] Last pass already used the same pass ID/date slot.
+- [ ] Required canonical inputs are missing.
+
+If aborted, append a pre/post changelog pair with explicit abort reason.
+
+## Target Selection (Deterministic)
+
+Select exactly one primary target per pass using this priority:
+
+- [ ] Highest-severity unresolved gap from previous post-pass "Remaining gaps".
+- [ ] If none, choose next ecosystem by round-robin order:
+`sage -> julia -> gap -> fpylll -> pari_gp -> latticegen -> cross-ecosystem`.
+- [ ] If multiple equivalent targets remain, choose lexicographically smallest checklist file path.
+
+Do not multi-target across ecosystems in one pass unless required to resolve a single inconsistency.
+
 ## Pass Loop (Repeat Until Fixed Point)
 
 - [ ] Review current docs coverage surfaces (Sage, Julia/Oscar/Hecke, GAP, fpylll, PARI/GP, latticegen, and other in-repo ecosystems).
@@ -44,6 +81,13 @@ The sole output target is higher-integrity documentation coverage for lattice-th
 - [ ] Apply approved doc edits.
 - [ ] Append post-pass changelog entry with outcomes and remaining gaps.
 - [ ] Re-run one more read-only audit pass to verify no new inconsistencies were introduced.
+
+Operationalization for cron:
+
+- [ ] Perform the loop only for the selected primary target in this run.
+- [ ] Cap edit scope to the minimum files needed for that target.
+- [ ] Before finalizing, run `git diff -- docs` and confirm every changed file is documentation.
+- [ ] If diff includes non-doc files, revert those non-doc changes and record incident in post-pass notes.
 
 ## Fixed-Point Stop Condition
 
@@ -62,6 +106,14 @@ Stop only when all are true:
 - [ ] Keep commit scope doc-only unless explicitly authorized otherwise.
 - [ ] Use commit messages that encode pass intent and result (audit/add/clarify/reconcile).
 - [ ] Avoid mixing unrelated ecosystems in one commit when it reduces review clarity.
+
+Commit gating:
+
+- [ ] Commit only when net quality gradient is `positive`.
+- [ ] For `zero` gradient passes, do not commit content edits; commit only if the changelog entry itself is new and accurate.
+- [ ] Never commit `negative` gradient changes.
+- [ ] Preferred commit format:
+`docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
 
 ## Changelog Protocol (Required Before and After Each Pass)
 
@@ -82,6 +134,11 @@ Required entry fields (both pre and post):
 - [ ] Net quality gradient: positive/zero/negative with justification.
 - [ ] Remaining risks/gaps.
 
+Chronological rule:
+
+- [ ] Pass entries must be append-only and strictly time-ordered.
+- [ ] Never edit old pass bodies except to fix factual logging mistakes; if corrected, add a correction note in a new pass.
+
 ## Local Copies of Online Docs (When Required)
 
 Add local upstream snapshots when any of the following is true:
@@ -97,6 +154,10 @@ Snapshot rules:
 - [ ] Prefer official documentation/source pages over secondary summaries.
 - [ ] Do not claim method coverage from memory when a local snapshot is feasible.
 
+Freshness rule:
+
+- [ ] If targeted source snapshot metadata is older than 90 days, schedule refresh in the same pass when feasible; otherwise record explicit deferral reason in post-pass notes.
+
 ## Top-Level Checklist Quality Rules
 
 - [ ] Keep method entries at top-level checklist granularity (clean scan-first structure).
@@ -105,6 +166,10 @@ Snapshot rules:
 - [ ] Split overloaded or semantically distinct methods into separate bullets when needed.
 - [ ] Keep each checklist as an auditable inventory, not a narrative essay.
 - [ ] Preserve unchecked boxes; audit tracks status in changelog, not by checking items.
+
+Formatting guard:
+
+- [ ] Keep checklist edits line-stable where possible (surgical additions/clarifications) to preserve diff auditability.
 
 ## No-Edit Conditions (Edit Is Not Warranted)
 
@@ -116,6 +181,8 @@ Do not edit when:
 - [ ] Proposed deletion removes provenance links without replacing them.
 - [ ] Proposed expansion adds speculative methods unsupported by canonical sources.
 - [ ] Proposed organization change increases reviewer search cost or ambiguity.
+- [ ] Proposed reordering changes many lines without increasing coverage precision.
+- [ ] Proposed edit cannot be tied to a specific documented gap category.
 
 Mark these as "intentional non-edits" in the pass changelog.
 
@@ -137,3 +204,10 @@ Each pass must produce:
 - [ ] A concise unresolved-gaps list for the next pass.
 
 If no positive-gradient edits exist, the pass still records a no-edit post-pass entry and fixed-point evidence.
+
+## Drift Prevention Rules
+
+- [ ] Every pass must either close one documented gap or sharpen one method contract/caveat with source backing.
+- [ ] A pass that does neither is `zero` gradient and must not alter checklists beyond minimal logging artifacts.
+- [ ] Re-audit each ecosystem at least once every 6 completed passes; if skipped, force it as the next target.
+- [ ] Keep "remaining gaps" actionable (method family + file path + reason), never generic.
