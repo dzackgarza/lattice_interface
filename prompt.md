@@ -26,6 +26,22 @@ Required context:
 - Changes should improve consistency across related docs.
 - Do not add unsupported or speculative claims.
 
+## Mathematical Priority (Project-Specific)
+
+Prioritize mathematically meaningful lattice surfaces, especially:
+
+- indefinite-lattice workflows before Euclidean-only material,
+- local/global/rational isometry methods,
+- genus and discriminant-form machinery,
+- local Jordan/p-adic normal-form and density methods,
+- automorphism/orthogonal-group and embedding/overlattice operations.
+
+For every changed method entry, preserve or improve:
+
+- precise mathematical contract,
+- domain/definiteness assumptions,
+- caveats that prevent mathematically false interpretations.
+
 ## Autonomy
 
 Choose your own strategy, breadth, sequencing, and depth.

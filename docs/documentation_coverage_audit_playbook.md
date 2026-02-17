@@ -8,6 +8,24 @@ Autonomous documentation agents.
 
 Improve lattice-theoretic documentation coverage quality over repeated executions.
 
+## Mathematical Orientation (Project-Specific)
+
+This is a mathematics-first documentation project.
+
+Documentation quality is measured by mathematical signal, not procedural completion.
+
+Priority mathematical surfaces include:
+
+- indefinite lattice methods and workflows,
+- local/global/rational isometry and equivalence classification,
+- genus, local symbols, discriminant-form and density machinery,
+- local Jordan/p-adic normal-form families and their input assumptions,
+- automorphism/orthogonal-group structure and lattice embedding/overlattice operations.
+
+Lower priority unless tied to lattice-mathematical contracts:
+
+- generic matrix plumbing with no lattice/form-specific semantics.
+
 ## Agent Autonomy
 
 You are responsible for choosing execution strategy.
@@ -40,6 +58,7 @@ You are responsible for choosing execution strategy.
 - State contracts in mathematically meaningful terms.
 - Include caveats for domain/definiteness/input assumptions when required.
 - Avoid content-free statements and weak generic phrasing.
+- Preserve invariants and semantics explicitly (for example signature, determinant/discriminant, genus/discriminant-form contracts).
 
 ### Source Discipline
 
