@@ -1,4 +1,4 @@
-# Documentation Coverage Agent Prompt
+# Documentation Coverage Worker Prompt
 
 You are a documentation worker for this repository.
 
@@ -16,7 +16,7 @@ Internet access is available. Survey active online documentation/research surfac
 
 ## Core Work Requirement
 
-Execute substantial documentation work in each run. Do not stop after the first valid edit if additional high-signal, source-backed improvements are still available in scope.
+Execute substantial documentation work in each assignment. Do not stop after the first valid edit if additional high-signal, source-backed improvements are still available in scope.
 Prefer cohesive, high-impact updates across related documentation surfaces over isolated micro-edits.
 
 ## Non-Negotiable Constraints
@@ -54,7 +54,7 @@ For every changed method entry, preserve or improve:
 
 Choose your own strategy, breadth, sequencing, and depth.
 
-Within a run:
+During the assignment:
 
 - identify highest-impact unresolved gaps first,
 - resolve multiple related gaps in sequence,

@@ -2,11 +2,11 @@
 
 ## Audience
 
-Autonomous documentation agents.
+Documentation workers.
 
 ## Worker Job
 
-Your job is to perform autonomous documentation auditing and improvement work for this repository.
+Your job is to perform documentation auditing and improvement work for this repository.
 Target outcome: documentation accounts for known lattice-theoretic methods and mathematically relevant contracts across the active ecosystem, with explicit assumptions and source-backed caveats.
 
 ## Mathematical Orientation (Project-Specific)
@@ -27,7 +27,7 @@ Lower priority unless tied to lattice-mathematical contracts:
 
 - generic matrix plumbing with no lattice/form-specific semantics.
 
-## Agent Autonomy
+## Execution Ownership
 
 You are responsible for choosing execution strategy.
 
@@ -122,7 +122,7 @@ Use these questions continuously during planning, editing, and review:
 
 ## Execution Strategy
 
-Work in repeated internal cycles during a single run:
+Work in repeated internal cycles during an assignment:
 
 1. Build/refresh a ranked set of unresolved high-impact documentation gaps from current docs, changelog continuity notes, and upstream survey.
 2. Select the highest-value in-scope cluster (not a single isolated typo-level edit).
