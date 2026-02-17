@@ -402,6 +402,13 @@ Computes invariants classifying the finite quadratic module $(A,q)$ up to isomor
 
 - [ ] `invariants` - Returns invariant-factor decomposition data of the underlying finite abelian group. [source: sage_doc/test_torsionquadraticmodule_static.py::test_tqm_invariants_rank_one_even_lattice]
 
+### Finite quadratic modules with isometry actions
+Encodes induced actions on discriminant forms and related Miranda-Morrison image maps for lattice-with-isometry workflows.
+
+- [ ] `discriminant_group_with_isometry` - For lattice-with-isometry $(L,f)$, construct discriminant action data $(D_L,\bar f)$ and, in typed form, a `TorQuadModuleWithIsom` object carrying the induced action. [sources: docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md, docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md::2.14, docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md]
+- [ ] `image_in_Oq` - Computes the image of $\pi:O(L)\to O(D_L)$ in Miranda-Morrison theory, including indefinite cases documented upstream. [sources: docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md, docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md::2.14, docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md]
+- [ ] `trace_lattice_with_isometry` - Recover $(L,f)$ from hermitian trace data, including the explicit residue-embedding overload `trace_lattice_with_isometry(H, res)` used by trace-equivalence workflows. [sources: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_zzlat_with_isom_trace_lattice_with_isometry_roundtrip, docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md::2.14, docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md]
+
 ### Primary/elementary p-component predicates
 Checks $p$-primary decomposition and elementary type in finite quadratic modules.
 
@@ -1065,4 +1072,3 @@ Computes class-group search bounds: Minkowski bound $B_M$ and (under GRH) Bach b
 - [ ] `minkowski_bound` - minkowski_bound() gives class-group search bound. [source: sage_doc/test_numberfield_bridge_static.py::test_numberfield_minkowski_bound_positive]
 
 ---
-

@@ -368,9 +368,9 @@ Methods shared with `ZZLat` (construction, rank, det, etc.) are listed in §2.2�
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `quadratic_space_with_isometry(V, f; check)` | Pair space $V$ with isometry matrix $f$ | |
+| `quadratic_space_with_isometry(V, f; check)` | Pair space $V$ with isometry matrix $f$ (pass `check` explicitly; upstream docs currently show conflicting default wording) | |
 | `quadratic_space_with_isometry(V; neg=false)` | Pair with identity (or negation) | |
-| `space(Vf)` / `isometry(Vf)` / `order_of_isometry(Vf)` | Accessors | |
+| `space(Vf)` / `isometry(Vf)` / `order_of_isometry(Vf)` | Accessors (`order_of_isometry(Vf)=PosInf` for infinite-order isometries; rank-0 case uses `-1`) | |
 | `rank(Vf)` / `dim(Vf)` / `gram_matrix(Vf)` / `det(Vf)` / `discriminant(Vf)` | Space attributes | |
 | `diagonal(Vf)` / `signature_tuple(Vf)` | Diagonal / signature | |
 | `is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)` | Definiteness | |
@@ -382,7 +382,7 @@ Methods shared with `ZZLat` (construction, rank, det, etc.) are listed in §2.2�
 
 ### 2.14 Lattices with isometry (`ZZLatWithIsom`)
 
-Pairs an integer lattice with a finite-order isometry. Used for equivariant classification and K3/hyperkähler applications.
+Pairs an integer lattice with a finite- or infinite-order isometry. Used for equivariant classification and K3/hyperkähler applications.
 
 #### Construction
 
@@ -402,7 +402,7 @@ Pairs an integer lattice with a finite-order isometry. Used for equivariant clas
 | `ambient_space(Lf)` | Ambient quadratic space carrying the isometry | |
 | `lattice(Lf)` | Underlying `ZZLat` | |
 | `basis_matrix(Lf)` | Basis matrix of underlying lattice | |
-| `order_of_isometry(Lf)` | Order of isometry (or `-1` if infinite) | |
+| `order_of_isometry(Lf)` | Order of isometry (finite-order integer, or an infinite-order sentinel in upstream APIs) | |
 | `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Polynomials of the isometry | |
 
 #### Attributes
@@ -433,6 +433,7 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | `is_of_hermitian_type(Lf)` | Whether the isometry gives a hermitian structure | |
 | `hermitian_structure(Lf)` | Extract hermitian lattice from hermitian-type isometry | |
 | `trace_lattice_with_isometry(H)` | Recover `ZZLatWithIsom` from hermitian lattice via trace form | |
+| `trace_lattice_with_isometry(H, res)` | Recover `ZZLatWithIsom` from hermitian lattice with an explicit residue-field embedding choice used in trace-equivalence setup | |
 | `is_hermitian(t::Dict)` | Whether a type dictionary corresponds to hermitian type | |
 
 #### Operations
@@ -460,8 +461,10 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `discriminant_group(Lf)` | `TorQuadModule` with induced isometry | |
+| `discriminant_group(Lf)` | Returns discriminant-module data of `Lf`; upstream describes output as a pair `(D, fD)` (module + induced action) | |
+| `discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)` | Typed discriminant-group constructor returning a `TorQuadModuleWithIsom`; `ambient_representation` controls whether induced action is represented ambiently | |
 | `image_centralizer_in_Oq(Lf)` | Image of centralizer of $\bar{f}$ in $O(q_L)$ | |
+| `image_in_Oq(Lf)` | Computes image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for definite and indefinite lattices) | |
 | `discriminant_representation(L, G)` | Action of matrix group on discriminant group | |
 
 #### Spinor norm
@@ -544,18 +547,18 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `TorQuadModuleWithIsom` | Type for a torsion quadratic module paired with an isometry | `[NT]` |
 | `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
 | `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
-| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and module map; `check=true` validates compatibility | `[NT]` |
+| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and compatible action data (`TorQuadModuleMap` or automorphism-group element in current docs); `check=true` validates compatibility | `[NT]` |
 | `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from quadratic-form matrix data and action matrix; `check=true` validates constraints | `[NT]` |
 | `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
 | `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
 | `orthogonal_submodule(Tf, S; check=true)` | Orthogonal complement in the finite quadratic module with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
 | `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
 | `automorphism_group_with_inclusion(Tf)` | Automorphism group with inclusion map, identified upstream as the subgroup of `O(T)` commuting with the fixed isometry | `[NT]` |
-| `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` | `[NT]` |
+| `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` (upstream method list currently typesets `TorQuadModuleWithMap` here; context indicates `TorQuadModuleWithIsom`) | `[NT]` |
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs, with explicit map when successful | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs, with explicit map when successful | `[NT]` |
 
-Source note: contracts in this subsection were reconciled against `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`, the OSCAR stable `QuadFormAndIsom` introduction (`https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/intro/`), and the OSCAR dev `torquadmodwithisom` method page (`https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/`) (accessed 2026-02-17).
+Source note: contracts in §2.13/§2.14/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev pages for `spacewithisom`, `latwithisom`, and `torquadmodwithisom` (accessed 2026-02-17). See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 
 ### References
 

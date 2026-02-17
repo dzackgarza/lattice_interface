@@ -262,8 +262,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ### 2.13 Quadratic spaces with isometry (`QuadSpaceWithIsom`)
 
 - [ ] ``quadratic_space_with_isometry(V, f; check)``
+  - Caveat: current upstream pages contain conflicting default wording for `check`; pass it explicitly when contract fidelity matters.
 - [ ] ``quadratic_space_with_isometry(V; neg=false)``
 - [ ] ``space(Vf)` / `isometry(Vf)` / `order_of_isometry(Vf)``
+  - Caveat: upstream documents `order_of_isometry(Vf) = PosInf` for infinite order; for rank-zero spaces, upstream uses `-1`.
 - [ ] ``rank(Vf)` / `dim(Vf)` / `gram_matrix(Vf)` / `det(Vf)` / `discriminant(Vf)``
 - [ ] ``diagonal(Vf)` / `signature_tuple(Vf)``
 - [ ] ``is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)``
@@ -313,6 +315,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_of_hermitian_type(Lf)``
 - [ ] ``hermitian_structure(Lf)``
 - [ ] ``trace_lattice_with_isometry(H)``
+- [ ] ``trace_lattice_with_isometry(H, res)``
 - [ ] ``is_hermitian(t::Dict)``
 #### Operations
 
@@ -332,7 +335,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 #### Discriminant groups
 
 - [ ] ``discriminant_group(Lf)``
+  - Caveat: upstream describes this as discriminant-module plus induced action data `(D, fD)`.
+- [ ] ``discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)``
 - [ ] ``image_centralizer_in_Oq(Lf)``
+- [ ] ``image_in_Oq(Lf)``
 - [ ] ``discriminant_representation(L, G)``
 #### Spinor norm
 
@@ -398,7 +404,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``order_of_isometry(Tf)``
   - Caveat: upstream states this is finite-order data cached after first computation; order is not precomputed on object construction.
 - [ ] ``torsion_quadratic_module_with_isometry(T, f; check=true)``
-  - Caveat: upstream documents `check=true` by default and validates compatibility of `f` with the torsion quadratic module data.
+  - Caveat: upstream documents `check=true` by default and validates compatibility; current method list accepts `TorQuadModuleMap` and automorphism-group elements as action data.
 - [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)``
   - Caveat: upstream documents `check=true` by default and validates the matrix data as a torsion quadratic module with isometry.
 - [ ] ``sub(Tf, gens)``
@@ -411,6 +417,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``automorphism_group_with_inclusion(Tf)``
   - Caveat: upstream identifies this with automorphisms in `O(T)` commuting with the fixed isometry.
 - [ ] ``automorphism_group(Tf)``
+  - Caveat: upstream method list currently typesets `TorQuadModuleWithMap` in one signature location; surrounding page context is `TorQuadModuleWithIsom`.
 - [ ] ``is_isomorphic_with_map(Tf, Sg)``
 - [ ] ``is_anti_isomorphic_with_map(Tf, Sg)``
 ### References
@@ -456,4 +463,4 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ### References
 
-Last updated: 2026-02-16
+Last updated: 2026-02-17
