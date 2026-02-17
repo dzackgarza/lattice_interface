@@ -320,7 +320,7 @@ Each execution record must still include, at minimum:
     - Acceptance condition: reference includes the two congruence-density wrappers (and optionally split helper variants) with no contradiction vs checklist caveat language.
 - Commit hash: `5fb4535`
 
-### Pass ID: `20260217-10`
+### Pass ID: `20260217-09`
 
 #### Pre-Pass
 
@@ -375,7 +375,7 @@ Each execution record must still include, at minimum:
 
 ---
 
-### Pass ID: `20260217-09`
+### Pass ID: `20260217-10`
 
 #### Pre-Pass
 
