@@ -390,3 +390,32 @@ Each execution record must still include, at minimum:
 - Planned non-edits: no checklist checkbox state changes; no runtime/test/code changes; no scope/ignore-list manipulation.
 - Risk notes: method signatures include overloaded constructors and map types, so naming must stay aligned with runtime spellings from upstream docs.
 - Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 15:06:29 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: `TorQuadModuleWithIsom` discriminant-form methods with fixed isometry actions, stable-submodule operations, and (anti-)isomorphism/automorphism interfaces
+- Concise outcome summary: added missing `TorQuadModuleWithIsom` method-family coverage to the top-level Julia checklist and aligned both Julia reference surfaces with source-backed contracts/caveats from current OSCAR documentation.
+- Key decisions and intentional non-edits:
+  - Added a new explicit checklist section (`2.18`) rather than folding methods into existing `TorQuadModule` bullets, to keep method accountability at the runtime-entry-point level.
+  - Aligned both Julia references to the same contract set (constructor `check=true` semantics, finite-order caching note, isometry-stability preconditions for submodule operations).
+  - Intentionally did not modify checklist completion states, code/tests, scope filters, or ignore/blacklist surfaces.
+- Online survey and provenance localization:
+  - Surveyed OSCAR stable and dev docs on 2026-02-17: `https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/intro/` and `https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/`.
+  - Localized critical provenance in touched docs via source-note lines and explicit links; reconciled against in-repo snapshot `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes a concrete missing-method family in a high-priority discriminant-form/isometry surface and removes ambiguity about key input/stability assumptions.
+- Remaining gaps:
+  - `QuadFormAndIsom` surfaces for `TorQuadModuleWithMap` and `ZZGenus/TorQuadModule` tuple-level isomorphism helpers are still only partially represented in top-level checklist/reference alignment.
+  - Some return-shape caveats from upstream examples (for example explicit `(Bool, map_or_0)` conventions) are not yet normalized as a project-wide contract style in Julia docs.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: audit `TorQuadModuleWithMap` method family and add missing entries/caveats to checklist + Julia references.
+    - Gap category: missing_method
+    - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`
+    - Acceptance condition: top-level checklist/reference includes the map-level family with source-backed contracts and no alias-credit substitutions.
+  - [ ] Priority 2: standardize return-contract caveats for Julia `(isomorphic, map)`/`(isomorphic, anti_map)` APIs across lattice/discriminant modules.
+    - Gap category: unclear_contract
+    - Files: `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+    - Acceptance condition: touched methods use consistent caveat language about result shape and failure sentinel behavior where explicitly documented.
+- Commit hash(es): `ce210ee`
