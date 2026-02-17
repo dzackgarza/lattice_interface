@@ -68,13 +68,14 @@ Update `docs/project/doc_coverage_audit_changelog.md` with:
 
 - a start record,
 - a completion record containing:
-  - edits and rationale,
-  - intentional non-edits,
+  - concise outcome summary,
+  - key decisions and intentional non-edits,
   - remaining gaps,
   - prioritized handoff tasks,
-  - commit hash (or `none` for no-edit outcomes).
+  - commit hash(es) (or `none` for no-edit outcomes).
 
-Changelog structure is adaptive: do not enforce rigid templates. Format entries to fit current history and evolving requirements while keeping information complete and auditable.
+Changelog structure is adaptive: do not enforce rigid templates. Format entries to fit current history and evolving requirements while keeping continuity clear.
+Use git commits as the detailed change ledger; use changelog entries for continuity, context, and handoffs.
 
 ## Commit Requirements
 

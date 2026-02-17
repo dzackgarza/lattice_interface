@@ -1,6 +1,8 @@
 # Documentation Coverage Audit Changelog
 
 Use this file for every audit/improvement pass described in `docs/documentation_coverage_audit_playbook.md`.
+Purpose: continuity and handoffs between executions, not detailed diff history.
+Detailed change history lives in git commits.
 
 Rules:
 
@@ -14,11 +16,11 @@ Each execution record must still include, at minimum:
 - timestamp (UTC),
 - actor/auditor identity,
 - target(s),
-- changes made with rationale,
-- intentional non-edits,
+- concise outcome summary,
+- key decisions and intentional non-edits,
 - remaining gaps,
 - prioritized handoff tasks,
-- commit hash (or `none` for no-edit outcomes).
+- commit hash(es) (or `none` for no-edit outcomes).
 
 ---
 

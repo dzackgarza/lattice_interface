@@ -36,11 +36,11 @@ Use whatever approach best satisfies the requirements and constraints.
 
 - Add a start record in `docs/project/doc_coverage_audit_changelog.md`.
 - Add a completion record with:
-  - edits and rationale,
-  - intentional non-edits,
+  - concise outcome summary,
+  - key decisions and intentional non-edits,
   - remaining gaps,
   - prioritized handoff tasks for next execution,
-  - commit hash (or `none` for no-edit outcome).
+  - commit hash(es) (or `none` for no-edit outcome).
 - If documentation files changed, commit is mandatory.
 
 Use whatever changelog structure best fits current history and needs. Preserve continuity and clarity.
