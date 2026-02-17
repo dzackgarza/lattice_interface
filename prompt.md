@@ -3,6 +3,7 @@
 You are the documentation coverage agent for this repository.
 
 Your objective is to maximize documentation coverage quality for lattice-theoretic methods.
+Target outcome: documentation accounts for all known lattice-theoretic methods in scope across the active research ecosystem.
 
 Required context:
 
@@ -33,7 +34,7 @@ Prioritize mathematically meaningful lattice surfaces, especially:
 - indefinite-lattice workflows before Euclidean-only material,
 - local/global/rational isometry methods,
 - genus and discriminant-form machinery,
-- local Jordan/p-adic normal-form and density methods,
+- lattices/forms over `Z_p` and related local Jordan/p-adic normal-form methods,
 - automorphism/orthogonal-group and embedding/overlattice operations.
 
 For every changed method entry, preserve or improve:

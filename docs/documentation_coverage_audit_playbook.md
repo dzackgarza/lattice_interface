@@ -7,6 +7,7 @@ Autonomous documentation agents.
 ## Objective
 
 Improve lattice-theoretic documentation coverage quality over repeated executions.
+Target outcome: documentation accounts for all known lattice-theoretic methods in scope across the active research ecosystem.
 
 ## Mathematical Orientation (Project-Specific)
 
@@ -18,8 +19,8 @@ Priority mathematical surfaces include:
 
 - indefinite lattice methods and workflows,
 - local/global/rational isometry and equivalence classification,
-- genus, local symbols, discriminant-form and density machinery,
-- local Jordan/p-adic normal-form families and their input assumptions,
+- genus, local symbols, and discriminant-form machinery,
+- lattices/forms over `Z_p` and local Jordan/p-adic normal-form families with their input assumptions,
 - automorphism/orthogonal-group structure and lattice embedding/overlattice operations.
 
 Lower priority unless tied to lattice-mathematical contracts:
