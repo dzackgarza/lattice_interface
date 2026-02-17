@@ -635,4 +635,4 @@ Each execution record must still include, at minimum:
     - Gap category: missing_test_evidence
     - Files: `tests/**`, `docs/cddinterface_methods_checklist.md`, `docs/nconvex_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one method-tagged test per major method family and checklist/tracker entries aligned.
-- Commit hash(es): `pending`
+- Commit hash(es): `071aecf`
