@@ -18,7 +18,7 @@ Rules:
 #### Pre-Pass
 
 - Date/time (UTC):
-- Run trigger/context (cron/manual):
+- Execution context:
 - Auditor:
 - Primary target (single ecosystem/module):
 - Target selection rationale:
@@ -50,7 +50,7 @@ Rules:
 #### Pre-Pass
 
 - Date/time (UTC): 2026-02-17 12:42:45 UTC (retroactive; missed before editing)
-- Run trigger/context (cron/manual): manual
+- Execution context: manual
 - Auditor: Codex
 - Primary target (single ecosystem/module): cross-ecosystem documentation process
 - Target selection rationale: initial bootstrap pass to create audit protocol
@@ -81,7 +81,7 @@ Rules:
 #### Pre-Pass
 
 - Date/time (UTC): 2026-02-17 12:46:24 UTC
-- Run trigger/context (cron/manual): manual
+- Execution context: manual
 - Auditor: Codex
 - Primary target (single ecosystem/module): cross-ecosystem documentation process
 - Target selection rationale: harden playbook for deterministic autonomous cron execution
@@ -113,7 +113,7 @@ Rules:
 #### Pre-Pass
 
 - Date/time (UTC): 2026-02-17 12:48:14 UTC
-- Run trigger/context (cron/manual): manual
+- Execution context: manual
 - Auditor: Codex
 - Primary target (single ecosystem/module): cross-ecosystem playbook operational constraints
 - Target selection rationale: user requested one-shot CLI compatibility and pass-to-pass task handoff
@@ -145,7 +145,7 @@ Rules:
 #### Pre-Pass
 
 - Date/time (UTC): 2026-02-17 12:48:50 UTC
-- Run trigger/context (cron/manual): manual
+- Execution context: manual
 - Auditor: Codex
 - Primary target (single ecosystem/module): cross-ecosystem playbook simplification
 - Target selection rationale: user requested reduced complexity and changelog-only handoff
@@ -167,9 +167,45 @@ Rules:
 - Source snapshots added/updated: none
 - Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; one-shot agents now have one canonical handoff location
 - Remaining gaps: validate this simplified flow during the first real checklist audit pass
-- Next-pass focus: run one real single-target audit pass and include prioritized handoff tasks directly in post-pass entry
+- Next-pass focus: run one real in-scope audit pass and include prioritized handoff tasks directly in post-pass entry
 - Handoff tasks for next agent:
-  - [ ] Run one single-target checklist audit pass in one ecosystem (`docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`)
+  - [ ] Run one checklist audit pass in one ecosystem (`docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`)
     - Gap category: organization_defect
     - Files: `docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`, `docs/project/doc_coverage_audit_changelog.md`
     - Acceptance condition: post-pass entry records one concrete documentation improvement and one prioritized follow-up task
+
+---
+
+### Pass ID: `20260217-05`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 12:49:56 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary target (single ecosystem/module): playbook abstraction simplification
+- Target selection rationale: user requested removing over-abstract run-mode assumptions
+- Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: none (process wording refinement)
+- Proposed edits: replace one-pass/one-shot framing with scope-based execution guidance; simplify targeting language to allow as much in-scope work as needed
+- Planned non-edits: no checklist content edits; no method claim edits; no code/test changes
+- Risk notes: less strict run framing may reduce deterministic scheduling constraints, but improves practicality for capable agents
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 12:49:56 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: none (process-only pass)
+- Edits made (with rationale): removed one-pass/one-shot abstractions and replaced them with concise in-scope execution language; changed template field to neutral `Execution context`
+- Non-edits made intentionally (with rationale): left checklist method inventories untouched because this pass was process-language simplification only
+- Source snapshots added/updated: none
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; guidance is now simpler and aligned with practical agent behavior
+- Remaining gaps: validate simplified contract during next checklist audit pass
+- Next-pass focus: execute an in-scope checklist audit pass and produce method-level handoff tasks
+- Handoff tasks for next agent:
+  - [ ] Audit one checklist section and improve at least one ambiguous contract/caveat entry
+    - Gap category: unclear_contract
+    - Files: `docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`, `docs/project/doc_coverage_audit_changelog.md`
+    - Acceptance condition: post-pass entry records at least one concrete contract clarification with rationale and one follow-up task

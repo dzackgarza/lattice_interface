@@ -14,16 +14,12 @@ It is not for:
 
 The sole output target is higher-integrity documentation coverage for lattice-theoretic methods across the research ecosystem.
 
-## Autonomous Cron Contract (One Pass Per Run)
+## Execution Contract
 
-Each cron trigger performs exactly one async audit pass.
-
-- [ ] One run = one pass ID = one pre-pass entry + one post-pass entry.
-- [ ] The run is documentation-only; no code/test/runtime edits.
-- [ ] The run must be non-interactive and deterministic from repository state.
-- [ ] If no positive-gradient edit exists, record a no-edit pass and exit cleanly.
-- [ ] Never perform a second pass in the same run.
-- [ ] Always leave explicit follow-up tasks for the next run.
+- [ ] Work only on documentation auditing, completion, and organization.
+- [ ] Do as much in-scope work as needed to produce a real quality improvement.
+- [ ] If no positive-gradient edit exists, record a no-edit pass and stop.
+- [ ] Always leave explicit follow-up tasks for future passes.
 
 ## Hard Constraints
 
@@ -56,7 +52,7 @@ Run in this order before any edit:
 
 ## Target Selection (Deterministic)
 
-Select exactly one primary target per pass using this priority:
+Start with this priority:
 
 - [ ] Highest-severity unresolved gap from previous post-pass "Remaining gaps".
 - [ ] Highest-priority handoff task from the latest changelog post-pass entry.
@@ -64,7 +60,7 @@ Select exactly one primary target per pass using this priority:
 `sage -> julia -> gap -> fpylll -> pari_gp -> latticegen -> cross-ecosystem`.
 - [ ] If multiple equivalent targets remain, choose lexicographically smallest checklist file path.
 
-Do not multi-target across ecosystems in one pass unless required to resolve a single inconsistency.
+Expand beyond the initial target only when it improves clarity and remains within doc-audit scope.
 
 ## Pass Loop (Repeat Until Fixed Point)
 
@@ -78,10 +74,9 @@ Do not multi-target across ecosystems in one pass unless required to resolve a s
 - [ ] Append post-pass changelog entry with outcomes and remaining gaps.
 - [ ] Re-run one more read-only audit pass to verify no new inconsistencies were introduced.
 
-Operationalization for cron:
+Operationalization:
 
-- [ ] Perform the loop only for the selected primary target in this run.
-- [ ] Cap edit scope to the minimum files needed for that target.
+- [ ] Keep edit scope tight and intentional.
 - [ ] Before finalizing, run `git diff -- docs` and confirm every changed file is documentation.
 - [ ] If diff includes non-doc files, revert those non-doc changes and record incident in post-pass notes.
 
@@ -215,4 +210,4 @@ Store handoff tasks only in changelog post-pass entries.
 
 - [ ] Include only actionable tasks with exact file path and gap category.
 - [ ] Each task must have a short acceptance condition.
-- [ ] Keep tasks concise and prioritized for one-shot execution.
+- [ ] Keep tasks concise and prioritized for the next pass.
