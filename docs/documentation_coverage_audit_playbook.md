@@ -84,6 +84,11 @@ Do not make edits that are net-zero or negative quality gradient, including:
 - speculative expansion without evidence,
 - organizational churn that increases lookup cost.
 
+Existing-document remediation is required:
+
+- If these problems are present in existing docs, identify and fix them as part of the audit.
+- Do not limit remediation to newly added text.
+
 ## Self-Review Questions (Before Finalizing)
 
 Ask and answer these questions explicitly before finalizing changes:
@@ -100,6 +105,7 @@ Ask and answer these questions explicitly before finalizing changes:
 - Did I reconcile differing definitions/assumptions of lattices across sources where needed?
 - Did I introduce restrictions or authoritative statements that are not explicitly documented?
 - Is any new or existing language vague or mathematically imprecise?
+- Did I actively correct vague/imprecise language found in existing docs, not only in newly written lines?
 - Are improvements grounded in checkable/provable statements?
 - Did I introduce vague claims such as `usually`, `typically`, `often`, or `most of the time` where exact truth values are available?
 
