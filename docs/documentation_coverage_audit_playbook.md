@@ -64,7 +64,9 @@ You are responsible for choosing execution strategy.
 ### Source Discipline
 
 - Tie substantive claims to local source snapshots/manifests or canonical upstream docs.
+- Use online survey/research to discover newly relevant method surfaces across the active ecosystem.
 - Refresh/add local snapshots when required for reliable verification.
+- Localize critical online evidence into repo docs (snapshots/manifests) so future audits remain reproducible offline.
 - Do not elevate uncertain inference to fact.
 
 ### Consistency and Organization

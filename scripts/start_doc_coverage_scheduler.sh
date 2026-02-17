@@ -9,9 +9,20 @@ UV_BIN="$(command -v uv)"
 
 mkdir -p "$LOG_DIR"
 
-if [[ -f "$PID_FILE" ]] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
-  echo "scheduler already running (pid=$(cat "$PID_FILE"))"
+EXISTING_PID="$(pgrep -fo "scripts/doc_coverage_scheduler.py" || true)"
+if [[ -n "$EXISTING_PID" ]] && kill -0 "$EXISTING_PID" 2>/dev/null; then
+  echo "$EXISTING_PID" > "$PID_FILE"
+  echo "scheduler already running (pid=$EXISTING_PID)"
   exit 0
+fi
+
+if [[ -f "$PID_FILE" ]] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+  PID="$(cat "$PID_FILE")"
+  if ps -p "$PID" -o args= | grep -q "doc_coverage_scheduler.py"; then
+    echo "scheduler already running (pid=$PID)"
+    exit 0
+  fi
+  rm -f "$PID_FILE"
 fi
 
 cd "$REPO_DIR"

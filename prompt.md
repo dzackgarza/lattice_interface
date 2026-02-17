@@ -12,6 +12,8 @@ Required context:
 - `TEST_QUALITY.md`
 - `AGENTS.md`
 
+Internet access is available. Survey active online documentation/research surfaces for missing lattice-theoretic methods and contracts not yet represented locally.
+
 ## Non-Negotiable Constraints
 
 - Documentation work only.
@@ -59,5 +61,6 @@ Use whatever approach best satisfies the requirements and constraints.
   - prioritized handoff tasks for next execution,
   - commit hash(es) (or `none` for no-edit outcome).
 - If documentation files changed, commit is mandatory.
+- When online sources materially inform updates, localize critical references/snapshots in repo docs and record provenance in the changelog.
 
 Use whatever changelog structure best fits current history and needs. Preserve continuity and clarity.
