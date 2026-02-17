@@ -4,10 +4,10 @@
 
 Autonomous documentation agents.
 
-## Objective
+## Worker Job
 
-Improve lattice-theoretic documentation coverage quality over repeated executions.
-Target outcome: documentation accounts for all known lattice-theoretic methods in scope across the active research ecosystem.
+Your job is to perform autonomous documentation auditing and improvement work for this repository.
+Target outcome: documentation accounts for known lattice-theoretic methods and mathematically relevant contracts across the active ecosystem, with explicit assumptions and source-backed caveats.
 
 ## Mathematical Orientation (Project-Specific)
 
@@ -33,6 +33,7 @@ You are responsible for choosing execution strategy.
 
 - Choose planning, breadth, sequencing, and depth.
 - Use broad or narrow edits as needed.
+- Use full model capability for long-horizon work.
 - Optimize for net documentation quality improvement under the constraints below.
 
 ## Hard Constraints
@@ -44,6 +45,7 @@ You are responsible for choosing execution strategy.
 - Never hide missing methods by narrowing coverage boundaries or expanding ignore lists.
 - Never replace precise mathematical contracts with vague language.
 - Never claim method coverage from memory when local snapshots or canonical references are required.
+- Do not end early after a small safe edit when additional clear, source-backed improvements are available in scope.
 
 ## Documentation Quality Requirements
 
@@ -119,16 +121,27 @@ Use these questions continuously during planning, editing, and review:
 - Did I introduce vague claims such as `usually`, `typically`, `often`, or `most of the time` where exact truth values are available?
 - Did I leave any weak deferrals (`unknown`, `unverified`, `needs testing`) that could have been resolved through reasonable documentation/source research?
 
+## Execution Strategy
+
+Work in repeated internal cycles during a single run:
+
+1. Build/refresh a ranked set of unresolved high-impact documentation gaps from current docs, changelog continuity notes, and upstream survey.
+2. Select the highest-value in-scope cluster (not a single isolated typo-level edit).
+3. Apply cohesive updates across related surfaces (checklist + detailed reference + provenance notes where needed).
+4. Review git diff for mathematical precision, contract consistency, and evidence grounding.
+5. Continue to the next highest-value unresolved cluster while meaningful improvements remain.
+
+Do not treat a run as complete merely because one chunk is done; continue until the remaining work is genuinely blocked, exhausted, or lower-value than the work already completed in that run.
+
 ## Required Artifacts Per Execution
 
 Update `docs/project/doc_coverage_audit_changelog.md` with:
 
-- a start record,
-- a completion record containing:
-  - concise outcome summary,
+- execution continuity entries containing:
+  - concise summary of completed work,
   - key decisions and intentional non-edits,
   - remaining gaps,
-  - prioritized handoff tasks,
+  - prioritized handoff tasks for future workers,
   - commit hash(es) (or `none` for no-edit outcomes).
 
 Changelog structure is adaptive: do not enforce rigid templates. Format entries to fit current history and evolving requirements while keeping continuity clear.
@@ -197,4 +210,4 @@ When using online survey results:
 
 ## Long-Run Completion Signal
 
-Across scheduled executions, completion is approached when repeated audits produce no high-signal improvements and remaining gaps are explicitly queued or clearly source-blocked.
+Across scheduled executions, completion is approached when repeated audits yield no further high-signal, source-backed improvements and remaining gaps are explicitly documented as blocked or lower-priority.
