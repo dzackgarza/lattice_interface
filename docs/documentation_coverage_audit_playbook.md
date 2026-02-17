@@ -84,14 +84,12 @@ Do not make edits that are net-zero or negative quality gradient, including:
 - speculative expansion without evidence,
 - organizational churn that increases lookup cost.
 
-Existing-document remediation is required:
+These are project-wide quality values, not checks scoped to any particular subset of text.
+Apply them continuously across the full documentation surface throughout the audit.
 
-- If these problems are present in existing docs, identify and fix them as part of the audit.
-- Do not limit remediation to newly added text.
+## Continuous Quality Questions
 
-## Self-Review Questions (Before Finalizing)
-
-Ask and answer these questions explicitly before finalizing changes:
+Use these questions continuously during planning, editing, and review:
 
 - Are there online packages/docs with lattice algorithms not yet represented in our documentation surfaces?
 - Do the docs clearly help a human understand what methods/tools are available and when to use them?
@@ -104,8 +102,8 @@ Ask and answer these questions explicitly before finalizing changes:
 - Did I leave out critical assumptions (for example, positive-definite-only or ring/domain constraints)?
 - Did I reconcile differing definitions/assumptions of lattices across sources where needed?
 - Did I introduce restrictions or authoritative statements that are not explicitly documented?
-- Is any new or existing language vague or mathematically imprecise?
-- Did I actively correct vague/imprecise language found in existing docs, not only in newly written lines?
+- Is language anywhere in the touched documentation surface vague or mathematically imprecise?
+- Am I improving project-wide clarity and precision rather than only patching local wording?
 - Are improvements grounded in checkable/provable statements?
 - Did I introduce vague claims such as `usually`, `typically`, `often`, or `most of the time` where exact truth values are available?
 
