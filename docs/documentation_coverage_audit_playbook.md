@@ -84,6 +84,25 @@ Do not make edits that are net-zero or negative quality gradient, including:
 - speculative expansion without evidence,
 - organizational churn that increases lookup cost.
 
+## Self-Review Questions (Before Finalizing)
+
+Ask and answer these questions explicitly before finalizing changes:
+
+- Are there online packages/docs with lattice algorithms not yet represented in our documentation surfaces?
+- Do the docs clearly help a human understand what methods/tools are available and when to use them?
+- Is the current organization cohesive and easy to navigate across checklists and detailed references?
+- Do older docs need restructuring/reorganization to improve mathematical clarity or discoverability?
+- Did any edit remove mathematically relevant information?
+- Did I review `git diff` and validate that changes improve quality against these questions?
+- Were edits grounded in real source documents/snapshots rather than assumptions or innate knowledge?
+- Did I make any mathematical assumptions not clearly evidenced in source docs?
+- Did I leave out critical assumptions (for example, positive-definite-only or ring/domain constraints)?
+- Did I reconcile differing definitions/assumptions of lattices across sources where needed?
+- Did I introduce restrictions or authoritative statements that are not explicitly documented?
+- Is any new or existing language vague or mathematically imprecise?
+- Are improvements grounded in checkable/provable statements?
+- Did I introduce vague claims such as `usually`, `typically`, `often`, or `most of the time` where exact truth values are available?
+
 ## Required Artifacts Per Execution
 
 Update `docs/project/doc_coverage_audit_changelog.md` with:
