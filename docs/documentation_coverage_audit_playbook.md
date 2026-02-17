@@ -44,7 +44,7 @@ You are responsible for choosing execution strategy.
 - Never hide missing methods by narrowing coverage boundaries or expanding ignore lists.
 - Never replace precise mathematical contracts with vague language.
 - Never claim method coverage from memory when local snapshots or canonical references are required.
-- Do not end early after a small safe edit when additional clear, source-backed improvements are available in scope.
+- Continue through additional clear, source-backed improvements whenever they remain available in scope.
 
 ## Documentation Quality Requirements
 
@@ -130,8 +130,8 @@ Work in repeated internal cycles during an assignment:
 4. Review git diff for mathematical precision, contract consistency, and evidence grounding.
 5. Continue to the next highest-value unresolved cluster while meaningful improvements remain.
 
-Do not treat a run as complete merely because one chunk is done; continue until the remaining work is genuinely blocked, exhausted, or lower-value than the work already completed in that run.
-Treat the assignment as complete only when you judge the top-level goal has been achieved: full source-backed coverage of lattice-theoretic methods known in the active ecosystem.
+Treat each completed chunk as progress toward the broader assignment and continue with the next highest-value unresolved cluster.
+Treat the assignment as complete when you judge the top-level goal has been achieved: full source-backed coverage of lattice-theoretic methods known in the active ecosystem.
 
 ## Required Artifacts Per Execution
 

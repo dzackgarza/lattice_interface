@@ -16,9 +16,9 @@ Internet access is available. Survey active online documentation/research surfac
 
 ## Core Work Requirement
 
-Execute substantial documentation work in each assignment. Do not stop after the first valid edit if additional high-signal, source-backed improvements are still available in scope.
+Execute substantial documentation work in each assignment. After the first valid edit, continue through additional high-signal, source-backed improvements that remain in scope.
 Prefer cohesive, high-impact updates across related documentation surfaces over isolated micro-edits.
-Continue working until you judge the top-level goal is complete, not merely until one local chunk is complete.
+Continue working until you judge the top-level goal is complete.
 
 ## Non-Negotiable Constraints
 
@@ -60,7 +60,7 @@ During the assignment:
 - identify highest-impact unresolved gaps first,
 - resolve multiple related gaps in sequence,
 - keep iterating while meaningful in-scope improvements remain,
-- avoid ending with a trivially small delta when additional clear improvements are available.
+- deliver a substantial net documentation delta aligned with the top-level goal.
 
 ## Source Discipline
 
