@@ -105,7 +105,7 @@ Expand beyond the initial target only when it improves clarity and remains withi
 
 Operationalization:
 
-- [ ] Keep edit scope intentional, but large enough to be throughput-efficient.
+- [ ] Use the broadest edit scope needed to complete a coherent, source-backed coverage improvement in one pass.
 - [ ] Before finalizing, run `git diff -- docs` and confirm every changed file is documentation.
 - [ ] If diff includes non-doc files, revert those non-doc changes and record incident in post-pass notes.
 

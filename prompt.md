@@ -35,6 +35,7 @@ Read and follow:
 - Do as much in-scope work as needed for a real quality improvement.
 - Prefer meaningful batches over tiny edits.
 - Target at least one full subsection or multiple related method entries per pass.
+- Use sweeping edits when needed to finish a coherent documentation improvement; do not artificially constrain scope.
 - If no positive edit is warranted, record a justified no-edit pass.
 - Keep the pass auditable: clear rationale, clear diffs, clear handoff tasks.
 
