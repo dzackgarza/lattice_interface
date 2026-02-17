@@ -709,14 +709,20 @@ All algorithms assume Euclidean norm. Input is a real matrix (accepts `randn` fl
 
 ### Methods
 
-| Function / capability | Description | Tags |
-|----------------------|-------------|------|
-| LLL reduction | Standard LLL | `[PD]` |
-| KZ (HKZ) reduction | Korkine-Zolotarev; exact SVP in small dimensions | `[PD]` |
-| SVP solver | Shortest vector problem (Fincke-Pohst enumeration) | `[PD]` |
-| CVP solver | Closest vector problem (sphere decoding / A* search) | `[PD]` |
-| Predefined lattices | $D_n$ root lattice, repetition-GKP lattices | `[PD]` |
-| MLD for surface-square GKP | Maximum likelihood decoding using CVP as component | `[PD]` |
+| Function | Description | Tags |
+|----------|-------------|------|
+| `lll(M)` | LLL reduction on basis matrix input | `[PD, EUCLID]` |
+| `islllreduced(B)` | Predicate for LLL-reduced basis conditions | `[PD, EUCLID]` |
+| `kz(M)` | KZ (HKZ-style) reduction routine | `[PD, EUCLID]` |
+| `closest_point(x, M)` | CVP-style closest-lattice-point solver | `[PD, EUCLID]` |
+| `closest_point_Dn(x)` | Specialized closest-point routine for $D_n$ | `[PD, EUCLID]` |
+| `Dn(n)` | Constructor/helper for the $D_n$ root lattice family | `[PD, EUCLID]` |
+| `distance(M)` / `distances(M)` | Lattice-distance helper routines used by decoding workflows | `[PD, EUCLID]` |
+
+Higher-level capabilities documented in the package context:
+
+- SVP/CVP and MLD workflows in multimode GKP decoding.
+- Predefined lattice families used in decoder benchmarks.
 
 ### Definiteness
 
@@ -728,6 +734,8 @@ All algorithms require PD (Euclidean distance minimization). GKP symplectic form
 - Subsequent arXiv papers on tensor-network / matching decoders with lattice methods
 - Search algorithm reference: Chalmers University publication (lattice point enumeration)
 - Algorithms efficient in moderate dimensions ($n \sim 8$–$10$ for multimode GKP)
+- Repository: `https://github.com/QuantumSavory/LatticeAlgorithms.jl`
+- Research repository hub: `https://github.com/amazon-science/lattice-algorithms`
 
 ---
 
@@ -737,9 +745,17 @@ All algorithms require PD (Euclidean distance minimization). GKP symplectic form
 
 `[PD, EUCLID]` — Lattice reduction algorithms. Provides LLL and related reductions. Minimal package; use LLLplus or Nemo for more features.
 
+Method-signature status:
+
+- checklist anchor only for now; explicit runtime signatures should be added when authoritative upstream API docs/source snapshots are captured.
+
 ### 7.2 MinkowskiReduction.jl
 
 `[PD, EUCLID]` — Minkowski reduction of lattice bases. Computes Minkowski-reduced bases (all basis vectors are successive minima). Exact but exponential cost; practical only in low dimensions.
+
+Method-signature status:
+
+- checklist anchor only for now; explicit runtime signatures should be added when authoritative upstream API docs/source snapshots are captured.
 
 ---
 

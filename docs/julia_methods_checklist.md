@@ -475,4 +475,71 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ### References
 
+## 5. LLLplus.jl
+
+### 5.1 Reduction and search
+
+- [ ] ``lll(B)``
+- [ ] ``seysen(B)``
+- [ ] ``hkz(B)``
+- [ ] ``brun(B)``
+- [ ] ``cvp(Q, R, y)``
+  - Caveat: upstream examples use Euclidean/QR workflows on real matrices; no indefinite-form contract is documented.
+
+### 5.2 Utility workflows
+
+- [ ] ``subsetsum(...)``
+- [ ] ``integerfeasibility(...)``
+- [ ] ``rationalapprox(...)``
+
+### Definiteness summary
+
+- LLLplus algorithms are documented for Euclidean (positive-definite) workflows; indefinite arithmetic-form classification is out of scope.
+
+### References
+
+- `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (section 5)
+- `https://github.com/chrisvwx/LLLplus.jl`
+- `https://chrisvwx.github.io/LLLplus.jl/dev/`
+
+## 6. LatticeAlgorithms.jl
+
+### 6.1 Core methods
+
+- [ ] ``lll(M)``
+- [ ] ``islllreduced(B)``
+- [ ] ``kz(M)``
+- [ ] ``closest_point(x, M)``
+- [ ] ``closest_point_Dn(x)``
+- [ ] ``Dn(n)``
+- [ ] ``distance(M)``
+- [ ] ``distances(M)``
+  - Caveat: upstream positions these routines in GKP/CVP Euclidean settings; no indefinite-form classification API is documented.
+
+### Definiteness summary
+
+- LatticeAlgorithms.jl routines are used in positive-definite Euclidean decoding/reduction workflows.
+
+### References
+
+- `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (section 6)
+- `https://github.com/QuantumSavory/LatticeAlgorithms.jl`
+- `https://github.com/amazon-science/lattice-algorithms`
+
+## 7. Minor Julia Lattice Packages
+
+### 7.1 LatticeBasisReduction.jl
+
+- [ ] `package checklist anchor: LatticeBasisReduction.jl`
+  - Caveat: local reference currently documents this package at capability level only; add explicit runtime method signatures when authoritative upstream API docs are captured.
+
+### 7.2 MinkowskiReduction.jl
+
+- [ ] `package checklist anchor: MinkowskiReduction.jl`
+  - Caveat: local reference currently documents this package at capability level only; add explicit runtime method signatures when authoritative upstream API docs are captured.
+
+### References
+
+- `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (section 7)
+
 Last updated: 2026-02-17
