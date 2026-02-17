@@ -38,6 +38,8 @@ def run_job() -> int:
         "exec",
         "-C",
         str(REPO_DIR),
+        "-c",
+        'model_reasoning_effort="high"',
         "--sandbox",
         "workspace-write",
         "--full-auto",
