@@ -85,7 +85,7 @@ For cross-package Julia context (Oscar, Indefinite.jl, LLLplus, etc.), see `juli
 | `gram_matrix(L)` / `basis_matrix(L)` | Core matrix data | `[NT]` |
 | `ambient_space(L)` / `rational_span(L)` | Ambient/rational span | `[NT]` |
 | `rank(L)` / `degree(L)` | Rank/ambient degree | `[NT]` |
-| `signature_tuple(L)` | Signature | `[INDEF, NT]` |
+| `signature_tuple(L)` | Signature triple `(n_positive, n_zero, n_negative)` | `[INDEF, NT]` |
 | `det(L)` / `discriminant(L)` | Determinant/discriminant | `[NT]` |
 | `scale(L)` / `norm(L)` | Scale and norm ideals | `[NT]` |
 | `is_even(L)` / `is_integral(L)` / `is_unimodular(L)` | Arithmetic predicates | `[NT]` |
@@ -130,8 +130,8 @@ Indefinite caveats:
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `automorphism_group_generators(L)` | Generators for `Aut(L)` | `[PD, GAP, NT]` |
-| `automorphism_group_order(L)` | Order of automorphism group | `[PD, NT]` |
+| `automorphism_group_generators(L)` | Generators for `Aut(L)`; current docs require `is_definite(L)` | `[PD, GAP, NT]` |
+| `automorphism_group_order(L)` | Order of automorphism group; current docs require `is_definite(L)` | `[PD, NT]` |
 | `is_isometric(L1, L2)` | Isometry test | `[PD, NT]` |
 | `is_isometric_with_isometry(L1, L2)` | Isometry + explicit map | `[PD, NT]` |
 | `is_locally_isometric(L1, L2, p)` | Local p-adic isometry test | `[NT]` |
@@ -153,8 +153,9 @@ Indefinite note: full automorphism groups are often infinite; practical workflow
 | `primitive_closure(L, S)` / `divisibility(L, v)` | Primitive closure/divisibility | `[NT]` |
 | `glue_map(...)` / `overlattice(glue_map)` | Overlattice construction via gluing | `[NT]` |
 | `primitive_extension(...)` | Nikulin-style primitive extension | `[NT]` |
+| `local_modification(M, L, p)` | Local modification; current docs assume `M` is `Z_p`-maximal and `L` is isomorphic to `M` over `Q_p` | `[NT]` |
 | `maximal_integral_lattice(L)` / `is_maximal_integral(L)` | Maximal-integral workflows | `[NT]` |
-| `embed(L, gen)` / `embed_in_unimodular(L, ...)` | Embedding algorithms | `[NT]` |
+| `embed(L, gen)` / `embed_in_unimodular(L, ...)` | Embedding algorithms; current docs note `embed_in_unimodular` is presently implemented only for even lattices | `[NT]` |
 | `kernel_lattice(L, f)` / `invariant_lattice(L, G)` / `coinvariant_lattice(L, G)` | Endomorphism/group-action derived sublattices | `[NT]` |
 
 ### 2.9 Vinberg algorithm (indefinite core)
@@ -243,8 +244,8 @@ For your stated use case (indefinite lattices):
 
 ## 5. Sources
 
-- Oscar/Hecke docs: https://docs.oscar-system.org/stable/Hecke/
-- Hecke integer lattices (DeepWiki): https://deepwiki.com/thofma/Hecke.jl/5.3-integer-lattices
-- Hecke general lattices (DeepWiki): https://deepwiki.com/thofma/Hecke.jl/5.4-general-lattices
+- Oscar/Hecke docs root: https://docs.oscar-system.org/stable/Hecke/
+- Oscar/Hecke integer lattices manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/ (accessed 2026-02-17)
+- Oscar/Hecke lattices-with-isometry manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/ (accessed 2026-02-17)
 - Vinberg docs (Oscar legacy path): https://docs.oscar-system.org/v1.2/NumberTheory/vinberg/
 - Existing in-repo canonical detail: `julia_lattice_methods_reference.md`

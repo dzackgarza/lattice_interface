@@ -169,6 +169,18 @@ Tracks Sage-relevant methods from the Sage docs set.
   - Caveat: upstream notes this routine internally puts the form in local normal form (a required precondition for density computations).
 - [ ] `local_primitive_density(p, m)`
   - Caveat: upstream notes this routine internally puts the form in local normal form (a required precondition for primitive density computations).
+- [ ] `local_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`).
+- [ ] `local_primitive_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`). Upstream also notes this routine is included for consistency and not used internally.
+- [ ] `local_good_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`).
+- [ ] `local_bad_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`).
+- [ ] `local_badI_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`).
+- [ ] `local_badII_density_congruence(p, m, Zvec=None, NZvec=None)`
+  - Caveat: upstream assumes the form is block diagonal and `p`-integral; `Zvec` and `NZvec` are non-repeating index lists in `range(self.dim())` (or `None`).
 - [ ] `local_representation_conditions(...)`
 - [ ] `is_locally_universal_at_prime(p)`
 - [ ] `is_locally_universal_at_all_primes()`

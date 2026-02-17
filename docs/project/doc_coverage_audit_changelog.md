@@ -319,3 +319,19 @@ Each execution record must still include, at minimum:
     - Files: `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
     - Acceptance condition: reference includes the two congruence-density wrappers (and optionally split helper variants) with no contradiction vs checklist caveat language.
 - Commit hash: `5fb4535`
+
+### Pass ID: `20260217-09`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 14:50:36 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): Sage `QuadraticForm` local congruence-density method coverage and Julia/Hecke lattice-contract caveat accuracy
+- Target selection rationale: prior handoff identified missing Sage congruence-density wrappers; online survey of official docs identified contract drift risks in Julia/Hecke docs (`signature_tuple` arity and `local_modification` semantics) affecting indefinite/local workflows.
+- Target ecosystems/modules: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`, `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: p-adic/local congruence-density methods (`local_density_congruence`, `local_primitive_density_congruence`, adjacent good/bad split helpers where source-backed); Hecke local-modification/isometry-signature contracts
+- Proposed edits: add missing Sage congruence-density methods and explicit input-assumption caveats; correct Julia/Hecke method contracts to match current official docs (signature tuple shape and local modification preconditions/argument semantics); localize online provenance in touched docs and changelog.
+- Planned non-edits: no checklist box state changes; no runtime/code/test edits; no ignore-list/scope manipulation; no unsupported caveats beyond source text.
+- Risk notes: low-level density helper docs include TODO sections upstream; caveat wording must distinguish documented assumptions from unresolved upstream documentation TODOs.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive

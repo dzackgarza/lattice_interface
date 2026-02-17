@@ -71,6 +71,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``rank(L)``
 - [ ] ``degree(L)``
 - [ ] ``signature_tuple(L)``
+  - Caveat: in current Hecke docs this returns `(n_positive, n_zero, n_negative)`, not a 2-tuple.
 - [ ] ``det(L)``
 - [ ] ``discriminant(L)``
 - [ ] ``scale(L)``
@@ -155,7 +156,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ### 2.8 Automorphism and isometry
 
 - [ ] ``automorphism_group_generators(L)``
+  - Caveat: upstream documents this for definite lattices (`is_definite(L)` required).
 - [ ] ``automorphism_group_order(L)``
+  - Caveat: upstream documents this for definite lattices (`is_definite(L)` required).
 - [ ] ``is_isometric(L1, L2)``
 - [ ] ``is_isometric_with_isometry(L1, L2)``
 - [ ] ``is_locally_isometric(L1, L2, p)``
@@ -185,12 +188,14 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``glue_map(L, S, gen_imgs)``
 - [ ] ``overlattice(glue_map)``
 - [ ] ``primitive_extension(L1, L2, glue_map)``
-- [ ] ``local_modification(L, M, p)``
+- [ ] ``local_modification(M, L, p)``
+  - Caveat: upstream assumes `M` is `Z_p`-maximal and `L` is isomorphic to `M` over `Q_p`.
 - [ ] ``maximal_integral_lattice(L)``
 - [ ] ``is_maximal_integral(L)``
 - [ ] ``is_maximal(L)``
 - [ ] ``embed(L, gen)``
 - [ ] ``embed_in_unimodular(L, ...)``
+  - Caveat: upstream notes this currently works only for even lattices.
 #### Endomorphism-based sublattices
 
 - [ ] ``kernel_lattice(L, f)``

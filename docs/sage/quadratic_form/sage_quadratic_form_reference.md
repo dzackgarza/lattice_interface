@@ -282,18 +282,28 @@ Q.mass__by_Siegel_densities()
 
 ---
 
-## 13. Local Densities
+## 13. Local Densities and Congruence Helpers
 
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `local_density(p, m)` | `Rational` | Local density of representing m at prime p; upstream notes this wrapper enforces a local-normal-form precondition internally before density computation. |
 | `local_primitive_density(p, m)` | `Rational` | Local primitive density of representing m at prime p; upstream notes this wrapper enforces a local-normal-form precondition internally before primitive-density computation. |
+| `local_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Local density with congruence filters; upstream assumes a block-diagonal, `p`-integral form and uses `Zvec`/`NZvec` as non-repeating index lists in `range(self.dim())` (or `None`). |
+| `local_primitive_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Primitive local density with congruence filters; same block-diagonal and `p`-integral assumptions, and upstream notes this routine is included for consistency rather than internal use. |
+| `local_good_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Good-type contribution to congruence density decomposition; upstream assumes a block-diagonal, `p`-integral form and `Zvec`/`NZvec` index-list semantics as above. |
+| `local_bad_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Bad-type contribution to congruence density decomposition; upstream assumes a block-diagonal, `p`-integral form and `Zvec`/`NZvec` index-list semantics as above. |
+| `local_badI_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Type-I bad contribution used in congruence-density decompositions; upstream assumes a block-diagonal, `p`-integral form and `Zvec`/`NZvec` index-list semantics. |
+| `local_badII_density_congruence(p, m, Zvec=None, NZvec=None)` | `Rational` | Type-II bad contribution used in congruence-density decompositions; upstream assumes a block-diagonal, `p`-integral form and `Zvec`/`NZvec` index-list semantics. |
 
 ```python
 Q = DiagonalQuadraticForm(ZZ, [1, 1, 1, 1])
 Q.local_density(2, 1)             # local density of representing 1 at p=2
 Q.local_primitive_density(3, 6)   # primitive local density at p=3
+Q.local_density_congruence(2, 1, None, None)
+Q.local_primitive_density_congruence(3, 1, None, None)
 ```
+
+Source note: contracts above were reconciled against `docs/sage/quadratic_form/upstream/quadratic_form.html` and the current upstream page `https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/quadratic_form.html` (accessed 2026-02-17).
 
 ---
 
