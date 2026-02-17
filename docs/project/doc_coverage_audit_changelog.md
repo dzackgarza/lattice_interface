@@ -576,4 +576,63 @@ Each execution record must still include, at minimum:
     - Gap category: missing_test_evidence
     - Files: `tests/**`, `docs/forms_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one method-tagged test for each major `Forms` family (constructor, preserved forms, orthogonal decomposition/Witt index).
+- Commit hash(es): `1e5d4e0`
+
+---
+
+### Pass ID: `20260217-14`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 18:22:32 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): remaining missing GAP package checklist surfaces (`CddInterface`, `NConvex`) and package-level method-surface fidelity
+- Target selection rationale: `CddInterface` and `NConvex` were still represented only under the umbrella GAP checklist/reference, which left first-class package checklist coverage incomplete.
+- Target ecosystems/modules: `docs/cddinterface_methods_checklist.md` (new), `docs/cddinterface/lattice/cddinterface_lattice_reference.md` (new), `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md` (new), `docs/nconvex_methods_checklist.md` (new), `docs/nconvex/lattice/nconvex_lattice_reference.md` (new), `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md` (new), `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: `CddInterface` polyhedron constructors/HV conversions/face and LP/projection methods; `NConvex` package-level surface and explicit method-index blocker triage
+- Proposed edits: add first-class checklist/reference/provenance surfaces for `CddInterface` and `NConvex`; wire both into GAP and playbook navigation; extend GAP umbrella Cdd method inventory with source-backed functions from manual chapters 2-4
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no speculative `NConvex` method signatures without canonical source pages
+- Risk notes: canonical `NConvex` method-index pages remained inaccessible via available web retrieval paths, requiring explicit unresolved-gap triage rather than inferred method lists
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 18:22:32 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/cddinterface_methods_checklist.md`, `docs/cddinterface/lattice/cddinterface_lattice_reference.md`, `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md`, `docs/nconvex_methods_checklist.md`, `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: CddInterface constructors (`Cdd_PolyhedronBy*`), representation conversions (`Cdd_[HV]_Rep`), attributes/predicates (`Cdd_*Dimension`, `Cdd_Is*`), face/interior methods (`Cdd_Faces*`, `Cdd_InteriorPoint`), and LP/projection (`Cdd_LinearProgram`, `Cdd_FourierProjection`); NConvex package-load and method-surface triage scaffolding
+- Concise outcome summary: closed remaining first-class checklist-surface gap for `CddInterface` and created a dedicated first-class `NConvex` surface with explicit source-blocked method triage, then linked both into GAP/playbook navigation.
+- Key decisions and intentional non-edits:
+  - Added standalone checklist/reference/provenance files for both packages instead of keeping them as subsection-only entries in umbrella GAP docs.
+  - Promoted additional `CddInterface` methods from manual chapters 2-4 into checklist/reference surfaces and GAP consolidated index.
+  - Intentionally did not invent `NConvex` runtime method names; documented the retrieval blocker and left method-level coverage claims empty pending canonical docs.
+  - Left all checklist boxes unchecked (no new `method:`-tagged test evidence introduced).
+  - Did not modify unrelated pre-existing dirty files (`scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - Surveyed `CddInterface` package/manual pages on 2026-02-17:
+    - `https://homalg-project.github.io/CddInterface/`
+    - `https://homalg-project.github.io/CddInterface/doc/chap0_mj.html`
+    - `https://homalg-project.github.io/CddInterface/doc/chap2_mj.html`
+    - `https://homalg-project.github.io/CddInterface/doc/chap3_mj.html`
+    - `https://homalg-project.github.io/CddInterface/doc/chap4_mj.html`
+  - Surveyed `NConvex` package/repository pages on 2026-02-17:
+    - `https://gap-packages.github.io/NConvex/`
+    - `https://github.com/homalg-project/NConvex`
+  - Localized evidence and blockers in:
+    - `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md`
+    - `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; first-goal package checklist coverage is improved by elevating both remaining GAP package surfaces to first-class docs, with source-backed Cdd method expansion and explicit NConvex blocker triage.
+- Remaining gaps:
+  - `NConvex` still lacks source-backed method-level inventory due inaccessible canonical manual index pages in this environment.
+  - Newly added CddInterface/NConvex checklists have no `method:`-tagged test evidence yet.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: retrieve canonical `NConvex` manual/source method pages and expand method-level checklist/reference entries.
+    - Gap category: missing_method
+    - Files: `docs/nconvex_methods_checklist.md`, `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`
+    - Acceptance condition: source-backed runtime method names and argument surfaces replace source-blocked placeholder status.
+  - [ ] Priority 2: add `method:`-tagged tests for representative CddInterface and NConvex methods, then reconcile tracker/checklist state.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/cddinterface_methods_checklist.md`, `docs/nconvex_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one method-tagged test per major method family and checklist/tracker entries aligned.
 - Commit hash(es): `pending`

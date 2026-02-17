@@ -187,7 +187,20 @@ Representative `CddInterface` methods:
 | `Cdd_GeneratingVertices(P)` / `Cdd_GeneratingRays(P)` | Extract vertex/ray generators | `[PKG, POLY]` |
 | `Cdd_Equalities(P)` / `Cdd_Inequalities(P)` | Retrieve linear equalities/inequalities | `[PKG, POLY]` |
 | `Cdd_Faces(P)` / `Cdd_FacesWithFixedDimension(P, d)` / `Cdd_Facets(P)` | Face lattice and facet-level queries | `[PKG, POLY]` |
-| `Cdd_IsEmpty(P)` / `Cdd_IsCone(P)` / `Cdd_IsPointed(P)` | Basic geometric predicates | `[PKG, POLY]` |
+| `Cdd_InteriorPoint(P)` / `Cdd_FacesWithInteriorPoints(P)` / `Cdd_FacesWithFixedDimensionAndInteriorPoints(P, d)` | Interior-point-aware face extraction methods | `[PKG, POLY]` |
+| `Cdd_ExtendLinearity(P, V)` / `Cdd_Lines(P)` / `Cdd_Vertices(P)` | Lineality/vertex extraction and linearity-extension helpers | `[PKG, POLY]` |
+| `Cdd_IsEmpty(P)` / `Cdd_IsCone(P)` / `Cdd_IsLinSpace(P)` / `Cdd_IsPointed(P)` | Basic geometric predicates | `[PKG, POLY]` |
+| `Cdd_IsContained(P1, P2)` / `Cdd_Intersection(P1, P2)` | Polyhedral containment/intersection operations | `[PKG, POLY]` |
+| `Cdd_LinearProgram(P, b)` / `Cdd_FourierProjection(P, var)` | LP and projection/elimination workflows for polyhedral models | `[PKG, POLY]` |
+
+`NConvex` note:
+
+- `NConvex` is in-scope and package-level documented, but method-index pages were not retrievable in this environment during this pass.
+- Method-level triage continuity is maintained in `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md`.
+
+Detailed inventory note:
+
+- Full CddInterface checklist/reference surfaces are in `docs/cddinterface_methods_checklist.md` and `docs/cddinterface/lattice/cddinterface_lattice_reference.md`.
 
 ### 2.6 Float package fplll hooks
 
@@ -370,27 +383,43 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `RiemannRochBasis`
 - `ToricStar`
 
-### 4.8 CddInterface methods
+### 4.8 NConvex surface status
+
+- `LoadPackage("NConvex")`
+- Method-level inventory pending canonical manual retrieval (see `docs/nconvex_methods_checklist.md`).
+
+### 4.9 CddInterface methods
 
 - `Cdd_AmbientSpaceDimension`
 - `Cdd_Canonicalize`
 - `Cdd_Dimension`
 - `Cdd_Equalities`
+- `Cdd_ExtendLinearity`
 - `Cdd_Faces`
+- `Cdd_FacesWithFixedDimensionAndInteriorPoints`
 - `Cdd_FacesWithFixedDimension`
+- `Cdd_FacesWithInteriorPoints`
 - `Cdd_Facets`
+- `Cdd_FourierProjection`
 - `Cdd_GeneratingRays`
 - `Cdd_GeneratingVertices`
 - `Cdd_H_Rep`
+- `Cdd_InteriorPoint`
+- `Cdd_Intersection`
 - `Cdd_Inequalities`
 - `Cdd_IsCone`
 - `Cdd_IsEmpty`
+- `Cdd_IsContained`
+- `Cdd_IsLinSpace`
 - `Cdd_IsPointed`
+- `Cdd_LinearProgram`
+- `Cdd_Lines`
 - `Cdd_PolyhedronByGenerators`
 - `Cdd_PolyhedronByInequalities`
 - `Cdd_V_Rep`
+- `Cdd_Vertices`
 
-### 4.9 Forms methods
+### 4.10 Forms methods
 
 - `AsSesquilinearForm`
 - `AsQuadraticForm`
@@ -422,7 +451,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `OrthogonalComponentsOfSubgroup`
 - `WittIndex`
 
-### 4.10 HyperCells methods (top-level entry points)
+### 4.11 HyperCells methods (top-level entry points)
 
 - `HyperCell`
 - `TGCell`

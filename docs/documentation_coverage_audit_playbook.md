@@ -83,6 +83,8 @@ Core repository references:
 - `docs/sage_methods_checklist.md`
 - `docs/julia_methods_checklist.md`
 - `docs/gap_methods_checklist.md`
+- `docs/cddinterface_methods_checklist.md`
+- `docs/nconvex_methods_checklist.md`
 - `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
 - `docs/4ti2_methods_checklist.md`
@@ -121,6 +123,12 @@ Upstream living map:
 - HyperCells (GAP package):
   - package page: `https://gap-packages.github.io/HyperCells/`
   - manual: `https://www.hypercells.net/chap0_mj.html`
+- CddInterface (GAP package):
+  - package page: `https://homalg-project.github.io/CddInterface/`
+  - manual: `https://homalg-project.github.io/CddInterface/doc/chap0_mj.html`
+- NConvex (GAP package):
+  - package page: `https://gap-packages.github.io/NConvex/`
+  - source: `https://github.com/homalg-project/NConvex`
 - Forms (GAP package):
   - package page: `https://gap-packages.github.io/forms/`
   - manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`

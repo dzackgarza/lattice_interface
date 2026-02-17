@@ -133,11 +133,29 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `Cdd_Faces(P)`
 - [ ] `Cdd_FacesWithFixedDimension(P, d)`
 - [ ] `Cdd_Facets(P)`
+- [ ] `Cdd_InteriorPoint(P)`
+- [ ] `Cdd_FacesWithInteriorPoints(P)`
+- [ ] `Cdd_FacesWithFixedDimensionAndInteriorPoints(P, d)`
+- [ ] `Cdd_ExtendLinearity(P, V)`
+- [ ] `Cdd_Lines(P)`
+- [ ] `Cdd_Vertices(P)`
 - [ ] `Cdd_IsEmpty(P)`
 - [ ] `Cdd_IsCone(P)`
+- [ ] `Cdd_IsLinSpace(P)`
 - [ ] `Cdd_IsPointed(P)`
+- [ ] `Cdd_IsContained(P1, P2)`
+- [ ] `Cdd_Intersection(P1, P2)`
+- [ ] `Cdd_LinearProgram(P, b)`
+- [ ] `Cdd_FourierProjection(P, var)`
+- [ ] `Cdd_FourierProjection([A, b], var)`
+  - Caveat: complete CddInterface inventory and source links are maintained in `docs/cddinterface_methods_checklist.md`.
 
-### 2.7 Forms package (detailed checklist surface)
+### 2.7 NConvex package (detailed checklist surface)
+
+- [ ] `LoadPackage("NConvex")`
+  - Caveat: canonical `NConvex` method-index pages were not retrievable in this environment; tracked as explicit triage in `docs/nconvex_methods_checklist.md`.
+
+### 2.8 Forms package (detailed checklist surface)
 
 - [ ] `AsSesquilinearForm(obj[, field][, antiautomorphism])`
 - [ ] `AsQuadraticForm(obj[, field])`
@@ -151,7 +169,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `WittIndex(form)`
   - Caveat: finite-field form workflow; characteristic and irreducibility assumptions are documented in `docs/forms_methods_checklist.md`.
 
-### 2.8 fplll hooks exposed in GAP
+### 2.9 fplll hooks exposed in GAP
 
 - [ ] `FPLLLReducedBasis(...)`
 - [ ] `FPLLLShortestVector(...)`
@@ -161,6 +179,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ## References
 
 - `docs/gap/lattice/gap_lattice_methods_reference.md`
+- `docs/cddinterface_methods_checklist.md`
+- `docs/nconvex_methods_checklist.md`
 - `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
 - GAP docs hub: `https://www.gap-system.org/doc/`
@@ -170,5 +190,6 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - toric package page: `https://gap-packages.github.io/toric/`
 - 4ti2Interface package page: `https://homalg-project.github.io/homalg_project/4ti2Interface/`
 - CddInterface package page: `https://homalg-project.github.io/CddInterface/`
+- NConvex package page: `https://gap-packages.github.io/NConvex/`
 - Forms package page: `https://gap-packages.github.io/forms/`
 - Forms manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
