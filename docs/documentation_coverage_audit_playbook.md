@@ -6,47 +6,63 @@ Autonomous documentation agents.
 
 ## Objective
 
-Increase lattice-theoretic documentation coverage quality over repeated scheduled executions.
+Improve lattice-theoretic documentation coverage quality over repeated executions.
 
-## Task Boundaries
+## Agent Autonomy
 
-In scope:
+You are responsible for choosing execution strategy.
 
-- documentation auditing,
-- documentation completion,
-- documentation organization.
+- Choose planning, breadth, sequencing, and depth.
+- Use broad or narrow edits as needed.
+- Optimize for net documentation quality improvement under the constraints below.
 
-Not in scope:
+## Hard Constraints
 
-- code implementation,
-- runtime behavior changes,
-- test-surface manipulation.
-
-## Non-Negotiables
-
+- Documentation work only.
+- No code implementation or runtime behavior changes.
+- No test-surface manipulation.
 - Never check off checklist items.
 - Never hide missing methods by narrowing coverage boundaries or expanding ignore lists.
-- Never replace precise mathematical contracts with vague wording.
-- Never claim method coverage from memory when local source snapshots or canonical references are required.
+- Never replace precise mathematical contracts with vague language.
+- Never claim method coverage from memory when local snapshots or canonical references are required.
 
-## Quality Standard
+## Documentation Quality Requirements
 
-Documentation changes should be:
+### Coverage Integrity
 
-- source-backed,
-- method-precise,
-- mathematically explicit,
-- caveat-aware where needed,
-- consistent across related docs.
+- Track real method surfaces, not aliases or accounting shortcuts.
+- Prefer explicit method-level accountability.
+- Close missing-method gaps where source evidence exists.
+- Keep unresolved gaps explicit and actionable.
 
-## Operating Model
+### Mathematical Precision
 
-- Handoff tasks and recent changelog gaps are starting signals.
-- Do not stop after the first valid fix if adjacent high-signal improvements remain.
-- Expand audit breadth as needed while quality gradient remains positive.
-- Work until the high-signal audit frontier is reasonably complete for the current execution.
+- State contracts in mathematically meaningful terms.
+- Include caveats for domain/definiteness/input assumptions when required.
+- Avoid content-free statements and weak generic phrasing.
 
-## Required Run Artifacts
+### Source Discipline
+
+- Tie substantive claims to local source snapshots/manifests or canonical upstream docs.
+- Refresh/add local snapshots when required for reliable verification.
+- Do not elevate uncertain inference to fact.
+
+### Consistency and Organization
+
+- Keep related checklist and reference surfaces aligned.
+- Resolve contradictory caveat wording across files.
+- Improve discoverability (section structure, nearby method grouping) when it clarifies auditability.
+
+### Negative-Gradient Avoidance
+
+Do not make edits that are net-zero or negative quality gradient, including:
+
+- pure reword churn with no precision gain,
+- deletions that reduce provenance,
+- speculative expansion without evidence,
+- organizational churn that increases lookup cost.
+
+## Required Artifacts Per Execution
 
 Update `docs/project/doc_coverage_audit_changelog.md` with:
 
@@ -55,10 +71,10 @@ Update `docs/project/doc_coverage_audit_changelog.md` with:
   - edits and rationale,
   - intentional non-edits,
   - remaining gaps,
-  - prioritized next handoff tasks,
+  - prioritized handoff tasks,
   - commit hash (or `none` for no-edit outcomes).
 
-## Commit Policy
+## Commit Requirements
 
 - If documentation files changed, commit is mandatory.
 - If no documentation files changed, do not force a content-only commit.
@@ -82,4 +98,4 @@ At minimum, consider:
 
 ## Long-Run Completion Signal
 
-Across scheduled executions, the process approaches completion when repeated audits find no high-signal improvements and remaining gaps are explicitly queued or clearly source-blocked.
+Across scheduled executions, completion is approached when repeated audits produce no high-signal improvements and remaining gaps are explicitly queued or clearly source-blocked.
