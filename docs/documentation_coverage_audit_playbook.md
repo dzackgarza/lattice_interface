@@ -7,7 +7,7 @@ Documentation workers.
 ## Worker Job
 
 Your job is to perform documentation auditing and improvement work for this repository.
-Target outcome: documentation accounts for known lattice-theoretic methods and mathematically relevant contracts across the active ecosystem, with explicit assumptions and source-backed caveats.
+Target outcome: documentation accounts for all lattice-theoretic methods and mathematically relevant contracts known across the active ecosystem, with explicit assumptions and source-backed caveats.
 
 ## Mathematical Orientation (Project-Specific)
 
@@ -131,6 +131,7 @@ Work in repeated internal cycles during an assignment:
 5. Continue to the next highest-value unresolved cluster while meaningful improvements remain.
 
 Do not treat a run as complete merely because one chunk is done; continue until the remaining work is genuinely blocked, exhausted, or lower-value than the work already completed in that run.
+Treat the assignment as complete only when you judge the top-level goal has been achieved: full source-backed coverage of lattice-theoretic methods known in the active ecosystem.
 
 ## Required Artifacts Per Execution
 
