@@ -20,7 +20,7 @@ Rules:
 - Date/time (UTC):
 - Execution context:
 - Auditor:
-- Primary target (single ecosystem/module):
+- Primary work target(s):
 - Target selection rationale:
 - Target ecosystems/modules:
 - Planned method families:
@@ -39,8 +39,6 @@ Rules:
 - Non-edits made intentionally (with rationale):
 - Source snapshots added/updated:
 - Net quality gradient (`positive`/`zero`/`negative`) with justification:
-- Batch size summary (method-level items changed):
-- Small-batch justification (required if <3):
 - Remaining gaps:
 - Next-pass focus:
 - Handoff tasks for next agent:
@@ -55,7 +53,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:42:45 UTC (retroactive; missed before editing)
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): cross-ecosystem documentation process
+- Primary work target(s): cross-ecosystem documentation process
 - Target selection rationale: initial bootstrap pass to create audit protocol
 - Target ecosystems/modules: cross-ecosystem documentation process (top-level audit workflow only)
 - Planned method families: none (process document creation only)
@@ -86,7 +84,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:46:24 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): cross-ecosystem documentation process
+- Primary work target(s): cross-ecosystem documentation process
 - Target selection rationale: harden playbook for deterministic autonomous cron execution
 - Target ecosystems/modules: cross-ecosystem playbook/changelog docs
 - Planned method families: none (process refinement pass)
@@ -118,7 +116,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:48:14 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): cross-ecosystem playbook operational constraints
+- Primary work target(s): cross-ecosystem playbook operational constraints
 - Target selection rationale: user requested one-shot CLI compatibility and pass-to-pass task handoff
 - Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
 - Planned method families: none (process-only refinement)
@@ -150,7 +148,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:48:50 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): cross-ecosystem playbook simplification
+- Primary work target(s): cross-ecosystem playbook simplification
 - Target selection rationale: user requested reduced complexity and changelog-only handoff
 - Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
 - Planned method families: none (process-only refinement)
@@ -186,7 +184,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:49:56 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): playbook abstraction simplification
+- Primary work target(s): playbook abstraction simplification
 - Target selection rationale: user requested removing over-abstract run-mode assumptions
 - Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
 - Planned method families: none (process wording refinement)
@@ -222,7 +220,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 12:50:47 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): playbook framing for agent workers
+- Primary work target(s): playbook framing for agent workers
 - Target selection rationale: user requested worker-job framing with explicit job and goals
 - Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
 - Planned method families: none (process framing only)
@@ -258,7 +256,7 @@ Rules:
 - Date/time (UTC): 2026-02-17 13:08:38 UTC
 - Execution context: manual
 - Auditor: Codex
-- Primary target (single ecosystem/module): `sage.quadratic_forms.quadratic_form` checklist surface
+- Primary work target(s): `sage.quadratic_forms.quadratic_form` checklist surface
 - Target selection rationale: latest handoff task requires a method-level checklist clarification; this pass selects the Sage checklist and addresses a source-backed missing contract from the local upstream snapshot.
 - Target ecosystems/modules: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`, `docs/project/doc_coverage_audit_changelog.md`
 - Planned method families: local p-adic/Jordan-normal-form routines for `QuadraticForm`

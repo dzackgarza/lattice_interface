@@ -1,16 +1,14 @@
 # Documentation Coverage Audit Playbook
 
-## Worker Role
+## Audience and Purpose
 
-You are a documentation coverage worker.
+This document is for autonomous documentation agents.
 
-Your responsibility is to continuously improve coverage quality for lattice-theoretic methods across the repository's documentation surfaces.
+Purpose: improve lattice-theoretic documentation coverage quality over repeated runs.
 
-Assume high-autonomy execution: plan and complete substantial documentation work without interactive guidance.
+## Job Contract
 
-## Core Goal
-
-Ensure that method coverage documentation is mathematically accurate, source-backed, and organized for fast future auditing.
+Each run should produce one coherent documentation audit/improvement pass that leaves the repository's documentation quality measurably better, or a justified no-edit outcome.
 
 ## Scope
 
@@ -31,54 +29,58 @@ Out of scope:
 - Never check off checklist items.
 - Never hide missing methods by narrowing scope or expanding ignore lists.
 - Never replace precise mathematical contracts with vague wording.
-- Never claim coverage from memory when local source snapshots are needed.
+- Never claim method coverage from memory when local source snapshots or canonical references are required.
 
-## Worker Autonomy
+## Quality Standard
 
-Use your own judgment to choose:
+Documentation edits should:
 
-- what to audit,
-- how broad the pass should be,
-- which related docs to update together,
-- how to sequence improvements.
+- be source-backed,
+- use exact runtime method naming when practical,
+- include caveats where mathematically necessary,
+- improve discoverability and consistency across related docs,
+- avoid unsupported extrapolation.
 
-Constraint: keep all work within documentation scope and source-backed accuracy.
+## Autonomy
 
-## Pass Standard
+The agent chooses planning, breadth, sequencing, and depth.
 
-A pass is successful when it yields either:
-
-- meaningful documentation improvement(s), or
-- a justified no-edit outcome with clear reasons.
+Use broad edits when needed to complete coherent improvements. Avoid artificial micro-pass constraints.
 
 ## Required Artifacts Per Pass
 
-- Pre-pass entry in `docs/project/doc_coverage_audit_changelog.md`.
-- Post-pass entry in `docs/project/doc_coverage_audit_changelog.md` including:
-  - edits made and rationale,
+Update `docs/project/doc_coverage_audit_changelog.md` with:
+
+- a pre-pass entry,
+- a post-pass entry containing:
+  - edits and rationale,
   - intentional non-edits,
   - remaining gaps,
   - prioritized handoff tasks,
-  - commit hash (or `none` for no-edit).
+  - commit hash (or `none` for no-edit passes).
 
-## Commit Rule
+## Commit Policy
 
 - If documentation files changed, commit is mandatory.
-- If no docs changed, do not force a content-only commit.
+- If no documentation files changed, do not force a content-only commit.
 
 Preferred commit format:
 
 `docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
 
-## Source and Quality Standard
+## Canonical Inputs
 
-For each substantive claim:
+At minimum, consider:
 
-- tie it to local snapshots/manifests or canonical upstream docs,
-- keep method naming exact when practical,
-- include caveats where mathematically necessary,
-- avoid unsupported extrapolation.
+- `README.md`
+- `TEST_QUALITY.md`
+- `AGENTS.md`
+- `docs/sage_methods_checklist.md`
+- `docs/julia_methods_checklist.md`
+- `docs/lattice_wrapper_capability_checklist.md`
+- `docs/method_ground_truth_tracker.csv`
+- source manifests and local upstream snapshots under `docs/**/upstream/`
 
 ## Completion Criterion
 
-Continue making passes until repeated audits produce no high-signal improvements and remaining gaps are either explicitly queued or source-blocked.
+Continue making passes over time until repeated audits find no high-signal improvements and remaining gaps are either explicitly queued or source-blocked.
