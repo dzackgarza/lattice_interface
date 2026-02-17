@@ -803,4 +803,4 @@ Each execution record must still include, at minimum:
     - Gap category: missing_test_evidence
     - Files: `tests/**`, `docs/palp_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one PALP CLI method and one wrapper method have `method:`-tagged evidence aligned with checklist/tracker rows.
-- Commit hash(es): `pending`
+- Commit hash(es): `73b4009`
