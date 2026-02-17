@@ -4,45 +4,21 @@ Use this file for every audit/improvement pass described in `docs/documentation_
 
 Rules:
 
-- Add a **Pre-Pass** entry before editing.
-- Review pre-pass scope before making changes.
-- Add the matching **Post-Pass** entry immediately after edits.
+- Add a start record before editing.
+- Add a completion record after edits.
 - Never replace entries; only append.
+- Format is adaptive: entries do not need to follow a fixed template.
 
----
+Each execution record must still include, at minimum:
 
-## Entry Template
-
-### Pass ID: `<YYYYMMDD>-<NN>`
-
-#### Pre-Pass
-
-- Date/time (UTC):
-- Execution context:
-- Auditor:
-- Primary work target(s):
-- Target selection rationale:
-- Target ecosystems/modules:
-- Planned method families:
-- Proposed edits:
-- Planned non-edits:
-- Risk notes:
-- Expected quality gradient (`positive`/`zero`/`negative`):
-
-#### Post-Pass
-
-- Date/time (UTC):
-- Pass outcome (`completed`/`aborted`):
-- Files changed:
-- Method families actually touched:
-- Edits made (with rationale):
-- Non-edits made intentionally (with rationale):
-- Source snapshots added/updated:
-- Net quality gradient (`positive`/`zero`/`negative`) with justification:
-- Remaining gaps:
-- Next-pass focus:
-- Handoff tasks for next agent:
-- Commit hash:
+- timestamp (UTC),
+- actor/auditor identity,
+- target(s),
+- changes made with rationale,
+- intentional non-edits,
+- remaining gaps,
+- prioritized handoff tasks,
+- commit hash (or `none` for no-edit outcomes).
 
 ---
 

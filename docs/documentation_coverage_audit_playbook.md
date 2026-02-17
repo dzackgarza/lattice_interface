@@ -66,22 +66,22 @@ Do not make edits that are net-zero or negative quality gradient, including:
 
 Update `docs/project/doc_coverage_audit_changelog.md` with:
 
-- a pre-run record,
-- a post-run record containing:
+- a start record,
+- a completion record containing:
   - edits and rationale,
   - intentional non-edits,
   - remaining gaps,
   - prioritized handoff tasks,
   - commit hash (or `none` for no-edit outcomes).
 
+Changelog structure is adaptive: do not enforce rigid templates. Format entries to fit current history and evolving requirements while keeping information complete and auditable.
+
 ## Commit Requirements
 
 - If documentation files changed, commit is mandatory.
 - If no documentation files changed, do not force a content-only commit.
 
-Preferred commit format:
-
-`docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
+Commit message format is flexible. Include enough detail for future auditing and traceability.
 
 ## Canonical Inputs
 
