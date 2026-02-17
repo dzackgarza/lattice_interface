@@ -521,6 +521,28 @@ All standard `ZZLat` attributes (`rank`, `det`, `gram_matrix`, `genus`, `is_even
 | `extend_to_ambient_space(L, f)` | Extend isometry to ambient space | |
 | `restrict_to_lattice(L, f)` | Restrict ambient isometry to lattice | |
 
+### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
+
+Finite quadratic module workflows with a distinguished isometry action. This is the discriminant-form analogue of lattice-with-isometry surfaces and is central for equivariant gluing/classification contracts.
+
+| Method | Description | Tags |
+|--------|-------------|------|
+| `TorQuadModuleWithIsom` | Type for a torsion quadratic module paired with an isometry | `[NT]` |
+| `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
+| `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
+| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and module map; `check=true` validates compatibility | `[NT]` |
+| `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from quadratic-form matrix data and action matrix; `check=true` validates constraints | `[NT]` |
+| `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
+| `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
+| `orthogonal_submodule(Tf, S; check=true)` | Orthogonal complement in the finite quadratic module with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
+| `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
+| `automorphism_group_with_inclusion(Tf)` | Automorphism group with inclusion map, identified upstream as the subgroup of `O(T)` commuting with the fixed isometry | `[NT]` |
+| `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` | `[NT]` |
+| `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs, with explicit map when successful | `[NT]` |
+| `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs, with explicit map when successful | `[NT]` |
+
+Source note: contracts in this subsection were reconciled against `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`, the OSCAR stable `QuadFormAndIsom` introduction (`https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/intro/`), and the OSCAR dev `torquadmodwithisom` method page (`https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/`) (accessed 2026-02-17).
+
 ### References
 
 - Oscar manual and Hecke GitHub documentation

@@ -206,6 +206,22 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `hermitian_genera(...)` / `hermitian_local_genera(...)` | Genus enumeration | `[NT]` |
 | `mass(L)` | Hermitian genus mass | `[NT]` |
 
+### 2.13 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
+
+| Method | Description | Tags |
+|--------|-------------|------|
+| `TorQuadModuleWithIsom` | Pair `(T, f)` of finite quadratic module and isometry | `[NT]` |
+| `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
+| `isometry(Tf)` / `order_of_isometry(Tf)` | Access fixed isometry and its (cached) finite order | `[NT]` |
+| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from module and map; upstream documents compatibility checks when `check=true` | `[NT]` |
+| `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from matrix data with validation under `check=true` | `[NT]` |
+| `sub(Tf, gens)` / `primary_part(Tf, m)` / `orthogonal_submodule(Tf, S; check=true)` | Stable-submodule and orthogonal-submodule operations with induced action; upstream requires isometry stability of input submodules | `[NT]` |
+| `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
+| `automorphism_group_with_inclusion(Tf)` / `automorphism_group(Tf)` | Automorphism group of the pair; centralizer-in-orthogonal-group contract for the inclusion form | `[NT]` |
+| `is_isomorphic_with_map(Tf, Sg)` / `is_anti_isomorphic_with_map(Tf, Sg)` | (Anti-)isomorphism tests with explicit maps | `[NT]` |
+
+Source note: reconciled against `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md` and OSCAR upstream docs at `https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/` (accessed 2026-02-17).
+
 ---
 
 ## 3. Nemo.jl (Matrix-Level Lattice Primitives)
@@ -247,5 +263,6 @@ For your stated use case (indefinite lattices):
 - Oscar/Hecke docs root: https://docs.oscar-system.org/stable/Hecke/
 - Oscar/Hecke integer lattices manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/ (accessed 2026-02-17)
 - Oscar/Hecke lattices-with-isometry manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/ (accessed 2026-02-17)
+- Oscar/Hecke torsion-quadratic-modules-with-isometry manual: https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/ (accessed 2026-02-17)
 - Vinberg docs (Oscar legacy path): https://docs.oscar-system.org/v1.2/NumberTheory/vinberg/
 - Existing in-repo canonical detail: `julia_lattice_methods_reference.md`

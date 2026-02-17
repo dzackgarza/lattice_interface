@@ -320,7 +320,7 @@ Each execution record must still include, at minimum:
     - Acceptance condition: reference includes the two congruence-density wrappers (and optionally split helper variants) with no contradiction vs checklist caveat language.
 - Commit hash: `5fb4535`
 
-### Pass ID: `20260217-09`
+### Pass ID: `20260217-10`
 
 #### Pre-Pass
 
@@ -372,3 +372,21 @@ Each execution record must still include, at minimum:
     - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
     - Acceptance condition: constructor signatures and caveats match current official docs for the integer-lattice constructor family.
 - Commit hash: `d2c9114`
+
+---
+
+### Pass ID: `20260217-09`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 15:01:53 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): Julia/OSCAR lattice-with-isometry documentation surfaces
+- Target selection rationale: active upstream OSCAR/Hecke manual includes finite quadratic module with isometry (`TorQuadModuleWithIsom`) methods not currently represented in the top-level Julia checklist/reference surfaces.
+- Target ecosystems/modules: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: discriminant-form/finite-quadratic-module methods with isometry actions and (anti-)isomorphism interfaces
+- Proposed edits: add a new checklist subsection for `TorQuadModuleWithIsom` methods; add aligned reference subsection with explicit contracts and caveats documented upstream.
+- Planned non-edits: no checklist checkbox state changes; no runtime/test/code changes; no scope/ignore-list manipulation.
+- Risk notes: method signatures include overloaded constructors and map types, so naming must stay aligned with runtime spellings from upstream docs.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive

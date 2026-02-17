@@ -375,6 +375,30 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_saturated_with_saturation(L, S)``
 - [ ] ``extend_to_ambient_space(L, f)``
 - [ ] ``restrict_to_lattice(L, f)``
+### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
+
+- [ ] ``TorQuadModuleWithIsom``
+- [ ] ``underlying_module(Tf)``
+- [ ] ``torsion_quadratic_module(Tf)``
+- [ ] ``isometry(Tf)``
+- [ ] ``order_of_isometry(Tf)``
+  - Caveat: upstream states this is finite-order data cached after first computation; order is not precomputed on object construction.
+- [ ] ``torsion_quadratic_module_with_isometry(T, f; check=true)``
+  - Caveat: upstream documents `check=true` by default and validates compatibility of `f` with the torsion quadratic module data.
+- [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)``
+  - Caveat: upstream documents `check=true` by default and validates the matrix data as a torsion quadratic module with isometry.
+- [ ] ``sub(Tf, gens)``
+  - Caveat: upstream requires the generated submodule to be stable under the fixed isometry.
+- [ ] ``primary_part(Tf, m)``
+- [ ] ``orthogonal_submodule(Tf, S; check=true)``
+  - Caveat: upstream requires `S` to be stable under the fixed isometry, and `check=true` enforces this precondition.
+- [ ] ``submodules(Tf; quotype=...)``
+  - Caveat: upstream defines this as enumeration of isometry-stable submodules.
+- [ ] ``automorphism_group_with_inclusion(Tf)``
+  - Caveat: upstream identifies this with automorphisms in `O(T)` commuting with the fixed isometry.
+- [ ] ``automorphism_group(Tf)``
+- [ ] ``is_isomorphic_with_map(Tf, Sg)``
+- [ ] ``is_anti_isomorphic_with_map(Tf, Sg)``
 ### References
 
 ### Definiteness summary
