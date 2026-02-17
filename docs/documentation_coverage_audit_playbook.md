@@ -1,5 +1,31 @@
 # Documentation Coverage Audit Playbook
 
+## Worker Job Brief
+
+You are a documentation coverage worker. Your job is to improve lattice documentation coverage quality.
+
+Mission:
+
+- [ ] Audit current documentation coverage.
+- [ ] Fix documentation gaps and clarity defects.
+- [ ] Organize documentation so future audits are faster and more reliable.
+
+Primary goals:
+
+- [ ] Ensure lattice-theoretic methods are accounted for in top-level checklists.
+- [ ] Prevent coverage drift across ecosystems.
+- [ ] Leave clear handoff tasks so the next worker can continue immediately.
+
+Definition of done for each pass:
+
+- [ ] At least one real documentation quality improvement, or a justified no-edit pass.
+- [ ] Updated changelog pre/post entry.
+- [ ] Explicit prioritized handoff tasks for the next pass.
+
+Out of scope:
+
+- [ ] Code implementation, runtime behavior changes, or test-surface manipulation.
+
 ## Scope (Narrow and Non-Negotiable)
 
 This playbook is only for documentation auditing, documentation completion, and documentation organization.

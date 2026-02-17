@@ -209,3 +209,39 @@ Rules:
     - Gap category: unclear_contract
     - Files: `docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`, `docs/project/doc_coverage_audit_changelog.md`
     - Acceptance condition: post-pass entry records at least one concrete contract clarification with rationale and one follow-up task
+
+---
+
+### Pass ID: `20260217-06`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 12:50:47 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary target (single ecosystem/module): playbook framing for agent workers
+- Target selection rationale: user requested worker-job framing with explicit job and goals
+- Target ecosystems/modules: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: none (process framing only)
+- Proposed edits: add a concise worker job brief (role, mission, goals, per-pass definition of done, out-of-scope)
+- Planned non-edits: no checklist content changes; no method claim changes; no runtime/test changes
+- Risk notes: none significant; framing-only clarification
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 12:50:47 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: none (process-only pass)
+- Edits made (with rationale): added explicit worker framing and goals so agents understand their job immediately before reading mechanics
+- Non-edits made intentionally (with rationale): did not alter any method checklists because this pass was framing-only
+- Source snapshots added/updated: none
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; clearer operator intent should reduce ambiguity in future passes
+- Remaining gaps: validate the new framing in the next real checklist audit pass
+- Next-pass focus: execute one checklist audit pass and confirm worker brief leads to concrete method-level improvements
+- Handoff tasks for next agent:
+  - [ ] Perform one method-level checklist clarification and cite rationale in post-pass notes
+    - Gap category: unclear_contract
+    - Files: `docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`, `docs/project/doc_coverage_audit_changelog.md`
+    - Acceptance condition: one checklist entry is clarified with stronger contract/caveat language and logged with justification
