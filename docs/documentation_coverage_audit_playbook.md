@@ -1,14 +1,12 @@
 # Documentation Coverage Audit Playbook
 
-## Audience and Purpose
+## Audience
 
-This document is for autonomous documentation agents.
+Autonomous documentation agents.
 
-Purpose: improve lattice-theoretic documentation coverage quality over repeated runs.
+## Objective
 
-## Job Contract
-
-Each run should produce one coherent documentation audit/improvement pass that leaves the repository's documentation quality measurably better, or a justified no-edit outcome.
+Increase lattice-theoretic documentation coverage quality over repeated scheduled executions.
 
 ## Scope
 
@@ -33,31 +31,32 @@ Out of scope:
 
 ## Quality Standard
 
-Documentation edits should:
+Documentation changes should be:
 
-- be source-backed,
-- use exact runtime method naming when practical,
-- include caveats where mathematically necessary,
-- improve discoverability and consistency across related docs,
-- avoid unsupported extrapolation.
+- source-backed,
+- method-precise,
+- mathematically explicit,
+- caveat-aware where needed,
+- consistent across related docs.
 
-## Autonomy
+## Operating Model
 
-The agent chooses planning, breadth, sequencing, and depth.
+- Handoff tasks and recent changelog gaps are starting signals.
+- Do not stop after the first valid fix if adjacent high-signal improvements remain.
+- Expand audit breadth as needed while quality gradient remains positive.
+- Stop when further edits are likely low-signal or under-supported.
 
-Use broad edits when needed to complete coherent improvements. Avoid artificial micro-pass constraints.
-
-## Required Artifacts Per Pass
+## Required Run Artifacts
 
 Update `docs/project/doc_coverage_audit_changelog.md` with:
 
-- a pre-pass entry,
-- a post-pass entry containing:
+- a pre-run record,
+- a post-run record containing:
   - edits and rationale,
   - intentional non-edits,
   - remaining gaps,
-  - prioritized handoff tasks,
-  - commit hash (or `none` for no-edit passes).
+  - prioritized next handoff tasks,
+  - commit hash (or `none` for no-edit outcomes).
 
 ## Commit Policy
 
@@ -81,6 +80,6 @@ At minimum, consider:
 - `docs/method_ground_truth_tracker.csv`
 - source manifests and local upstream snapshots under `docs/**/upstream/`
 
-## Completion Criterion
+## Long-Run Completion Signal
 
-Continue making passes over time until repeated audits find no high-signal improvements and remaining gaps are either explicitly queued or source-blocked.
+Across scheduled executions, the process approaches completion when repeated audits find no high-signal improvements and remaining gaps are explicitly queued or clearly source-blocked.
