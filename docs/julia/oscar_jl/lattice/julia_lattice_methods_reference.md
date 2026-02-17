@@ -282,8 +282,9 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | Method | Description | Tags |
 |--------|-------------|------|
 | `kernel_lattice(L, f)` | Kernel of endomorphism $f$ on $L$ | |
-| `invariant_lattice(L, G)` | Fixed-point sublattice $L^G$ under group action | |
-| `coinvariant_lattice(L, G)` | Orthogonal complement of $L^G$ in $L$ | |
+| `invariant_lattice(::ZZLat, ::MatGroup)` | Fixed-point sublattice $L^G$ under finite group action | |
+| `coinvariant_lattice(::ZZLat, ::MatGroup)` | Orthogonal complement of $L^G$ in $L$ for finite group action | |
+| `invariant_coinvariant_pair(::ZZLat, ::Union{QQMatrix, Vector{QQMatrix}, MatGroup})` | Compute invariant/coinvariant pair simultaneously from a single isometry, a list of matrices, or a matrix group action | |
 
 #### Root lattice recognition
 
@@ -376,7 +377,7 @@ Methods shared with `ZZLat` (construction, rank, det, etc.) are listed in ยง2.2โ
 | `is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)` | Definiteness | |
 | `characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)` | Polynomials of isometry | |
 | `^(Vf, n)` | Raise isometry to power | |
-| `direct_sum([Vf1, Vf2, ...])` | Equivariant direct sum of quadratic spaces with isometry (vector-input API in current upstream docs) | |
+| `direct_sum(Vf::Union{QuadSpaceWithIsom, Vector{QuadSpaceWithIsom}}...)` | Equivariant direct sum of quadratic spaces with isometry; current upstream signatures accept varargs and vector input, with binary form returning `(Vf, emb1, emb2)` | |
 | `rescale(Vf, a)` | Rescale preserving isometry | |
 | `rational_spinor_norm(Vf; b)` | Rational spinor norm | |
 
@@ -442,7 +443,7 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | Method | Description | Tags |
 |--------|-------------|------|
 | `^(Lf, n)` | Raise isometry to power $n$ | |
-| `direct_sum([Lf1, Lf2, ...])` | Equivariant direct sum of lattices with isometry (vector-input API in current upstream docs) | |
+| `direct_sum(Lf::Union{ZZLatWithIsom, Vector{ZZLatWithIsom}}...)` | Equivariant direct sum of lattices with isometry; current upstream signatures accept varargs and vector input, with binary form returning `(Lf, emb1, emb2)` | |
 | `dual(Lf)` | Dual with induced isometry | |
 | `lll(Lf)` | LLL with isometry carried along | |
 | `rescale(Lf, a)` | Rescale with isometry preserved | |
@@ -523,7 +524,7 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 |--------|-------------|------|
 | `is_isometry(::Hecke.QuadSpace, ::QQMatrix)` / `is_isometry(::ZZLat, ::QQMatrix)` | Matrix-level isometry check for quadratic spaces / integer lattices | |
 | `is_isometry_list(::Hecke.QuadSpace, ::Vector{QQMatrix})` / `is_isometry_list(::ZZLat, ::Vector{QQMatrix})` | Batch isometry checks for matrix lists | |
-| `is_isometry_group(::Hecke.QuadSpace, ::MatGroup)` / `is_isometry_group(::ZZLat, ::MatGroup)` | Group-level isometry check | |
+| `is_isometry_group(::Hecke.QuadSpace, ::MatGroup)` / `is_isometry_group(::ZZLat, ::MatGroup)` | Group-level isometry check (upstream docs note these matrix/group check helpers are not exported) | |
 | `is_stable_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry acts trivially on the discriminant group (stable isometry) | |
 | `is_special_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry has determinant $+1$ (special isometry) | |
 | `special_orthogonal_group(::ZZLat)` / `special_subgroup(::ZZLat, ::MatGroup)` | $SO(L)$ and special subgroup of a finite isometry group | |
@@ -538,8 +539,8 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | `saturation(::ZZLat, ::MatGroup, ::MatGroup)` | Saturation of subgroup $H \le G$; current docs state this explicit computation for finite `G` | |
 | `saturation(::ZZLat, ::MatGroup)` | Saturation inside $O(L)$; current docs require coinvariant lattice definite or rank 2 | |
 | `is_saturated_with_saturation(...)` | Saturation predicate plus witness; current docs state availability when coinvariant lattice is definite | |
-| `extend_to_ambient_space(L, f)` | Extend isometry to ambient space | |
-| `restrict_to_lattice(L, f)` | Restrict ambient isometry to lattice | |
+| `extend_to_ambient_space(L, f)` | Convert matrix representation of a collection of isometries from fixed lattice basis to ambient-space basis | |
+| `restrict_to_lattice(L, f)` | Convert matrix representation of ambient-space isometries preserving `L` back to fixed lattice basis | |
 
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
 

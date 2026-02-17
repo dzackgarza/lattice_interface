@@ -1,6 +1,6 @@
 # Isometry Surface Online Provenance Note (2026-02-17)
 
-This note localizes the online source evidence used in pass `20260217-12` for `QuadSpaceWithIsom`, `ZZLatWithIsom`, and `TorQuadModuleWithIsom` contract updates.
+This note localizes the online source evidence used in passes `20260217-12` and `20260217-13` for `QuadSpaceWithIsom`, `ZZLatWithIsom`, `TorQuadModuleWithIsom`, and related group-action isometry surfaces.
 
 ## Online sources surveyed
 
@@ -13,14 +13,18 @@ This note localizes the online source evidence used in pass `20260217-12` for `Q
   - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/spacewithisom/
   - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/latwithisom/
   - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/torquadmodwithisom/
+  - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/manualindex/
 - OSCAR `v1` Experimental `QuadFormAndIsom` pages (signature-block cross-check for current generated method surfaces):
   - https://docs.oscar-system.org/v1/Experimental/QuadFormAndIsom/spacewithisom/
   - https://docs.oscar-system.org/v1/Experimental/QuadFormAndIsom/latwithisom/
   - https://docs.oscar-system.org/v1/Experimental/QuadFormAndIsom/torquadmodwithisom/
+  - https://docs.oscar-system.org/v1/Experimental/QuadFormAndIsom/manualindex/
 - OSCAR stable Hecke manual (lattices with isometry):
   - https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/
 - OSCAR dev Hecke manual (lattices with isometry, drift cross-check):
   - https://docs.oscar-system.org/dev/Hecke/manual/lattices/lattices_with_isometry/
+- OSCAR release notes stream (surface-change corroboration for isometry/group-action methods):
+  - https://github.com/oscar-system/Oscar.jl/releases
 
 Access date (UTC): 2026-02-17
 
@@ -30,9 +34,10 @@ Access date (UTC): 2026-02-17
   - infinite order stored as `PosInf`,
   - rank-zero edge case uses `-1`.
 - `quadratic_space_with_isometry(::Hecke.QuadSpace, ::QQMatrix; check=...)` has conflicting default wording across visible generated docs (`check::Bool=false` in signature block vs prose saying default checks are performed). Local docs now advise passing `check` explicitly instead of asserting a single default.
-- The constructor/operation surfaces for `QuadSpaceWithIsom` and `ZZLatWithIsom` are exposed in current generated docs as vector-style direct-sum methods:
-  - `direct_sum(::Vector{QuadSpaceWithIsom})`,
-  - `direct_sum(::Vector{ZZLatWithIsom})`.
+- Current generated signatures for `direct_sum` on `QuadSpaceWithIsom` and `ZZLatWithIsom` include both vararg and vector-input forms (not vector-only shorthand):
+  - `direct_sum(Vf::Union{QuadSpaceWithIsom, Vector{QuadSpaceWithIsom}}...)`,
+  - `direct_sum(Lf::Union{ZZLatWithIsom, Vector{ZZLatWithIsom}}...)`,
+  and binary forms are documented with tuple outputs carrying embedding maps.
 - `ZZLatWithIsom` construction from an ambient pair includes both ambient-lattice extraction and basis-matrix construction surfaces:
   - `lattice(::QuadSpaceWithIsom)`,
   - `lattice(::QuadSpaceWithIsom, ::MatElem{<:RationalUnion})`.
@@ -49,6 +54,9 @@ Access date (UTC): 2026-02-17
   - `admissible_triples(::ZZGenus, ::Int)` / `is_admissible_triple(::ZZGenus, ::ZZGenus, ::ZZGenus, ::Int)`,
   - `splitting(::ZZLatWithIsom, ::Int, ::Int)` and prime-power splitting variants,
   - `is_stable_isometry(::ZZLatWithIsom)` / `is_special_isometry(::ZZLatWithIsom)`.
+- For group-action layers, current manual indexes list both `invariant_coinvariant_pair(::ZZLatWithIsom)` and a distinct `fingrpact` entry for `invariant_coinvariant_pair` on plain lattices under matrix/group actions; local docs now explicitly represent the `ZZLat` action signature from the local `fingrpact` snapshot:
+  - `invariant_coinvariant_pair(::ZZLat, ::Union{QQMatrix, Vector{QQMatrix}, MatGroup})`.
+- `fingrpact` section wording identifies `is_isometry*` and `is_isometry_group*` helpers as non-exported input-check utilities and frames `extend_to_ambient_space` / `restrict_to_lattice` as coordinate-representation conversion between ambient-space and fixed lattice bases for collections of isometries.
 
 ## Documentation caveat captured
 

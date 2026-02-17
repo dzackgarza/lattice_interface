@@ -199,8 +199,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 #### Endomorphism-based sublattices
 
 - [ ] ``kernel_lattice(L, f)``
-- [ ] ``invariant_lattice(L, G)``
-- [ ] ``coinvariant_lattice(L, G)``
+- [ ] ``invariant_lattice(::ZZLat, ::MatGroup)``
+- [ ] ``coinvariant_lattice(::ZZLat, ::MatGroup)``
+- [ ] ``invariant_coinvariant_pair(::ZZLat, ::Union{QQMatrix, Vector{QQMatrix}, MatGroup})``
 #### Root lattice recognition
 
 - [ ] ``root_lattice_recognition(L)``
@@ -271,7 +272,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)``
 - [ ] ``characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)``
 - [ ] ``^(Vf, n)``
-- [ ] ``direct_sum([Vf1, Vf2, ...])``
+- [ ] ``direct_sum(Vf::Union{QuadSpaceWithIsom, Vector{QuadSpaceWithIsom}}...)``
 - [ ] ``rescale(Vf, a)``
 - [ ] ``rational_spinor_norm(Vf; b)``
 ### 2.14 Lattices with isometry (`ZZLatWithIsom`)
@@ -322,7 +323,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 #### Operations
 
 - [ ] ``^(Lf, n)``
-- [ ] ``direct_sum([Lf1, Lf2, ...])``
+- [ ] ``direct_sum(Lf::Union{ZZLatWithIsom, Vector{ZZLatWithIsom}}...)``
 - [ ] ``dual(Lf)``
 - [ ] ``lll(Lf)``
 - [ ] ``rescale(Lf, a)``
@@ -383,6 +384,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_isometry(::Hecke.QuadSpace, ::QQMatrix)`` / ``is_isometry(::ZZLat, ::QQMatrix)``
 - [ ] ``is_isometry_list(::Hecke.QuadSpace, ::Vector{QQMatrix})`` / ``is_isometry_list(::ZZLat, ::Vector{QQMatrix})``
 - [ ] ``is_isometry_group(::Hecke.QuadSpace, ::MatGroup)`` / ``is_isometry_group(::ZZLat, ::MatGroup)``
+  - Caveat: upstream `fingrpact` docs describe these check helpers as non-exported utilities for input validation.
 - [ ] ``is_stable_isometry(::ZZLatWithIsom)``
 - [ ] ``is_special_isometry(::ZZLatWithIsom)``
 - [ ] ``special_orthogonal_group(::ZZLat)`` / ``special_subgroup(::ZZLat, ::MatGroup)``
@@ -401,7 +403,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_saturated_with_saturation(...)``
   - Caveat: upstream states availability when the coinvariant lattice is definite.
 - [ ] ``extend_to_ambient_space(L, f)``
+  - Caveat: upstream positions this as matrix-representation conversion from lattice-basis coordinates to ambient-space coordinates for collections of isometries.
 - [ ] ``restrict_to_lattice(L, f)``
+  - Caveat: upstream positions this as the inverse conversion, restricting ambient-space matrix representation back to lattice-basis coordinates.
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
 
 - [ ] ``TorQuadModuleWithIsom``
