@@ -696,4 +696,4 @@ Each execution record must still include, at minimum:
     - Gap category: missing_argument_surface
     - Files: `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex_methods_checklist.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`
     - Acceptance condition: source-only `[SRC]` entries either become manual-indexed with canonical docs links or remain explicitly triaged with validated declaration signatures.
-- Commit hash(es): `pending`
+- Commit hash(es): `3434318`
