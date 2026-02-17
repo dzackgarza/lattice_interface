@@ -84,6 +84,17 @@ Do not make edits that are net-zero or negative quality gradient, including:
 - speculative expansion without evidence,
 - organizational churn that increases lookup cost.
 
+### No Weak Deferral
+
+Do not defer with weak placeholders such as `unknown`, `unverified`, `needs testing`, or similar when the question is reasonably answerable by:
+
+- reading available documentation,
+- surveying relevant online sources,
+- reading source code,
+- comparing nearby method contracts/invariants.
+
+Such deferments are acceptable only when the blocker is real and explicit (for example missing upstream source, contradictory primary sources, or unavailable dependency context), and the blocker must be documented concretely.
+
 These are project-wide quality values, not checks scoped to any particular subset of text.
 Apply them continuously across the full documentation surface throughout the audit.
 
@@ -106,6 +117,7 @@ Use these questions continuously during planning, editing, and review:
 - Am I improving project-wide clarity and precision rather than only patching local wording?
 - Are improvements grounded in checkable/provable statements?
 - Did I introduce vague claims such as `usually`, `typically`, `often`, or `most of the time` where exact truth values are available?
+- Did I leave any weak deferrals (`unknown`, `unverified`, `needs testing`) that could have been resolved through reasonable documentation/source research?
 
 ## Required Artifacts Per Execution
 
