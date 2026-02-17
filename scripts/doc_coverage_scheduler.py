@@ -35,10 +35,10 @@ def run_job() -> int:
         "-n",
         str(LOCK_FILE),
         "/usr/bin/codex",
+        "--search",
         "exec",
         "-C",
         str(REPO_DIR),
-        "--search",
         "-c",
         'model_reasoning_effort="high"',
         "--sandbox",
@@ -79,14 +79,14 @@ def main() -> int:
     scheduler.add_job(
         run_job,
         trigger="cron",
-        minute="*/30",
+        minute="*/10",
         id="lattice_doc_coverage",
         replace_existing=True,
         max_instances=1,
         coalesce=True,
         misfire_grace_time=300,
     )
-    print(f"[{utc_now()}] scheduler started; next runs every 30 minutes (UTC).", flush=True)
+    print(f"[{utc_now()}] scheduler started; next runs every 10 minutes (UTC).", flush=True)
     scheduler.start()
     return 0
 
