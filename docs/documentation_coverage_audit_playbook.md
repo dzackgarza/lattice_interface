@@ -83,7 +83,12 @@ Core repository references:
 - `docs/sage_methods_checklist.md`
 - `docs/julia_methods_checklist.md`
 - `docs/gap_methods_checklist.md`
+- `docs/4ti2_methods_checklist.md`
+- `docs/normaliz_methods_checklist.md`
+- `docs/flint_methods_checklist.md`
+- `docs/fplll_methods_checklist.md`
 - `docs/fpylll_methods_checklist.md`
+- `docs/ntl_methods_checklist.md`
 - `docs/pari_gp_methods_checklist.md`
 - `docs/latticegen_methods_checklist.md`
 - `docs/lattice_wrapper_capability_checklist.md`
@@ -114,5 +119,15 @@ Upstream living map:
 - fplll / fpylll:
   - `https://github.com/fplll/fplll`
   - `https://github.com/fplll/fpylll`
+- NTL:
+  - source/docs: `https://libntl.org`
+- FLINT:
+  - source: `https://github.com/flintlib/flint`
+  - docs: `https://flintlib.org/doc/`
+- 4ti2:
+  - docs hub: `https://4ti2.github.io`
+- Normaliz:
+  - source: `https://github.com/Normaliz/Normaliz`
+  - docs: `https://www.normaliz.uni-osnabrueck.de`
 - PARI/GP:
   - `https://pari.math.u-bordeaux.fr`
