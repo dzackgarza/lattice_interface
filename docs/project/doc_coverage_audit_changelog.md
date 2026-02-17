@@ -419,3 +419,57 @@ Each execution record must still include, at minimum:
     - Files: `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
     - Acceptance condition: touched methods use consistent caveat language about result shape and failure sentinel behavior where explicitly documented.
 - Commit hash(es): `ce210ee`
+
+---
+
+### Pass ID: `20260217-11`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 15:13:34 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): Julia/OSCAR `ZZLatWithIsom` method-accountability documentation
+- Target selection rationale: online OSCAR manual surfaces explicit `ZZLatWithIsom` attribute-forwarding methods (genus/discriminant/signature/scale-norm/local-structure predicates) that are currently under-specified in local checklist/reference files.
+- Target ecosystems/modules: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: lattice-with-isometry attribute-forwarding methods with mathematically relevant invariants and discriminant-structure predicates
+- Proposed edits: add explicit method entries to the checklist and aligned reference tables/caveats for `ZZLatWithIsom` attributes; localize the online-source provenance in a compact in-repo note.
+- Planned non-edits: no checklist checkmark state changes; no runtime/test/code edits; no coverage-scope or ignore-list changes.
+- Risk notes: these methods are wrappers over underlying lattice attributes, so documentation must avoid falsely implying new `(L, f)` invariants when semantics are inherited from `L`.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 15:15:50 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: `ZZLatWithIsom` attribute-forwarding methods for genus/discriminant/signature/scale-norm and local discriminant-structure predicates
+- Concise outcome summary: added explicit method-level coverage for upstream-documented `ZZLatWithIsom` attribute forwarders, replacing under-specified prose in local docs with auditable method entries and aligned caveats.
+- Key decisions and intentional non-edits:
+  - Elevated `ZZLatWithIsom` forwarded attributes to explicit checklist/reference method entries instead of keeping only a generic prose statement, to preserve method-level accountability.
+  - Kept caveat language strict: methods are inherited from underlying lattice contracts, and no new `(L,f)`-specific invariants were claimed.
+  - Intentionally did not alter checklist checkmarks, tests, runtime behavior, scope boundaries, or ignore/blacklist surfaces.
+- Online survey and provenance localization:
+  - Surveyed OSCAR stable/dev lattices-with-isometry manuals on 2026-02-17:
+    - `https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/`
+    - `https://docs.oscar-system.org/dev/Hecke/manual/lattices/lattices_with_isometry/`
+  - Localized critical evidence into `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md` and cross-linked it from both Julia reference files.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this closes a concrete hidden-surface gap in an indefinite-relevant lattice-with-isometry API area and improves cross-doc consistency.
+- Remaining gaps:
+  - `ZZLatWithIsom` method docs still need explicit return-shape caveats for map-returning APIs (`is_isometric_with_isometry`, related `(Bool, map)` conventions) where upstream examples encode sentinel behavior.
+  - Constructor-surface completeness in Hecke integer-lattice docs (symbol-based variants and optional-argument contracts) remains partially reconciled.
+  - `TorQuadModuleWithMap` method family remains incompletely surfaced in top-level checklist/reference docs.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: Add source-backed return-shape caveats for map-returning lattice/isometry APIs in Julia references.
+    - Gap category: unclear_contract
+    - Files: `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+    - Acceptance condition: affected methods state `(Bool, map)` vs failure sentinel contract only where explicitly documented.
+  - [ ] Priority 2: Reconcile `integer_lattice` constructor variants/caveats (including symbol-based forms) across Julia checklist/reference surfaces.
+    - Gap category: missing_method
+    - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+    - Acceptance condition: constructor entries and caveats match current OSCAR stable manual without speculative restrictions.
+  - [ ] Priority 3: Audit `TorQuadModuleWithMap` surfaces and add missing entries/caveats.
+    - Gap category: missing_method
+    - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`
+    - Acceptance condition: map-level family is represented with runtime names and source-backed contracts.
+- Commit hash(es): `pending`

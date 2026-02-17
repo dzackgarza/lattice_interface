@@ -291,6 +291,20 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)``
 #### Attributes
 
+- [ ] ``rank(Lf)`` / ``degree(Lf)``
+- [ ] ``gram_matrix(Lf)`` / ``det(Lf)`` / ``discriminant(Lf)``
+- [ ] ``signature_tuple(Lf)``
+  - Caveat: this is the lattice signature tuple inherited from the underlying `L`, distinct from eigenspace-signature data returned by `signatures(Lf)`.
+- [ ] ``rational_span(Lf)``
+- [ ] ``genus(Lf)``
+- [ ] ``minimum(Lf)``
+  - Caveat: inherits the positive-definite requirement of the underlying lattice minimum routine.
+- [ ] ``scale(Lf)`` / ``norm(Lf)``
+- [ ] ``is_even(Lf)`` / ``is_integral(Lf)`` / ``is_unimodular(Lf)``
+- [ ] ``is_primary(Lf, p)`` / ``is_primary_with_prime(Lf)``
+- [ ] ``is_elementary(Lf, p)`` / ``is_elementary_with_prime(Lf)``
+- [ ] ``is_positive_definite(Lf)`` / ``is_negative_definite(Lf)`` / ``is_definite(Lf)``
+
 #### Type classification
 
 - [ ] ``type(Lf)``

@@ -407,7 +407,21 @@ Pairs an integer lattice with a finite-order isometry. Used for equivariant clas
 
 #### Attributes
 
-All standard `ZZLat` attributes (`rank`, `det`, `gram_matrix`, `genus`, `is_even`, `is_integral`, `is_definite`, `signature_tuple`, `minimum`, `scale`, `norm`, etc.) dispatch through to the underlying lattice.
+Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; these methods report invariants of the underlying lattice `L` in the pair `(L, f)` unless stated otherwise.
+
+| Method | Description | Tags |
+|--------|-------------|------|
+| `rank(Lf)` / `degree(Lf)` | Rank and ambient degree inherited from the underlying lattice | |
+| `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` | Gram/determinant/discriminant invariants forwarded from `L` | |
+| `signature_tuple(Lf)` | Lattice signature tuple `(n_{+}, n_{0}, n_{-})`; distinct from eigenspace signatures returned by `signatures(Lf)` | `[INDEF]` |
+| `rational_span(Lf)` | Rational span accessor for the lattice-with-isometry object | `[INDEF]` |
+| `genus(Lf)` | Genus of the underlying lattice `L` | `[INDEF]` |
+| `minimum(Lf)` | Minimum of the underlying lattice; same positive-definite precondition as `minimum(L)` | `[PD]` |
+| `scale(Lf)` / `norm(Lf)` | Scale and norm ideals forwarded from `L` | |
+| `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` | Arithmetic predicates of the underlying lattice | |
+| `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` | `p`-primary discriminant-group predicates forwarded from `L` | |
+| `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` | Elementary discriminant-group predicates forwarded from `L` | |
+| `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | Definiteness predicates inherited from `L` | |
 
 #### Type classification
 
@@ -766,6 +780,7 @@ Most functions demand non-degenerate forms ("nondegenerate $\mathbb{Z}$-lattice"
 - Indefinite.jl README (Dutour Sikirić et al.)
 - Oscar/Hecke stable manual (lattices): https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/ (accessed 2026-02-17)
 - Oscar/Hecke stable manual (lattices with isometry): https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/ (accessed 2026-02-17)
+- In-repo localized provenance for `ZZLatWithIsom` attribute-forwarding survey: `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md`
 - Nemo.jl documentation — LLL, HNF
 - LLLplus.jl README
 - LatticeAlgorithms.jl README (Amazon Science)

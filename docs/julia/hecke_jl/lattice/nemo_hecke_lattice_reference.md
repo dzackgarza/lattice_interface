@@ -191,6 +191,8 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `isometry(Lf)` / `ambient_isometry(Lf)` | Isometry accessors | `[NT]` |
 | `order_of_isometry(Lf)` | Isometry order | `[NT]` |
 | `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Isometry polynomials | `[NT]` |
+| `rank(Lf)` / `degree(Lf)` / `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` / `signature_tuple(Lf)` / `scale(Lf)` / `norm(Lf)` / `genus(Lf)` / `rational_span(Lf)` / `minimum(Lf)` | Upstream documents these as direct attribute-forwarding methods for `ZZLatWithIsom`; contracts are inherited from the underlying lattice invariants (`minimum(Lf)` keeps the same positive-definite precondition as `minimum(L)`) | `[NT]` |
+| `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` / `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` / `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` / `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | Arithmetic/discriminant-structure/definiteness predicates forwarded from the underlying lattice | `[NT]` |
 | `invariant_lattice(Lf)` / `coinvariant_lattice(Lf)` / `kernel_lattice(Lf, ...)` | Isometry-derived decomposition | `[NT]` |
 | `discriminant_group(Lf)` / `discriminant_representation(L, G)` | Induced discriminant action | `[NT]` |
 | `enumerate_classes_of_lattices_with_isometry(...)` | Isometry-equivariant class enumeration | `[NT]` |
@@ -264,5 +266,6 @@ For your stated use case (indefinite lattices):
 - Oscar/Hecke integer lattices manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/ (accessed 2026-02-17)
 - Oscar/Hecke lattices-with-isometry manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/ (accessed 2026-02-17)
 - Oscar/Hecke torsion-quadratic-modules-with-isometry manual: https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/ (accessed 2026-02-17)
+- In-repo localized provenance for `ZZLatWithIsom` attribute-forwarding survey: `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md`
 - Vinberg docs (Oscar legacy path): https://docs.oscar-system.org/v1.2/NumberTheory/vinberg/
 - Existing in-repo canonical detail: `julia_lattice_methods_reference.md`
