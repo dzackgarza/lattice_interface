@@ -41,7 +41,7 @@ This repo currently uses a local scheduler stand-in instead of system cron:
 
 ### Current Setup
 
-- schedule: every 10 minutes, UTC (`trigger="cron", minute=\"*/10\"`)
+- schedule: every 15 minutes, UTC (`trigger="cron", minute=\"*/15\"`)
 - single-instance protection:
   - APScheduler `max_instances=1`
   - file lock: `/tmp/lattice_doc_coverage.lock` via `flock -n`
@@ -67,7 +67,7 @@ The start script writes:
 
 Edit `scripts/doc_coverage_scheduler.py`:
 
-- schedule timing: `scheduler.add_job(... minute=\"*/10\" ...)`
+- schedule timing: `scheduler.add_job(... minute=\"*/15\" ...)`
 - timezone: `BlockingScheduler(timezone="UTC")`
 - codex flags: `cmd = [ ... ]` in `run_job()`
 - lock behavior: `LOCK_FILE`
