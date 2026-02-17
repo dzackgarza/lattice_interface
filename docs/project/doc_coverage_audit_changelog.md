@@ -617,7 +617,7 @@ Each execution record must still include, at minimum:
     - `https://homalg-project.github.io/CddInterface/doc/chap3_mj.html`
     - `https://homalg-project.github.io/CddInterface/doc/chap4_mj.html`
   - Surveyed `NConvex` package/repository pages on 2026-02-17:
-    - `https://gap-packages.github.io/NConvex/`
+    - `https://homalg-project.github.io/NConvex/`
     - `https://github.com/homalg-project/NConvex`
   - Localized evidence and blockers in:
     - `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md`
@@ -636,3 +636,64 @@ Each execution record must still include, at minimum:
     - Files: `tests/**`, `docs/cddinterface_methods_checklist.md`, `docs/nconvex_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
     - Acceptance condition: at least one method-tagged test per major method family and checklist/tracker entries aligned.
 - Commit hash(es): `071aecf`
+
+---
+
+### Pass ID: `20260217-15`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 22:23:33 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): `NConvex` method-level checklist/reference completeness and GAP umbrella reconciliation
+- Target selection rationale: first-class `NConvex` checklist existed but still had source-blocked placeholder status with no method-level inventory.
+- Target ecosystems/modules: `docs/nconvex_methods_checklist.md`, `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: NConvex cone/fan/polyhedron/polytope/LP/zsolve surfaces, including source-only declarations not listed in manual index.
+- Proposed edits: replace NConvex source-blocked triage with source-backed method inventory + signatures; update umbrella GAP docs to remove stale blocker claims and add representative NConvex methods.
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no tracker CSV status promotions.
+- Risk notes: NConvex manual index omits some declared source surfaces; these must be labeled explicitly as source-only instead of mixed with manual-indexed claims.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 22:23:33 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/nconvex_methods_checklist.md`, `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: NConvex convex-object attributes; cones; fans; polyhedra; polytopes; linear-programming and integer equalities/inequalities solve surfaces; source-only helper/auxiliary declarations.
+- Concise outcome summary: cleared the outstanding NConvex blocker by adding method-level checklist/reference coverage from canonical NConvex manual chapters and source declarations, then removed stale blocker language from umbrella GAP docs.
+- Key decisions and intentional non-edits:
+  - Split NConvex coverage into manual-indexed methods and explicit `[SRC]` source-only declarations to avoid conflating published manual surface with declaration-only runtime surfaces.
+  - Preserved exact upstream runtime spelling for `SolveEqualitiesAndInequalitiesOverIntergers` (upstream typo retained intentionally).
+  - Kept all checklist boxes unchecked (no new `method:`-tagged tests in this pass).
+  - Did not modify unrelated pre-existing dirty files (`README.md`, `docs/documentation_coverage_audit_playbook.md`, `scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - Retrieved canonical manual pages and index:
+    - `https://homalg-project.github.io/NConvex/doc/chap0_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chapInd_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chap3_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chap4_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chap5_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chap6_mj.html`
+    - `https://homalg-project.github.io/NConvex/doc/chap7_mj.html`
+  - Reconciled declaration-only surfaces from upstream source:
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/ConvexObject.gd`
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Cone.gd`
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Fan.gd`
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Polyhedron.gd`
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Polytope.gd`
+    - `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/ZSolve.gd`
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this closes the only remaining package-level method-inventory blocker and upgrades NConvex documentation from package-load-only triage to method-level surface coverage with argument contracts and caveats.
+- Remaining gaps:
+  - No `method:`-tagged NConvex tests yet back checklist completion state.
+  - Some source-only declared helper surfaces are not manual-indexed and may require upstream/manual alignment tracking in future passes.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: add `method:`-tagged tests for representative NConvex methods (`ConeByInequalities`, `FansFromTriangulation` where available, `SolveLinearProgram`, `SolveEqualitiesAndInequalitiesOverIntergers`) and reconcile checklist/tracker states.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/nconvex_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one method-tagged test per major NConvex family and aligned tracker rows.
+  - [ ] Priority 2: perform signature-fidelity pass for source-only declared NConvex surfaces against generated manual updates in future releases.
+    - Gap category: missing_argument_surface
+    - Files: `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex_methods_checklist.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`
+    - Acceptance condition: source-only `[SRC]` entries either become manual-indexed with canonical docs links or remain explicitly triaged with validated declaration signatures.
+- Commit hash(es): `pending`

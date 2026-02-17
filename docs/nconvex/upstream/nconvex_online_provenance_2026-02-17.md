@@ -2,35 +2,64 @@
 
 Date accessed (UTC): 2026-02-17
 Auditor: Codex
-Scope: establish first-class checklist/reference surface for GAP `NConvex` and record method-level source-access blockers.
+Scope: replace prior NConvex source-blocked placeholder with source-backed method inventory and argument surfaces.
 
 ---
 
 ## Surveyed sources
 
-- GAP package page:
-  - `https://gap-packages.github.io/NConvex/`
-- NConvex repository:
-  - `https://github.com/homalg-project/NConvex`
+Package and manual:
+
+- `https://homalg-project.github.io/NConvex/`
+- `https://homalg-project.github.io/NConvex/doc/chap0_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chapInd_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chap3_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chap4_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chap5_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chap6_mj.html`
+- `https://homalg-project.github.io/NConvex/doc/chap7_mj.html`
+
+Repository and declaration sources:
+
+- `https://github.com/homalg-project/NConvex`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/ConvexObject.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Cone.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Fan.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Polyhedron.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Polytope.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/ZSolve.gd`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/PackageInfo.g`
+- `https://raw.githubusercontent.com/homalg-project/NConvex/master/README.md`
 
 ---
 
 ## Evidence captured in this pass
 
-- `NConvex` package existence and package-ecosystem status were confirmed.
-- Package-level role was confirmed as polyhedral geometry tooling in the homalg/GAP ecosystem.
-- Repository endpoint was confirmed for future source/manual extraction.
+- Canonical manual pages were retrievable and yielded method-index coverage for cones, fans, polyhedra, polytopes, convex-object attributes, and zsolve surfaces.
+- Method signatures and argument names were lifted from manual function headers.
+- Additional declared surfaces not listed in current manual index were captured from `gap/*.gd` declarations as `[SRC]` source-only surfaces.
+- Package metadata (`PackageInfo.g`) confirmed current version line (`2025.12-02`) and dependency context (`CddInterface`, `NormalizInterface`, optional `TopcomInterface`, optional `4ti2Interface`).
 
 ---
 
-## Unresolved method-surface blocker
+## Blocker status update
 
-- Canonical method-index/manual chapter pages for `NConvex` were not retrievable from available web endpoints in this environment during this pass.
-- Because method signatures could not be verified from canonical docs, no method-level claims were added.
+Previous blocker status is cleared:
+
+- Earlier passes recorded manual-index retrieval failure for NConvex.
+- In this pass, `chap0_mj`, `chapInd_mj`, and chapter pages were directly retrievable.
+- NConvex checklist/reference surfaces were expanded from package-load-only triage to method-level inventory with argument surfaces and constraints.
 
 ---
 
-## Required follow-up
+## Reproducibility notes
 
-- Retrieve canonical manual/source method pages for `NConvex`.
-- Expand `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md` with exact method names, argument contracts, and constraints.
+Representative retrieval commands used in this pass:
+
+```bash
+curl -sL https://homalg-project.github.io/NConvex/doc/chapInd_mj.html
+curl -sL https://homalg-project.github.io/NConvex/doc/chap4_mj.html
+curl -sL https://raw.githubusercontent.com/homalg-project/NConvex/master/gap/Cone.gd
+```
+
+Function-index extraction and declaration reconciliation were performed by local command-line parsing of those retrieved artifacts.

@@ -152,8 +152,26 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ### 2.7 NConvex package (detailed checklist surface)
 
-- [ ] `LoadPackage("NConvex")`
-  - Caveat: canonical `NConvex` method-index pages were not retrievable in this environment; tracked as explicit triage in `docs/nconvex_methods_checklist.md`.
+- [ ] `ConeByInequalities(L)`
+- [ ] `ConeByEqualitiesAndInequalities(Eq, Ineq)`
+- [ ] `ConeByGenerators(L)`
+- [ ] `Cone(L)`
+- [ ] `Cone(cdd_cone)`
+- [ ] `IntersectionOfCones(C1, C2)`
+- [ ] `Contains(C1, C2)`
+- [ ] `Fan(R, C)`
+- [ ] `FansFromTriangulation(R)`
+- [ ] `FanFromTriangulation(R)`
+- [ ] `PolyhedronByInequalities(L)`
+- [ ] `Polyhedron(P, C)`
+- [ ] `SolveLinearProgram(P, max_or_min, target_func)`
+- [ ] `PolytopeByInequalities(L)`
+- [ ] `Polytope(L)`
+- [ ] `LatticePoints(P)`
+- [ ] `NormalFan(P)`
+- [ ] `IntersectionOfPolytopes(P1, P2)`
+- [ ] `SolveEqualitiesAndInequalitiesOverIntergers(eqs, eqs_rhs, ineqs, ineqs_rhs[, signs])`
+  - Caveat: complete NConvex inventory (including source-only declarations not listed in current manual index) is maintained in `docs/nconvex_methods_checklist.md`.
 
 ### 2.8 Forms package (detailed checklist surface)
 
@@ -190,6 +208,6 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - toric package page: `https://gap-packages.github.io/toric/`
 - 4ti2Interface package page: `https://homalg-project.github.io/homalg_project/4ti2Interface/`
 - CddInterface package page: `https://homalg-project.github.io/CddInterface/`
-- NConvex package page: `https://gap-packages.github.io/NConvex/`
+- NConvex package page: `https://homalg-project.github.io/NConvex/`
 - Forms package page: `https://gap-packages.github.io/forms/`
 - Forms manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`

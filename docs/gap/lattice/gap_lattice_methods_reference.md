@@ -193,13 +193,22 @@ Representative `CddInterface` methods:
 | `Cdd_IsContained(P1, P2)` / `Cdd_Intersection(P1, P2)` | Polyhedral containment/intersection operations | `[PKG, POLY]` |
 | `Cdd_LinearProgram(P, b)` / `Cdd_FourierProjection(P, var)` | LP and projection/elimination workflows for polyhedral models | `[PKG, POLY]` |
 
-`NConvex` note:
+Representative `NConvex` methods:
 
-- `NConvex` is in-scope and package-level documented, but method-index pages were not retrievable in this environment during this pass.
-- Method-level triage continuity is maintained in `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md`.
+| Function | Description | Tags |
+|----------|-------------|------|
+| `ConeByInequalities(L)` / `ConeByEqualitiesAndInequalities(Eq, Ineq)` / `ConeByGenerators(L)` | Cone constructors from inequality/equality/generator data. | `[PKG, POLY]` |
+| `Cone(L)` / `Cone(cdd_cone)` / `DualCone(C)` / `HilbertBasis(C)` | Core cone conversion and Hilbert-basis workflows. | `[PKG, POLY]` |
+| `Fan(R, C)` / `FansFromTriangulation(R)` / `FanFromTriangulation(R)` | Fan construction and triangulation-derived fan workflows. | `[PKG, POLY]` |
+| `PolyhedronByInequalities(L)` / `Polyhedron(P, C)` / `TailCone(P)` | Polyhedron constructors and tail-cone extraction. | `[PKG, POLY]` |
+| `SolveLinearProgram(P, max_or_min, target_func)` | Linear programming on NConvex polyhedra/polytopes. | `[PKG, POLY]` |
+| `PolytopeByInequalities(L)` / `Polytope(L)` / `LatticePoints(P)` / `NormalFan(P)` | Polytope construction, lattice-point extraction, and fan conversion. | `[PKG, POLY]` |
+| `IntersectionOfCones(...)` / `IntersectionOfPolytopes(P1, P2)` / `FourierProjection(...)` | Intersection and projection operations across cone/polytope surfaces. | `[PKG, POLY]` |
+| `SolveEqualitiesAndInequalitiesOverIntergers(...)` | Integer equalities/inequalities solver returning polytope+cone decomposition data. | `[PKG, POLY]` |
 
 Detailed inventory note:
 
+- Full NConvex method-level checklist/reference surfaces are in `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md`.
 - Full CddInterface checklist/reference surfaces are in `docs/cddinterface_methods_checklist.md` and `docs/cddinterface/lattice/cddinterface_lattice_reference.md`.
 
 ### 2.6 Float package fplll hooks
@@ -383,10 +392,52 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `RiemannRochBasis`
 - `ToricStar`
 
-### 4.8 NConvex surface status
+### 4.8 NConvex methods
 
-- `LoadPackage("NConvex")`
-- Method-level inventory pending canonical manual retrieval (see `docs/nconvex_methods_checklist.md`).
+- `AmbientSpaceDimension`
+- `BasisOfLinealitySpace`
+- `Cone`
+- `ConeByEqualitiesAndInequalities`
+- `ConeByGenerators`
+- `ConeByInequalities`
+- `Contains`
+- `DefiningInequalities`
+- `DualCone`
+- `EqualitiesOfCone`
+- `EqualitiesOfPolytope`
+- `ExternalCddCone`
+- `ExternalCddPolyhedron`
+- `ExternalCddPolytope`
+- `ExternalNmzCone`
+- `ExternalNmzPolyhedron`
+- `FacesOfCone`
+- `Fan`
+- `FanFromTriangulation`
+- `FansFromTriangulation`
+- `FourierProjection`
+- `GridGeneratedByCone`
+- `HilbertBasis`
+- `IntersectionOfCones`
+- `IntersectionOfPolytopes`
+- `IsFullDimensional`
+- `IsInteriorPoint`
+- `IsLatticePolytope`
+- `IsRegularCone`
+- `LatticePoints`
+- `LatticePointsGenerators`
+- `MainPolytope`
+- `MainRatPolytope`
+- `NormalFan`
+- `Polyhedron`
+- `PolyhedronByInequalities`
+- `Polytope`
+- `PolytopeByInequalities`
+- `RandomInteriorPoint`
+- `SolveEqualitiesAndInequalitiesOverIntergers`
+- `SolveLinearProgram`
+- `Vertices`
+- `VerticesOfPolytope`
+- plus source-only declared helper/auxiliary surfaces tracked in `docs/nconvex_methods_checklist.md`.
 
 ### 4.9 CddInterface methods
 
