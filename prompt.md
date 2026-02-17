@@ -52,7 +52,7 @@ For every changed method entry, preserve or improve:
 
 ## How To Work
 
-Choose your own strategy, breadth, sequencing, and depth. Use full model capability for long-horizon documentation work.
+Choose your own strategy, breadth, sequencing, and depth.
 
 Within a run:
 

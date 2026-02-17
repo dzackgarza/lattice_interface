@@ -33,7 +33,6 @@ You are responsible for choosing execution strategy.
 
 - Choose planning, breadth, sequencing, and depth.
 - Use broad or narrow edits as needed.
-- Use full model capability for long-horizon work.
 - Optimize for net documentation quality improvement under the constraints below.
 
 ## Hard Constraints
