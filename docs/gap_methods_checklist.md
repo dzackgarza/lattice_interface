@@ -54,6 +54,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `LoadPackage("NConvex")`
 - [ ] `LoadPackage("CddInterface")`
 - [ ] `LoadPackage("Forms")`
+- [ ] `LoadPackage("HyperCells")`
 
 ### 2.2 Cryst/CARAT/CrystCat
 
@@ -146,8 +147,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ## References
 
 - `docs/gap/lattice/gap_lattice_methods_reference.md`
+- `docs/hypercells_methods_checklist.md`
 - GAP docs hub: `https://www.gap-system.org/doc/`
 - GAP package index: `https://gap-packages.github.io`
+- HyperCells package page: `https://gap-packages.github.io/HyperCells/`
 - NormalizInterface package page: `https://gap-packages.github.io/NormalizInterface/`
 - toric package page: `https://gap-packages.github.io/toric/`
 - 4ti2Interface package page: `https://homalg-project.github.io/homalg_project/4ti2Interface/`

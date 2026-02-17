@@ -13,6 +13,7 @@
 | `[EUCLID]` | Euclidean-lattice algorithmic setting |
 | `[PD]` | Effectively positive-definite assumptions/setting |
 | `[INDEF]` | Intended for indefinite forms/signatures |
+| `[HYP]` | Hyperbolic periodic-cell workflow |
 | `[POLY]` | Polyhedral / cone / affine-monoid setting |
 | `[TORIC]` | Toric/lattice-point algebraic-geometry setting |
 | `[FFORM]` | Finite-field forms (no real-signature definiteness notion) |
@@ -202,7 +203,30 @@ Representative `CddInterface` methods:
 Definiteness note:
 - Real-signature PD/INDEF language is not applicable in the finite-field setting.
 
-### 2.8 Subgroup lattices (terminology warning)
+### 2.8 HyperCells package
+
+| Package | Role | Tags |
+|---------|------|------|
+| `HyperCells` | Hyperbolic/Euclidean periodic cell-complex methods via triangle-group and supercell workflows | `[PKG, HYP, EUCLID]` |
+
+Representative methods:
+
+| Function | Description | Tags |
+|----------|-------------|------|
+| `TGCell(...)` / `TGSuperCell(...)` / `TGSuperCellModelGraph(...)` | Core constructors for primitive cells, supercells, and supercell model graphs | `[PKG, HYP, EUCLID]` |
+| `HyperCell(...)` | Constructor for regular compact primitive cells in dimensions 2-4 from modified SNF data | `[PKG, HYP, EUCLID]` |
+| `TGCellGraph(...)` / `TGCellModelGraph(...)` | Cell-graph and model-graph construction workflows | `[PKG, HYP, EUCLID]` |
+| `IsomorphicCell(...)` / `IsomorphicCellGraph(...)` / `IsomorphicSuperCellModelGraph(...)` | Isomorphism/equivalence workflows for cells and model graphs | `[PKG, HYP, EUCLID]` |
+| `TGSuperCellModelGraphQClass*`, `TGSuperCellQClass*`, `TGSuperCellModelGraphZClass*`, `TGSuperCellZClass*` | Supercell Q-class and Z-class classification/enumeration methods | `[PKG, HYP, EUCLID]` |
+| `TGCellMSNFsByType*`, `TGCellModelGraphsByType*`, `TGCellGraphsByType*` | Database extraction methods by type/species/genus/length | `[PKG, HYP, EUCLID]` |
+| `TGCellPointGroup*` family | Point-group representation, class, family, and genus workflows | `[PKG, HYP, EUCLID]` |
+
+Detailed method-level inventory is maintained in `docs/hypercells_methods_checklist.md` and `docs/hypercells/lattice/hypercells_lattice_reference.md`.
+
+Definiteness note:
+- HyperCells focuses on periodic cell-complex geometry over translation/point-group actions (Euclidean and hyperbolic regimes), not arithmetic PD-vs-INDEF genus classification contracts.
+
+### 2.9 Subgroup lattices (terminology warning)
 
 GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated to geometric/integer lattices and basis-reduction or Gram-matrix workflows.
 
@@ -218,6 +242,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 | Cryst/CARAT/CrystCat | Euclidean crystallographic (PD setting) |
 | Normaliz/4ti2/toric/NConvex/Cdd | Polyhedral/combinatorial, not signature-based |
 | Forms | Finite-field forms (no real-signature definiteness notion) |
+| HyperCells | Hyperbolic/Euclidean periodic cell-complex workflows; not an arithmetic genus/discriminant-form API |
 
 ---
 
@@ -272,6 +297,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `Cryst`
 - `CrystCat`
 - `Forms`
+- `HyperCells`
 - `NConvex`
 - `NormalizInterface`
 - `toric`
@@ -345,3 +371,29 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `Cdd_PolyhedronByGenerators`
 - `Cdd_PolyhedronByInequalities`
 - `Cdd_V_Rep`
+
+### 4.9 HyperCells methods (top-level entry points)
+
+- `HyperCell`
+- `TGCell`
+- `TGCellGraph`
+- `TGCellModelGraph`
+- `TGSuperCell`
+- `TGSuperCellModelGraph`
+- `IsomorphicCell`
+- `IsomorphicCellGraph`
+- `IsomorphicSuperCellModelGraph`
+- `TGSuperCells`
+- `TGSuperCellModelGraphQClasses`
+- `TGSuperCellQClasses`
+- `TGSuperCellModelGraphZClasses`
+- `TGSuperCellZClasses`
+- `TGCellMSNFsByType`
+- `TGCellMSNFsByTypeAndSpeciesAndGenus`
+- `TGCellModelGraphsByType`
+- `TGCellGraphsByType`
+- `TGCellPointGroupReps`
+- `TGCellPointGroupQClasses`
+- `TGCellPointGroupZClasses`
+- `TGCellPointGroupFamilies`
+- `TGCellPointGroupGenera`

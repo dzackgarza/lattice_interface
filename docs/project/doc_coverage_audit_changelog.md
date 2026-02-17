@@ -473,3 +473,59 @@ Each execution record must still include, at minimum:
     - Files: `docs/julia_methods_checklist.md`, `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`, `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`, `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`
     - Acceptance condition: map-level family is represented with runtime names and source-backed contracts.
 - Commit hash(es): `9497375`
+
+---
+
+### Pass ID: `20260217-12`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 17:53:12 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): missing package checklist surfaces and method-surface completeness for GAP package ecosystem
+- Target selection rationale: package-level audit showed that HyperCells (active GAP package for hyperbolic/euclidean periodic cell complexes) had no first-class checklist surface in this repository, violating FIRST GOAL package-surface coverage expectations.
+- Target ecosystems/modules: `docs/hypercells_methods_checklist.md`, `docs/hypercells/lattice/hypercells_lattice_reference.md`, `docs/hypercells/upstream/hypercells_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: HyperCells chapter 2-8 method surfaces (constructors, predicates, group/isomorphism APIs, quotient/cell-graph workflows, Q/Z-class enumeration, point-group family/genus APIs, export/display methods)
+- Proposed edits: add first-class HyperCells checklist + detailed reference and upstream provenance snapshot; wire HyperCells into GAP/playbook navigation surfaces; add representative HyperCells package note in GAP consolidated reference.
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no hidden scope reductions or alias-credit substitutions.
+- Risk notes: HyperCells API is broad; for methods where manual pages expose names but not compact signature prototypes in one place, retain `(...)` argument placeholders and capture explicit signature contracts only where source text is direct.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 17:53:12 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/hypercells_methods_checklist.md`, `docs/hypercells/lattice/hypercells_lattice_reference.md`, `docs/hypercells/upstream/hypercells_online_provenance_2026-02-17.md`, `docs/gap_methods_checklist.md`, `docs/gap/lattice/gap_lattice_methods_reference.md`, `docs/documentation_coverage_audit_playbook.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: HyperCells package methods from manual chapters 2-8 (constructor, graph, isomorphism, enumeration/database, point-group representation, display/export surfaces)
+- Concise outcome summary: closed a first-goal missing-package gap by adding a dedicated HyperCells checklist/reference surface with full chapter-indexed method inventory and source-backed caveats, then linked that surface into GAP and audit playbook navigation.
+- Key decisions and intentional non-edits:
+  - Added a standalone top-level checklist (`docs/hypercells_methods_checklist.md`) instead of keeping HyperCells implicit inside generic GAP package lists, so package accountability is explicit.
+  - Kept all checklist items unchecked pending `method:`-tagged tests.
+  - Avoided speculative argument signatures for methods where only name-level inventory is explicit in upstream manual contents; used explicit signatures only for constructor surfaces with clear prototypes.
+  - Did not alter unrelated pre-existing dirty files (`scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - Surveyed HyperCells package page + manual chapter surfaces on 2026-02-17:
+    - `https://gap-packages.github.io/HyperCells/`
+    - `https://www.hypercells.net/chap0_mj.html`
+    - `https://www.hypercells.net/chap2_mj.html`
+    - `https://www.hypercells.net/chap3_mj.html`
+    - `https://www.hypercells.net/chap4_mj.html`
+    - `https://www.hypercells.net/chap5_mj.html`
+    - `https://www.hypercells.net/chap6_mj.html`
+    - `https://www.hypercells.net/chap7_mj.html`
+    - `https://www.hypercells.net/chap8_mj.html`
+  - Localized source evidence in `docs/hypercells/upstream/hypercells_online_provenance_2026-02-17.md` and cross-linked it from checklist/reference surfaces.
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes a concrete package-surface omission and adds a large, source-backed method inventory for an in-scope hyperbolic-lattice ecosystem package.
+- Remaining gaps:
+  - HyperCells includes numerous overloaded methods where exact parameter-shape contracts are spread across chapter pages; a future signature-fidelity pass should add per-method argument contracts beyond constructor-level entries.
+  - No method-tagged tests yet back checklist completion for HyperCells methods.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: add per-method signature tables for high-impact HyperCells families (`TGSuperCell*QClass*`, `TGSuperCell*ZClass*`, `TGCellPointGroup*`) from chapter-level API entries.
+    - Gap category: missing_argument_surface
+    - Files: `docs/hypercells/lattice/hypercells_lattice_reference.md`, `docs/hypercells_methods_checklist.md`
+    - Acceptance condition: each method family has source-backed argument-shape notes and assumptions where documented.
+  - [ ] Priority 2: add `method:` tagged static tests for a representative HyperCells subset and reflect evidence in tracker/checklist state.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/hypercells_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one method-tagged test per major HyperCells family with tracker rows aligned.
