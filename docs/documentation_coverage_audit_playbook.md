@@ -22,6 +22,7 @@ Definition of done for each pass:
 - [ ] Updated changelog pre/post entry.
 - [ ] Explicit prioritized handoff tasks for the next pass.
 - [ ] If docs changed, a commit exists for the pass and its hash is logged in post-pass notes.
+- [ ] Batch size is meaningful (default: 3+ related method-level improvements), or a justified small-batch exception is logged.
 
 Out of scope:
 
@@ -47,6 +48,7 @@ The sole output target is higher-integrity documentation coverage for lattice-th
 - [ ] Do as much in-scope work as needed to produce a real quality improvement.
 - [ ] If no positive-gradient edit exists, record a no-edit pass and stop.
 - [ ] Always leave explicit follow-up tasks for future passes.
+- [ ] Prefer section-level or method-family batches over single-line micro-edits.
 
 ## Hard Constraints
 
@@ -103,9 +105,15 @@ Expand beyond the initial target only when it improves clarity and remains withi
 
 Operationalization:
 
-- [ ] Keep edit scope tight and intentional.
+- [ ] Keep edit scope intentional, but large enough to be throughput-efficient.
 - [ ] Before finalizing, run `git diff -- docs` and confirm every changed file is documentation.
 - [ ] If diff includes non-doc files, revert those non-doc changes and record incident in post-pass notes.
+
+Minimum throughput rule:
+
+- [ ] Default target per pass: 3 or more related method-level documentation improvements.
+- [ ] Preferred target: complete one coherent checklist subsection when source coverage allows.
+- [ ] If the pass changes fewer than 3 method-level items, post-pass notes must include a small-batch justification (for example source ambiguity, stale upstream snapshot, or risk of unsupported claims).
 
 ## Fixed-Point Stop Condition
 

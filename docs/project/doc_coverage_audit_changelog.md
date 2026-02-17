@@ -39,6 +39,8 @@ Rules:
 - Non-edits made intentionally (with rationale):
 - Source snapshots added/updated:
 - Net quality gradient (`positive`/`zero`/`negative`) with justification:
+- Batch size summary (method-level items changed):
+- Small-batch justification (required if <3):
 - Remaining gaps:
 - Next-pass focus:
 - Handoff tasks for next agent:

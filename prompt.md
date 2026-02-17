@@ -33,8 +33,15 @@ Read and follow:
 ## Execution Guidance
 
 - Do as much in-scope work as needed for a real quality improvement.
+- Prefer meaningful batches over tiny edits.
+- Target at least one full subsection or multiple related method entries per pass.
 - If no positive edit is warranted, record a justified no-edit pass.
 - Keep the pass auditable: clear rationale, clear diffs, clear handoff tasks.
+
+## Throughput Rule
+
+- Default target: at least 3 related method-level documentation improvements in one pass.
+- If fewer than 3 are changed, the post-pass entry must explain why larger batching was not safe or source-backed.
 
 ## Git Expectations
 
