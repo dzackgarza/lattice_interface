@@ -44,7 +44,7 @@ Documentation changes should be:
 - Handoff tasks and recent changelog gaps are starting signals.
 - Do not stop after the first valid fix if adjacent high-signal improvements remain.
 - Expand audit breadth as needed while quality gradient remains positive.
-- Stop when further edits are likely low-signal or under-supported.
+- Work until the scoped audit objective is reasonably complete for the current execution.
 
 ## Required Run Artifacts
 
