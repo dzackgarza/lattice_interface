@@ -23,6 +23,7 @@ Each cron trigger performs exactly one async audit pass.
 - [ ] The run must be non-interactive and deterministic from repository state.
 - [ ] If no positive-gradient edit exists, record a no-edit pass and exit cleanly.
 - [ ] Never perform a second pass in the same run.
+- [ ] Always leave explicit follow-up tasks for the next run.
 
 ## Hard Constraints
 
@@ -43,27 +44,22 @@ Each cron trigger performs exactly one async audit pass.
 - [ ] `docs/method_ground_truth_tracker.csv`
 - [ ] Source manifests and local upstream snapshots (for example `docs/sage/SOURCES.md`, `docs/*/upstream/*`)
 
-## Deterministic Preflight (Required)
+## Deterministic Preflight (Required, Non-Blocking)
 
 Run in this order before any edit:
 
 - [ ] `git status --short`
 - [ ] `git log --oneline -- docs | head -n 20`
 - [ ] `date -u +"%Y-%m-%d %H:%M:%S UTC"`
-
-Abort pass (no edits) if any is true:
-
-- [ ] Worktree is dirty before pass start.
-- [ ] Last pass already used the same pass ID/date slot.
-- [ ] Required canonical inputs are missing.
-
-If aborted, append a pre/post changelog pair with explicit abort reason.
+- [ ] If the tree is dirty, continue with a docs-only pass and record the pre-existing dirty state in the changelog.
+- [ ] If required inputs are missing, continue by documenting the missing inputs as top-priority follow-up tasks.
 
 ## Target Selection (Deterministic)
 
 Select exactly one primary target per pass using this priority:
 
 - [ ] Highest-severity unresolved gap from previous post-pass "Remaining gaps".
+- [ ] Highest-priority handoff task from the latest changelog post-pass entry.
 - [ ] If none, choose next ecosystem by round-robin order:
 `sage -> julia -> gap -> fpylll -> pari_gp -> latticegen -> cross-ecosystem`.
 - [ ] If multiple equivalent targets remain, choose lexicographically smallest checklist file path.
@@ -107,11 +103,10 @@ Stop only when all are true:
 - [ ] Use commit messages that encode pass intent and result (audit/add/clarify/reconcile).
 - [ ] Avoid mixing unrelated ecosystems in one commit when it reduces review clarity.
 
-Commit gating:
+Commit guidance:
 
-- [ ] Commit only when net quality gradient is `positive`.
-- [ ] For `zero` gradient passes, do not commit content edits; commit only if the changelog entry itself is new and accurate.
-- [ ] Never commit `negative` gradient changes.
+- [ ] Commit docs changes from this pass, including changelog/handoff updates.
+- [ ] If no doc content changed, still record pass results in changelog/handoff.
 - [ ] Preferred commit format:
 `docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
 
@@ -123,6 +118,7 @@ Maintain `docs/project/doc_coverage_audit_changelog.md` and enforce this sequenc
 - [ ] Review and approve pre-pass intent against scope and no-edit rules.
 - [ ] Perform the pass.
 - [ ] Add a **Post-Pass Entry** immediately after editing.
+- [ ] Add explicit handoff tasks for the next agent inside the post-pass entry.
 
 Required entry fields (both pre and post):
 
@@ -201,7 +197,8 @@ Each pass must produce:
 
 - [ ] Updated docs (if positive-gradient edits existed), and
 - [ ] Updated pre/post changelog entries, and
-- [ ] A concise unresolved-gaps list for the next pass.
+- [ ] A concise unresolved-gaps list for the next pass, and
+- [ ] Explicit queued handoff tasks in the post-pass changelog entry.
 
 If no positive-gradient edits exist, the pass still records a no-edit post-pass entry and fixed-point evidence.
 
@@ -211,3 +208,11 @@ If no positive-gradient edits exist, the pass still records a no-edit post-pass 
 - [ ] A pass that does neither is `zero` gradient and must not alter checklists beyond minimal logging artifacts.
 - [ ] Re-audit each ecosystem at least once every 6 completed passes; if skipped, force it as the next target.
 - [ ] Keep "remaining gaps" actionable (method family + file path + reason), never generic.
+
+## Handoff Tasks (Required)
+
+Store handoff tasks only in changelog post-pass entries.
+
+- [ ] Include only actionable tasks with exact file path and gap category.
+- [ ] Each task must have a short acceptance condition.
+- [ ] Keep tasks concise and prioritized for one-shot execution.
