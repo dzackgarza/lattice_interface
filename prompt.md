@@ -14,6 +14,7 @@ Primary references:
 - Find and fix documentation coverage gaps.
 - Improve method-level contract clarity and organization.
 - Leave the documentation in a better state than you found it.
+- Use full model capability for long, coherent, high-impact documentation passes.
 
 ## Hard Boundaries
 
