@@ -42,6 +42,7 @@ Rules:
 - Remaining gaps:
 - Next-pass focus:
 - Handoff tasks for next agent:
+- Commit hash:
 
 ---
 
@@ -245,3 +246,50 @@ Rules:
     - Gap category: unclear_contract
     - Files: `docs/sage_methods_checklist.md` or `docs/julia_methods_checklist.md`, `docs/project/doc_coverage_audit_changelog.md`
     - Acceptance condition: one checklist entry is clarified with stronger contract/caveat language and logged with justification
+
+---
+
+### Pass ID: `20260217-07`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 13:08:38 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary target (single ecosystem/module): `sage.quadratic_forms.quadratic_form` checklist surface
+- Target selection rationale: latest handoff task requires a method-level checklist clarification; this pass selects the Sage checklist and addresses a source-backed missing contract from the local upstream snapshot.
+- Target ecosystems/modules: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: local p-adic/Jordan-normal-form routines for `QuadraticForm`
+- Proposed edits: add `local_normal_form(p)` to `docs/sage_methods_checklist.md` with explicit `ZZ`-only caveat from local upstream warning text.
+- Planned non-edits: no checklist box state changes; no ignore-list/scope manipulation; no code/test/runtime edits; no unsupported caveat additions where upstream text is silent.
+- Risk notes: local `QuadraticForm` surface is broad; this pass is intentionally narrow to keep provenance and diff auditability high.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 13:09:07 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/project/doc_coverage_audit_changelog.md`, `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
+- Method families actually touched: `QuadraticForm` local p-adic/Jordan-normal-form documentation (`local_normal_form(p)`)
+- Edits made (with rationale):
+  - Added `local_normal_form(p)` to `docs/sage_methods_checklist.md` and documented the upstream `ZZ`-only limitation to close a source-backed missing-method and missing-contract gap.
+  - Added `local_normal_form(p)` to the equivalence-testing table in `docs/sage/quadratic_form/sage_quadratic_form_reference.md` so checklist and detailed module reference stay aligned.
+- Non-edits made intentionally (with rationale):
+  - Did not add caveats for methods whose upstream snapshot does not explicitly state the constraint (for example `theta_by_cholesky`, `theta_by_pari`) to avoid unsupported claims.
+  - Did not modify checklist completion states, ignore-lists, or module scope boundaries.
+  - Did not refresh source snapshots because the Sage manifest snapshots are current (fetched 2026-02-16, less than 90 days old).
+- Source snapshots added/updated: none
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; this pass closes one concrete missing-method inventory gap and attaches an explicit source-backed contract caveat at the checklist surface.
+- Remaining gaps:
+  - Additional `QuadraticForm` local-method entries appear undocumented in `docs/sage_methods_checklist.md` (for example local-Jordan helpers adjacent to `local_normal_form` in the upstream section).
+  - `docs/sage/quadratic_form/sage_quadratic_form_reference.md` still lacks a dedicated subsection that groups p-adic normal-form/Jordan decomposition helpers, which increases lookup cost.
+- Next-pass focus: continue Sage `QuadraticForm` local-method inventory reconciliation from the upstream local-normal-form section, adding only source-backed entries/caveats.
+- Handoff tasks for next agent:
+  - [ ] Priority 1: Audit the upstream `QuadraticForm` local-normal-form neighborhood and add any missing lattice-relevant methods to `docs/sage_methods_checklist.md`.
+    - Gap category: missing_method
+    - Files: `docs/sage_methods_checklist.md`, `docs/sage/quadratic_form/upstream/quadratic_form.html`
+    - Acceptance condition: at least one additional source-backed local/p-adic method appears in the checklist with mathematically precise wording and necessary caveats.
+  - [ ] Priority 2: Add a compact local-method subsection to `docs/sage/quadratic_form/sage_quadratic_form_reference.md` that includes `local_normal_form(p)` and nearby Jordan helpers.
+    - Gap category: organization_defect
+    - Files: `docs/sage/quadratic_form/sage_quadratic_form_reference.md`
+    - Acceptance condition: reference file has a dedicated local/p-adic subsection with aligned method table entries and no contradictory caveat language vs checklist.

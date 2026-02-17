@@ -21,6 +21,7 @@ Definition of done for each pass:
 - [ ] At least one real documentation quality improvement, or a justified no-edit pass.
 - [ ] Updated changelog pre/post entry.
 - [ ] Explicit prioritized handoff tasks for the next pass.
+- [ ] If docs changed, a commit exists for the pass and its hash is logged in post-pass notes.
 
 Out of scope:
 
@@ -124,10 +125,11 @@ Stop only when all are true:
 - [ ] Use commit messages that encode pass intent and result (audit/add/clarify/reconcile).
 - [ ] Avoid mixing unrelated ecosystems in one commit when it reduces review clarity.
 
-Commit guidance:
+Commit requirements:
 
-- [ ] Commit docs changes from this pass, including changelog/handoff updates.
-- [ ] If no doc content changed, still record pass results in changelog/handoff.
+- [ ] If any documentation files changed in the pass, commit is mandatory.
+- [ ] If no documentation files changed, do not create a content-only commit; log the no-edit pass in changelog.
+- [ ] Post-pass entry must include the commit hash (or `none` for no-edit passes).
 - [ ] Preferred commit format:
 `docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
 

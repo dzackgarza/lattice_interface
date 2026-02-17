@@ -16,6 +16,7 @@ Read and follow:
 3. Make documentation-only improvements that are in scope.
 4. Add a **Post-Pass** entry to the changelog.
 5. Include explicit prioritized handoff tasks for the next agent in the post-pass entry.
+6. If any documentation files changed, create a git commit for this pass and record the commit hash in the post-pass entry.
 
 ## Scope
 
@@ -38,6 +39,8 @@ Read and follow:
 ## Git Expectations
 
 - Keep changes documentation-only.
+- Commit is mandatory when docs changed in the pass.
 - Keep commits reviewable and focused on the pass.
+- Record the resulting commit hash in the changelog post-pass entry.
 - Use commit message format:
 `docs(audit): pass <PASS_ID> <target> <audit|add|clarify|reconcile>`
