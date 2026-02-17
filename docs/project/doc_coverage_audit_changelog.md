@@ -697,3 +697,54 @@ Each execution record must still include, at minimum:
     - Files: `docs/nconvex/lattice/nconvex_lattice_reference.md`, `docs/nconvex_methods_checklist.md`, `docs/nconvex/upstream/nconvex_online_provenance_2026-02-17.md`
     - Acceptance condition: source-only `[SRC]` entries either become manual-indexed with canonical docs links or remain explicitly triaged with validated declaration signatures.
 - Commit hash(es): `3434318`
+
+---
+
+### Pass ID: `20260217-16`
+
+#### Pre-Pass
+
+- Date/time (UTC): 2026-02-17 23:35:00 UTC
+- Execution context: manual
+- Auditor: Codex
+- Primary work target(s): missing first-class checklist surfaces for known ecosystem packages not yet represented in repo docs
+- Target selection rationale: upstream survey confirmed `lrslib` and `polymake` as active lattice/polyhedral research stacks lacking top-level checklist surfaces in this repository.
+- Target ecosystems/modules: `docs/lrslib_methods_checklist.md`, `docs/lrslib/lattice/lrslib_lattice_reference.md`, `docs/lrslib/upstream/lrslib_online_provenance_2026-02-17.md`, `docs/polymake_methods_checklist.md`, `docs/polymake/lattice/polymake_lattice_reference.md`, `docs/polymake/upstream/polymake_online_provenance_2026-02-17.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Planned method families: lrslib reverse-search command surfaces (`lrs`, `mplrs`, `redund/minrep`, `lrsnash` family, conversion/generation helpers), polymake lattice-polytope counting and Ehrhart/h* method surfaces.
+- Proposed edits: add first-class checklist/reference/provenance surfaces for both packages with source-backed argument/type/caveat coverage and explicit fetch-blocker notes where applicable.
+- Planned non-edits: no checklist completion-state changes; no runtime/code/test edits; no tracker CSV promotions without method-tagged test evidence.
+- Risk notes: polymake release docs direct retrieval is access-restricted (HTTP 403) in this environment; method extraction must be provenance-labeled and revalidated in follow-up.
+- Expected quality gradient (`positive`/`zero`/`negative`): positive
+
+#### Post-Pass
+
+- Date/time (UTC): 2026-02-17 23:35:00 UTC
+- Pass outcome (`completed`/`aborted`): completed
+- Files changed: `docs/lrslib_methods_checklist.md`, `docs/lrslib/lattice/lrslib_lattice_reference.md`, `docs/lrslib/upstream/lrslib_online_provenance_2026-02-17.md`, `docs/polymake_methods_checklist.md`, `docs/polymake/lattice/polymake_lattice_reference.md`, `docs/polymake/upstream/polymake_online_provenance_2026-02-17.md`, `docs/project/doc_coverage_audit_changelog.md`
+- Method families actually touched: lrslib driver/option/script surfaces and polymake lattice-point/Ehrhart/basis-conversion surfaces.
+- Concise outcome summary: closed first-goal checklist-surface gaps by adding dedicated `lrslib` and `polymake` package surfaces, with new reference and provenance files including argument/type/constraint notes and explicit access-limit disclosures.
+- Key decisions and intentional non-edits:
+  - Added both packages as first-class top-level checklist files instead of umbrella-only mentions.
+  - Preserved all checklist boxes unchecked (no new `method:`-tagged tests in this pass).
+  - For polymake, documented signature-fidelity caveat due direct release-doc fetch restrictions and recorded exact blocker details.
+  - Left unrelated pre-existing dirty files untouched (`README.md`, `docs/documentation_coverage_audit_playbook.md`, `scripts/doc_coverage_scheduler.py`, `.serena/`, `scripts/__pycache__/`).
+- Online survey and provenance localization:
+  - lrslib sources surveyed from canonical package/man pages with mirror supplementation for inaccessible helper man pages.
+  - polymake package/repository/release-doc endpoints surveyed; direct release-doc fetch blocked (HTTP 403) and captured in provenance.
+  - provenance files created:
+    - `docs/lrslib/upstream/lrslib_online_provenance_2026-02-17.md`
+    - `docs/polymake/upstream/polymake_online_provenance_2026-02-17.md`
+- Net quality gradient (`positive`/`zero`/`negative`) with justification: positive; package-surface completeness increased with two new first-class ecosystems and explicit contract/caveat mapping.
+- Remaining gaps:
+  - polymake typed-signature fidelity needs direct release-doc extraction (or local docs build) once access allows.
+  - method-tagged tests are still missing for newly added `lrslib` and `polymake` methods.
+- Prioritized handoff tasks for next execution:
+  - [ ] Priority 1: perform direct polymake docs extraction to tighten method argument/type fidelity and remove snippet-only caveat.
+    - Gap category: missing_argument_surface
+    - Files: `docs/polymake/lattice/polymake_lattice_reference.md`, `docs/polymake_methods_checklist.md`, `docs/polymake/upstream/polymake_online_provenance_2026-02-17.md`
+    - Acceptance condition: all listed polymake methods have fully source-backed typed signatures from directly retrievable upstream docs.
+  - [ ] Priority 2: add method-tagged tests for representative lrslib/polymake methods and reconcile tracker/checklist states.
+    - Gap category: missing_test_evidence
+    - Files: `tests/**`, `docs/lrslib_methods_checklist.md`, `docs/polymake_methods_checklist.md`, `docs/method_ground_truth_tracker.csv`
+    - Acceptance condition: at least one method-tagged test per major family and aligned tracker rows.
+- Commit hash(es): `pending`
