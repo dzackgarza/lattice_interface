@@ -2,16 +2,12 @@
 
 Real work needed.
 
-## Missing Upstream Provenance Capture
+## Missing Local Doc Copies
 
-These packages have reference docs but NO upstream provenance captured:
+These packages need local copies of actual upstream docs (not just reference summaries):
 
-- [ ] flint - capture upstream docs provenance
-- [ ] fplll - capture upstream docs provenance
-- [ ] gap - capture upstream docs provenance
-- [ ] ntl - capture upstream docs provenance
-- [ ] sage - capture upstream docs provenance
-
-## Contract Verification
-
-After upstream capture, verify reference docs match upstream.
+- [ ] flint - add local doc copies
+- [ ] fplll - add local doc copies
+- [ ] gap - add local doc copies
+- [ ] ntl - add local doc copies
+- [ ] sage - add local doc copies
