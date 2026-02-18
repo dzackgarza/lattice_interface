@@ -2,7 +2,7 @@ from agent_runner import transcript
 
 
 def test_parse_last_message_falls_back():
-    message = transcript.parse_last_message("claude", "", "hello\n\nworld", None)
+    message = transcript.parse_last_message("claude", "hello\n\nworld", None)
     assert message == "world"
 
 
