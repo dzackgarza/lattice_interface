@@ -32,12 +32,12 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## 3. CARAT/Bravais Class and Normalizer Methods (Canonical)
 
-- [ ] `BravaisGroup(R[, f])`
-- [ ] `PointGroupsBravaisClass(R[, f[, s]])`
-- [ ] `BravaisSubgroups(R[, f[, s[, k]]])`
-- [ ] `BravaisSupergroups(R[, f[, s[, k]]])`
-- [ ] `NormalizerInGLnZ(R[, f])`
-- [ ] `CentralizerInGLnZ(R[, f])`
+- [ ] `BravaisGroup(R)`
+- [ ] `PointGroupsBravaisClass(R)`
+- [ ] `BravaisSubgroups(R)`
+- [ ] `BravaisSupergroups(R)`
+- [ ] `NormalizerInGLnZ(R)`
+- [ ] `CentralizerInGLnZ(R)`
 - [ ] `IsBravaisEquivalent(R, S)`
 - [ ] `CaratZClass(R)`
 - [ ] `CaratZClassNumber(R)`
@@ -67,8 +67,11 @@ current canonical docs; they are not counted as active canonical checklist targe
 
 - These are Euclidean crystallographic and integer-matrix-group workflows.
 - The methods are not general indefinite quadratic-form genus/isometry classifiers.
-- Optional selector arguments (`f`, `s`, `k`, and Q-class flags) require method-level
-  value-domain lift in future contract-fidelity passes.
+- For `SpaceGroupsByPointGroupOnRight(P[, normedQclass[, orbitsQclass]])`,
+  `normedQclass` is `false` or a normalizer-element list in `GL(d,Z)`, and
+  `orbitsQclass` is boolean (`true` returns all representatives per orbit).
+- Selector arguments `f`, `s`, and `k` are not treated as active canonical contract
+  parameters for CARAT methods in this checklist surface.
 
 ---
 
@@ -79,5 +82,6 @@ current canonical docs; they are not counted as active canonical checklist targe
 - Existing GAP umbrella reference:
   `docs/gap/lattice/gap_lattice_methods_reference.md`
 - Cryst package page: `https://gap-packages.github.io/cryst/`
-- GAP Reference Manual (Cryst): `https://docs.gap-system.org/doc/ref/chap35.html`
+- GAP Cryst package manual: `https://docs.gap-system.org/pkg/cryst/htm/CHAP002.htm`
 - GAP Reference Manual (CARAT methods): `https://docs.gap-system.org/doc/ref/chap44.html`
+- CARATInterface package manual: `https://www.math.rwth-aachen.de/~GAP/WWW2/PackagePages/caratinterface/doc/manual.pdf`

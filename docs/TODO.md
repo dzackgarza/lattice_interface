@@ -14,7 +14,7 @@
   - `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
   - `docs/crystallographic_stack_methods_checklist.md`
   - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
-- [ ] Lift accepted value-domain constraints for optional selector arguments (`f`, `s`, `k`, `normedQclass`, `orbitsQclass`) in crystallographic-stack method contracts.
+- [x] Lift accepted value-domain constraints for crystallographic optional selectors (`normedQclass`, `orbitsQclass`) and triage non-canonical `f`/`s`/`k` selectorized CARAT signatures.
 
 ## Move Known Scope-Violation Surfaces to Archive
 
