@@ -161,6 +161,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: upstream documents this for definite lattices (`is_definite(L)` required).
 - [ ] ``is_isometric(L1, L2)``
 - [ ] ``is_isometric_with_isometry(L1, L2)``
+  - Caveat: upstream documents tuple return `(isometric::Bool, f)` with `(false, zero_matrix(QQ, 0, 0))` on failure, and kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true`.
 - [ ] ``is_locally_isometric(L1, L2, p)``
 - [ ] ``is_rationally_isometric(L1, L2)``
 - [ ] ``hasse_invariant(L, p)``
@@ -230,7 +231,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``lift(a)` / `representative(a)``
 - [ ] ``orthogonal_submodule(T, S)``
 - [ ] ``is_isometric_with_isometry(T, U)``
+  - Caveat: upstream documents tuple return `(Bool, map)` with `(false, 0)` on failure, with preconditions: equal quadratic-form moduli (or prior rescaling) and semiregular decomposition checks.
 - [ ] ``is_anti_isometric_with_anti_isometry(T, U)``
+  - Caveat: upstream documents tuple return `(Bool, anti_map)` with `(false, 0)` on failure and the same modulus/rescale + semiregular preconditions.
 - [ ] ``is_degenerate(T)``
 - [ ] ``is_semi_regular(T)``
 - [ ] ``radical_bilinear(T)``
@@ -431,7 +434,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``automorphism_group(Tf)``
   - Caveat: upstream method list currently typesets `TorQuadModuleWithMap` in one signature location; surrounding page context is `TorQuadModuleWithIsom`.
 - [ ] ``is_isomorphic_with_map(Tf, Sg)``
+  - Caveat: upstream return contract is `(true, map)` on success and `(false, 0)` on failure.
 - [ ] ``is_anti_isomorphic_with_map(Tf, Sg)``
+  - Caveat: upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure.
 ### References
 
 ### Definiteness summary
@@ -549,4 +554,4 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - `https://github.com/glwhart/MinkowskiReduction.jl`
 - `https://github.com/glwhart/MinkowskiReduction.jl/blob/master/README.md`
 
-Last updated: 2026-02-17
+Last updated: 2026-02-18

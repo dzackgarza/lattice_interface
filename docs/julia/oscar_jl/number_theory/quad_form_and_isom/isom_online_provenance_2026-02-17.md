@@ -73,6 +73,23 @@ Access date (UTC): 2026-02-17
   - keep stabilizer-family methods runtime-name exact (`...` placeholders) rather than asserting speculative argument types,
   - keep `extend_to_ambient_space(::ZZLat, ...)` / `restrict_to_lattice(::ZZLat, ...)` framed as basis-representation conversion for collections of isometries, matching upstream section text.
 
+## Pass-19 addendum (2026-02-18): map-return contract fidelity for isometry APIs
+
+- Re-surveyed upstream pages for tuple return shapes and preconditions:
+  - https://docs.oscar-system.org/v1.4/Hecke/manual/lattices/integrelattices/
+  - https://docs.oscar-system.org/v1/Hecke/manual/quad_forms/torquadmod/
+  - https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/
+- Verified from these pages:
+  - `is_isometric_with_isometry(L, M; depth=3, bacher_depth=5, ambient_representation=true)` has explicit tuple-return contract:
+    - returns `(true, f)` when an isometry exists,
+    - returns `(false, zero_matrix(QQ, 0, 0))` otherwise.
+  - `is_isometric_with_isometry(T, U)` / `is_anti_isometric_with_anti_isometry(T, U)` on finite quadratic modules are documented with tuple-return shape and explicit preconditions:
+    - modulus compatibility (`modulus_quadratic_form` equality) or prior rescaling,
+    - semiregular decomposition conditions on the relevant direct sums.
+  - `is_isomorphic_with_map(Tf, Sf)` / `is_anti_isomorphic_with_map(Tf, Sf)` on `TorQuadModuleWithIsom` are documented with explicit failure sentinel:
+    - success returns `(true, map)` (or anti-map),
+    - failure returns `(false, 0)`.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

@@ -18,6 +18,11 @@
 - [x] Reconcile GAP umbrella crystallographic signatures with canonical crystallographic-stack contracts in:
   - `docs/gap_methods_checklist.md`
   - `docs/gap/lattice/gap_lattice_methods_reference.md`
+- [x] Tighten Julia isometry/isomorphism return-shape contracts and finite-module preconditions in:
+  - `docs/julia_methods_checklist.md`
+  - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
+  - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+  - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
 
 ## Move Known Scope-Violation Surfaces to Archive
 

@@ -133,7 +133,7 @@ Indefinite caveats:
 | `automorphism_group_generators(L)` | Generators for `Aut(L)`; current docs require `is_definite(L)` | `[PD, GAP, NT]` |
 | `automorphism_group_order(L)` | Order of automorphism group; current docs require `is_definite(L)` | `[PD, NT]` |
 | `is_isometric(L1, L2)` | Isometry test | `[PD, NT]` |
-| `is_isometric_with_isometry(L1, L2)` | Isometry + explicit map | `[PD, NT]` |
+| `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[PD, NT]` |
 | `is_locally_isometric(L1, L2, p)` | Local p-adic isometry test | `[NT]` |
 | `is_rationally_isometric(L1, L2)` | Rational isometry test | `[INDEF, NT]` |
 | `hasse_invariant(L, p)` / `witt_invariant(L, p)` | Local invariants | `[NT]` |
@@ -178,7 +178,8 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `inner_product(a, b)` / `quadratic_product(a)` | Form evaluation | `[NT]` |
 | `lift(a)` / `representative(a)` | Lift to cover lattice | `[NT]` |
 | `orthogonal_submodule(T, S)` | Orthogonal complement in module | `[NT]` |
-| `is_isometric_with_isometry(T, U)` / `is_anti_isometric_with_anti_isometry(T, U)` | (Anti-)isometry tests with maps | `[NT]` |
+| `is_isometric_with_isometry(T, U)` | Isometry test returning `(Bool, map)` (or `(false, 0)` if no isometry). Upstream requires either equal quadratic-form moduli (or prior rescaling) and semiregular decomposition checks on `T ⊕ U` and `T ⊕ U^{-1}` | `[NT]` |
+| `is_anti_isometric_with_anti_isometry(T, U)` | Anti-isometry test returning `(Bool, anti_map)` (or `(false, 0)` if absent). Upstream documents the same modulus-matching/rescale precondition and semiregular decomposition checks | `[NT]` |
 | `normal_form(T; partial=false)` / `snf(T)` | Normal forms | `[NT]` |
 | `brown_invariant(T)` / `genus(T, sig_pair)` / `is_genus(T, sig_pair)` | Genus-level invariants and feasibility | `[NT]` |
 
@@ -220,9 +221,9 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `sub(Tf, gens)` / `primary_part(Tf, m)` / `orthogonal_submodule(Tf, S; check=true)` | Stable-submodule and orthogonal-submodule operations with induced action; upstream requires isometry stability of input submodules | `[NT]` |
 | `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
 | `automorphism_group_with_inclusion(Tf)` / `automorphism_group(Tf)` | Automorphism group of the pair; centralizer-in-orthogonal-group contract for the inclusion form | `[NT]` |
-| `is_isomorphic_with_map(Tf, Sg)` / `is_anti_isomorphic_with_map(Tf, Sg)` | (Anti-)isomorphism tests with explicit maps | `[NT]` |
+| `is_isomorphic_with_map(Tf, Sg)` / `is_anti_isomorphic_with_map(Tf, Sg)` | Upstream return contract is tuple-based: `(true, map)` on success and `(false, 0)` on failure (isomorphic and anti-isomorphic variants) | `[NT]` |
 
-Source note: reconciled against `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md` and OSCAR upstream docs at `https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/` (accessed 2026-02-17).
+Source note: reconciled against `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md` and OSCAR upstream docs at `https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/` (accessed 2026-02-17), with tuple-return contract addendum cross-checked on 2026-02-18 in `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 
 ---
 

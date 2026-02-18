@@ -231,7 +231,7 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | `automorphism_group_generators(L)` | Generators of `Aut(L)`; current Hecke docs require `is_definite(L)` | `[PD, GAP]` |
 | `automorphism_group_order(L)` | Order of `Aut(L)`; current Hecke docs require `is_definite(L)` | `[PD]` |
 | `is_isometric(L1, L2)` | Isometry test | `[PD]` |
-| `is_isometric_with_isometry(L1, L2)` | Isometry test + explicit map | `[PD]` |
+| `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[PD]` |
 | `is_locally_isometric(L1, L2, p)` | $p$-adic isometry test | |
 | `is_rationally_isometric(L1, L2)` | Rational (ℚ) isometry test | `[INDEF ok]` |
 | `hasse_invariant(L, p)` | Hasse invariant at prime $p$ | |
@@ -327,8 +327,8 @@ Computes Coxeter diagram of reflecting hyperplanes. Applicable to even hyperboli
 | `inner_product(a, b)` | $b(a,b)$ for elements $a,b \in T$ | |
 | `lift(a)` / `representative(a)` | Lift element to cover lattice | |
 | `orthogonal_submodule(T, S)` | Orthogonal complement of submodule $S$ in $T$ | |
-| `is_isometric_with_isometry(T, U)` | Isometry test + explicit map | |
-| `is_anti_isometric_with_anti_isometry(T, U)` | Anti-isometry test + map | |
+| `is_isometric_with_isometry(T, U)` | Isometry test returning `(Bool, map)` (or `(false, 0)` if no isometry). Upstream states the contract assumes either equal quadratic-form moduli or prior rescaling to match, plus semiregular decomposition checks on `T ⊕ U` and `T ⊕ U^{-1}` | |
+| `is_anti_isometric_with_anti_isometry(T, U)` | Anti-isometry test returning `(Bool, anti_map)` (or `(false, 0)` if absent). Upstream documents the same modulus-matching/rescale precondition and semiregular decomposition checks | |
 | `is_degenerate(T)` | Degeneracy test | |
 | `is_semi_regular(T)` | Semi-regularity test | |
 | `radical_bilinear(T)` | Radical of bilinear form | |
@@ -562,10 +562,10 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
 | `automorphism_group_with_inclusion(Tf)` | Automorphism group with inclusion map, identified upstream as the subgroup of `O(T)` commuting with the fixed isometry | `[NT]` |
 | `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` (upstream method list currently typesets `TorQuadModuleWithMap` here; context indicates `TorQuadModuleWithIsom`) | `[NT]` |
-| `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs, with explicit map when successful | `[NT]` |
-| `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs, with explicit map when successful | `[NT]` |
+| `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
+| `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
-Source note: contracts in §2.13/§2.14/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) accessed 2026-02-17. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
+Source note: contracts in §2.13/§2.14/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) accessed 2026-02-17, with tuple-return/precondition fidelity addendum captured on 2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 
 ### References
 
