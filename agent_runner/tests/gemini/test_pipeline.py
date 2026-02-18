@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -28,6 +29,8 @@ def _load_metadata(task: str, agent: str) -> dict | None:
 
 
 def test_gemini_pipeline(recwarn):
+    if os.getenv("GEMINI_KNOWN_DOWN") == "1":
+        pytest.skip("Gemini CLI known down")
     rc = orchestrator.run(agent="gemini", task="debug_hello_simple")
     if rc == 10:
         assert any(issubclass(w.category, RuntimeWarning) for w in recwarn.list)
