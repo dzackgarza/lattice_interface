@@ -22,11 +22,13 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `TriangulizedIntegerMatTransform(mat)`
 - [ ] `TriangulizeIntegerMat(mat)`
 - [ ] `DiagonalizeIntMat(mat)`
-- [ ] `NormalFormIntMat(...)`
+- [ ] `NormalFormIntMat(mat, options)`
+  - Caveat: `options` is an integer bitmask (0–31): bit 0 selects SNF vs. triangular/HNF, bit 1 reduces off-diagonal, bit 2 adds row transforms, bit 3 adds col transforms, bit 4 (value 16) is destructive; returns a record with `normal`, optionally `rowtrans`/`coltrans`, `signdet`, `rank`. [source: docs/gap/upstream/matint.gd §NormalFormIntMat]
 - [ ] `AbelianInvariantsOfList(list)`
 - [x] `ComplementIntMat(full, sub)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_complementintmat_returns_direct_summand_data]
 - [x] `DeterminantIntMat(mat)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_determinantintmat_matches_exact_determinant]
-- [ ] `Decomposition(...)`
+- [ ] `Decomposition(A, B, depth)`
+  - Caveat: `A` must be an m×n cyclotomic matrix of rank m ≤ n; `B` is a list of cyclotomic vectors of length n; `depth` is a nonneg integer or `"nonnegative"` (assumes nonneg solutions, auto-computes iterations, fails per entry if no nonneg solution); p=83 by default, auto-advanced if singular. [source: docs/gap/upstream/chap25.html §25.4-1]
 - [ ] `IntegralizedMat(A[, inforec])`
 - [ ] `DecompositionInt(A, B, depth)`
 

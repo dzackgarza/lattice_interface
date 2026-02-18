@@ -33,6 +33,8 @@ These packages have partial or need complete local copies of upstream docs:
 
 - [ ] flint (has .rst files under upstream/, needs integration check)
 - [ ] gap (core GAP docs)
+- [x] Replace `NormalFormIntMat(...)` and `Decomposition(...)` placeholder signatures in GAP core reference and checklist with source-backed typed signatures — `NormalFormIntMat(mat, options)` with full bitmask contract and record-return shape; `Decomposition(A, B, depth)` with cyclotomic-matrix rank constraint and `"nonnegative"` depth variant — sourced from local upstream `docs/gap/upstream/matint.gd` §NormalFormIntMat and `docs/gap/upstream/chap25.html` §25.4-1.
+
 - [ ] ntl (has .txt/.cpp.html files under upstream/, needs integration check)
 - [ ] fpylll (partial docs)
 - [ ] forms (partial docs)
