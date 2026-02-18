@@ -228,8 +228,8 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `automorphism_group_generators(L)` | Generators of `Aut(L)`; current Hecke docs require `is_definite(L)` | `[PD, GAP]` |
-| `automorphism_group_order(L)` | Order of `Aut(L)`; current Hecke docs require `is_definite(L)` | `[PD]` |
+| `automorphism_group_generators(L::AbstractLat; ambient_representation::Bool=true, depth::Int=-1, bacher_depth::Int=0)` | Generators of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite); `ambient_representation=true` returns matrices in ambient-space coordinates | `[DEFINITE, GAP]` |
+| `automorphism_group_order(L::AbstractLat; depth::Int=-1, bacher_depth::Int=0)` | Order of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite) | `[DEFINITE]` |
 | `is_isometric(L1, L2)` | Isometry test | `[PD]` |
 | `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[PD]` |
 | `is_locally_isometric(L1, L2, p)` | $p$-adic isometry test | |
@@ -237,7 +237,7 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | `hasse_invariant(L, p)` | Hasse invariant at prime $p$ | |
 | `witt_invariant(L, p)` | Witt invariant at prime $p$ | |
 
-- PD: finite groups, computed via shortest vectors + symmetries (e.g. $E_8$ Weyl group)
+- DEFINITE (PD or ND): `automorphism_group_generators` / `automorphism_group_order` support both positive and negative definite lattices; finite groups computed via shortest vectors + symmetries (e.g. $E_8$ Weyl group); negative definite lattices may be passed directly (no need to rescale by $-1$ first)
 - Oscar also exposes "Lattices with isometry" and "Groups of automorphisms" sections
 - INDEF: Aut(L) infinite; use Indefinite.jl or Vinberg's algorithm for reflection subgroups
 - Rational/local isometry tests work for all signatures and are key ingredients in genus theory
