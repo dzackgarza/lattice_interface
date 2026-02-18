@@ -14,6 +14,7 @@
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18): compared active checklist inventory against the upstream living map and current in-scope surfaces; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, genus-signature pass): checked active in-scope checklist inventory against the upstream map while surveying current Hecke genus manuals; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, `TorQuadModuleWithIsom` drift pass): reviewed active checklist inventory while reconciling current OSCAR torquad-with-isometry docs; no clear new bilinear-form lattice package checklist gap identified.
+- [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, GAP scope-archive pass): compared the active in-scope checklist inventory and upstream living map while archiving out-of-scope GAP umbrella families; no clear new bilinear-form lattice package checklist gap identified.
 
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
@@ -82,7 +83,7 @@
 
 ## Archive Out-of-Scope Sections From Mixed Files
 
-- [ ] Archive out-of-scope package families from GAP umbrella checklist/reference:
+- [x] Archive out-of-scope package families from GAP umbrella checklist/reference:
   - move/archive `NConvex`, `toric`, `Normaliz`, and cdd-style polyhedral surfaces from:
     - `docs/gap_methods_checklist.md`
     - `docs/gap/lattice/gap_lattice_methods_reference.md`
