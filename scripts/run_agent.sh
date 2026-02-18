@@ -9,7 +9,7 @@ FIRED_LOG="$REPO_DIR/tmp/cron_fired.log"
 NTFY_TOPIC="dzg-lattice-doc-updates"
 
 mkdir -p "$(dirname "$FIRED_LOG")"
-echo "$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M:%S TST') fired: $NAME" >> "$FIRED_LOG"
+echo "$(date '+%Y-%m-%d %H:%M:%S %Z') fired: $NAME" >> "$FIRED_LOG"
 
 # Heartbeat: just fire and exit, no ntfy
 if [ "$NAME" = "heartbeat" ]; then
