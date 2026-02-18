@@ -58,8 +58,8 @@ else
   TST_STR="$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
 fi
 
-TITLE="[$TASK_KEY] $NAME — $STATUS — $TST_STR"
-BODY="$(printf '%s\n\n%s' "$TST_STR" "$LAST_SECTION")"
+TITLE="[$TASK_KEY] $NAME — $STATUS — $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
+BODY="$(echo "$LAST_SECTION" | sed "1s|$UTC_STR UTC|$TST_STR|")"
 
 curl -s \
   -H "Title: $TITLE" \
