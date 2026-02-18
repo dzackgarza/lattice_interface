@@ -453,8 +453,8 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `kernel_lattice(Lf, p)` | Kernel of polynomial $p$ in isometry (with induced isometry) | |
-| `kernel_lattice(Lf, l)` | Kernel of $f^l - 1$ | |
+| `kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})` | Kernel of polynomial $p$ applied to the isometry $f$, as a sublattice with induced action; primitive in $L$ (non-degeneracy ensures this) | |
+| `kernel_lattice(Lf::ZZLatWithIsom, l::Integer)` | Kernel of $f^l - 1$ as a sublattice with induced action; primitive in $L$ | |
 | `invariant_lattice(Lf)` | Fixed sublattice $L^f$ | |
 | `coinvariant_lattice(Lf)` | Orthogonal complement of $L^f$ | |
 | `invariant_coinvariant_pair(Lf)` | Both at once | |
@@ -465,8 +465,8 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 |--------|-------------|------|
 | `discriminant_group(Lf)` | Returns discriminant-module data of `Lf`; upstream describes output as a pair `(D, fD)` (module + induced action) | |
 | `discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)` | Typed discriminant-group constructor returning a `TorQuadModuleWithIsom`; `ambient_representation` controls whether induced action is represented ambiently | |
-| `image_centralizer_in_Oq(Lf)` | Image of centralizer of $\bar{f}$ in $O(q_L)$ | |
-| `image_in_Oq(Lf)` | Computes image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for definite and indefinite lattices) | |
+| `image_centralizer_in_Oq(Lf)` | Image $G_{L,f}$ of the centralizer map $O(L,f) \to O(D_L, D_f)$; computable directly for definite lattices, ±identity isometries, and Euler-totient-rank cases; general case uses hermitian Miranda-Morrison theory, which **requires $L$ even** (local snapshot `latwithisom.md`) | |
+| `image_in_Oq(Lf)` | Computes image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for both definite and indefinite lattices; distinct from `image_centralizer_in_Oq`) | |
 | `discriminant_representation(L, G)` | Action of matrix group on discriminant group | |
 
 #### Spinor norm

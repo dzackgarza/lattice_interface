@@ -168,6 +168,23 @@ Access date (UTC): 2026-02-17
   - Added `AutomorphismGroupElem{TorQuadModule}` to the documented type union for the `f` parameter in both `torsion_quadratic_module_with_isometry` constructor rows across Julia umbrella reference (§2.18), Hecke mirror reference (§2.13), and checklist (§2.18).
   - Added optional-parameter fidelity notation (`[f]`) to both `torsion_quadratic_module_with_isometry` rows in all three surfaces.
 
+## Pass-25 addendum (2026-02-18): `kernel_lattice` typed signatures and `image_centralizer_in_Oq` even-lattice precondition
+
+- Source used: local snapshot `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md`.
+- Verified from this snapshot:
+  - `kernel_lattice(::ZZLatWithIsom, ::Union{ZZPolyRingElem, QQPolyRingElem})` — typed polynomial argument; upstream describes resulting sublattice as primitive in `L` (non-degeneracy).
+  - `kernel_lattice(::ZZLatWithIsom, ::Integer)` — computes kernel of `f^l - 1`; also primitive.
+  - `image_centralizer_in_Oq` section text states: "Important note: hermitian Miranda-Morrison is only available for even lattices." Simple cases (definite, ±identity, Euler-totient-rank) do not invoke Miranda-Morrison.
+- Local documentation alignment actions:
+  - Replaced `kernel_lattice(Lf, p)` / `kernel_lattice(Lf, l)` placeholder entries with typed dispatch signatures and primitivity caveats in:
+    - `docs/julia_methods_checklist.md` (§2.14 Kernel sublattices),
+    - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (§2.14 Kernel sublattices).
+  - Added even-lattice precondition to `image_centralizer_in_Oq` in:
+    - `docs/julia_methods_checklist.md` (§2.14 Discriminant groups),
+    - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (§2.14 Discriminant groups).
+  - Added `image_in_Oq` differentiation caveat in checklist.
+  - Updated `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` §2.11 to reflect typed `kernel_lattice` overloads and `image_centralizer_in_Oq` even-lattice restriction.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

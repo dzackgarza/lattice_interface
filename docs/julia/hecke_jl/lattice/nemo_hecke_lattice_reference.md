@@ -196,8 +196,10 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Isometry polynomials | `[NT]` |
 | `rank(Lf)` / `degree(Lf)` / `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` / `signature_tuple(Lf)` / `scale(Lf)` / `norm(Lf)` / `genus(Lf)` / `rational_span(Lf)` / `minimum(Lf)` | Upstream documents these as direct attribute-forwarding methods for `ZZLatWithIsom`; contracts are inherited from the underlying lattice invariants (`minimum(Lf)` keeps the same positive-definite precondition as `minimum(L)`) | `[NT]` |
 | `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` / `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` / `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` / `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | Arithmetic/discriminant-structure/definiteness predicates forwarded from the underlying lattice | `[NT]` |
-| `invariant_lattice(Lf)` / `coinvariant_lattice(Lf)` / `kernel_lattice(Lf, ...)` | Isometry-derived decomposition | `[NT]` |
-| `discriminant_group(Lf)` / `discriminant_representation(L, G)` | Induced discriminant action | `[NT]` |
+| `invariant_lattice(Lf)` / `coinvariant_lattice(Lf)` | Fixed sublattice and its orthogonal complement, both primitive in `L` | `[NT]` |
+| `kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})` | Kernel of polynomial `p(f)` as a primitive sublattice with induced isometry action | `[NT]` |
+| `kernel_lattice(Lf::ZZLatWithIsom, l::Integer)` | Kernel of `f^l - 1` as a primitive sublattice with induced isometry action | `[NT]` |
+| `discriminant_group(Lf)` / `discriminant_representation(L, G)` | Induced discriminant action; `image_centralizer_in_Oq(Lf)` computes $G_{L,f}$ and requires $L$ even for the general Miranda-Morrison case (simple cases: definite, ±identity, Euler-totient-rank bypass this restriction) | `[NT]` |
 | `enumerate_classes_of_lattices_with_isometry(...)` | Isometry-equivariant class enumeration | `[NT]` |
 
 ### 2.12 Hermitian-specific surfaces

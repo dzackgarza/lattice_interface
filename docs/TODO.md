@@ -1,5 +1,8 @@
 # Documentation Gaps - Bilinear-Form Lattice Methods
 
+This file tracks missing prerequisites for building the per-package method checklists correctly.
+The checklists themselves track per-method completion; this file tracks what must exist *before* checklist entries can be filled out with source-backed accuracy (primarily: local copies of upstream docs).
+
 Real work needed.
 
 ## Goal 1 maintenance checks (2026-02-18 pass)
@@ -11,12 +14,20 @@ Real work needed.
 - [x] Tighten `TorQuadModule.submodules` and `TorQuadModule.stable_submodules` signatures in Julia umbrella reference, Hecke mirror reference, and checklist — replaced `...` placeholders with source-backed typed signatures from upstream Hecke `TorQuadModule` discriminant-group docs.
 - [x] Reconcile `torsion_quadratic_module_with_isometry` constructor type union in Julia umbrella reference, Hecke mirror reference, and checklist — added `AutomorphismGroupElem{TorQuadModule}` to the documented type union `U` for the `f` parameter, per OSCAR stable upstream docs.
 - [x] Add optional-parameter fidelity (`[f]` notation) to both `torsion_quadratic_module_with_isometry` constructor rows across all three surfaces.
+- [x] Tighten `kernel_lattice(::ZZLatWithIsom, ...)` typed dispatch signatures (polynomial and integer overloads) and add primitivity caveats across checklist, Julia umbrella reference, and Hecke mirror reference — sourced from local snapshot `latwithisom.md`.
+- [x] Add missing even-lattice precondition to `image_centralizer_in_Oq` (hermitian Miranda-Morrison only available for even lattices) and differentiation caveat for `image_in_Oq` — sourced from local snapshot `latwithisom.md`.
 
 ## Missing Local Doc Copies
 
-These packages need local copies of actual upstream docs:
+These packages need local copies of actual upstream docs (like the `.html` snapshots under `docs/sage/*/upstream/`):
 
-- [ ] flint - add local doc copies
-- [ ] fplll - add local doc copies
-- [ ] gap - add local doc copies
-- [ ] ntl - add local doc copies
+- [ ] flint
+- [ ] gap
+- [ ] ntl
+- [ ] fpylll
+- [ ] forms
+- [ ] g6k
+- [ ] hypercells
+- [ ] crystallographic_stack
+- [ ] flatter
+- [ ] pari_gp

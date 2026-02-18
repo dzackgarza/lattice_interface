@@ -337,8 +337,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``orthogonal_submodule(Lf, B)``
 #### Kernel sublattices
 
-- [ ] ``kernel_lattice(Lf, p)``
-- [ ] ``kernel_lattice(Lf, l)``
+- [ ] ``kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})``
+  - Caveat: upstream computes the kernel of the polynomial `p(f)` as a sublattice of `L` equipped with the induced action of `f`; such sublattices are primitive in `L` since `L` is non-degenerate.
+- [ ] ``kernel_lattice(Lf::ZZLatWithIsom, l::Integer)``
+  - Caveat: upstream computes the kernel of `f^l - 1`; also primitive in `L` by non-degeneracy.
 - [x] ``invariant_lattice(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_40_invariant_lattice_fixed_sublattice]
 - [x] ``coinvariant_lattice(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_41_coinvariant_lattice_orthogonal_complement_of_fixed]
 - [x] ``invariant_coinvariant_pair(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_44_invariant_coinvariant_pair_rank_sum_equals_full_rank]
@@ -348,7 +350,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: upstream describes this as discriminant-module plus induced action data `(D, fD)`.
 - [ ] ``discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)``
 - [x] ``image_centralizer_in_Oq(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_54_image_centralizer_in_oq_returns_group_and_homomorphism]
+  - Caveat: upstream local snapshot (`latwithisom.md`) states hermitian Miranda-Morrison theory (used to compute this image in the general case) is only available for even lattices; definite lattices, ±identity isometries, and Euler-totient-rank cases bypass Miranda-Morrison without this restriction.
 - [ ] ``image_in_Oq(Lf)``
+  - Caveat: upstream documents this as the general Miranda-Morrison image of π: O(L) → O(D_L), available for both definite and indefinite lattices (distinct from `image_centralizer_in_Oq`).
 - [x] ``discriminant_representation(L, G)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_53_discriminant_representation_returns_homomorphism]
 #### Spinor norm
 
