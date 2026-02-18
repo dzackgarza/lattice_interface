@@ -92,3 +92,7 @@ Precision/clarity refinement work, including:
 - `TEST_QUALITY.md`
 - repository docs and local snapshots under `docs/**/upstream/`
 - relevant upstream docs/repositories discovered via internet survey
+
+## Output Format (Mandatory)
+
+Your final output must be a single short paragraph — no headers, no bullet lists, no markdown formatting. State only: what files changed, what was fixed or added, and the commit hash. Maximum 4 sentences. Example: "Tightened `foo` and `bar` signatures in `docs/x.md` against upstream source. Added missing `baz` constraint. Committed as `abc1234`."

@@ -52,3 +52,7 @@ In particular:
 - `TEST_QUALITY.md`
 - checklist docs under `docs/*_methods_checklist.md`
 - corresponding test modules under `tests/**`
+
+## Output Format (Mandatory)
+
+Your final output must be a single short paragraph — no headers, no bullet lists, no markdown formatting. State only: what tests were added, which checklist items were checked off, and the commit hash. Maximum 4 sentences. Example: "Added test for `foo` in `tests/x.py`, checked off `foo` in `docs/checklist.md`. Committed as `abc1234`."
