@@ -16,9 +16,12 @@ if [ "$NAME" = "heartbeat" ]; then
   exec "$SCRIPT"
 fi
 
-# Run agent, capture exit code
+# Run agent, capture exit code and elapsed time
+START_TS=$(date +%s)
 "$SCRIPT"
 EXIT_CODE=$?
+ELAPSED=$(( $(date +%s) - START_TS ))
+ELAPSED_FMT="$(printf '%dm%02ds' $((ELAPSED/60)) $((ELAPSED%60)))"
 
 # Derive task log: agents/doc_coverage/run_*.sh -> tmp/agents/doc_coverage/task.log
 TASK_KEY=$(basename "$(dirname "$SCRIPT")")
@@ -59,7 +62,7 @@ else
 fi
 
 TITLE="[$TASK_KEY] $NAME — $STATUS — $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
-BODY="$(echo "$LAST_SECTION" | sed "1s|$UTC_STR UTC|$TST_STR|")"
+BODY="$(echo "$LAST_SECTION" | sed "1s|$UTC_STR UTC|$TST_STR ($ELAPSED_FMT)|")"
 
 curl -s \
   -H "Title: $TITLE" \
