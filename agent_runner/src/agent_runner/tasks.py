@@ -29,12 +29,3 @@ class DocumentTestAlignmentTask(AgentTask):
 
 class DebugSmokeCommitTask(AgentTask):
     pass
-
-
-class HeartbeatTask(AgentTask):
-    prompt_path: Path = Path("/dev/null")
-    requires_commit: bool = False
-    notify: bool = False
-
-    def prompt_text(self) -> str:
-        return ""

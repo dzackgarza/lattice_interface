@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from agent_runner import config
-from agent_runner import orchestrator
+from agent_runner.orchestrator import Orchestrator, OrchestratorArgs
 
 
 def _latest_run_dir(task: str, agent: str) -> Path | None:
@@ -31,7 +31,7 @@ def _load_metadata(task: str, agent: str) -> dict | None:
 def test_gemini_pipeline(recwarn):
     if os.getenv("GEMINI_KNOWN_DOWN") == "1":
         pytest.skip("Gemini CLI known down")
-    rc = orchestrator.run(agent="gemini", task="debug_hello_simple")
+    rc = Orchestrator(args=OrchestratorArgs(agent="gemini", task="debug_hello_simple")).run()
     if rc == 10:
         assert any(issubclass(w.category, RuntimeWarning) for w in recwarn.list)
         return
