@@ -1,0 +1,348 @@
+from __future__ import annotations
+
+import os
+import warnings
+import time
+from datetime import datetime, timezone
+from typing import Literal, assert_never
+
+import typer
+
+from . import config, git, transcript
+from .agents import ClaudeAgent, CodexAgent, GeminiAgent, OllamaAgent, RunContext
+from .agent_errors import classify_usage_limit
+from .errors import (
+    AgentCommitMissingError,
+    AgentProcessError,
+    AgentRunnerError,
+    RateLimitUsageError,
+)
+from .logging import (
+    build_run_context,
+    get_logger,
+    get_summary_logger,
+    write_metadata,
+    write_text,
+)
+from .notifications import send_notification
+from .tasks import (
+    AgentTask,
+    DebugSmokeCommitTask,
+    DocumentCoverageTask,
+    DocumentTestAlignmentTask,
+)
+
+app = typer.Typer(add_completion=False)
+
+AgentName = Literal["codex", "claude", "gemini", "ollama"]
+TaskName = Literal[
+    "document_coverage",
+    "document_test_alignment",
+    "debug_smoke_commit",
+    "debug_hello_world",
+    "debug_hello_simple",
+]
+
+
+def _build_task(task_name: TaskName) -> AgentTask:
+    match task_name:
+        case "document_coverage":
+            return DocumentCoverageTask(
+                name="document_coverage",
+                task_key="doc_coverage",
+                prompt_path=config.settings.task_prompts()["document_coverage"],
+            )
+        case "document_test_alignment":
+            return DocumentTestAlignmentTask(
+                name="document_test_alignment",
+                task_key="test_coverage",
+                prompt_path=config.settings.task_prompts()["document_test_alignment"],
+            )
+        case "debug_smoke_commit":
+            return DebugSmokeCommitTask(
+                name="debug_smoke_commit",
+                task_key="debug_smoke_commit",
+                prompt_path=config.settings.task_prompts()["debug_smoke_commit"],
+            )
+        case "debug_hello_world":
+            return DebugSmokeCommitTask(
+                name="debug_hello_world",
+                task_key="debug_hello_world",
+                prompt_path=config.settings.task_prompts()["debug_hello_world"],
+            )
+        case "debug_hello_simple":
+            return DebugSmokeCommitTask(
+                name="debug_hello_simple",
+                task_key="debug_hello_simple",
+                prompt_path=config.settings.task_prompts()["debug_hello_simple"],
+                requires_commit=False,
+            )
+        case _:
+            assert_never(task_name)
+
+
+def _build_agent(agent_name: AgentName):
+    env = {"PATH": f"{config.settings.path_prefix}:{os.environ.get('PATH', '')}"}
+    match agent_name:
+        case "codex":
+            return CodexAgent(
+                name="codex",
+                binary=config.settings.codex_bin,
+                subcommand="exec",
+                base_args=[],
+                env=env,
+            )
+        case "claude":
+            return ClaudeAgent(
+                name="claude",
+                binary=config.settings.claude_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case "gemini":
+            return GeminiAgent(
+                name="gemini",
+                binary=config.settings.gemini_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case "ollama":
+            return OllamaAgent(
+                name="ollama",
+                binary=config.settings.ollama_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case _:
+            assert_never(agent_name)
+
+
+def _format_elapsed(seconds: float) -> str:
+    minutes, secs = divmod(int(seconds), 60)
+    return f"{minutes}m{secs:02d}s"
+
+
+def _notify_success(
+    run_ctx: RunContext,
+    start_time: datetime,
+    end_time: datetime,
+    elapsed: float,
+    last_message: str,
+    token_count: int | None,
+    commit_summary: git.CommitSummary,
+) -> tuple[bool, str | None]:
+    start_str = start_time.strftime("%Y-%m-%d %H:%M:%S UTC")
+    end_str = end_time.strftime("%Y-%m-%d %H:%M:%S UTC")
+    elapsed_str = _format_elapsed(elapsed)
+    token_line = f"tokens: {token_count}" if token_count is not None else "tokens: n/a"
+    files_line = ", ".join(commit_summary.files_changed) or "(no files)"
+    loc_line = f"+{commit_summary.insertions}/-{commit_summary.deletions}"
+    commit_subjects = "\n".join(
+        f"- {commit.subject} ({commit.commit[:8]})" for commit in commit_summary.commits
+    ) or "(no commits)"
+    body = (
+        f"agent: {run_ctx.agent_name}\n"
+        f"task: {run_ctx.task_name}\n"
+        f"start: {start_str}\n"
+        f"end: {end_str}\n"
+        f"elapsed: {elapsed_str}\n"
+        f"{token_line}\n\n"
+        f"commits:\n{commit_subjects}\n\n"
+        f"files: {files_line}\n"
+        f"loc: {loc_line}\n\n"
+        f"last_message:\n{last_message}\n"
+    )
+    title = f"[{run_ctx.task_name}] {run_ctx.agent_name} — SUCCESS — {end_str}"
+    return send_notification(title=title, body=body, priority="default", tags="white_check_mark")
+
+
+def _notify_error(run_ctx: RunContext, message: str) -> tuple[bool, str | None]:
+    title = f"[{run_ctx.task_name}] {run_ctx.agent_name} — FAILED"
+    body = f"{message}\nrun_id: {run_ctx.run_id}\nlog_dir: {run_ctx.run_dir}"
+    return send_notification(title=title, body=body, priority="high", tags="x")
+
+
+@app.command("run")
+def run(
+    agent: AgentName = typer.Option(..., "--agent"),
+    task: TaskName = typer.Option(..., "--task"),
+    debug: bool = typer.Option(False, "--debug"),
+    debug_prompt: str | None = typer.Option(None, "--debug-prompt"),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+) -> int:
+    """Run an agent task with centralized logging."""
+    task_obj = _build_task(task)
+    agent_obj = _build_agent(agent)
+
+    now = datetime.now(timezone.utc)
+    run_id = now.strftime("%Y%m%d_%H%M%S")
+    run_ctx = build_run_context(agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id)
+    logger = get_logger(run_ctx)
+
+    debug_prompt_path = None
+    if debug_prompt:
+        debug_prompt_path = config.settings.debug_prompts()[debug_prompt]
+    elif debug:
+        debug_prompt_path = config.settings.debug_prompts()["smoke"]
+
+    try:
+        start_time = datetime.now(timezone.utc)
+        start_monotonic = time.monotonic()
+        head_before = git.get_head()
+
+        if debug_prompt_path is not None:
+            task_obj = task_obj.model_copy(update={"prompt_path": debug_prompt_path})
+
+        if dry_run:
+            proc_result = None
+            stdout = "(dry-run)"
+            stderr = ""
+            exit_code = 0
+        else:
+            proc_result = agent_obj.run_task(task_obj, run_ctx)
+            stdout = proc_result.stdout
+            stderr = proc_result.stderr
+            exit_code = proc_result.exit_code
+
+        write_text(run_ctx.stdout_path, stdout)
+        write_text(run_ctx.stderr_path, stderr)
+        write_text(run_ctx.transcript_path, f"{stdout}\n{stderr}")
+
+        classified = classify_usage_limit(agent_obj.name, stdout, stderr)
+        if classified:
+            raise RateLimitUsageError(agent_obj.name, classified.message)
+
+        if exit_code != 0:
+            raise AgentProcessError(agent_obj.name, task_obj.name, exit_code)
+
+        head_after = git.get_head()
+        commit_summary = git.summarize_commits(head_before, head_after)
+        if (
+            not dry_run
+            and task_obj.requires_commit
+            and len(commit_summary.commits) == 0
+        ):
+            raise AgentCommitMissingError(agent_obj.name, task_obj.name)
+
+        end_time = datetime.now(timezone.utc)
+        elapsed = time.monotonic() - start_monotonic
+
+        last_message = transcript.parse_last_message(
+            agent=agent_obj.name,
+            stdout=stdout,
+            stderr=stderr,
+            last_message_path=proc_result.last_message_path if proc_result else None,
+        )
+        token_count = transcript.parse_token_usage_from_outputs(
+            stdout=stdout,
+            stderr=stderr,
+            last_message_path=proc_result.last_message_path if proc_result else None,
+        )
+        if agent_obj.name == "gemini":
+            gemini_message, gemini_tokens = transcript.parse_gemini_json(stdout)
+            if gemini_message:
+                last_message = gemini_message
+            if gemini_tokens is not None:
+                token_count = gemini_tokens
+
+        metadata = {
+            "run_id": run_ctx.run_id,
+            "agent": agent_obj.name,
+            "task": task_obj.name,
+            "start_time": start_time.isoformat(),
+            "end_time": end_time.isoformat(),
+            "elapsed_seconds": elapsed,
+            "exit_code": exit_code,
+            "token_count": token_count,
+            "last_message": last_message,
+            "commits": [commit.__dict__ for commit in commit_summary.commits],
+            "files_changed": commit_summary.files_changed,
+            "insertions": commit_summary.insertions,
+            "deletions": commit_summary.deletions,
+            "debug_prompt": str(debug_prompt_path) if debug_prompt_path else None,
+            "dry_run": dry_run,
+            "requires_commit": task_obj.requires_commit,
+            "classified_error": "usage_limit" if classified else None,
+        }
+        write_metadata(run_ctx.metadata_path, metadata)
+
+        summary_text = (
+            f"{start_time.strftime('%Y-%m-%d %H:%M:%S UTC')} "
+            f"[{agent_obj.name}/{task_obj.name}] "
+            f"elapsed={_format_elapsed(elapsed)} "
+            f"tokens={token_count if token_count is not None else 'n/a'} "
+            f"files={len(commit_summary.files_changed)} "
+            f"loc=+{commit_summary.insertions}/-{commit_summary.deletions}\n"
+            f"last_message: {last_message}\n"
+        )
+        write_text(run_ctx.summary_path, summary_text)
+
+        header = (
+            f"\n=== {start_time.strftime('%Y-%m-%d %H:%M:%S UTC')} "
+            f"[{agent_obj.name}/{task_obj.name}] ===\n"
+        )
+        summary_logger = get_summary_logger(run_ctx)
+        summary_logger.info(header + summary_text)
+
+        notified, notify_err = _notify_success(
+            run_ctx=run_ctx,
+            start_time=start_time,
+            end_time=end_time,
+            elapsed=elapsed,
+            last_message=last_message,
+            token_count=token_count,
+            commit_summary=commit_summary,
+        )
+        if not notified:
+            logger.error("Notification failed", error=notify_err)
+        logger.info("Run complete")
+        return 0
+    except RateLimitUsageError as exc:
+        logger.exception("Agent runner error")
+        warnings.warn(str(exc), RuntimeWarning)
+        typer.echo(f"RateLimitUsageError: {exc}", err=True)
+        error_meta = {
+            "run_id": run_ctx.run_id,
+            "agent": agent_obj.name,
+            "task": task_obj.name,
+            "exit_code": None,
+            "error": str(exc),
+            "classified_error": "usage_limit",
+            "requires_commit": task_obj.requires_commit,
+        }
+        write_metadata(run_ctx.metadata_path, error_meta)
+        notified, notify_err = _notify_error(run_ctx, str(exc))
+        if not notified:
+            logger.error("Notification failed", error=notify_err)
+        return 10
+    except AgentRunnerError as exc:
+        logger.exception("Agent runner error")
+        error_meta = {
+            "run_id": run_ctx.run_id,
+            "agent": agent_obj.name,
+            "task": task_obj.name,
+            "exit_code": None,
+            "error": str(exc),
+            "classified_error": None,
+            "requires_commit": task_obj.requires_commit,
+        }
+        write_metadata(run_ctx.metadata_path, error_meta)
+        notified, notify_err = _notify_error(run_ctx, str(exc))
+        if not notified:
+            logger.error("Notification failed", error=notify_err)
+        return 1
+    except typer.Exit:
+        raise
+    except Exception as exc:  # pragma: no cover
+        logger.exception("Unhandled error", error=str(exc))
+        notified, notify_err = _notify_error(run_ctx, f"Unhandled error: {exc}")
+        if not notified:
+            logger.error("Notification failed", error=notify_err)
+        return 2
+
+
+def main() -> None:
+    app()

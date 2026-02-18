@@ -10,3 +10,6 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .coverage
+*.egg-info/
+agent_runner/.venv/
+tmp/

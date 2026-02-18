@@ -89,6 +89,7 @@ Agents live under `agents/`, one directory per task. Each task has a shared `tas
   - `run_codex_docs_agent.sh` — OpenAI Codex
   - `run_claude_docs_agent.sh` — Claude (Sonnet, extended thinking)
   - `run_amp_docs_agent.sh` — Amp (smart mode)
+  - `run_ollama_docs_agent.sh` — Ollama launching Claude integration (non-interactive)
 
 ### `agents/test_coverage/` — test coverage
 
@@ -98,5 +99,6 @@ Agents live under `agents/`, one directory per task. Each task has a shared `tas
   - `run_codex_test_coverage_agent.sh` — OpenAI Codex
   - `run_claude_test_coverage_agent.sh` — Claude (Sonnet, extended thinking)
   - `run_amp_test_coverage_agent.sh` — Amp (smart mode)
+  - `run_ollama_test_coverage_agent.sh` — Ollama launching Claude integration (non-interactive)
 
 Runners can be invoked directly or scheduled via system cron.
