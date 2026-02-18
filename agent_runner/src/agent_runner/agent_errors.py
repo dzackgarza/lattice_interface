@@ -11,7 +11,7 @@ class ClassifiedError:
 
 
 CLAUDE_LIMIT = re.compile(r"hit your limit|usage limit", re.IGNORECASE)
-CODEX_LIMIT = re.compile(r"rate limit|quota|too many requests|429", re.IGNORECASE)
+CODEX_LIMIT = re.compile(r"rate limit|quota|too many requests|429|hit your usage limit", re.IGNORECASE)
 GEMINI_LIMIT = re.compile(r"rate limit|quota|resource_exhausted|429", re.IGNORECASE)
 OLLAMA_LIMIT = re.compile(r"rate limit|quota|resource_exhausted|429", re.IGNORECASE)
 
