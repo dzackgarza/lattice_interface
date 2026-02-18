@@ -1,0 +1,2 @@
+2026-02-18 19:48:28 UTC [claude/debug_hello_simple] elapsed=0m05s tokens=n/a files=0 loc=+0/-0
+last_message: Hello! Exiting immediately.

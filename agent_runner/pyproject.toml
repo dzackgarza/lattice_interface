@@ -27,6 +27,9 @@ dev = [
 agent-runner = "agent_runner.orchestrator:main"
 agent-runner-notify = "agent_runner.notifications_cli:main"
 
+[tool.uv]
+package = true
+
 [tool.pyright]
 include = ["src"]
 pythonVersion = "3.11"
