@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Usage: run_agent.sh <name> <script>
-set -euo pipefail
+set -uo pipefail
+
+# Ensure node (nvm) and local bins are on PATH for cron environments
+export PATH="/home/dzack/.nvm/versions/node/v25.6.1/bin:/home/dzack/.local/bin:$PATH"
 
 NAME="$1"
 SCRIPT="$2"
@@ -16,10 +19,10 @@ if [ "$NAME" = "heartbeat" ]; then
   exec "$SCRIPT"
 fi
 
-# Run agent, capture exit code and elapsed time
+# Run agent, capture exit code and elapsed time (|| true so set -u doesn't abort on failure)
 START_TS=$(date +%s)
-"$SCRIPT"
-EXIT_CODE=$?
+"$SCRIPT" || EXIT_CODE=$?
+EXIT_CODE=${EXIT_CODE:-0}
 ELAPSED=$(( $(date +%s) - START_TS ))
 ELAPSED_FMT="$(printf '%dm%02ds' $((ELAPSED/60)) $((ELAPSED%60)))"
 
