@@ -50,9 +50,16 @@ else
   TAGS="x"
 fi
 
-TIMESTAMP="$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
-TITLE="[$TASK_KEY] $NAME — $STATUS — $TIMESTAMP"
-BODY="$LAST_SECTION"
+# Parse UTC timestamp from first line of section, convert to Taiwan time
+UTC_STR=$(echo "$LAST_SECTION" | head -1 | grep -oP '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}' || true)
+if [ -n "$UTC_STR" ]; then
+  TST_STR="$(TZ=Asia/Taipei date -d "$UTC_STR UTC" '+%Y-%m-%d %H:%M TST')"
+else
+  TST_STR="$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
+fi
+
+TITLE="[$TASK_KEY] $NAME — $STATUS — $TST_STR"
+BODY="$(printf '%s\n\n%s' "$TST_STR" "$LAST_SECTION")"
 
 curl -s \
   -H "Title: $TITLE" \
