@@ -8,35 +8,43 @@ Source survey for first-class checklist/reference surfaces covering:
 - `CARATInterface`
 - `CrystCat`
 
+Current-phase cursory package-surface check:
+
+- no additional clear in-scope bilinear-form lattice package surface was identified in this pass; focus remained on Goal 2 contract fidelity for existing crystallographic surfaces.
+
 ## Canonical and supporting URLs used
 
 - Cryst package page:
   `https://gap-packages.github.io/cryst/`
 - GAP package install/index page with package listings and short descriptions:
   `https://www.math.rwth-aachen.de/~Greg.Gamble/gap4r3/pkg/inst.htm`
-- CrystCat/CARAT-related function chapter:
-  `https://www.math.rwth-aachen.de/~Greg.Gamble/gap4r3/pkg/crystcat/doc/chap39.htm`
-- Cryst method chapter (historical mirror used for method-surface continuity):
-  `https://webusers.imj-prg.fr/~jean.michel/gap3/htm/chap035.htm`
+- GAP Reference Manual, Cryst chapter (canonical signatures for `AffineCrystGroup*`, `PointGroup`, Wyckoff methods):
+  `https://docs.gap-system.org/doc/ref/chap35.html`
+- GAP Reference Manual, CARAT chapter section (canonical signatures for `Bravais*`, `Carat*`, normalizer/centralizer methods):
+  `https://docs.gap-system.org/doc/ref/chap44.html`
 
 ## Evidence extraction summary
 
 - Package-level existence and role evidence:
-  - `inst.htm` listing includes entries for `CARATInterface`, `Cryst`, and `CrystCat`.
-- Method-surface evidence:
-  - Cryst methods (`AffineCrystGroupOnRight`, `PointGroup`, `TranslationsCrystGroup`,
-    `SpaceGroupsByPointGroupOnRight`, Wyckoff family) from crystallographic manual
-    chapter mirror.
-  - CrystCat/CARAT-linked class and normalizer methods
-    (`CrystCatZClass`, `CaratQClassNumber`, `NormalizerInGLnZ`, etc.) from chapter 39.
+  - package listings include entries for `CARATInterface`, `Cryst`, and `CrystCat`.
+- Canonical method-surface evidence:
+  - Chapter 35 provides explicit argument surfaces for crystallographic constructors,
+    point-group/translation extraction, space-group classification, and Wyckoff routines.
+  - Chapter 44.6 provides explicit signatures for Bravais/CARAT class and normalizer APIs.
 
-## Open triage items
+## Signature-fidelity closure in this pass
 
-- Exact modern signature typing for several methods is still unresolved in currently
-  retrievable modern GAP package docs; current surfaces keep `...` placeholders where
-  source does not expose stable typed signatures directly.
-- Method-to-package attribution between `CrystCat` and `CARATInterface` is partly coupled
-  in available chapter material; current docs state this explicitly rather than guessing.
+- Replaced placeholder method signatures (`...`) in the crystallographic stack reference/checklist with canonical forms from GAP Reference chapters 35 and 44.
+- Added canonical methods missing from previous checklist/reference surface:
+  - `WyckoffNormalClosure(G, p)`
+  - `IsBravaisEquivalent(R, S)`
+  - `CaratZClass(R)` / `CaratQClass(R)`
+  - `IsCaratZClass(R)` / `IsCaratQClass(R)`
+- Reclassified `CrystCatZClass(...)`, `CrystCatQClass(...)`, and `CrystCatQClasses(...)` as legacy-alias triage items pending explicit confirmation in canonical current docs.
+
+## Remaining contract gaps
+
+- Optional selector argument domains (`f`, `s`, `k`, and `normedQclass` / `orbitsQclass`) are documented syntactically, but accepted value domains should be lifted in a future focused pass.
 
 ## Local docs linked
 

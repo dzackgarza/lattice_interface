@@ -8,6 +8,14 @@
   - `docs/archive/scope_violations/upstream/`
 - [x] Add `docs/archive/README.md` explaining that archived content is out of scope for lattice theory in this project (free `R`-modules with symmetric nondegenerate bilinear form).
 
+## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
+
+- [x] Lift crystallographic stack signatures to canonical GAP refs (`chap35` + `chap44`) and triage non-canonical `CrystCat*` aliases in:
+  - `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
+  - `docs/crystallographic_stack_methods_checklist.md`
+  - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
+- [ ] Lift accepted value-domain constraints for optional selector arguments (`f`, `s`, `k`, `normedQclass`, `orbitsQclass`) in crystallographic-stack method contracts.
+
 ## Move Known Scope-Violation Surfaces to Archive
 
 - [ ] Move pycddlib docs (explicit example scope violation):
