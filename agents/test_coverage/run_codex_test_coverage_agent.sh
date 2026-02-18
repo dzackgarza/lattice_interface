@@ -2,9 +2,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PROMPT_FILE="$REPO_DIR/prompt.md"
-LOG_DIR="$REPO_DIR/tmp/cron"
+REPO_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+PROMPT_FILE="$SCRIPT_DIR/prompt.md"
+LOG_DIR="$REPO_DIR/tmp/agents/test_coverage"
 LOG_FILE="$LOG_DIR/codex.log"
 LAST_MSG_FILE="$LOG_DIR/last_message.txt"
 
@@ -12,6 +12,12 @@ mkdir -p "$LOG_DIR"
 
 {
   echo "===== $(date -u +'%Y-%m-%d %H:%M:%S UTC') : START ====="
+  if ! /usr/bin/codex mcp get serena >/dev/null 2>&1; then
+    echo "[$(date -u +'%Y-%m-%d %H:%M:%S UTC')] ERROR: MCP server 'serena' is not configured; aborting run."
+    echo "===== $(date -u +'%Y-%m-%d %H:%M:%S UTC') : END (exit=3) ====="
+    exit 3
+  fi
+
   /usr/bin/codex exec \
     -C "$REPO_DIR" \
     --sandbox workspace-write \

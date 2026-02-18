@@ -94,10 +94,11 @@ Treat these as project-wide values to assess continuously:
   - mark completed items as checked (`- [x]`) in the same assignment.
 - Git is the change ledger:
   - commit documentation changes produced by the assignment.
+  - push those commits after completion, using `GITHUB_TOKEN` from `.env`.
 - Dirty git states are normal:
   - never discard/revert/reset/checkout unrelated existing changes,
   - never run destructive repo-wide cleanup,
-  - stage and commit only files changed by the assignment.
+  - stage, commit, and push only files changed by the assignment.
 
 ### Network Bailout Contingency (Mandatory)
 
