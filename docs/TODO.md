@@ -11,8 +11,6 @@ These packages have reference docs but NO upstream provenance captured:
 - [ ] gap - capture upstream docs provenance
 - [ ] ntl - capture upstream docs provenance
 - [ ] sage - capture upstream docs provenance
-- [ ] julia/oscar_jl - capture upstream docs provenance
-- [ ] julia/hecke_jl - capture upstream docs provenance
 
 ## Contract Verification
 
