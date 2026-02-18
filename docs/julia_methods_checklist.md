@@ -114,7 +114,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``genus(L::ZZLat)``
 - [ ] ``genus(A::MatElem)``
 - [ ] ``genus(L, p)``
-- [ ] ``integer_genera(sig, det; ...)``
+- [ ] ``integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)`` / ``integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)``
+  - Caveat: upstream constrains determinant sign by signature (`det` has sign `(-1)^{s_-}` for `sig=(s_+, s_-)`) and parity (`det ∈ 2ZZ` for `even=true`, `det ∈ ZZ` for `even=false`).
 - [ ] ``direct_sum(G1::ZZGenus, G2::ZZGenus)``
 - [ ] ``representative(gen)``
 - [ ] ``representatives(gen)``
@@ -375,8 +376,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 - [ ] ``genus(L::HermLat)``
 - [ ] ``genus(L::HermLat, p)``
-- [ ] ``hermitian_genera(E, rank, sigs, det; ...)``
-- [ ] ``hermitian_local_genera(E, p, rank, det_val, min_scale, max_scale)``
+- [ ] ``hermitian_genera(E::NumField, rank::Int, signatures::Vector{Tuple{Int, Int}}, determinant::Vector{QQFieldElem}; min_scale::Int=(determinant[1] != 0 ? 0 : -3), max_scale::Int=(determinant[1] != 0 ? 0 : 3), kwargs...)``
+  - Caveat: upstream requires `E` imaginary quadratic, `rank > 0`, and same-sign determinants (positive for even rank, negative for odd rank).
+- [ ] ``hermitian_local_genera(E::NumField, p::AbsNumFieldOrderIdeal, rank::Int, determinant::QQFieldElem, min_scale::Int, max_scale::Int)``
 - [ ] ``representative(G)` / `representatives(G)``
 - [ ] ``mass(L)``
 - [ ] ``rank(G)` / `primes(G)` / `signatures(G)` / `is_integral(G)``

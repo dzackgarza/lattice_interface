@@ -117,7 +117,7 @@ Indefinite caveats:
 |--------|-------------|------|
 | `genus(L::ZZLat)` / `genus(A::MatElem)` | Global genus from lattice or Gram | `[INDEF, NT]` |
 | `genus(L, p)` | Local genus at prime `p` | `[NT]` |
-| `integer_genera(sig, det; ...)` | Enumerate genera by signature and determinant | `[NT]` |
+| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)` / `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)` | Enumerate genera by signature and determinant; upstream requires determinant sign `(-1)^{s_-}` for `sig=(s_+, s_-)`, and parity compatibility (`det ∈ 2ZZ` for `even=true`, `det ∈ ZZ` for `even=false`) | `[NT]` |
 | `representative(gen)` / `representatives(gen)` | Class representatives in genus | `[NT]` |
 | `mass(gen)` | Genus mass | `[NT]` |
 | `primes(gen)` / `local_symbol(gen, p)` | Local symbol access | `[NT]` |
@@ -206,7 +206,8 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `is_isotropic(L, p)` / `is_modular(L)` / `is_modular(L, p)` | Local/global predicates | `[NT]` |
 | `volume(L)` | Volume ideal | `[NT]` |
 | `genus(L::HermLat)` / `genus(L::HermLat, p)` | Global/local hermitian genus | `[NT]` |
-| `hermitian_genera(...)` / `hermitian_local_genera(...)` | Genus enumeration | `[NT]` |
+| `hermitian_genera(E::NumField, rank::Int, signatures::Vector{Tuple{Int, Int}}, determinant::Vector{QQFieldElem}; min_scale::Int=(determinant[1] != 0 ? 0 : -3), max_scale::Int=(determinant[1] != 0 ? 0 : 3), kwargs...)` | Enumerate hermitian genera; upstream requires `E` imaginary quadratic, `rank > 0`, and same-sign determinants (positive for even rank, negative for odd rank) | `[NT]` |
+| `hermitian_local_genera(E::NumField, p::AbsNumFieldOrderIdeal, rank::Int, determinant::QQFieldElem, min_scale::Int, max_scale::Int)` | Enumerate local hermitian genera for ideal `p` in explicit scale window `[min_scale, max_scale]` | `[NT]` |
 | `mass(L)` | Hermitian genus mass | `[NT]` |
 
 ### 2.13 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
@@ -265,6 +266,8 @@ For your stated use case (indefinite lattices):
 
 - Oscar/Hecke docs root: https://docs.oscar-system.org/stable/Hecke/
 - Oscar/Hecke integer lattices manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/integrelattices/ (accessed 2026-02-17)
+- Oscar/Hecke integer genera manual: https://docs.oscar-system.org/v1.4/Hecke/manual/quad_forms/genera/ (accessed 2026-02-18)
+- Oscar/Hecke hermitian genera manual: https://docs.oscar-system.org/v1.4/Hecke/manual/quad_forms/genusherm/ (accessed 2026-02-18)
 - Oscar/Hecke lattices-with-isometry manual: https://docs.oscar-system.org/stable/Hecke/manual/lattices/lattices_with_isometry/ (accessed 2026-02-17)
 - Oscar/Hecke torsion-quadratic-modules-with-isometry manual: https://docs.oscar-system.org/dev/Hecke/manual/quad_forms/torquadmodwithisom/ (accessed 2026-02-17)
 - In-repo localized provenance for `ZZLatWithIsom` attribute-forwarding survey: `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md`

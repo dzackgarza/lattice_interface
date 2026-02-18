@@ -116,6 +116,29 @@ Access date (UTC): 2026-02-17
   - replaced vague `order_of_isometry(Lf)` wording in Julia/Oscar and Hecke references with the source-backed divisor/support contract,
   - added matching caveat text in `docs/julia_methods_checklist.md`.
 
+## Pass-22 addendum (2026-02-18): genus-constructor signature fidelity (`integer_genera`, `hermitian_genera`)
+
+- Re-surveyed Hecke genus manuals for typed signatures and argument constraints:
+  - https://docs.oscar-system.org/v1.4/Hecke/manual/quad_forms/genera/
+  - https://docs.oscar-system.org/v1.4/Hecke/manual/quad_forms/genusherm/
+- Verified from these pages:
+  - `integer_genera` is documented with typed overloads:
+    - `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)`,
+    - `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)`.
+  - `integer_genera` argument constraints are explicit:
+    - determinant sign compatibility with `sig=(s_+, s_-)`,
+    - parity compatibility (`det ∈ 2ZZ` when `even=true`; `det ∈ ZZ` when `even=false`).
+  - `hermitian_genera` is documented with explicit typed signature and defaults:
+    - `hermitian_genera(E::NumField, rank::Int, signatures::Vector{Tuple{Int, Int}}, determinant::Vector{QQFieldElem}; min_scale::Int=(determinant[1] != 0 ? 0 : -3), max_scale::Int=(determinant[1] != 0 ? 0 : 3), kwargs...)`.
+  - `hermitian_genera` constraints include:
+    - `E` imaginary quadratic,
+    - `rank > 0`,
+    - determinants must have a common sign (positive for even rank, negative for odd rank).
+  - `hermitian_local_genera` typed signature is documented as:
+    - `hermitian_local_genera(E::NumField, p::AbsNumFieldOrderIdeal, rank::Int, determinant::QQFieldElem, min_scale::Int, max_scale::Int)`.
+- Local documentation alignment action:
+  - replaced `...` placeholders with typed signatures and source-backed constraint caveats in Julia umbrella and Hecke mirror references/checklist.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

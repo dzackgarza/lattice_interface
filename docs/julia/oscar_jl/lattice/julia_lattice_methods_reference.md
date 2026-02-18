@@ -173,7 +173,7 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | `genus(L::ZZLat)` | `ZZGenus` — genus symbol (local invariants at all primes) | `[INDEF ok]` |
 | `genus(A::MatElem)` | Genus from Gram matrix | `[INDEF ok]` |
 | `genus(L, p)` | Local genus `ZZLocalGenus` at prime $p$ | |
-| `integer_genera(sig, det; ...)` | Enumerate all genus symbols with given signature and determinant | |
+| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)` / `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)` | Enumerate all genus symbols with signature `sig=(s_+, s_-)` and determinant `det`; upstream requires determinant sign compatibility (`det` has sign `(-1)^{s_-}`) and parity compatibility (`det ∈ 2ZZ` when `even=true`, `det ∈ ZZ` when `even=false`) | |
 | `direct_sum(G1::ZZGenus, G2::ZZGenus)` | Genus of the orthogonal direct sum | |
 | `representative(gen)` | Concrete lattice for a genus class | |
 | `representatives(gen)` | All classes in genus | |
@@ -508,8 +508,8 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 |--------|-------------|------|
 | `genus(L::HermLat)` | Global genus of hermitian lattice | |
 | `genus(L::HermLat, p)` | Local genus at prime $p$ | |
-| `hermitian_genera(E, rank, sigs, det; ...)` | Enumerate hermitian genera | |
-| `hermitian_local_genera(E, p, rank, det_val, min_scale, max_scale)` | Enumerate local hermitian genera | |
+| `hermitian_genera(E::NumField, rank::Int, signatures::Vector{Tuple{Int, Int}}, determinant::Vector{QQFieldElem}; min_scale::Int=(determinant[1] != 0 ? 0 : -3), max_scale::Int=(determinant[1] != 0 ? 0 : 3), kwargs...)` | Enumerate hermitian genera; upstream requires `E` imaginary quadratic, `rank > 0`, and all determinants to have the same sign (positive if `rank` is even, negative if `rank` is odd) | |
+| `hermitian_local_genera(E::NumField, p::AbsNumFieldOrderIdeal, rank::Int, determinant::QQFieldElem, min_scale::Int, max_scale::Int)` | Enumerate local hermitian genera at ideal `p` within the explicit scale window `[min_scale, max_scale]` | |
 | `representative(G)` / `representatives(G)` | Representatives of genus classes | |
 | `genus_representatives(L)` | All representatives in genus of $L$ | |
 | `mass(L)` | Mass of hermitian lattice | |
@@ -565,7 +565,7 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
-Source note: contracts in §2.13/§2.14/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) accessed 2026-02-17, with tuple-return/precondition fidelity addendum captured on 2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
+Source note: contracts in §2.7/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 - Signature-fidelity caveat: current `torquadmodwithisom` docs explicitly expose `submodules(::TorQuadModuleWithIsom)` and do not document a `quotype` keyword on this isometry-equipped surface.
 
 ### References
