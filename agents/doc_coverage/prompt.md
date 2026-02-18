@@ -95,4 +95,4 @@ Precision/clarity refinement work, including:
 
 ## Output Format (Mandatory)
 
-Your final output must be a single short paragraph — no headers, no bullet lists, no markdown formatting. State only: what files changed, what was fixed or added, and the commit hash. Maximum 4 sentences. Example: "Tightened `foo` and `bar` signatures in `docs/x.md` against upstream source. Added missing `baz` constraint. Committed as `abc1234`."
+Your final output must be 2-3 plain sentences. No headers, no bullets, no markdown. Answer only: what was wrong or missing, what is now correct or known, and why it matters for the project. Skip mechanical details (file names, checklist items, commit hashes). Example: "The `genus` discriminant constraint in OSCAR was previously undocumented; it only applies to even lattices and silently fails on odd ones. This is now recorded with the exact source reference."

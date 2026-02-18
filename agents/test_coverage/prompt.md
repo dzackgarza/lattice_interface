@@ -55,4 +55,4 @@ In particular:
 
 ## Output Format (Mandatory)
 
-Your final output must be a single short paragraph — no headers, no bullet lists, no markdown formatting. State only: what tests were added, which checklist items were checked off, and the commit hash. Maximum 4 sentences. Example: "Added test for `foo` in `tests/x.py`, checked off `foo` in `docs/checklist.md`. Committed as `abc1234`."
+Your final output must be 2-3 plain sentences. No headers, no bullets, no markdown. Answer only: what behavior is now verified that wasn't before, and what gap that closes for the project. Skip mechanical details (file names, checklist items, commit hashes). Example: "The `discriminant_group` isometry check was untested; it's now verified to correctly distinguish non-isometric genus representatives, which is the core correctness guarantee for the indefinite classification workflow."
