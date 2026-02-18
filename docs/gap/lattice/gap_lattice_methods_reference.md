@@ -84,25 +84,55 @@ Definiteness note:
 
 | Package | Role | Tags |
 |---------|------|------|
-| `Cryst` | Crystallographic groups and Euclidean-lattice computations | `[PKG, EUCLID, PD]` |
-| `CARATInterface` | Interface to CARAT data/computation backend used in crystallographic workflows | `[PKG, EUCLID, PD]` |
-| `CrystCat` | Catalog/library layer for crystallographic groups | `[PKG, EUCLID, PD]` |
+| `Cryst` | Affine crystallographic groups, space-group and Wyckoff workflows | `[PKG, EUCLID, PD, GRP]` |
+| `CARATInterface` | CARAT-backed class and normalizer workflows for integral matrix groups | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CrystCat` | Catalog/index support for crystallographic classes and data | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
 
 Representative `Cryst` methods:
 
 | Function | Description | Tags |
 |----------|-------------|------|
-| `AffineCrystGroupOnRight(...)` | Construct affine crystallographic group (right action) | `[PKG, EUCLID, PD]` |
-| `AsAffineCrystGroupOnRight(S)` | Convert matrix group to affine crystallographic right-action object | `[PKG, EUCLID, PD]` |
-| `IsAffineCrystGroupOnRight(S)` | Predicate for right-action affine crystallographic groups | `[PKG, EUCLID, PD]` |
-| `AffineCrystGroupOnLeft(...)` | Construct affine crystallographic group (left action) | `[PKG, EUCLID, PD]` |
-| `PointGroup(G)` | Point group of a crystallographic group | `[PKG, EUCLID, PD]` |
-| `TranslationsCrystGroup(G)` | Translation subgroup/lattice of a crystallographic group | `[PKG, EUCLID, PD]` |
-| `SpaceGroupsByPointGroupOnRight(P[, norm[, orbsflag]])` | Enumerate/classify space groups with fixed point group | `[PKG, EUCLID, PD]` |
-| `WyckoffPositions(...)` / `WyckoffOrbit(...)` / `WyckoffLattice(...)` | Wyckoff-position and orbit computations for space groups | `[PKG, EUCLID, PD]` |
+| `AffineCrystGroupOnRight(S)` | Convert `S` to an affine crystallographic group with right-action convention | `[PKG, EUCLID, PD, GRP]` |
+| `AsAffineCrystGroupOnRight(S)` | Coerce to right-action affine crystallographic representation when possible | `[PKG, EUCLID, PD, GRP]` |
+| `IsAffineCrystGroupOnRight(S)` | Predicate for right-action affine crystallographic objects | `[PKG, EUCLID, PD, GRP]` |
+| `AffineCrystGroupOnLeft(S)` | Convert `S` to an affine crystallographic group with left-action convention | `[PKG, EUCLID, PD, GRP]` |
+| `PointGroup(S)` | Point-group object of crystallographic object `S` | `[PKG, EUCLID, PD, GRP]` |
+| `TranslationsCrystGroup(S)` | Translation subgroup/lattice part of crystallographic object `S` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `SpaceGroupsByPointGroupOnRight(P[, normedQclass[, orbitsQclass]])` | Enumerate/classify space groups with point-group data `P` | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffPositions(S)` | Compute Wyckoff-position classes for space group `S` | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffOrbit(G, p)` | Return Wyckoff orbit of point `p` under group `G` | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffLattice(G, p)` | Return lattice/stabilizer data attached to Wyckoff computation at `(G, p)` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `WyckoffNormalClosure(G, p)` | Compute normal-closure object in the Wyckoff workflow for `(G, p)` | `[PKG, EUCLID, PD, GRP]` |
+
+Representative `CARAT/Bravais` methods:
+
+| Function | Description | Tags |
+|----------|-------------|------|
+| `BravaisGroup(R)` | Compute Bravais group for matrix-group object `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `PointGroupsBravaisClass(R)` | Point-group data for the Bravais class associated to `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `BravaisSubgroups(R)` | Enumerate Bravais subgroups of class/group input `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `BravaisSupergroups(R)` | Enumerate Bravais supergroups of class/group input `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `NormalizerInGLnZ(R)` | Compute normalizer of the Bravais/class object `R` in `GL(n,Z)` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CentralizerInGLnZ(R)` | Compute centralizer of `R` in `GL(n,Z)` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `IsBravaisEquivalent(R, S)` | Decide Bravais equivalence of class/group objects `R`, `S` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratZClass(R)` / `CaratZClassNumber(R)` | CARAT Z-class object and class index for `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratQClass(R)` / `CaratQClassNumber(R)` | CARAT Q-class object and class index for `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `RationalClassesMaximalSubgroups(R)` | Rational-class maximal-subgroup representatives from input `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `ZClassRepsQClass(R)` | Z-class representatives inside the Q-class of `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `MaximalSubgroupsRepresentatives(R)` | Maximal subgroup representatives in the CARAT class workflow | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `AffineNormalizer(R)` | Affine normalizer associated with the class/group object `R` | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `IsCaratZClass(R)` / `IsCaratQClass(R)` | Predicates for CARAT class-object types | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
 
 Definiteness note:
 - Intrinsically Euclidean/crystallographic; not a general indefinite quadratic-lattice framework.
+- For `SpaceGroupsByPointGroupOnRight(P[, normedQclass[, orbitsQclass]])`, `normedQclass` is `false`
+  or a normalizer-element list in `GL(d,Z)`, and `orbitsQclass` is boolean.
+- Selector arguments `f`, `s`, and `k` are not treated as active canonical CARAT parameters in this surface.
+- Legacy alias names `CrystCatZClass(...)`, `CrystCatQClass(...)`, and `CrystCatQClasses(...)` are triaged
+  out of the active canonical method surface.
+- Canonical signature anchors are maintained in:
+  `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md` and
+  `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`.
 
 ### 2.2 NormalizInterface
 
@@ -342,18 +372,36 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `NormalizInterface`
 - `toric`
 
-### 4.5 Cryst methods
+### 4.5 Cryst/CARAT methods (canonical)
 
 - `AffineCrystGroupOnLeft`
 - `AffineCrystGroupOnRight`
 - `AsAffineCrystGroupOnRight`
+- `AffineNormalizer`
+- `BravaisGroup`
+- `BravaisSubgroups`
+- `BravaisSupergroups`
+- `CaratQClass`
+- `CaratQClassNumber`
+- `CaratZClass`
+- `CaratZClassNumber`
+- `CentralizerInGLnZ`
 - `IsAffineCrystGroupOnRight`
+- `IsBravaisEquivalent`
+- `IsCaratQClass`
+- `IsCaratZClass`
+- `MaximalSubgroupsRepresentatives`
 - `PointGroup`
+- `PointGroupsBravaisClass`
+- `RationalClassesMaximalSubgroups`
+- `NormalizerInGLnZ`
 - `SpaceGroupsByPointGroupOnRight`
 - `TranslationsCrystGroup`
 - `WyckoffLattice`
+- `WyckoffNormalClosure`
 - `WyckoffOrbit`
 - `WyckoffPositions`
+- `ZClassRepsQClass`
 
 ### 4.6 NormalizInterface methods
 
