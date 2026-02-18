@@ -529,20 +529,20 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | `is_special_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry has determinant $+1$ (special isometry) | |
 | `special_orthogonal_group(::ZZLat)` / `special_subgroup(::ZZLat, ::MatGroup)` | $SO(L)$ and special subgroup of a finite isometry group | |
 | `stable_orthogonal_group(::ZZLat)` / `stable_subgroup(::ZZLat, ::MatGroup)` | Stable orthogonal group $O^{\#}(L)$ and stable subgroup of a finite isometry group | |
-| `stabilizer_discriminant_subgroup(...)` | Stabilizer of a discriminant-group subobject under a finite isometry-group action | |
-| `stabilizer_in_orthogonal_group(...)` | Stabilizer of a chosen sublattice inside the orthogonal group action | |
-| `pointwise_stabilizer_in_orthogonal_group(...)` | Pointwise stabilizer (fixes each vector of the chosen sublattice) | |
-| `setwise_stabilizer_in_orthogonal_group(...)` | Setwise stabilizer (preserves the chosen sublattice as a set) | |
-| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(...)` | Pointwise stabilizer of the orthogonal complement $S^\perp$ | |
-| `stabilizer_in_diagonal_action(...)` | Stabilizer under a diagonal-action construction in the primitive-extension/group-action workflow | |
+| `stabilizer_discriminant_subgroup(L::ZZLat, G::MatGroup, H::TorQuadModule; pointwise::Bool=false, ambient_representation::Bool=true, check::Bool=true)` | Largest subgroup of `G` preserving discriminant-group submodule `H`; returns `(MatGroup, GAPGroupHomomorphism)` | |
+| `stabilizer_in_orthogonal_group(L::ZZLat, B::QQMatrix; stable::Bool=false, special::Bool=false, check::Bool=true, kwargs...)` | Joint stabilizer in `O(L)` of vectors represented by rows of `B`; upstream requires the largest saturated orthogonal submodule of `L` orthogonal to `B` to be definite or of rank 2 | |
+| `pointwise_stabilizer_in_orthogonal_group(L::ZZLat, S::ZZLat; kwargs...)` | Pointwise stabilizer (fixes each vector of sublattice `S`); upstream requires the largest saturated orthogonal submodule of `L` orthogonal to `S` to be definite or of rank 2 | |
+| `setwise_stabilizer_in_orthogonal_group(L::ZZLat, S::Union{QQMatrix, ZZLat}; stable::Bool=false, special::Bool=false, check::Bool=true, kwargs...)` | Setwise stabilizer of `S`; upstream requires `S` and `S^\perp` to be definite or of rank 2 (with non-primitive `S` allowed) | |
+| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L::ZZLat, S::Union{QQMatrix, ZZLat}; check::Bool=true, kwargs...)` | Pointwise stabilizer of the orthogonal complement `S^\perp`; upstream requires `S` to be definite or of rank 2 | |
+| `stabilizer_in_diagonal_action(L::ZZLat, K::ZZLat, N::ZZLat, OK::MatGroup, ON::MatGroup; check::Bool=true)` | Generators for the setwise stabilizer of a primitive extension `K ⊕ N ⊆ L`; returns `Vector{QQMatrix}` | |
 | `maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)` | Maximal extension in the group-action framework | |
 | `saturation(::ZZLat, ::MatGroup, ::MatGroup)` | Saturation of subgroup $H \le G$; current docs state this explicit computation for finite `G` | |
 | `saturation(::ZZLat, ::MatGroup)` | Saturation inside $O(L)$; current docs require coinvariant lattice definite or rank 2 | |
 | `is_saturated_with_saturation(...)` | Saturation predicate plus witness; current docs state availability when coinvariant lattice is definite | |
-| `extend_to_ambient_space(::ZZLat, ...)` | Convert a collection of isometries from fixed lattice-basis coordinates to ambient-space coordinates | |
-| `restrict_to_lattice(::ZZLat, ...)` | Convert ambient-space isometries preserving `L` back to fixed lattice-basis coordinates | |
+| `extend_to_ambient_space(L::ZZLat, F::T; check::Bool=false) where T <: Union{QQMatrix, Vector{QQMatrix}, MatGroup}` | Convert a collection of isometries from fixed lattice-basis coordinates to ambient-space coordinates; returns the same container type `T` | |
+| `restrict_to_lattice(L::ZZLat, F::T; check::Bool=false) where T <: Union{QQMatrix, Vector{QQMatrix}, MatGroup}` | Convert ambient-space isometries preserving `L` back to fixed lattice-basis coordinates; returns the same container type `T` | |
 
-- Signature-fidelity caveat: current upstream `Collections of isometries` docs expose fully typed dispatch signatures for selected methods (`is_isometry*`, `special_*`, `stable_*`, `maximal_extension`, `saturation`) but list stabilizer-family names without explicit typed dispatch blocks. This reference therefore keeps those methods runtime-name exact and avoids speculative argument typing.
+- Constraint caveat: stabilizer-family methods carry explicit geometric preconditions in upstream docs (definite/rank-2 requirements on relevant orthogonal sublattices); these constraints are part of the method contracts.
 - Representation caveat: upstream text frames `extend_to_ambient_space` / `restrict_to_lattice` as basis-representation conversion for collections of isometries, with `restrict_to_lattice` also usable for ambient-space isometries preserving `L`.
 
 ### 2.18 Torsion quadratic modules with isometry (`TorQuadModuleWithIsom`)
@@ -565,8 +565,7 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
-Source note: contracts in §2.7/§2.11/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
-- Signature-fidelity caveat: local snapshot `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md` still shows bare `submodules(::TorQuadModuleWithIsom)`, while current OSCAR docs expose `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])`.
+Source note: contracts in §2.7/§2.11/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `fingrpact`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 - Pass-24 addendum (2026-02-18): `TorQuadModule.submodules` and `stable_submodules` typed signatures updated in §2.11 from OSCAR upstream Hecke discriminant-group docs; `torsion_quadratic_module_with_isometry` type union in §2.18 updated to include `AutomorphismGroupElem{TorQuadModule}` per OSCAR stable upstream constructor docs.
 
 ### References

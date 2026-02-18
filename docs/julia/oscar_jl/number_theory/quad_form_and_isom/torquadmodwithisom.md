@@ -57,7 +57,7 @@ submodules of $T$.
 sub(::TorQuadModuleWithIsom, ::Vector{TorQuadModuleElem})
 primary_part(::TorQuadModuleWithIsom, ::IntegerUnion)
 orthogonal_submodule(::TorQuadModuleWithIsom, ::TorQuadModule)
-submodules(::TorQuadModuleWithIsom)
+submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])
 ```
 
 ## (Anti-)Isomorphism
