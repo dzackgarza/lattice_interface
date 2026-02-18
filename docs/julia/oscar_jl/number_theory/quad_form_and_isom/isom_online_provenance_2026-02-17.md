@@ -185,6 +185,21 @@ Access date (UTC): 2026-02-17
   - Added `image_in_Oq` differentiation caveat in checklist.
   - Updated `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` §2.11 to reflect typed `kernel_lattice` overloads and `image_centralizer_in_Oq` even-lattice restriction.
 
+## Pass-26 addendum (2026-02-18): `TorQuadModuleWithIsom` submodule/aut group return types from upstream fetch
+
+- Source used: OSCAR stable upstream `torquadmodwithisom` page (fetched 2026-02-18).
+- Verified from this source:
+  - `sub(Tf::TorQuadModuleWithIsom, gene::Vector{TorQuadModuleElem})` returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`.
+  - `primary_part(Tf::TorQuadModuleWithIsom, m::IntegerUnion)` returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`.
+  - `orthogonal_submodule(Tf::TorQuadModuleWithIsom, S::TorQuadModule; check::Bool=true)` returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`.
+  - `automorphism_group_with_inclusion(Tf::TorQuadModuleWithIsom)` returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`.
+  - `is_isomorphic_with_map` / `is_anti_isomorphic_with_map` both typed as `(::TorQuadModuleWithIsom, ::TorQuadModuleWithIsom)`.
+- Local documentation alignment actions:
+  - Updated `sub`, `primary_part`, `orthogonal_submodule`, `automorphism_group_with_inclusion`, `automorphism_group`, `is_isomorphic_with_map`, `is_anti_isomorphic_with_map` entries in:
+    - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (§2.18),
+    - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` (§2.13),
+    - `docs/julia_methods_checklist.md` (§2.18).
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

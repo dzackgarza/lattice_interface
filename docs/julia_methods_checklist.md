@@ -431,17 +431,18 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: upstream stable docs document `U` as any of `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, or `MatGroupElem{QQFieldElem, QQMatrix}`; omitting `f` uses the identity; `check=true` validates compatibility.
 - [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)``
   - Caveat: omitting `f` uses the identity; `check=true` validates matrix data as a torsion quadratic module with isometry.
-- [ ] ``sub(Tf, gens)``
-  - Caveat: upstream requires the generated submodule to be stable under the fixed isometry.
-- [ ] ``primary_part(Tf, m)``
-- [ ] ``orthogonal_submodule(Tf, S; check=true)``
-  - Caveat: upstream requires `S` to be stable under the fixed isometry, and `check=true` enforces this precondition.
+- [ ] ``sub(Tf::TorQuadModuleWithIsom, gene::Vector{TorQuadModuleElem})``
+  - Caveat: upstream requires the generated submodule to be stable under the fixed isometry; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`.
+- [ ] ``primary_part(Tf::TorQuadModuleWithIsom, m::IntegerUnion)``
+  - Caveat: upstream returns `(TorQuadModuleWithIsom, TorQuadModuleMap)` with induced isometry action.
+- [ ] ``orthogonal_submodule(Tf::TorQuadModuleWithIsom, S::TorQuadModule; check::Bool=true)``
+  - Caveat: upstream requires `S` to be stable under the fixed isometry (`check=true` enforces this); returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`.
 - [x] ``submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_24_submodules_enumerate_submodules]
   - Caveat: current upstream docs expose `quotype` filtering on this surface; accepted selector values are restricted to `0,1,2,3`.
-- [ ] ``automorphism_group_with_inclusion(Tf)``
-  - Caveat: upstream identifies this with automorphisms in `O(T)` commuting with the fixed isometry.
-- [ ] ``automorphism_group(Tf)``
-  - Caveat: upstream method list currently typesets `TorQuadModuleWithMap` in one signature location; surrounding page context is `TorQuadModuleWithIsom`.
+- [ ] ``automorphism_group_with_inclusion(Tf::TorQuadModuleWithIsom)``
+  - Caveat: upstream identifies this with automorphisms in `O(T)` commuting with the fixed isometry; returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`.
+- [ ] ``automorphism_group(Tf::TorQuadModuleWithMap)``
+  - Caveat: upstream method list typesets `TorQuadModuleWithMap` at this signature location; surrounding page context is `TorQuadModuleWithIsom` — treat as a documentation typesetting inconsistency.
 - [ ] ``is_isomorphic_with_map(Tf, Sg)``
   - Caveat: upstream return contract is `(true, map)` on success and `(false, 0)` on failure.
 - [ ] ``is_anti_isomorphic_with_map(Tf, Sg)``

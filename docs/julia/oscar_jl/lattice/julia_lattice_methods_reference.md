@@ -556,12 +556,12 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
 | `torsion_quadratic_module_with_isometry(T::TorQuadModule, [f::U]; check::Bool=true)` | Constructor from a `TorQuadModule` and an optional isometry `f`; upstream stable docs document `U` as any of `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, or `MatGroupElem{QQFieldElem, QQMatrix}`; omitting `f` uses the identity; `check=true` validates compatibility | `[NT]` |
 | `torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)` | Constructor from quadratic-form matrix data and optional integer action matrix; omitting `f` uses the identity; `check=true` validates constraints | `[NT]` |
-| `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
-| `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
-| `orthogonal_submodule(Tf, S; check=true)` | Orthogonal complement in the finite quadratic module with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
+| `sub(Tf::TorQuadModuleWithIsom, gene::Vector{TorQuadModuleElem})` | Construct an isometry-stable submodule from generators; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)` | `[NT]` |
+| `primary_part(Tf::TorQuadModuleWithIsom, m::IntegerUnion)` | Primary part with induced isometry action; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)` | `[NT]` |
+| `orthogonal_submodule(Tf::TorQuadModuleWithIsom, S::TorQuadModule; check::Bool=true)` | Orthogonal complement with induced action; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
 | `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])` | Enumerate isometry-stable submodules of a torsion quadratic module with fixed isometry; upstream docs expose `quotype` filtering and restrict accepted selector values to `0,1,2,3` | `[NT]` |
-| `automorphism_group_with_inclusion(Tf)` | Automorphism group with inclusion map, identified upstream as the subgroup of `O(T)` commuting with the fixed isometry | `[NT]` |
-| `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` (upstream method list currently typesets `TorQuadModuleWithMap` here; context indicates `TorQuadModuleWithIsom`) | `[NT]` |
+| `automorphism_group_with_inclusion(Tf::TorQuadModuleWithIsom)` | Automorphism group of the pair commuting with fixed isometry; returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)` | `[NT]` |
+| `automorphism_group(Tf::TorQuadModuleWithMap)` | Automorphism group of the pair `(T, f)` (upstream method list typesets `TorQuadModuleWithMap` at this signature location; page context is `TorQuadModuleWithIsom` — treat as a documentation typesetting inconsistency) | `[NT]` |
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
