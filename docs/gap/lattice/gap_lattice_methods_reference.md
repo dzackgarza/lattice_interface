@@ -239,7 +239,7 @@ Representative `NConvex` methods:
 Detailed inventory note:
 
 - Full NConvex method-level checklist/reference surfaces are in `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md`.
-- Full CddInterface checklist/reference surfaces are in `docs/cddinterface_methods_checklist.md` and `docs/cddinterface/lattice/cddinterface_lattice_reference.md`.
+- Full CddInterface checklist/reference surfaces are archived at `docs/archive/scope_violations/cddinterface_methods_checklist.md` and `docs/archive/scope_violations/cddinterface/lattice/cddinterface_lattice_reference.md` (out of active bilinear-form lattice scope).
 
 ### 2.6 Float package fplll hooks
 

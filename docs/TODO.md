@@ -30,11 +30,11 @@
   - `docs/pycddlib_methods_checklist.md` -> `docs/archive/scope_violations/pycddlib_methods_checklist.md`
   - `docs/pycddlib/lattice/pycddlib_lattice_reference.md` -> `docs/archive/scope_violations/pycddlib/lattice/pycddlib_lattice_reference.md`
   - `docs/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md` -> `docs/archive/scope_violations/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md`
-- [ ] Move cddlib docs:
+- [x] Move cddlib docs:
   - `docs/cddlib_methods_checklist.md`
   - `docs/cddlib/lattice/cddlib_lattice_reference.md`
   - `docs/cddlib/upstream/cddlib_online_provenance_2026-02-17.md`
-- [ ] Move CddInterface docs:
+- [x] Move CddInterface docs:
   - `docs/cddinterface_methods_checklist.md`
   - `docs/cddinterface/lattice/cddinterface_lattice_reference.md`
   - `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md`

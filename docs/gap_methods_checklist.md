@@ -169,7 +169,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `Cdd_LinearProgram(P, b)`
 - [ ] `Cdd_FourierProjection(P, var)`
 - [ ] `Cdd_FourierProjection([A, b], var)`
-  - Caveat: complete CddInterface inventory and source links are maintained in `docs/cddinterface_methods_checklist.md`.
+  - Caveat: complete CddInterface inventory and source links are archived in `docs/archive/scope_violations/cddinterface_methods_checklist.md` (out of active bilinear-form lattice scope).
 
 ### 2.7 NConvex package (detailed checklist surface)
 
@@ -220,7 +220,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - `docs/gap/lattice/gap_lattice_methods_reference.md`
 - `docs/crystallographic_stack_methods_checklist.md`
 - `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
-- `docs/cddinterface_methods_checklist.md`
+- `docs/archive/scope_violations/cddinterface_methods_checklist.md`
 - `docs/nconvex_methods_checklist.md`
 - `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
