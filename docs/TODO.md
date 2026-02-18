@@ -21,10 +21,10 @@
 
 ## Move Known Scope-Violation Surfaces to Archive
 
-- [ ] Move pycddlib docs (explicit example scope violation):
-  - `docs/pycddlib_methods_checklist.md`
-  - `docs/pycddlib/lattice/pycddlib_lattice_reference.md`
-  - `docs/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md`
+- [x] Move pycddlib docs (explicit example scope violation):
+  - `docs/pycddlib_methods_checklist.md` -> `docs/archive/scope_violations/pycddlib_methods_checklist.md`
+  - `docs/pycddlib/lattice/pycddlib_lattice_reference.md` -> `docs/archive/scope_violations/pycddlib/lattice/pycddlib_lattice_reference.md`
+  - `docs/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md` -> `docs/archive/scope_violations/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md`
 - [ ] Move cddlib docs:
   - `docs/cddlib_methods_checklist.md`
   - `docs/cddlib/lattice/cddlib_lattice_reference.md`

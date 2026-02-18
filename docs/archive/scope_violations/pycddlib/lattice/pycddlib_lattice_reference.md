@@ -1,5 +1,7 @@
-# pycddlib Lattice Method Reference
+# pycddlib Lattice Method Reference (Archived Scope Violation)
 ## Python cddlib wrapper for exact H/V polyhedral workflows
+
+Archived under `docs/archive/scope_violations/` because this surface is polyhedral/LP-focused and outside this project's bilinear-form lattice-theory scope.
 
 ---
 

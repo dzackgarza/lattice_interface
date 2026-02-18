@@ -1,7 +1,7 @@
-# pycddlib Method Test Gap Checklist
+# pycddlib Method Test Gap Checklist (Archived Scope Violation)
 
-Tracks pycddlib lattice-relevant methods documented in
-`docs/pycddlib/lattice/pycddlib_lattice_reference.md`.
+Archived from active scope. Tracks pycddlib polyhedral methods documented in
+`docs/archive/scope_violations/pycddlib/lattice/pycddlib_lattice_reference.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -53,8 +53,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/pycddlib/lattice/pycddlib_lattice_reference.md`
-- `docs/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md`
+- `docs/archive/scope_violations/pycddlib/lattice/pycddlib_lattice_reference.md`
+- `docs/archive/scope_violations/pycddlib/upstream/pycddlib_online_provenance_2026-02-17.md`
 - pycddlib docs home: `https://pycddlib.readthedocs.io/en/3.0.2/`
 - pycddlib cdd module docs: `https://pycddlib.readthedocs.io/en/3.0.2/cdd.html`
 - pycddlib repository: `https://github.com/mcmtroffaes/pycddlib`

@@ -104,7 +104,7 @@ g.quadratic_product() == g.q()  # True
 | `T.normal_form(partial=False)` | Miranda–Morrison canonical normal form; unique up to isomorphism for non-degenerate forms. `partial=True` returns a partial (non-unique) normal form that still exposes p-adic invariants. | `[ND]` |
 | `T.brown_invariant()` | Brown invariant Br(T, q) ∈ ℤ/8ℤ. Requires the quadratic form to be valued in ℚ/2ℤ (even lattice case). Additive over direct sums: Br(T₁ ⊕ T₂) = Br(T₁) + Br(T₂). | `[EVEN]` |
 | `T.genus(signature_pair)` | `Genus` object compatible with this discriminant form and the given signature pair (p, n). Raises `ValueError` if no such genus exists. | |
-| `T.is_genus(signature_pair, even=True)` | Whether there exists a lattice with this discriminant form and signature `signature_pair`. Set `even=False` to test odd lattices (odd case partially implemented). | |
+| `T.is_genus(signature_pair, even=True)` | Whether there exists a lattice with this discriminant form and signature `signature_pair`. Upstream docs carry an explicit TODO for odd lattices; use `even=False` with caution because odd-lattice handling is not documented as complete. | |
 
 ### 3.4 Symmetry
 
