@@ -16,8 +16,8 @@ GEMINI_LIMIT = re.compile(r"rate limit|quota|resource_exhausted|429", re.IGNOREC
 OLLAMA_LIMIT = re.compile(r"rate limit|quota|resource_exhausted|429", re.IGNORECASE)
 
 
-def classify_usage_limit(agent: str, stdout: str, stderr: str) -> ClassifiedError | None:
-    combined = "\n".join([stdout, stderr])
+def classify_usage_limit(agent: str, stdout: str) -> ClassifiedError | None:
+    combined = stdout
     if agent == "claude" and CLAUDE_LIMIT.search(combined):
         return ClassifiedError(code="usage_limit", message="Claude usage limit")
     if agent == "codex" and CODEX_LIMIT.search(combined):

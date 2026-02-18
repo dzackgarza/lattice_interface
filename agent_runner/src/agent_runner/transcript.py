@@ -11,14 +11,13 @@ TOKEN_REGEX = re.compile(
 
 
 def parse_last_message(
-    agent: str, stdout: str, stderr: str, last_message_path: Path | None
+    agent: str, stdout: str, last_message_path: Path | None
 ) -> str:
     if agent == "codex" and last_message_path and last_message_path.exists():
         content = last_message_path.read_text(encoding="utf-8").strip()
         if content:
             return content
-    combined = "\n".join([stdout, stderr])
-    for line in reversed(combined.splitlines()):
+    for line in reversed(stdout.splitlines()):
         if line.strip():
             return line.strip()
     return "(no message captured)"
@@ -35,14 +34,12 @@ def parse_token_usage(text: str) -> int | None:
 
 
 def parse_token_usage_from_outputs(
-    stdout: str, stderr: str, last_message_path: Path | None
+    stdout: str, last_message_path: Path | None
 ) -> int | None:
     candidates = []
     if last_message_path and last_message_path.exists():
         candidates.append(last_message_path.read_text(encoding="utf-8"))
     candidates.append(stdout)
-    candidates.append(stderr)
-    candidates.append("\n".join([stdout, stderr]))
     for candidate in candidates:
         value = parse_token_usage(candidate)
         if value is not None:

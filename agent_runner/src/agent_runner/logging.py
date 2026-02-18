@@ -16,7 +16,6 @@ def build_run_context(agent_name: str, task_name: str, run_id: str) -> RunContex
     run_dir = config.settings.log_root / task_name / agent_name / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     stdout_path = run_dir / "stdout.log"
-    stderr_path = run_dir / "stderr.log"
     transcript_path = run_dir / "transcript.log"
     metadata_path = run_dir / "metadata.json"
     summary_path = run_dir / "summary.txt"
@@ -26,7 +25,6 @@ def build_run_context(agent_name: str, task_name: str, run_id: str) -> RunContex
         agent_name=agent_name,
         run_dir=run_dir,
         stdout_path=stdout_path,
-        stderr_path=stderr_path,
         transcript_path=transcript_path,
         metadata_path=metadata_path,
         summary_path=summary_path,
