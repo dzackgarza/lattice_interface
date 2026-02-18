@@ -8,6 +8,10 @@
   - `docs/archive/scope_violations/upstream/`
 - [x] Add `docs/archive/README.md` explaining that archived content is out of scope for lattice theory in this project (free `R`-modules with symmetric nondegenerate bilinear form).
 
+## Goal 1 Package-Surface Maintenance (Current Phase)
+
+- [x] Perform a cursory in-scope package-surface maintenance check against the current checklist set and upstream map; no clear new bilinear-form lattice package checklist gap was identified in this pass.
+
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
 - [x] Lift crystallographic stack signatures to canonical GAP refs (`chap35` + `chap44`) and triage non-canonical `CrystCat*` aliases in:
@@ -28,6 +32,9 @@
   - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
   - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
   - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
+- [x] Clarify Sage odd-lattice contract fidelity for `TorsionQuadraticModule.is_genus(signature_pair, even=True)` against upstream TODO wording and `genus(signature_pair)` odd-lattice examples in:
+  - `docs/sage_methods_checklist.md`
+  - `docs/sage/lattice/sagemath_lattice_reference.md`
 
 ## Move Known Scope-Violation Surfaces to Archive
 

@@ -284,7 +284,7 @@ Tracks Sage-relevant methods from the Sage docs set.
 - [ ] `brown_invariant()`
 - [ ] `genus(signature_pair)`
 - [ ] `is_genus(signature_pair, even=True)`
-  - Caveat: upstream docs include TODO for odd lattices; treat `even=False` as not fully documented/complete.
+  - Caveat: upstream `is_genus` docs include TODO `implement the same for odd lattices`; treat `even=False` as incomplete even though odd-lattice examples exist for `genus(signature_pair)`.
 - [ ] `orthogonal_group(gens=None, check=False)`
 
 ## Module: sage.quadratic_forms.binary_qf
