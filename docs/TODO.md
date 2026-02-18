@@ -102,14 +102,10 @@
 
 ## Reconcile Cross-References After Archiving
 
-- [ ] Replace active-scope links with archive links for out-of-scope entries in:
-  - `docs/documentation_coverage_audit_playbook.md` (references + upstream living map)
-  - umbrella checklists/references where affected
-  - any index/navigation pages that link moved files.
 - [x] Add redirects or replacement notes in moved file locations (or update all links directly).
 
 ## Validation
 
 - [x] Run link/path checks to ensure no broken references remain after archiving.
-- [ ] Confirm cron prompt/playbook package targeting no longer includes out-of-scope stacks.
+- [x] Confirm cron prompt/playbook package targeting no longer includes out-of-scope stacks.
 - [x] Commit cleanup as a dedicated scope-migration commit.
