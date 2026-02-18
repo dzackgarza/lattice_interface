@@ -9,7 +9,7 @@ FIRED_LOG="$REPO_DIR/tmp/cron_fired.log"
 NTFY_TOPIC="dzg-lattice-doc-updates"
 
 mkdir -p "$(dirname "$FIRED_LOG")"
-echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') fired: $NAME" >> "$FIRED_LOG"
+echo "$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M:%S TST') fired: $NAME" >> "$FIRED_LOG"
 
 # Heartbeat: just fire and exit, no ntfy
 if [ "$NAME" = "heartbeat" ]; then
@@ -31,9 +31,6 @@ else
   LAST_SECTION="(no task log)"
 fi
 
-# Recent commits
-COMMITS=$(git -C "$REPO_DIR" log --oneline -5 2>/dev/null || echo "(no commits)")
-
 # Notification content
 if [ $EXIT_CODE -eq 0 ]; then
   STATUS="SUCCESS"
@@ -45,8 +42,9 @@ else
   TAGS="x"
 fi
 
-TITLE="[$TASK_KEY] $NAME — $STATUS"
-BODY="$(printf 'Recent commits:\n%s\n\n---\n%s' "$COMMITS" "$LAST_SECTION")"
+TIMESTAMP="$(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M TST')"
+TITLE="[$TASK_KEY] $NAME — $STATUS — $TIMESTAMP"
+BODY="$LAST_SECTION"
 
 curl -s \
   -H "Title: $TITLE" \
