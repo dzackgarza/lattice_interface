@@ -83,18 +83,15 @@ class Orchestrator(BaseModel):
             if self.args.dry_run:
                 proc_result = None
                 stdout = "(dry-run)"
-                stderr = ""
                 exit_code = 0
             else:
                 proc_result = agent_obj.run_task(task_obj, run_ctx)
                 stdout = proc_result.stdout
-                stderr = proc_result.stderr
                 exit_code = proc_result.exit_code
 
             write_text(run_ctx.stdout_path, stdout)
-            write_text(run_ctx.stderr_path, stderr)
 
-            classified = classify_usage_limit(agent_obj.name, stdout, stderr)
+            classified = classify_usage_limit(agent_obj.name, stdout)
             if classified:
                 raise RateLimitUsageError(agent_obj.name, classified.message)
 
@@ -116,12 +113,10 @@ class Orchestrator(BaseModel):
             last_message = transcript.parse_last_message(
                 agent=agent_obj.name,
                 stdout=stdout,
-                stderr=stderr,
                 last_message_path=proc_result.last_message_path if proc_result else None,
             )
             token_count = transcript.parse_token_usage_from_outputs(
                 stdout=stdout,
-                stderr=stderr,
                 last_message_path=proc_result.last_message_path if proc_result else None,
             )
             if agent_obj.name == "gemini":
