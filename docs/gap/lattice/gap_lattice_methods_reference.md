@@ -136,36 +136,19 @@ Definiteness note:
 
 ### 2.2 Archived out-of-scope polyhedral/toric surfaces
 
-- The umbrella sections for `NormalizInterface`, `toric`, `NConvex`, and polyhedral `CddInterface`
+- The umbrella sections for `4ti2Interface`, `NormalizInterface`, `toric`, `NConvex`, and polyhedral `CddInterface`
   were moved out of active scope and archived at:
   `docs/archive/scope_violations/gap/lattice/gap_lattice_methods_reference_polyhedral_sections_2026-02-18.md`.
 - Package-level archived references remain under `docs/archive/scope_violations/`.
 
-### 2.3 4ti2Interface
-
-Integer relation, toric ideal, Hilbert basis, and semigroup workflows.
-
-| Function | Description | Tags |
-|----------|-------------|------|
-| `4ti2Interface_groebner_matrix` | Gröbner/toric ideal matrix-side routine | `[PKG, TORIC]` |
-| `4ti2Interface_groebner_basis` | Gröbner basis routine for toric/integer relation systems | `[PKG, TORIC]` |
-| `4ti2Interface_hilbert_inequalities` | Hilbert basis from inequality descriptions | `[PKG, POLY, TORIC]` |
-| `4ti2Interface_hilbert_equalities_in_positive_orthant` | Hilbert basis under equalities with positive orthant constraints | `[PKG, POLY, TORIC]` |
-| `4ti2Interface_hilbert_equalities_and_inequalities` | Hilbert basis from mixed equality/inequality systems | `[PKG, POLY, TORIC]` |
-| `4ti2Interface_zsolve_equalities_and_inequalities` | Integer solution enumeration/structure for mixed systems | `[PKG, ZZMOD, TORIC]` |
-| `4ti2Interface_graver_equalities` | Graver basis from equality constraints | `[PKG, ZZMOD, TORIC]` |
-
-Definiteness note:
-- These are integer-algebraic/polyhedral methods, not real-signature quadratic-form methods.
-
-### 2.4 Float package fplll hooks
+### 2.3 Float package fplll hooks
 
 | Function | Description | Tags |
 |----------|-------------|------|
 | `FPLLLReducedBasis` | fplll-backed basis reduction | `[PKG, EUCLID]` |
 | `FPLLLShortestVector` | fplll-backed shortest-vector routine | `[PKG, EUCLID]` |
 
-### 2.5 Forms package
+### 2.4 Forms package
 
 | Package | Role | Tags |
 |---------|------|------|
@@ -190,7 +173,7 @@ Detailed method inventory is maintained in `docs/forms_methods_checklist.md` and
 Definiteness note:
 - Real-signature PD/INDEF language is not applicable in the finite-field setting.
 
-### 2.6 HyperCells package
+### 2.5 HyperCells package
 
 | Package | Role | Tags |
 |---------|------|------|
@@ -213,7 +196,7 @@ Detailed method-level inventory is maintained in `docs/hypercells_methods_checkl
 Definiteness note:
 - HyperCells focuses on periodic cell-complex geometry over translation/point-group actions (Euclidean and hyperbolic regimes), not arithmetic PD-vs-INDEF genus classification contracts.
 
-### 2.7 Subgroup lattices (terminology warning)
+### 2.6 Subgroup lattices (terminology warning)
 
 GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated to geometric/integer lattices and basis-reduction or Gram-matrix workflows.
 
@@ -227,8 +210,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 | Core LLL methods | Euclidean algorithmic setting; not a full indefinite form-classification framework |
 | Core short-vector / embedding methods | Effectively positive-definite/finite-enumeration regime |
 | Cryst/CARAT/CrystCat | Euclidean crystallographic (PD setting) |
-| 4ti2Interface | Polyhedral/combinatorial integer-relation tooling, not signature-based |
-| Normaliz/toric/NConvex/Cdd | Archived out-of-scope polyhedral/toric surfaces |
+| 4ti2/Normaliz/toric/NConvex/Cdd | Archived out-of-scope polyhedral/toric surfaces |
 | Forms | Finite-field forms (no real-signature definiteness notion) |
 | HyperCells | Hyperbolic/Euclidean periodic cell-complex workflows; not an arithmetic genus/discriminant-form API |
 
@@ -263,33 +245,22 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `TriangulizedIntegerMat`
 - `TriangulizedIntegerMatTransform`
 
-### 4.2 4ti2Interface methods
-
-- `4ti2Interface_groebner_basis`
-- `4ti2Interface_groebner_matrix`
-- `4ti2Interface_graver_equalities`
-- `4ti2Interface_hilbert_equalities_and_inequalities`
-- `4ti2Interface_hilbert_equalities_in_positive_orthant`
-- `4ti2Interface_hilbert_inequalities`
-- `4ti2Interface_zsolve_equalities_and_inequalities`
-
-### 4.3 Float (fplll hooks)
+### 4.2 Float (fplll hooks)
 
 - `FPLLLReducedBasis`
 - `FPLLLShortestVector`
 
-### 4.4 Package names (lattice-related)
+### 4.3 Package names (lattice-related)
 
-- `4ti2Interface`
 - `CARATInterface`
 - `Cryst`
 - `CrystCat`
 - `Forms`
 - `HyperCells`
-- Archived out-of-scope package families: `CddInterface`, `NConvex`, `NormalizInterface`, `toric`
+- Archived out-of-scope package families: `4ti2Interface`, `CddInterface`, `NConvex`, `NormalizInterface`, `toric`
   (see `docs/archive/scope_violations/gap/lattice/gap_lattice_methods_reference_polyhedral_sections_2026-02-18.md`).
 
-### 4.5 Cryst/CARAT methods (canonical)
+### 4.4 Cryst/CARAT methods (canonical)
 
 - `AffineCrystGroupOnLeft`
 - `AffineCrystGroupOnRight`
@@ -320,7 +291,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `WyckoffPositions`
 - `ZClassRepsQClass`
 
-### 4.6 Forms methods
+### 4.5 Forms methods
 
 - `AsSesquilinearForm`
 - `AsQuadraticForm`
@@ -352,7 +323,7 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `OrthogonalComponentsOfSubgroup`
 - `WittIndex`
 
-### 4.7 HyperCells methods (top-level entry points)
+### 4.6 HyperCells methods (top-level entry points)
 
 - `HyperCell`
 - `TGCell`

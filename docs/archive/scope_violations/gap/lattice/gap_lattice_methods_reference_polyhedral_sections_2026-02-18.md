@@ -6,6 +6,23 @@ These sections are polyhedral/toric/LP-centered surfaces and are out of active b
 
 ## Package Ecosystem Sections
 
+### 2.1 4ti2Interface
+
+Integer relation, toric ideal, Hilbert basis, and semigroup workflows.
+
+| Function | Description | Tags |
+|----------|-------------|------|
+| `4ti2Interface_groebner_matrix` | Gröbner/toric ideal matrix-side routine | `[PKG, TORIC]` |
+| `4ti2Interface_groebner_basis` | Gröbner basis routine for toric/integer relation systems | `[PKG, TORIC]` |
+| `4ti2Interface_hilbert_inequalities` | Hilbert basis from inequality descriptions | `[PKG, POLY, TORIC]` |
+| `4ti2Interface_hilbert_equalities_in_positive_orthant` | Hilbert basis under equalities with positive orthant constraints | `[PKG, POLY, TORIC]` |
+| `4ti2Interface_hilbert_equalities_and_inequalities` | Hilbert basis from mixed equality/inequality systems | `[PKG, POLY, TORIC]` |
+| `4ti2Interface_zsolve_equalities_and_inequalities` | Integer solution enumeration/structure for mixed systems | `[PKG, ZZMOD, TORIC]` |
+| `4ti2Interface_graver_equalities` | Graver basis from equality constraints | `[PKG, ZZMOD, TORIC]` |
+
+Definiteness note:
+- These are integer-algebraic/polyhedral methods, not real-signature quadratic-form methods.
+
 ### 2.2 NormalizInterface
 
 Interface to Normaliz for affine monoids, vector configurations, lattice polytopes, and rational cones.
@@ -93,11 +110,21 @@ Representative `NConvex` methods:
 
 Detailed inventory note:
 
-- Full NConvex method-level checklist/reference surfaces are in `docs/nconvex_methods_checklist.md` and `docs/nconvex/lattice/nconvex_lattice_reference.md`.
+- Full NConvex method-level checklist/reference surfaces are in `docs/archive/scope_violations/nconvex_methods_checklist.md` and `docs/archive/scope_violations/nconvex/lattice/nconvex_lattice_reference.md`.
 - Full CddInterface checklist/reference surfaces are archived at `docs/archive/scope_violations/cddinterface_methods_checklist.md` and `docs/archive/scope_violations/cddinterface/lattice/cddinterface_lattice_reference.md` (out of active bilinear-form lattice scope).
 
 
 ## Consolidated Index Sections
+
+### 4.5 4ti2Interface methods
+
+- `4ti2Interface_groebner_basis`
+- `4ti2Interface_groebner_matrix`
+- `4ti2Interface_graver_equalities`
+- `4ti2Interface_hilbert_equalities_and_inequalities`
+- `4ti2Interface_hilbert_equalities_in_positive_orthant`
+- `4ti2Interface_hilbert_inequalities`
+- `4ti2Interface_zsolve_equalities_and_inequalities`
 
 ### 4.6 NormalizInterface methods
 
@@ -181,7 +208,7 @@ Detailed inventory note:
 - `SolveLinearProgram`
 - `Vertices`
 - `VerticesOfPolytope`
-- plus source-only declared helper/auxiliary surfaces tracked in `docs/nconvex_methods_checklist.md`.
+- plus source-only declared helper/auxiliary surfaces tracked in `docs/archive/scope_violations/nconvex_methods_checklist.md`.
 
 ### 4.9 CddInterface methods
 

@@ -17,6 +17,7 @@
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, GAP scope-archive pass): compared the active in-scope checklist inventory and upstream living map while archiving out-of-scope GAP umbrella families; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, Sage toric-archive pass): compared active in-scope checklist inventory against the upstream living map while archiving Sage toric/fan/polytope sections; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, fpylll BKZ signature-fidelity pass): compared active in-scope checklist inventory against the upstream living map while reconciling BKZ signature placeholders; no clear new bilinear-form lattice package checklist gap identified.
+- [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, polyhedral package-archive pass): compared active in-scope checklist inventory against the upstream living map while archiving remaining polyhedral/toric package surfaces; no clear new bilinear-form lattice package checklist gap identified.
 
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
@@ -75,7 +76,7 @@
   - `docs/cddinterface_methods_checklist.md`
   - `docs/cddinterface/lattice/cddinterface_lattice_reference.md`
   - `docs/cddinterface/upstream/cddinterface_online_provenance_2026-02-17.md`
-- [ ] Move polyhedral/LP-centered package docs identified as out of scope:
+- [x] Move polyhedral/LP-centered package docs identified as out of scope:
   - `docs/4ti2_methods_checklist.md`
   - `docs/latte_integrale_methods_checklist.md`
   - `docs/normaliz_methods_checklist.md`
@@ -97,7 +98,7 @@
   - move/archive toric/fan/polytope sections that are not bilinear-form lattice APIs from:
     - `docs/sage_methods_checklist.md`
     - `docs/sage/lattice/sagemath_lattice_reference.md`
-- [ ] Sweep remaining umbrella docs for out-of-scope references and archive them (do not delete content).
+- [x] Sweep remaining umbrella docs for out-of-scope references and archive them (do not delete content).
 
 ## Reconcile Cross-References After Archiving
 
@@ -105,10 +106,10 @@
   - `docs/documentation_coverage_audit_playbook.md` (references + upstream living map)
   - umbrella checklists/references where affected
   - any index/navigation pages that link moved files.
-- [ ] Add redirects or replacement notes in moved file locations (or update all links directly).
+- [x] Add redirects or replacement notes in moved file locations (or update all links directly).
 
 ## Validation
 
-- [ ] Run link/path checks to ensure no broken references remain after archiving.
+- [x] Run link/path checks to ensure no broken references remain after archiving.
 - [ ] Confirm cron prompt/playbook package targeting no longer includes out-of-scope stacks.
-- [ ] Commit cleanup as a dedicated scope-migration commit.
+- [x] Commit cleanup as a dedicated scope-migration commit.

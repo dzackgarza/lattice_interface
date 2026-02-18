@@ -4,6 +4,17 @@ Archived from `docs/gap_methods_checklist.md` on 2026-02-18.
 
 These sections are polyhedral/toric/LP-centered surfaces and are out of active bilinear-form lattice scope for this project.
 
+### 2.2 4ti2Interface
+
+- [ ] `LoadPackage("4ti2Interface")`
+- [ ] `4ti2Interface_groebner_matrix(...)`
+- [ ] `4ti2Interface_groebner_basis(...)`
+- [ ] `4ti2Interface_hilbert_inequalities(...)`
+- [ ] `4ti2Interface_hilbert_equalities_in_positive_orthant(...)`
+- [ ] `4ti2Interface_hilbert_equalities_and_inequalities(...)`
+- [ ] `4ti2Interface_zsolve_equalities_and_inequalities(...)`
+- [ ] `4ti2Interface_graver_equalities(...)`
+
 ### 2.3 NormalizInterface
 
 - [ ] `NmzCone(list)`
@@ -95,4 +106,4 @@ These sections are polyhedral/toric/LP-centered surfaces and are out of active b
 - [ ] `NormalFan(P)`
 - [ ] `IntersectionOfPolytopes(P1, P2)`
 - [ ] `SolveEqualitiesAndInequalitiesOverIntergers(eqs, eqs_rhs, ineqs, ineqs_rhs[, signs])`
-  - Caveat: complete NConvex inventory (including source-only declarations not listed in current manual index) is maintained in `docs/nconvex_methods_checklist.md`.
+  - Caveat: complete NConvex inventory (including source-only declarations not listed in current manual index) is maintained in `docs/archive/scope_violations/nconvex_methods_checklist.md`.

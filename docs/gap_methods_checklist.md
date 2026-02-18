@@ -48,7 +48,6 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `LoadPackage("Cryst")`
 - [ ] `LoadPackage("CARATInterface")`
 - [ ] `LoadPackage("CrystCat")`
-- [ ] `LoadPackage("4ti2Interface")`
 - [ ] `LoadPackage("Forms")`
 - [ ] `LoadPackage("HyperCells")`
 
@@ -87,23 +86,13 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: selector arguments `f`, `s`, and `k` are not treated as active canonical parameters.
   - Legacy aliases triaged out of active canonical surface: `CrystCatZClass(...)`, `CrystCatQClass(...)`, `CrystCatQClasses(...)`.
 
-### 2.3 4ti2Interface
+### 2.3 Archived Out-of-Scope Polyhedral/Toric Surfaces
 
-- [ ] `4ti2Interface_groebner_matrix(...)`
-- [ ] `4ti2Interface_groebner_basis(...)`
-- [ ] `4ti2Interface_hilbert_inequalities(...)`
-- [ ] `4ti2Interface_hilbert_equalities_in_positive_orthant(...)`
-- [ ] `4ti2Interface_hilbert_equalities_and_inequalities(...)`
-- [ ] `4ti2Interface_zsolve_equalities_and_inequalities(...)`
-- [ ] `4ti2Interface_graver_equalities(...)`
-
-### 2.4 Archived Out-of-Scope Polyhedral/Toric Surfaces
-
-- Archived umbrella sections for `NormalizInterface`, `toric`, `NConvex`, and polyhedral `CddInterface` are maintained in:
+- Archived umbrella sections for `4ti2Interface`, `NormalizInterface`, `toric`, `NConvex`, and polyhedral `CddInterface` are maintained in:
   `docs/archive/scope_violations/gap_methods_checklist_polyhedral_sections_2026-02-18.md`.
 - Package-level archived checklists remain available under `docs/archive/scope_violations/`.
 
-### 2.5 Forms package (detailed checklist surface)
+### 2.4 Forms package (detailed checklist surface)
 
 - [ ] `AsSesquilinearForm(obj[, field][, antiautomorphism])`
 - [ ] `AsQuadraticForm(obj[, field])`
@@ -117,7 +106,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `WittIndex(form)`
   - Caveat: finite-field form workflow; characteristic and irreducibility assumptions are documented in `docs/forms_methods_checklist.md`.
 
-### 2.6 fplll hooks exposed in GAP
+### 2.5 fplll hooks exposed in GAP
 
 - [ ] `FPLLLReducedBasis(...)`
 - [ ] `FPLLLShortestVector(...)`
@@ -139,6 +128,5 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - GAP Reference Manual (CARAT methods): `https://docs.gap-system.org/doc/ref/chap44.html`
 - CARATInterface package manual: `https://www.math.rwth-aachen.de/~GAP/WWW2/PackagePages/caratinterface/doc/manual.pdf`
 - HyperCells package page: `https://gap-packages.github.io/HyperCells/`
-- 4ti2Interface package page: `https://homalg-project.github.io/homalg_project/4ti2Interface/`
 - Forms package page: `https://gap-packages.github.io/forms/`
 - Forms manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
