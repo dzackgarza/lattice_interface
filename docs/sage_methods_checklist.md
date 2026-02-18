@@ -351,13 +351,9 @@ Tracks Sage-relevant methods from the Sage docs set.
 - [ ] `discriminant()`
 - [ ] `signature()`
 
-## Module: sage.geometry.toric_lattice / toric geometry
+## Archived out-of-scope toric/polyhedral surfaces
 
-- [ ] `ToricLattice(n)`
-- [ ] `dual()`
-  - Caveat: toric N/M duality, not metric dual from Gram form.
-- [ ] `Fan(..., lattice=...)`
-  - Caveat: fan/cone machinery uses module structure and does not consume lattice inner-product matrices.
-- [ ] `Cone(..., lattice=...)`
+- Sage toric/fan/polytope checklist sections were moved out of active bilinear-form lattice scope and archived at:
+  `docs/archive/scope_violations/sage_methods_checklist_toric_sections_2026-02-18.md`.
 
-Last updated: 2026-02-16
+Last updated: 2026-02-18

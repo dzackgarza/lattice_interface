@@ -15,6 +15,7 @@
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, genus-signature pass): checked active in-scope checklist inventory against the upstream map while surveying current Hecke genus manuals; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, `TorQuadModuleWithIsom` drift pass): reviewed active checklist inventory while reconciling current OSCAR torquad-with-isometry docs; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, GAP scope-archive pass): compared the active in-scope checklist inventory and upstream living map while archiving out-of-scope GAP umbrella families; no clear new bilinear-form lattice package checklist gap identified.
+- [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, Sage toric-archive pass): compared active in-scope checklist inventory against the upstream living map while archiving Sage toric/fan/polytope sections; no clear new bilinear-form lattice package checklist gap identified.
 
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
@@ -87,7 +88,7 @@
   - move/archive `NConvex`, `toric`, `Normaliz`, and cdd-style polyhedral surfaces from:
     - `docs/gap_methods_checklist.md`
     - `docs/gap/lattice/gap_lattice_methods_reference.md`
-- [ ] Archive toric/polyhedral sections from Sage umbrella docs:
+- [x] Archive toric/polyhedral sections from Sage umbrella docs:
   - move/archive toric/fan/polytope sections that are not bilinear-form lattice APIs from:
     - `docs/sage_methods_checklist.md`
     - `docs/sage/lattice/sagemath_lattice_reference.md`
