@@ -11,6 +11,7 @@
 ## Goal 1 Package-Surface Maintenance (Current Phase)
 
 - [x] Perform a cursory in-scope package-surface maintenance check against the current checklist set and upstream map; no clear new bilinear-form lattice package checklist gap was identified in this pass.
+- [x] Re-run cursory in-scope package-surface maintenance (2026-02-18): compared active checklist inventory against the upstream living map and current in-scope surfaces; no clear new bilinear-form lattice package checklist gap identified.
 
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
@@ -35,6 +36,11 @@
 - [x] Clarify Sage odd-lattice contract fidelity for `TorsionQuadraticModule.is_genus(signature_pair, even=True)` against upstream TODO wording and `genus(signature_pair)` odd-lattice examples in:
   - `docs/sage_methods_checklist.md`
   - `docs/sage/lattice/sagemath_lattice_reference.md`
+- [x] Tighten `ZZLatWithIsom.order_of_isometry` contract fidelity (order divisor relation + finite/infinite support wording) in:
+  - `docs/julia_methods_checklist.md`
+  - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
+  - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+  - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
 
 ## Move Known Scope-Violation Surfaces to Archive
 

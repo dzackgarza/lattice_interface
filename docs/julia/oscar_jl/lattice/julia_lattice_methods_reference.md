@@ -404,7 +404,7 @@ Pairs an integer lattice with a finite- or infinite-order isometry. Used for equ
 | `ambient_space(Lf)` | Ambient quadratic space carrying the isometry | |
 | `lattice(Lf)` | Underlying `ZZLat` | |
 | `basis_matrix(Lf)` | Basis matrix of underlying lattice | |
-| `order_of_isometry(Lf)` | Order of isometry (finite-order integer, or an infinite-order sentinel in upstream APIs) | |
+| `order_of_isometry(Lf)` | Order of lattice isometry `f`; upstream defines it as a divisor of the ambient isometry order and documents support for both finite- and infinite-order isometries | |
 | `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Polynomials of the isometry | |
 
 #### Attributes

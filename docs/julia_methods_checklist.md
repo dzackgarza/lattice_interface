@@ -296,6 +296,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``lattice(Lf)``
 - [ ] ``basis_matrix(Lf)``
 - [ ] ``order_of_isometry(Lf)``
+  - Caveat: upstream `latwithisom` defines this as the order of lattice isometry `f`, documented as a divisor of the ambient isometry order; both finite- and infinite-order isometries are supported.
 - [ ] ``characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)``
 #### Attributes
 

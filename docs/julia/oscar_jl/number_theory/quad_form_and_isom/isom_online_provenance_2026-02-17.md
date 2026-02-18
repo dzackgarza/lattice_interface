@@ -104,6 +104,18 @@ Access date (UTC): 2026-02-17
   - removed unsupported placeholder `submodules(Tf; quotype=...)` from Julia umbrella and Hecke mirror references/checklist,
   - replaced with the typed contract `submodules(::TorQuadModuleWithIsom)`.
 
+## Pass-21 addendum (2026-02-18): `ZZLatWithIsom.order_of_isometry` contract fidelity
+
+- Re-checked the lattice-with-isometry order contract in local snapshot text:
+  - local snapshot: `docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md`
+- Verified from this source:
+  - `ZZLatWithIsom` is described as a quadruple `(Vf, L, f, n)` where `n` is the order of lattice isometry `f`,
+  - this order is documented as a divisor of the order of the ambient isometry,
+  - the same section explicitly states support for both finite-order and infinite-order isometries.
+- Local documentation alignment action:
+  - replaced vague `order_of_isometry(Lf)` wording in Julia/Oscar and Hecke references with the source-backed divisor/support contract,
+  - added matching caveat text in `docs/julia_methods_checklist.md`.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

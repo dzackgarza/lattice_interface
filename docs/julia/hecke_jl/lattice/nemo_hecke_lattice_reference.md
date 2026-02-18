@@ -190,7 +190,7 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `quadratic_space_with_isometry(...)` | Construct `QuadSpaceWithIsom` | `[NT]` |
 | `integer_lattice_with_isometry(...)` | Construct `ZZLatWithIsom` | `[NT]` |
 | `isometry(Lf)` / `ambient_isometry(Lf)` | Isometry accessors | `[NT]` |
-| `order_of_isometry(Lf)` | Isometry order | `[NT]` |
+| `order_of_isometry(Lf)` | Order of lattice isometry `f`; upstream frames this as a divisor of the ambient isometry order and supports both finite- and infinite-order isometries | `[NT]` |
 | `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Isometry polynomials | `[NT]` |
 | `rank(Lf)` / `degree(Lf)` / `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` / `signature_tuple(Lf)` / `scale(Lf)` / `norm(Lf)` / `genus(Lf)` / `rational_span(Lf)` / `minimum(Lf)` | Upstream documents these as direct attribute-forwarding methods for `ZZLatWithIsom`; contracts are inherited from the underlying lattice invariants (`minimum(Lf)` keeps the same positive-definite precondition as `minimum(L)`) | `[NT]` |
 | `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` / `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` / `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` / `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | Arithmetic/discriminant-structure/definiteness predicates forwarded from the underlying lattice | `[NT]` |
