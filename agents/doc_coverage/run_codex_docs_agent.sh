@@ -20,6 +20,7 @@ printf '\n=== %s [codex/doc_coverage] ===\n' "$(date -u +'%Y-%m-%d %H:%M:%S UTC'
   -C "$REPO_DIR" \
   --sandbox workspace-write \
   --full-auto \
+  --search \
   --ephemeral \
   -o "$LAST_MSG" \
   - < "$PROMPT_FILE" \
