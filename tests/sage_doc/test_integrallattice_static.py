@@ -35,6 +35,19 @@ def test_integrallattice_signature_pair_for_indefinite_form():
     assert actual == expected, f"IntegralLattice.signature_pair mismatch: actual={actual}, expected={expected}"
 
 
+def test_integrallattice_degree_matches_rank_for_nondegenerate_example():
+    """
+    method: degree
+
+    degree() returns the ambient dimension of the lattice.
+    Assertion: For a full-rank nondegenerate Gram model, degree equals rank.
+    """
+    L = IntegralLattice(matrix(ZZ, [[2, 1], [1, 2]]))
+    actual = L.degree()
+    expected = L.rank()
+    assert actual == expected, f"IntegralLattice.degree mismatch: actual={actual}, expected={expected}"
+
+
 def test_integrallattice_discriminant_matches_determinant():
     """
     method: discriminant

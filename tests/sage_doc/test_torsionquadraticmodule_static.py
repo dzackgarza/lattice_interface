@@ -265,6 +265,21 @@ def test_tqm_value_module_qf_defined():
     assert actual == expected, f"TorsionQuadraticModule.value_module_qf mismatch: actual={actual}, expected={expected}"
 
 
+def test_tqm_order_equals_cardinality_for_finite_module():
+    """
+    method: order
+
+    order() is the finite module cardinality.
+    Assertion: order equals cardinality on the discriminant module example.
+    """
+    T = _disc_module()
+    actual = T.order()
+    expected = T.cardinality()
+    assert actual == expected, (
+        f"TorsionQuadraticModule.order mismatch: actual={actual}, expected={expected}"
+    )
+
+
 def test_tqm_brown_invariant_is_defined_mod_8():
     """
     method: brown_invariant

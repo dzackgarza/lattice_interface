@@ -157,6 +157,23 @@ def test_integerlattice_update_reduced_basis_sets_attribute():
     )
 
 
+def test_integerlattice_reduced_basis_preserves_discriminant_after_lll():
+    """
+    method: reduced_basis
+
+    reduced_basis stores the current reduced basis matrix after reduction.
+    Assertion: Gram determinant of reduced_basis equals the lattice discriminant.
+    """
+    L = IntegerLattice([[4, 1], [1, 3]])
+    L.LLL()
+    R = L.reduced_basis
+    actual = (R * R.transpose()).det()
+    expected = L.discriminant()
+    assert actual == expected, (
+        f"IntegerLattice.reduced_basis discriminant mismatch: actual={actual}, expected={expected}"
+    )
+
+
 def test_integerlattice_babai_returns_lattice_vector_rank_one():
     """
     method: babai

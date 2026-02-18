@@ -9,34 +9,34 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ### 1.1 Integer-module normal forms and structure
 
-- [ ] `NullspaceIntMat(mat)`
-- [ ] `SolutionIntMat(mat, vec)`
-- [ ] `SolutionNullspaceIntMat(mat, vec)`
-- [ ] `BaseIntMat(mat)`
-- [ ] `BaseIntersectionIntMats(m, n)`
-- [ ] `HermiteNormalFormIntegerMat(M)`
-- [ ] `HermiteNormalFormIntegerMatTransform(M)`
-- [ ] `SmithNormalFormIntegerMat(M)`
-- [ ] `SmithNormalFormIntegerMatTransforms(M)`
+- [x] `NullspaceIntMat(mat)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_nullspace_finds_integer_relation]
+- [x] `SolutionIntMat(mat, vec)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_solutionintmat_solves_integral_linear_system]
+- [x] `SolutionNullspaceIntMat(mat, vec)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_solutionnullspace_returns_solution_and_kernel_basis]
+- [x] `BaseIntMat(mat)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_baseintmat_produces_basis_of_row_module]
+- [x] `BaseIntersectionIntMats(m, n)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_baseintersection_returns_expected_sublattice]
+- [x] `HermiteNormalFormIntegerMat(M)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_hnf_recovers_expected_diagonal_form]
+- [x] `HermiteNormalFormIntegerMatTransform(M)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_hnf_transform_normal_matches_hnf_and_rank]
+- [x] `SmithNormalFormIntegerMat(M)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_snf_returns_invariant_factor_diagonal]
+- [x] `SmithNormalFormIntegerMatTransforms(M)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_snf_transforms_include_correct_rank_and_normal]
 - [ ] `TriangulizedIntegerMat(mat)`
 - [ ] `TriangulizedIntegerMatTransform(mat)`
 - [ ] `TriangulizeIntegerMat(mat)`
 - [ ] `DiagonalizeIntMat(mat)`
 - [ ] `NormalFormIntMat(...)`
 - [ ] `AbelianInvariantsOfList(list)`
-- [ ] `ComplementIntMat(full, sub)`
-- [ ] `DeterminantIntMat(mat)`
+- [x] `ComplementIntMat(full, sub)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_complementintmat_returns_direct_summand_data]
+- [x] `DeterminantIntMat(mat)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_determinantintmat_matches_exact_determinant]
 - [ ] `Decomposition(...)`
 - [ ] `IntegralizedMat(A[, inforec])`
 - [ ] `DecompositionInt(A, B, depth)`
 
 ### 1.2 LLL and Euclidean search
 
-- [ ] `LLLReducedBasis(...)`
-- [ ] `LLLReducedGramMat(G[, y])`
-- [ ] `ShortestVectors(G, m[, "positive"])`
+- [x] `LLLReducedBasis(...)` [test: tests/gap_doc/test_gap_core_static.py::test_gap_lll_reduced_basis_preserves_smith_normal_form]
+- [x] `LLLReducedGramMat(G[, y])` [test: tests/gap_doc/test_gap_core_static.py::test_gap_lll_reduced_gram_returns_conjugate_remainder]
+- [x] `ShortestVectors(G, m[, "positive"])` [test: tests/gap_doc/test_gap_core_static.py::test_gap_shortestvectors_finds_minimal_shell]
   - Caveat: finite enumeration contracts are in the positive-definite Euclidean regime.
-- [ ] `OrthogonalEmbeddings(gram[, "positive"][, maxdim])`
+- [x] `OrthogonalEmbeddings(gram[, "positive"][, maxdim])` [test: tests/gap_doc/test_gap_core_static.py::test_gap_orthogonal_embeddings_identity_gram_has_standard_solution]
   - Caveat: Euclidean embedding workflow, not a general indefinite classification API.
 
 ---

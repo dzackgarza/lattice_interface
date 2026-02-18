@@ -27,6 +27,23 @@ def test_numberfield_trace_gram_matches_discriminant():
     )
 
 
+def test_numberfield_element_trace_matches_conjugate_sum():
+    """
+    method: trace
+
+    trace() on an algebraic element equals sum of Galois conjugates.
+    Assertion: In Q(sqrt(5)), trace(a) is 0 for the generator root of x^2-5.
+    """
+    x = ZZ["x"].gen()
+    K = NumberField(x**2 - 5, "a")
+    a = K.gen()
+    actual = a.trace()
+    expected = 0
+    assert actual == expected, (
+        f"NumberFieldElement.trace mismatch: actual={actual}, expected={expected}"
+    )
+
+
 def test_numberfield_integral_basis_has_field_degree_length():
     """
     method: integral_basis
