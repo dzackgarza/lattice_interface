@@ -151,10 +151,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``Hecke.quadratic_lattice_database()``
 ### 2.8 Automorphism and isometry
 
-- [ ] ``automorphism_group_generators(L)``
-  - Caveat: upstream documents this for definite lattices (`is_definite(L)` required).
-- [ ] ``automorphism_group_order(L)``
-  - Caveat: upstream documents this for definite lattices (`is_definite(L)` required).
+- [ ] ``automorphism_group_generators(L::AbstractLat; ambient_representation::Bool=true, depth::Int=-1, bacher_depth::Int=0)``
+  - Caveat: upstream requires `is_definite(L)` — supports **both positive and negative definite** lattices; not restricted to positive definite only; `ambient_representation=true` returns generators in ambient-space coordinates.
+- [ ] ``automorphism_group_order(L::AbstractLat; depth::Int=-1, bacher_depth::Int=0)``
+  - Caveat: upstream requires `is_definite(L)` — supports **both positive and negative definite** lattices; not restricted to positive definite only.
 - [ ] ``is_isometric(L1, L2)``
 - [ ] ``is_isometric_with_isometry(L1, L2)``
   - Caveat: upstream documents tuple return `(isometric::Bool, f)` with `(false, zero_matrix(QQ, 0, 0))` on failure, and kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true`.

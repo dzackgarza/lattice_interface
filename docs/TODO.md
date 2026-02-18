@@ -21,6 +21,8 @@ Real work needed.
 
 - [x] Fix `IntegralLattice.orthogonal_group` definiteness constraint: tag was `[PD]` (positive definite only) but upstream docs confirm negative definite lattices also work; only indefinite lattices raise `NotImplementedError` — corrected to `[DEFINITE]` across `sage_integral_lattice_reference.md` (method table + definiteness summary) and `sagemath_lattice_reference.md` (method table + two pitfalls entries). Sourced from local upstream snapshot `free_quadratic_module_integer_symmetric.html`.
 
+- [x] Fix `automorphism_group_generators` and `automorphism_group_order` definiteness constraint: tags were `[PD]` (positive definite only) but upstream OSCAR/Hecke docs explicitly state "Given a definite lattice `L`" — negative definite lattices are also supported; only indefinite lattices are excluded; corrected to `[DEFINITE]` across `julia_lattice_methods_reference.md`, `nemo_hecke_lattice_reference.md`, and `julia_methods_checklist.md`; also added `ambient_representation::Bool=true` kwarg to `automorphism_group_generators` signature. Sourced from `https://docs.oscar-system.org/stable/Hecke/manual/quad_forms/integer_lattices/`.
+
 ## Goal 2 contract-fidelity verification (2026-02-18 follow-up)
 
 - [x] Verified `torquadmodwithisom.md` local snapshot already has `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])` keyword contract — Julia references and checklist are consistent with local snapshot.
