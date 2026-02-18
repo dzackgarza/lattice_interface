@@ -1,0 +1,6 @@
+2026-02-18 19:01:34 UTC [codex/debug_smoke_commit] elapsed=0m29s tokens=10874 files=1 loc=+1/-1
+last_message: Completed the requested steps with one environment limitation:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.
+2. Added and committed it as `agent_runner debug smoke` in commit `6e49fac` (used `git add -f` because `tmp/` is gitignored).
+3. Ran `curl -fsSL https://example.com >/dev/null`, but it failed in this environment with: `Could not resolve host: example.com` (DNS/network access restricted).

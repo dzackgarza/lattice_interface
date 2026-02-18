@@ -1,0 +1,17 @@
+{
+  "agent": "codex",
+  "commits": [],
+  "debug_prompt": null,
+  "deletions": 0,
+  "dry_run": true,
+  "elapsed_seconds": 0.005269297000268125,
+  "end_time": "2026-02-18T16:14:43.673405+00:00",
+  "exit_code": 0,
+  "files_changed": [],
+  "insertions": 0,
+  "last_message": "(dry-run)",
+  "run_id": "20260218_161443",
+  "start_time": "2026-02-18T16:14:43.668137+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

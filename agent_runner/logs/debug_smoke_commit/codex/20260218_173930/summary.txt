@@ -1,0 +1,8 @@
+2026-02-18 17:39:30 UTC [codex/debug_smoke_commit] elapsed=1m27s tokens=26425 files=1 loc=+1/-1
+last_message: Completed with one caveat on network:
+
+1. Wrote `tmp/agent_runner_debug/smoke.txt` with a single line `smoke ok`.
+2. Staged and committed it (forced add because `tmp/` is gitignored) with message `agent_runner debug smoke`.
+   - Commit: `2ad514f`
+3. Ran the requested network command: `curl -fsSL https://example.com >/dev/null`
+   - It failed in this environment: `curl: (6) Could not resolve host: example.com` (and direct-resolve retry also failed to connect).

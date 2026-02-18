@@ -1,0 +1,2 @@
+2026-02-18 16:14:08,462 ERROR Notification failed: 'latin-1' codec can't encode character '\u2014' in position 26: ordinal not in range(256)
+2026-02-18 16:14:08,463 INFO Run complete

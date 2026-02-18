@@ -1,0 +1,26 @@
+{
+  "agent": "codex",
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "b08d0bf4100725bd6c58f02ec9e54fb89189642f",
+      "date": "2026-02-18T17:15:21+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 0,
+  "dry_run": false,
+  "elapsed_seconds": 42.545493617999455,
+  "end_time": "2026-02-18T17:15:33.406052+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "Completed the smoke steps with one caveat on network access:\n\n1. Created `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.\n2. Added and committed that file only:\n   - Commit: `b08d0bf`\n   - Message: `agent_runner debug smoke`\n3. Ran `curl -fsSL https://example.com >/dev/null` twice; both failed with:\n   - `curl: (6) Could not resolve host: example.com`\n\nSo write + commit worked, but outbound DNS/network resolution is blocked in this environment.",
+  "run_id": "20260218_171450",
+  "start_time": "2026-02-18T17:14:50.860560+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 12025
+}

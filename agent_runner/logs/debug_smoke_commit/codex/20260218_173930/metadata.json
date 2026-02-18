@@ -1,0 +1,27 @@
+{
+  "agent": "codex",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "2ad514fd7b962a8bae40c8e233beabd798557b98",
+      "date": "2026-02-18T17:40:33+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 87.99500422299934,
+  "end_time": "2026-02-18T17:40:58.732129+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "Completed with one caveat on network:\n\n1. Wrote `tmp/agent_runner_debug/smoke.txt` with a single line `smoke ok`.\n2. Staged and committed it (forced add because `tmp/` is gitignored) with message `agent_runner debug smoke`.\n   - Commit: `2ad514f`\n3. Ran the requested network command: `curl -fsSL https://example.com >/dev/null`\n   - It failed in this environment: `curl: (6) Could not resolve host: example.com` (and direct-resolve retry also failed to connect).",
+  "run_id": "20260218_173930",
+  "start_time": "2026-02-18T17:39:30.737131+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 26425
+}

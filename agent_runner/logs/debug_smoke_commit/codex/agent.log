@@ -1,0 +1,91 @@
+
+=== 2026-02-18 17:14:50 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:14:50 UTC [codex/debug_smoke_commit] elapsed=0m42s tokens=12025 files=1 loc=+1/-0
+last_message: Completed the smoke steps with one caveat on network access:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.
+2. Added and committed that file only:
+   - Commit: `b08d0bf`
+   - Message: `agent_runner debug smoke`
+3. Ran `curl -fsSL https://example.com >/dev/null` twice; both failed with:
+   - `curl: (6) Could not resolve host: example.com`
+
+So write + commit worked, but outbound DNS/network resolution is blocked in this environment.
+
+
+=== 2026-02-18 17:15:48 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:15:48 UTC [codex/debug_smoke_commit] elapsed=1m45s tokens=30488 files=1 loc=+1/-1
+last_message: - Created/updated `tmp/agent_runner_debug/smoke.txt` with `smoke ok`.
+- Committed it with message `agent_runner debug smoke` on commit `ccf5f79`.
+- Ran `curl -fsSL https://example.com >/dev/null`, but this environment could not reach it (`curl: (6) Could not resolve host: example.com`; retry also failed).
+
+
+=== 2026-02-18 17:24:08 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:24:08 UTC [codex/debug_smoke_commit] elapsed=0m38s tokens=20392 files=1 loc=+1/-1
+last_message: Completed the smoke steps with one constraint:
+
+1. Wrote `tmp/agent_runner_debug/smoke.txt` with `smoke ok`.
+2. Added and committed it as `agent_runner debug smoke` (commit `0a53153`).
+3. Ran `curl -fsSL https://example.com >/dev/null` (retried once), but it failed both times with `Could not resolve host: example.com` (DNS/network unavailable in this environment).
+
+
+=== 2026-02-18 17:39:30 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:39:30 UTC [codex/debug_smoke_commit] elapsed=1m27s tokens=26425 files=1 loc=+1/-1
+last_message: Completed with one caveat on network:
+
+1. Wrote `tmp/agent_runner_debug/smoke.txt` with a single line `smoke ok`.
+2. Staged and committed it (forced add because `tmp/` is gitignored) with message `agent_runner debug smoke`.
+   - Commit: `2ad514f`
+3. Ran the requested network command: `curl -fsSL https://example.com >/dev/null`
+   - It failed in this environment: `curl: (6) Could not resolve host: example.com` (and direct-resolve retry also failed to connect).
+
+
+=== 2026-02-18 17:48:42 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:48:42 UTC [codex/debug_smoke_commit] elapsed=0m53s tokens=11472 files=1 loc=+1/-1
+last_message: Completed the smoke test steps with one repo-specific adjustment:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` with:
+   - `smoke ok`
+2. Staged and committed it as `agent_runner debug smoke`:
+   - Commit: `708bae2`
+   - Note: `tmp/` is gitignored, so I used `git add -f tmp/agent_runner_debug/smoke.txt`.
+3. Ran the network command exactly:
+   - `curl -fsSL https://example.com >/dev/null`
+   - Result: failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).
+
+
+=== 2026-02-18 17:53:19 UTC [codex/debug_smoke_commit] ===
+2026-02-18 17:53:19 UTC [codex/debug_smoke_commit] elapsed=1m11s tokens=15316 files=1 loc=+1/-1
+last_message: - Wrote `tmp/agent_runner_debug/smoke.txt` with the single line `smoke ok`.
+- Committed it as `agent_runner debug smoke` in commit `3ff47f0`.
+- Ran `curl -fsSL https://example.com >/dev/null`; it failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).
+
+
+=== 2026-02-18 18:08:56 UTC [codex/debug_smoke_commit] ===
+2026-02-18 18:08:56 UTC [codex/debug_smoke_commit] elapsed=0m41s tokens=10447 files=1 loc=+1/-1
+last_message: Completed steps 1–3 with one caveat on network:
+
+- Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.
+- Staged and committed it with message `agent_runner debug smoke` (commit `48753ab`).
+- Ran `curl -fsSL https://example.com >/dev/null`, which failed with `curl: (6) Could not resolve host: example.com` (DNS/network access unavailable in this environment).
+
+
+=== 2026-02-18 18:11:52 UTC [codex/debug_smoke_commit] ===
+2026-02-18 18:11:52 UTC [codex/debug_smoke_commit] elapsed=1m34s tokens=13878 files=1 loc=+1/-1
+last_message: Completed:
+
+1. Wrote `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.
+2. Committed it as `bb46a76` with message `agent_runner debug smoke`.
+3. Ran `curl -fsSL https://example.com >/dev/null` exactly as requested.
+
+Result: commit succeeded, but the network smoke call failed in this environment with `curl: (6) Could not resolve host: example.com`.
+
+
+=== 2026-02-18 19:01:34 UTC [codex/debug_smoke_commit] ===
+2026-02-18 19:01:34 UTC [codex/debug_smoke_commit] elapsed=0m29s tokens=10874 files=1 loc=+1/-1
+last_message: Completed the requested steps with one environment limitation:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.
+2. Added and committed it as `agent_runner debug smoke` in commit `6e49fac` (used `git add -f` because `tmp/` is gitignored).
+3. Ran `curl -fsSL https://example.com >/dev/null`, but it failed in this environment with: `Could not resolve host: example.com` (DNS/network access restricted).
+

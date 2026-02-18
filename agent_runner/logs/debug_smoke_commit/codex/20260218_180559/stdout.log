@@ -1,0 +1,2 @@
+I found pre-existing uncommitted changes in this repo that I didn’t create, so I paused for safety.  
+Confirm and I’ll continue by committing only `tmp/agent_runner_debug/smoke.txt` and leaving all other changes untouched.

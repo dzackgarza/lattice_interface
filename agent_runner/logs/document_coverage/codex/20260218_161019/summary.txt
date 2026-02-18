@@ -1,0 +1,2 @@
+2026-02-18 16:10:19 UTC [codex/document_coverage] elapsed=0m00s tokens=n/a files=0 loc=+0/-0
+last_message: (dry-run)

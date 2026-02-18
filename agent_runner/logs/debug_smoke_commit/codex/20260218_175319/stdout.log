@@ -1,0 +1,3 @@
+- Wrote `tmp/agent_runner_debug/smoke.txt` with the single line `smoke ok`.
+- Committed it as `agent_runner debug smoke` in commit `3ff47f0`.
+- Ran `curl -fsSL https://example.com >/dev/null`; it failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).

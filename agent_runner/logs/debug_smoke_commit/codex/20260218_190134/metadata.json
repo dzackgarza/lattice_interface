@@ -1,0 +1,28 @@
+{
+  "agent": "codex",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "6e49fac27ec9c114a27b1176735e5379e5169c9d",
+      "date": "2026-02-18T19:01:53+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 29.45407591699768,
+  "end_time": "2026-02-18T19:02:04.316408+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "Completed the requested steps with one environment limitation:\n\n1. Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.\n2. Added and committed it as `agent_runner debug smoke` in commit `6e49fac` (used `git add -f` because `tmp/` is gitignored).\n3. Ran `curl -fsSL https://example.com >/dev/null`, but it failed in this environment with: `Could not resolve host: example.com` (DNS/network access restricted).",
+  "requires_commit": true,
+  "run_id": "20260218_190134",
+  "start_time": "2026-02-18T19:01:34.862336+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 10874
+}

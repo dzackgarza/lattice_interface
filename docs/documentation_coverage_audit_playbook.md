@@ -21,7 +21,35 @@ Out of scope unless explicit bilinear-form lattice APIs are present:
 - polyhedral/cone/H-V representation tooling,
 - (semi)linear programming and generic optimization stacks,
 - toric/fan/polytope pipelines,
-- counting/enumeration stacks (for example Ehrhart/lattice-point pipelines) that do not operate on symmetric nondegenerate bilinear-form lattices.
+- counting/enumeration stacks (for example Ehrhart/lattice-point pipelines) that do not operate on symmetric nondegenerate bilinear-form lattices,
+- packages using "lattice" in the physics sense (periodic atomic arrangements, moiré patterns) without bilinear-form structure.
+
+## In-Scope Package Registry
+
+Every package with a checklist in this repository and the mathematical reason it is in scope:
+
+| Package | Scope justification |
+|---------|---------------------|
+| SageMath | Integral/rational lattice constructors, Gram/discriminant/genus/isometry APIs, quadratic forms over ℤ |
+| Oscar.jl / Hecke.jl / Nemo.jl | ℤ-lattice constructors, bilinear-form operations, genus/isometry/automorphism APIs |
+| GAP (core) | Integer-matrix normal forms (HNF/SNF), lattice-relevant matrix algebra |
+| Forms (GAP) | Sesquilinear and quadratic forms on free modules over finite fields — direct instances of R-modules with bilinear forms |
+| HyperCells (GAP) | Triangle-group tessellations as fundamental domains of reflection groups acting on $L \otimes \mathbf{R}$, tied to indefinite bilinear-form lattice structure |
+| Crystallographic stack (GAP) | Crystallographic groups as subgroups of $O(L)$, operating on lattices via their bilinear form |
+| fpylll | LLL/BKZ/SVP/CVP algorithms on Euclidean lattices with inner-product (bilinear-form) structure (Python interface to fplll) |
+| g6k | Sieving algorithms for SVP/BKZ on Euclidean lattices with inner-product structure |
+| flatter | Lattice basis reduction operating on bilinear-form structure |
+| FLINT | Integer-matrix reduction and normal-form algorithms (HNF/SNF/LLL) on ℤ-modules |
+| NTL | Integer-matrix LLL and normal-form algorithms on ℤ-modules |
+| PARI/GP | Explicit `qf*` quadratic-form APIs: reduction, equivalence, genus, representation |
+
+Out of scope (documented but not tracked for checklist completion):
+
+| Package | Reason |
+|---------|--------|
+| fplll | C++ backend; superseded by fpylll as the project's interface surface |
+| latticegen (fplll utility) | Benchmark instance generator with no bilinear-form API surface; covered by fpylll checklist |
+| latticegen (Python/moiré) | Physics "lattice" (periodic image patterns), not bilinear-form lattice |
 
 ## FIRST GOAL (MANDATORY)
 
@@ -129,7 +157,6 @@ Core repository references:
 - `docs/forms_methods_checklist.md`
 - `docs/hypercells_methods_checklist.md`
 - `docs/flint_methods_checklist.md`
-- `docs/fplll_methods_checklist.md`
 - `docs/fpylll_methods_checklist.md`
 - `docs/ntl_methods_checklist.md`
 - `docs/pari_gp_methods_checklist.md`
@@ -171,8 +198,7 @@ Upstream living map:
 - Forms (GAP package):
   - package page: `https://gap-packages.github.io/forms/`
   - manual: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
-- fplll / fpylll:
-  - `https://github.com/fplll/fplll`
+- fpylll (Python interface to fplll):
   - `https://github.com/fplll/fpylll`
 - NTL:
   - source/docs: `https://libntl.org`

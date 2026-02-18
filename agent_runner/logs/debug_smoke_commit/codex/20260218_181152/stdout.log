@@ -1,0 +1,7 @@
+Completed:
+
+1. Wrote `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.
+2. Committed it as `bb46a76` with message `agent_runner debug smoke`.
+3. Ran `curl -fsSL https://example.com >/dev/null` exactly as requested.
+
+Result: commit succeeded, but the network smoke call failed in this environment with `curl: (6) Could not resolve host: example.com`.

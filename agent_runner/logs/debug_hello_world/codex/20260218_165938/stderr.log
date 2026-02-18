@@ -1,0 +1,7 @@
+error: unexpected argument '--search' found
+
+  tip: to pass '--search' as a value, use '-- --search'
+
+Usage: codex exec --cd <DIR> --sandbox <SANDBOX_MODE> --full-auto [PROMPT]
+
+For more information, try '--help'.

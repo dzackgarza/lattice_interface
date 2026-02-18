@@ -1,0 +1,5 @@
+Completed steps 1–3 with one caveat on network:
+
+- Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.
+- Staged and committed it with message `agent_runner debug smoke` (commit `48753ab`).
+- Ran `curl -fsSL https://example.com >/dev/null`, which failed with `curl: (6) Could not resolve host: example.com` (DNS/network access unavailable in this environment).

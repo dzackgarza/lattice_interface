@@ -1,0 +1,28 @@
+hello
+
+OpenAI Codex v0.104.0 (research preview)
+--------
+workdir: /home/dzack/lattice_interface
+model: gpt-5.3-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: auto
+session id: 019c71fc-1a1f-7f33-8713-73cf93d76fbf
+--------
+user
+# Debug Hello Simple
+
+Say hello and exit immediately.
+
+mcp: serena starting
+mcp: serena ready
+mcp startup: ready: serena
+
+thinking
+**Responding with simple hello**
+codex
+hello
+tokens used
+8,870

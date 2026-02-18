@@ -1,0 +1,4 @@
+2026-02-18 17:53:19 UTC [codex/debug_smoke_commit] elapsed=1m11s tokens=15316 files=1 loc=+1/-1
+last_message: - Wrote `tmp/agent_runner_debug/smoke.txt` with the single line `smoke ok`.
+- Committed it as `agent_runner debug smoke` in commit `3ff47f0`.
+- Ran `curl -fsSL https://example.com >/dev/null`; it failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).

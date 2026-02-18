@@ -1,0 +1,5 @@
+Completed the requested steps with one environment limitation:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` containing exactly `smoke ok`.
+2. Added and committed it as `agent_runner debug smoke` in commit `6e49fac` (used `git add -f` because `tmp/` is gitignored).
+3. Ran `curl -fsSL https://example.com >/dev/null`, but it failed in this environment with: `Could not resolve host: example.com` (DNS/network access restricted).

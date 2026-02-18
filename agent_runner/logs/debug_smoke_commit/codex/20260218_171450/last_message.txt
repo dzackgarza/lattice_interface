@@ -1,0 +1,10 @@
+Completed the smoke steps with one caveat on network access:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.
+2. Added and committed that file only:
+   - Commit: `b08d0bf`
+   - Message: `agent_runner debug smoke`
+3. Ran `curl -fsSL https://example.com >/dev/null` twice; both failed with:
+   - `curl: (6) Could not resolve host: example.com`
+
+So write + commit worked, but outbound DNS/network resolution is blocked in this environment.

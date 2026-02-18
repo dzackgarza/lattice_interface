@@ -1,0 +1,26 @@
+{
+  "agent": "codex",
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "ccf5f796a4426c3e5d1a794a0366d0f62e16f9eb",
+      "date": "2026-02-18T17:17:00+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 105.8352966859984,
+  "end_time": "2026-02-18T17:17:34.705587+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "- Created/updated `tmp/agent_runner_debug/smoke.txt` with `smoke ok`.\n- Committed it with message `agent_runner debug smoke` on commit `ccf5f79`.\n- Ran `curl -fsSL https://example.com >/dev/null`, but this environment could not reach it (`curl: (6) Could not resolve host: example.com`; retry also failed).",
+  "run_id": "20260218_171548",
+  "start_time": "2026-02-18T17:15:48.870292+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 30488
+}

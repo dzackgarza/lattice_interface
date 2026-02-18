@@ -1,0 +1,27 @@
+{
+  "agent": "codex",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "3ff47f080d97181dcf34c0c313d67909c20da8a0",
+      "date": "2026-02-18T17:54:13+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 71.52203367200127,
+  "end_time": "2026-02-18T17:54:31.263151+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "- Wrote `tmp/agent_runner_debug/smoke.txt` with the single line `smoke ok`.\n- Committed it as `agent_runner debug smoke` in commit `3ff47f0`.\n- Ran `curl -fsSL https://example.com >/dev/null`; it failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).",
+  "run_id": "20260218_175319",
+  "start_time": "2026-02-18T17:53:19.741122+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 15316
+}

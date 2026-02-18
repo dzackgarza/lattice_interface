@@ -1,0 +1,65 @@
+
+=== 2026-02-18 18:07:38 UTC [codex/debug_hello_simple] ===
+2026-02-18 18:07:38 UTC [codex/debug_hello_simple] elapsed=0m12s tokens=8876 files=0 loc=+0/-0
+last_message: hello
+
+
+=== 2026-02-18 18:07:52 UTC [gemini/debug_hello_simple] ===
+2026-02-18 18:07:52 UTC [gemini/debug_hello_simple] elapsed=0m20s tokens=3885 files=0 loc=+0/-0
+last_message: Hello! I'm Gemini CLI, your autonomous software engineering agent. I'm ready to help you with your project. Moving on, what's our next task?
+
+
+=== 2026-02-18 18:08:13 UTC [ollama/debug_hello_simple] ===
+2026-02-18 18:08:13 UTC [ollama/debug_hello_simple] elapsed=0m24s tokens=n/a files=0 loc=+0/-0
+last_message: Launching Claude Code with minimax-m2.5:cloud...
+
+
+=== 2026-02-18 18:08:39 UTC [claude/debug_hello_simple] ===
+2026-02-18 18:08:39 UTC [claude/debug_hello_simple] elapsed=0m15s tokens=n/a files=0 loc=+0/-0
+last_message: Hello! Goodbye!
+
+
+=== 2026-02-18 18:10:22 UTC [codex/debug_hello_simple] ===
+2026-02-18 18:10:22 UTC [codex/debug_hello_simple] elapsed=0m09s tokens=8802 files=0 loc=+0/-0
+last_message: hello
+
+
+=== 2026-02-18 18:11:11 UTC [ollama/debug_hello_simple] ===
+2026-02-18 18:11:11 UTC [ollama/debug_hello_simple] elapsed=0m18s tokens=n/a files=0 loc=+0/-0
+last_message: Launching Claude Code with minimax-m2.5:cloud...
+
+
+=== 2026-02-18 18:11:31 UTC [claude/debug_hello_simple] ===
+2026-02-18 18:11:31 UTC [claude/debug_hello_simple] elapsed=0m19s tokens=n/a files=0 loc=+0/-0
+last_message: Hello! 👋
+
+
+=== 2026-02-18 18:13:51 UTC [codex/debug_hello_simple] ===
+2026-02-18 18:13:51 UTC [codex/debug_hello_simple] elapsed=0m10s tokens=8806 files=0 loc=+0/-0
+last_message: Hello.
+
+
+=== 2026-02-18 18:14:04 UTC [gemini/debug_hello_simple] ===
+2026-02-18 18:14:04 UTC [gemini/debug_hello_simple] elapsed=0m21s tokens=3885 files=0 loc=+0/-0
+last_message: Hello! I am ready to assist you.
+
+
+=== 2026-02-18 18:18:27 UTC [codex/debug_hello_simple] ===
+2026-02-18 18:18:27 UTC [codex/debug_hello_simple] elapsed=0m13s tokens=8798 files=0 loc=+0/-0
+last_message: Hello.
+
+
+=== 2026-02-18 18:19:09 UTC [ollama/debug_hello_simple] ===
+2026-02-18 18:19:09 UTC [ollama/debug_hello_simple] elapsed=0m16s tokens=n/a files=0 loc=+0/-0
+last_message: Launching Claude Code with minimax-m2.5:cloud...
+
+
+=== 2026-02-18 18:19:27 UTC [claude/debug_hello_simple] ===
+2026-02-18 18:19:27 UTC [claude/debug_hello_simple] elapsed=0m17s tokens=n/a files=0 loc=+0/-0
+last_message: Hello! Is there something I can help you with today?
+
+
+=== 2026-02-18 18:21:12 UTC [codex/debug_hello_simple] ===
+2026-02-18 18:21:12 UTC [codex/debug_hello_simple] elapsed=0m12s tokens=8870 files=0 loc=+0/-0
+last_message: hello
+

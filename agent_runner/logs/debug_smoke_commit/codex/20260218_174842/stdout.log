@@ -1,0 +1,10 @@
+Completed the smoke test steps with one repo-specific adjustment:
+
+1. Created `tmp/agent_runner_debug/smoke.txt` with:
+   - `smoke ok`
+2. Staged and committed it as `agent_runner debug smoke`:
+   - Commit: `708bae2`
+   - Note: `tmp/` is gitignored, so I used `git add -f tmp/agent_runner_debug/smoke.txt`.
+3. Ran the network command exactly:
+   - `curl -fsSL https://example.com >/dev/null`
+   - Result: failed with `curl: (6) Could not resolve host: example.com` (DNS/network unavailable in this environment).

@@ -1,0 +1,7 @@
+set shell := ["bash", "-cu"]
+
+default: test
+
+test:
+    uv run pyright
+    uv run pytest

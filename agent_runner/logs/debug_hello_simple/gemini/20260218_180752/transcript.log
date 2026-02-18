@@ -1,0 +1,58 @@
+{
+  "session_id": "0ae0492a-0bdd-4b87-bb07-b6bda2a913ce",
+  "response": "Hello! I'm Gemini CLI, your autonomous software engineering agent. I'm ready to help you with your project. Moving on, what's our next task?",
+  "stats": {
+    "models": {
+      "gemini-2.5-flash-lite": {
+        "api": {
+          "totalRequests": 1,
+          "totalErrors": 0,
+          "totalLatencyMs": 1453
+        },
+        "tokens": {
+          "input": 3732,
+          "prompt": 3732,
+          "candidates": 64,
+          "total": 3885,
+          "cached": 0,
+          "thoughts": 89,
+          "tool": 0
+        }
+      },
+      "gemini-3-flash-preview": {
+        "api": {
+          "totalRequests": 1,
+          "totalErrors": 0,
+          "totalLatencyMs": 2065
+        },
+        "tokens": {
+          "input": 7318,
+          "prompt": 7318,
+          "candidates": 35,
+          "total": 7353,
+          "cached": 0,
+          "thoughts": 0,
+          "tool": 0
+        }
+      }
+    },
+    "tools": {
+      "totalCalls": 0,
+      "totalSuccess": 0,
+      "totalFail": 0,
+      "totalDurationMs": 0,
+      "totalDecisions": {
+        "accept": 0,
+        "reject": 0,
+        "modify": 0,
+        "auto_accept": 0
+      },
+      "byName": {}
+    },
+    "files": {
+      "totalLinesAdded": 0,
+      "totalLinesRemoved": 0
+    }
+  }
+}
+Loaded cached credentials.

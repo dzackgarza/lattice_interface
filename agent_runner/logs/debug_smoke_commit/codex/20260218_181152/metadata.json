@@ -1,0 +1,28 @@
+{
+  "agent": "codex",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "bb46a76138a97d9cceea2adfa285c0b08149247a",
+      "date": "2026-02-18T18:13:12+00:00",
+      "subject": "agent_runner debug smoke"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 94.38754536299894,
+  "end_time": "2026-02-18T18:13:27.085032+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "tmp/agent_runner_debug/smoke.txt"
+  ],
+  "insertions": 1,
+  "last_message": "Completed:\n\n1. Wrote `tmp/agent_runner_debug/smoke.txt` with content `smoke ok`.\n2. Committed it as `bb46a76` with message `agent_runner debug smoke`.\n3. Ran `curl -fsSL https://example.com >/dev/null` exactly as requested.\n\nResult: commit succeeded, but the network smoke call failed in this environment with `curl: (6) Could not resolve host: example.com`.",
+  "requires_commit": true,
+  "run_id": "20260218_181152",
+  "start_time": "2026-02-18T18:11:52.697489+00:00",
+  "task": "debug_smoke_commit",
+  "token_count": 13878
+}

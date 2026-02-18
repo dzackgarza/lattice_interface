@@ -1,0 +1,9 @@
+{
+  "agent": "gemini",
+  "classified_error": "usage_limit",
+  "error": "Usage limit for gemini: Gemini usage limit",
+  "exit_code": null,
+  "requires_commit": false,
+  "run_id": "20260218_181033",
+  "task": "debug_hello_simple"
+}
