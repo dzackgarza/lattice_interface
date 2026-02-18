@@ -68,17 +68,29 @@ class AgentInterface(BaseModel, ABC):
         self,
         args: list[str],
         prompt_string: str,
+        run_ctx: RunContext,
         cwd: Path | None = None,
     ) -> ProcessResult:
-        final_args = list(args) + [prompt_string]
-        cmd = local[self.binary][final_args]
-        with local.env(**self._build_env()):
-            if cwd is not None:
-                with local.cwd(str(cwd)):
-                    retcode, stdout, stderr = cmd.run(retcode=None)
-            else:
-                retcode, stdout, stderr = cmd.run(retcode=None)
-        return ProcessResult(exit_code=retcode, stdout=stdout, stderr=stderr)
+        env = {**os.environ, **self._build_env()}
+        final_args = [self.binary] + list(args) + [prompt_string]
+        chunks: list[bytes] = []
+        with run_ctx.transcript_path.open("wb") as live_log:
+            proc = subprocess.Popen(
+                final_args,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                cwd=cwd,
+                env=env,
+            )
+            assert proc.stdout is not None
+            for line in iter(proc.stdout.readline, b""):
+                live_log.write(line)
+                live_log.flush()
+                chunks.append(line)
+        exit_code = proc.wait()
+        combined = b"".join(chunks).decode("utf-8", errors="replace")
+        return ProcessResult(exit_code=exit_code, stdout=combined, stderr="")
 
 
 class CodexAgent(AgentInterface):
@@ -105,7 +117,7 @@ class CodexAgent(AgentInterface):
             retcode, _, _ = mcp_cmd.run(_env=self._build_env(), retcode=None)
             if retcode != 0:
                 raise AgentMetadataError("MCP server 'serena' not configured for codex")
-        result = self._run_command(args=args, prompt_string=prompt_string)
+        result = self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
         return ProcessResult(
             exit_code=result.exit_code,
             stdout=result.stdout,
@@ -128,7 +140,7 @@ class ClaudeAgent(AgentInterface):
             "--no-session-persistence",
         ]
         return self._run_command(
-            args=args, prompt_string=prompt_string, cwd=config.settings.repo_root
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx, cwd=config.settings.repo_root
         )
 
 
@@ -143,7 +155,7 @@ class GeminiAgent(AgentInterface):
             "json",
             "--prompt",
         ]
-        return self._run_command(args=args, prompt_string=prompt_string)
+        return self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
 
 
 class OllamaAgent(AgentInterface):
@@ -162,5 +174,5 @@ class OllamaAgent(AgentInterface):
             "--no-session-persistence",
         ]
         return self._run_command(
-            args=args, prompt_string=prompt_string, cwd=config.settings.repo_root
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx, cwd=config.settings.repo_root
         )
