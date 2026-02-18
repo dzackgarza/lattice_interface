@@ -1,4 +1,11 @@
 notebooks/data
 notebooks/cifar_net.pth
 .ipynb_checkpoints/
-tmp/cron/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage

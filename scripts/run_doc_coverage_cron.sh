@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="/notebooks/lattice_interface"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 PROMPT_FILE="$REPO_DIR/prompt.md"
 LOG_DIR="$REPO_DIR/tmp/cron"
 LOG_FILE="$LOG_DIR/codex.log"
