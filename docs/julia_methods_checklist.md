@@ -430,8 +430,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``primary_part(Tf, m)``
 - [ ] ``orthogonal_submodule(Tf, S; check=true)``
   - Caveat: upstream requires `S` to be stable under the fixed isometry, and `check=true` enforces this precondition.
-- [ ] ``submodules(::TorQuadModuleWithIsom)``
-  - Caveat: upstream `torquadmodwithisom` docs currently expose this typed surface without a documented `quotype` keyword.
+- [ ] ``submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])``
+  - Caveat: current upstream docs expose `quotype` filtering on this surface; accepted selector values are restricted to `0,1,2,3`.
 - [ ] ``automorphism_group_with_inclusion(Tf)``
   - Caveat: upstream identifies this with automorphisms in `O(T)` commuting with the fixed isometry.
 - [ ] ``automorphism_group(Tf)``

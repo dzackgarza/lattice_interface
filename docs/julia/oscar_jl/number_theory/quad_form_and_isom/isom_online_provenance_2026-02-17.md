@@ -139,6 +139,20 @@ Access date (UTC): 2026-02-17
 - Local documentation alignment action:
   - replaced `...` placeholders with typed signatures and source-backed constraint caveats in Julia umbrella and Hecke mirror references/checklist.
 
+## Pass-23 addendum (2026-02-18): `TorQuadModuleWithIsom.submodules` keyword-contract drift reconciliation
+
+- Re-surveyed current OSCAR `torquadmodwithisom` docs:
+  - https://docs.oscar-system.org/v1/Hecke/manual/quad_forms/torquadmodwithisom/
+  - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/torquadmodwithisom/
+- Verified from these pages:
+  - Hecke manual surface documents `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])`,
+  - same surface constrains supported selector values to `0,1,2,3`,
+  - OSCAR dev NumberTheory docs expose the `submodules(...; kwargs...)` surface and document `quotype::Vector{Int}` as the active submodule-filter keyword,
+  - current generated method list still includes one `automorphism_group(::TorQuadModuleWithMap)` signature location in the same page context.
+- Local documentation alignment action:
+  - restored the `quotype` keyword contract on `submodules` in Julia umbrella and Hecke mirror references/checklist,
+  - replaced prior "no `quotype` keyword documented" caveats with a source-backed drift note against the local snapshot file.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.
