@@ -7,12 +7,30 @@ You are a documentation worker for this repository.
 ## Job
 
 Bring project documentation into alignment with what this project’s documentation is supposed to be.
-The core task is complete documentation coverage of every single lattice-related method available to the research community: not only methods already represented in this repository, but all methods known and usable in practice, including obscure surfaces.
+The core task is complete documentation coverage of lattice-theory methods in the strict sense used by this project.
+
+## Scope Definition (Mandatory)
+
+In this project, "lattice theory" means:
+
+- free `R`-modules of finite rank,
+- equipped with a symmetric nondegenerate bilinear form,
+- with methods that explicitly operate on that bilinear-form lattice structure (for example: Gram matrices/forms, discriminant groups/forms, genus/spinor genus, isometry/equivalence, local-global invariants, signatures, integral quadratic form workflows).
+
+Out of scope:
+
+- polyhedral, cone, toric, or (semi)linear programming tooling that does not explicitly address lattices as free modules with symmetric nondegenerate bilinear forms.
+- documentation surfaces centered on H/V representations, convex hull/cone conversion, Ehrhart counting, generic LP/MIP, or triangulation/enumeration unless they include explicit bilinear-form lattice APIs matching the in-scope definition.
 
 ## FIRST GOAL (MANDATORY)
 
-Ensure checklist coverage exists for all known relevant lattice-method packages in the ecosystem.
-If a known package lacks a checklist surface in this repository, creating that checklist surface is the first priority.
+Perform a cursory maintenance check for missing in-scope package surfaces.
+
+Current-phase interpretation:
+
+- green-fielding new package checklists is largely complete,
+- only check briefly whether any truly relevant bilinear-form lattice-theoretic package/algorithm is still missing,
+- open a new package surface only when a clear, source-backed, in-scope gap is found.
 
 ## SECOND GOAL (MANDATORY)
 
@@ -25,6 +43,16 @@ Completeness and provable correctness of all documented methods:
 
 If any of the above is missing or unsupported for any method, triage that gap immediately.
 
+Current-phase focus:
+
+- Goal 2 and beyond are the active emphasis for this phase.
+- Prioritize deepening correctness/completeness of existing in-scope surfaces over expanding package count.
+
+Scope gate for all edits:
+
+- before adding or expanding a package surface, verify the package actually provides APIs for lattices as free modules with symmetric nondegenerate bilinear forms.
+- if a package does not satisfy that criterion, do not add/expand it as a lattice-theory target.
+
 ## MINOR GOAL (ONLY AFTER FIRST AND SECOND GOALS ARE CLEARLY SATISFIED)
 
 Precision/clarity refinement work, including:
@@ -35,7 +63,7 @@ Precision/clarity refinement work, including:
 
 ## What The Docs Are Supposed To Be
 
-- Coverage of all lattice-related methods and contracts known in the active ecosystem.
+- Coverage of all in-scope bilinear-form lattice methods and contracts known in the active ecosystem.
 - Mathematically precise statements, assumptions, domains, and caveats.
 - Source-backed claims tied to canonical upstream docs and local snapshots.
 - Cohesive, navigable structure across checklists and detailed references.
@@ -47,6 +75,10 @@ Precision/clarity refinement work, including:
   - activate the project,
   - read relevant memories,
   - write/update continuity and handoff memories before finishing.
+- `docs/TODO.md` is the execution queue for outstanding documentation work:
+  - review it at the start of each run,
+  - complete relevant outstanding items within scope,
+  - check off completed items (`- [x]`) as part of the same change.
 - Git is the change ledger:
   - if documentation changes are made, commit them.
 - Dirty git states are normal:

@@ -1,0 +1,26 @@
+# Style and Conventions
+- Always follow the applicable playbook selected by `AGENTS.md`.
+- Mathematical scope for documentation work (`docs/documentation_coverage_audit_playbook.md`):
+  - "lattice theory" means free `R`-modules of finite rank with a symmetric nondegenerate bilinear form;
+  - prioritize contracts for Gram/form operations, discriminant forms/groups, genus/spinor genus, local-global invariants, isometry/equivalence, and signature/integral quadratic-form workflows;
+  - out of scope unless explicit bilinear-form lattice APIs exist: pure polyhedral/toric/H-V/(semi)linear-programming/counting pipelines.
+- Documentation quality requirements:
+  - method contracts must be explicit: arguments, types, assumptions, constraints, and caveats;
+  - claims must be source-backed (canonical upstream docs and/or local upstream snapshots);
+  - avoid vague qualifiers and unsupported claims.
+- Test-quality requirements (`TEST_QUALITY.md`, `docs/test_coverage_playbook.md`):
+  - assertions must be mathematically nontrivial (invariants, identities, equivalence classes, exact roundtrips);
+  - do not use content-free primary assertions (`is not None`, bare `hasattr`, bare `isinstance`, or non-emptiness checks as proof);
+  - do not use trivial primary witnesses (zero/identity/empty objects as main test evidence);
+  - use precise, contract-correct input/output types; avoid vague `Any`/`object` when concrete types are known;
+  - keep assertions direct and diagnostically clear (no tuple-wrapper ceremony for simple equalities);
+  - interoperability checks alone are insufficient; add independent mathematical oracle assertions;
+  - no `xfail`/expected-failure masking;
+  - no alias-crediting/token-map coverage shortcuts;
+  - no hidden blacklist/module-prefix narrowing that conceals higher-level methods;
+  - optional package completeness pass is mandatory before claiming coverage completeness.
+- Coverage accounting:
+  - `method:` tags are method-exact accountability markers;
+  - a method is either explicitly tested or explicitly triaged with rationale.
+- Interface-design requirement (`docs/interface_design_playbook.md`):
+  - during interface-definition work, do not preserve incorrect legacy contracts for backward compatibility; prioritize mathematically correct, coherent type/contract surfaces.

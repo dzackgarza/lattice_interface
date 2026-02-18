@@ -39,6 +39,59 @@ This repo currently uses a local scheduler stand-in instead of system cron:
 - stop helper: `scripts/stop_doc_coverage_scheduler.sh`
 - legacy/manual runner: `scripts/run_doc_coverage_cron.sh`
 
+### Prerequisites
+
+Required commands:
+
+- `uv` (required by `scripts/start_doc_coverage_scheduler.sh`)
+- `uvx` (used to launch Serena MCP server)
+- `/usr/bin/codex`
+- `/usr/bin/flock`
+
+Quick check:
+
+```bash
+command -v uv
+command -v uvx
+command -v codex
+command -v flock
+```
+
+If `uv` is missing, install it for the current user and ensure `$HOME/.local/bin` is on `PATH`:
+
+```bash
+python -m pip install --user uv
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### Configure Serena MCP (Required)
+
+The scheduler preflight checks `codex mcp get serena`. If `serena` is not configured, each run exits with code `3`.
+
+One-time setup:
+
+```bash
+codex mcp add serena -- \
+  uvx --from git+https://github.com/oraios/serena \
+  serena start-mcp-server --project-from-cwd
+```
+
+Verify configuration:
+
+```bash
+codex mcp list
+codex mcp get serena --json
+```
+
+If you need to reconfigure:
+
+```bash
+codex mcp remove serena
+codex mcp add serena -- \
+  uvx --from git+https://github.com/oraios/serena \
+  serena start-mcp-server --project-from-cwd
+```
+
 ### Current Setup
 
 - schedule: every 15 minutes, UTC (`trigger="cron", minute=\"*/15\"`)
@@ -50,6 +103,7 @@ This repo currently uses a local scheduler stand-in instead of system cron:
   - output summary file: `tmp/cron/last_message.txt`
   - combined stdout/stderr log: `tmp/cron/codex.log`
   - flags include `--search` and high reasoning effort (`model_reasoning_effort="high"`)
+  - preflight inside scheduler: `codex mcp get serena` must succeed or each run exits with code `3`
 
 ### Start / Stop
 
@@ -62,6 +116,47 @@ The start script writes:
 
 - PID file: `tmp/cron/doc_coverage_scheduler.pid`
 - scheduler process output: `tmp/cron/doc_coverage_scheduler.out`
+
+### First-Time Start (Full Steps)
+
+From repo root (`/notebooks/lattice_interface`):
+
+```bash
+mkdir -p tmp/cron
+command -v uv
+command -v uvx
+command -v codex
+command -v flock
+codex mcp get serena >/dev/null
+scripts/start_doc_coverage_scheduler.sh
+```
+
+Expected success message:
+
+```text
+scheduler started (pid=<PID>)
+```
+
+Then verify:
+
+```bash
+cat tmp/cron/doc_coverage_scheduler.pid
+ps -fp "$(cat tmp/cron/doc_coverage_scheduler.pid)"
+pgrep -af "scripts/doc_coverage_scheduler.py"
+tail -n 40 tmp/cron/doc_coverage_scheduler.out
+```
+
+Healthy startup output includes:
+
+```text
+[YYYY-MM-DD HH:MM:SS UTC] scheduler started; next runs every 15 minutes (UTC).
+```
+
+To verify actual job execution (not just scheduler boot), check for new START/END entries:
+
+```bash
+tail -n 120 tmp/cron/codex.log
+```
 
 ### Modify Schedule or Runtime Behavior
 
@@ -120,3 +215,16 @@ Useful quick checks:
 tail -n 80 tmp/cron/doc_coverage_scheduler.out
 tail -n 120 tmp/cron/codex.log
 ```
+
+### Troubleshooting
+
+- `scripts/start_doc_coverage_scheduler.sh` exits immediately with code `1` and no output:
+  - most common cause is missing `uv`; run `command -v uv`
+  - install with `python -m pip install --user uv`
+- scheduler starts but no jobs run:
+  - inspect `tmp/cron/codex.log` for `ERROR: MCP server 'serena' is not configured`
+  - run the setup steps in `Configure Serena MCP (Required)`, then rerun
+- stale PID or duplicate process:
+  - run `scripts/stop_doc_coverage_scheduler.sh`
+  - verify `pgrep -af "scripts/doc_coverage_scheduler.py"` returns no scheduler process
+  - start again with `scripts/start_doc_coverage_scheduler.sh`

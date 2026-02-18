@@ -1,0 +1,17 @@
+# Task Completion Checklist
+- Determine assignment type first via `AGENTS.md`, then apply the corresponding playbook(s).
+- For documentation assignments:
+  - follow `prompt.md` and `docs/documentation_coverage_audit_playbook.md`;
+  - review `docs/TODO.md` and update checkboxes for items completed in the same assignment;
+  - if documentation files changed, commit assignment-owned changes.
+- For code/test/runtime assignments:
+  - follow `docs/test_coverage_playbook.md`;
+  - run relevant tests (canonical: `just test`, or targeted Sage command) and report failures honestly.
+- For interface-contract assignments:
+  - follow `docs/interface_design_playbook.md`;
+  - preserve mathematical/type-contract correctness over legacy compatibility.
+- Always:
+  - keep changes source-backed and mathematically explicit;
+  - do not revert/reset unrelated dirty files;
+  - record Serena continuity memory with: what changed, why, intentional non-edits, remaining gaps, follow-up tasks, commit hash(es).
+- If Serena is unavailable, write continuity directly to `docs/project/doc_coverage_audit_changelog.md` when that file is part of the active assignment workflow.

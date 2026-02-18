@@ -27,6 +27,17 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
 
+def serena_is_configured() -> bool:
+    result = subprocess.run(
+        ["/usr/bin/codex", "mcp", "get", "serena"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        env=os.environ.copy(),
+    )
+    return result.returncode == 0
+
+
 def run_job() -> int:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -52,6 +63,13 @@ def run_job() -> int:
 
     with PROMPT_FILE.open("rb") as stdin_fh, LOG_FILE.open("ab") as log_fh:
         log_fh.write(f"===== {utc_now()} : START =====\n".encode())
+        if not serena_is_configured():
+            log_fh.write(
+                f"[{utc_now()}] ERROR: MCP server 'serena' is not configured; aborting run.\n".encode()
+            )
+            log_fh.write(f"===== {utc_now()} : END (exit=3) =====\n".encode())
+            log_fh.flush()
+            return 3
         log_fh.flush()
         proc = subprocess.run(
             cmd,

@@ -1,0 +1,20 @@
+# Project Overview
+- Purpose: documentation-first repository for lattice-theoretic methods and contracts.
+- Primary artifact type: method checklists, detailed references, upstream provenance snapshots, and reference-doc tests that encode method-level contracts.
+- Canonical governance files (source of truth):
+  - `AGENTS.md` (assignment-type playbook router)
+  - `TEST_QUALITY.md` (authoritative test-quality standard)
+  - `docs/documentation_coverage_audit_playbook.md`
+  - `docs/test_coverage_playbook.md`
+  - `docs/interface_design_playbook.md`
+  - `README.md`
+- Playbook routing (`AGENTS.md`):
+  - documentation-only -> `docs/documentation_coverage_audit_playbook.md`
+  - code/test/runtime -> `docs/test_coverage_playbook.md`
+  - interface/type-contract -> `docs/interface_design_playbook.md`
+  - mixed assignments -> apply relevant playbooks together
+- Main directories:
+  - `docs/`: checklists, reference docs, upstream snapshots, playbooks, tracker CSV
+  - `tests/`: static and runtime coverage tests
+  - `scripts/`: scheduler/automation for recurring doc coverage work
+  - `.serena/memories/`: continuity and handoff memory files
