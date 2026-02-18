@@ -141,9 +141,9 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `lll(L::ZZLat; same_ambient=true)` | LLL-reduced basis; returns new lattice | `[INDEF ok, FLINT]` |
+| `lll(L::ZZLat; same_ambient::Bool=true, redo::Bool=false, ctx::LLLContext=...)` | LLL-reduced basis; returns new lattice; `redo=true` forces recomputation even if cached; `ctx` specifies Lovász parameters | `[INDEF ok, FLINT]` |
 
-- PD: specify Lovász parameters via `LLLContext(δ, η)`
+- PD: specify Lovász parameters via `LLLContext(δ, η)` passed as `ctx`
 - INDEF: runs but "shorter" is w.r.t. a majorant, not the indefinite form itself
 
 ### 2.6 Vector enumeration
@@ -153,7 +153,7 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | `short_vectors(L, lb, ub)` | Nonzero vectors with $lb \le \|v\|^2 \le ub$ (up to sign) | `[PD]` |
 | `short_vectors_iterator(L, lb, ub)` | Lazy iterator version of `short_vectors` | `[PD]` |
 | `shortest_vectors(L)` | Shortest vectors and their squared norm | `[PD]` |
-| `close_vectors(L, v, ub; lb=0, check=true)` | Lattice points $x$ with $b(v-x, v-x) \le ub$; Fincke–Pohst enumeration | `[PD]` |
+| `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` | Returns `Vector{Tuple{Vector{Int}, QQFieldElem}}` — lattice points $x$ with $b(v-x, v-x) \le ub$; Fincke–Pohst enumeration; **`check` defaults to `false`** (not `true`) | `[PD]` |
 | `short_vectors_affine(S, v, α, d)` | Vectors $x \in S$ with $x^2 = d$ and $x \cdot v = \alpha$ (Vinberg) | `[INDEF]` |
 | `vectors_of_square_and_divisibility(L, n, d)` | Vectors $v$ with $v^2 = n$ and divisibility $d$ in $L$ | `[PD]` |
 | `enumerate_quadratic_triples(L, ...)` | Enumerate quadratic solutions in lattice | `[PD]` |
@@ -416,7 +416,7 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 | `rank(Lf)` / `degree(Lf)` | Rank and ambient degree inherited from the underlying lattice | |
 | `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` | Gram/determinant/discriminant invariants forwarded from `L` | |
 | `signature_tuple(Lf)` | Lattice signature tuple `(n_{+}, n_{0}, n_{-})`; distinct from eigenspace signatures returned by `signatures(Lf)` | `[INDEF]` |
-| `rational_span(Lf)` | Rational span accessor for the lattice-with-isometry object | `[INDEF]` |
+| `rational_span(Lf::ZZLatWithIsom)` | Returns `QuadSpaceWithIsom` — the rational span of the underlying lattice, carrying the induced isometry | `[INDEF]` |
 | `genus(Lf)` | Genus of the underlying lattice `L` | `[INDEF]` |
 | `minimum(Lf)` | Minimum of the underlying lattice; same positive-definite precondition as `minimum(L)` | `[PD]` |
 | `scale(Lf)` / `norm(Lf)` | Scale and norm ideals forwarded from `L` | |
@@ -455,26 +455,26 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 |--------|-------------|------|
 | `kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})` | Kernel of polynomial $p$ applied to the isometry $f$, as a sublattice with induced action; primitive in $L$ (non-degeneracy ensures this) | |
 | `kernel_lattice(Lf::ZZLatWithIsom, l::Integer)` | Kernel of $f^l - 1$ as a sublattice with induced action; primitive in $L$ | |
-| `invariant_lattice(Lf)` | Fixed sublattice $L^f$ | |
-| `coinvariant_lattice(Lf)` | Orthogonal complement of $L^f$ | |
-| `invariant_coinvariant_pair(Lf)` | Both at once | |
+| `invariant_lattice(Lf::ZZLatWithIsom)` | Returns `ZZLatWithIsom` — fixed sublattice $L^f$ with induced isometry | |
+| `coinvariant_lattice(Lf::ZZLatWithIsom)` | Returns `ZZLatWithIsom` — orthogonal complement of $L^f$ with induced isometry | |
+| `invariant_coinvariant_pair(Lf::ZZLatWithIsom)` | Returns `(ZZLatWithIsom, ZZLatWithIsom)` — invariant and coinvariant sublattices simultaneously | |
 
 #### Discriminant groups
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `discriminant_group(Lf)` | Returns discriminant-module data of `Lf`; upstream describes output as a pair `(D, fD)` (module + induced action) | |
-| `discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)` | Typed discriminant-group constructor returning a `TorQuadModuleWithIsom`; `ambient_representation` controls whether induced action is represented ambiently | |
-| `image_centralizer_in_Oq(Lf)` | Image $G_{L,f}$ of the centralizer map $O(L,f) \to O(D_L, D_f)$; computable directly for definite lattices, ±identity isometries, and Euler-totient-rank cases; general case uses hermitian Miranda-Morrison theory, which **requires $L$ even** (local snapshot `latwithisom.md`) | |
+| `discriminant_group(Lf::ZZLatWithIsom)` | Returns `(TorQuadModule, AutomorphismGroupElem)` — discriminant module plus the element of `O(D_L)` induced by `f` | |
+| `discriminant_group(::Type{TorQuadModuleWithIsom}, Lf::ZZLatWithIsom; ambient_representation::Bool=true)` | Returns a `TorQuadModuleWithIsom` wrapping the discriminant module with induced isometry action; `ambient_representation` selects basis for representing the action | |
+| `image_centralizer_in_Oq(Lf::ZZLatWithIsom)` | Returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)` — image $G_{L,f}$ of the centralizer map $O(L,f) \to O(D_L, D_f)$; computable directly for definite lattices, ±identity isometries, and Euler-totient-rank cases; general case uses hermitian Miranda-Morrison theory, which **requires $L$ even** (local snapshot `latwithisom.md`) | |
 | `image_in_Oq(Lf)` | Computes image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for both definite and indefinite lattices; distinct from `image_centralizer_in_Oq`) | |
-| `discriminant_representation(L, G)` | Action of matrix group on discriminant group | |
+| `discriminant_representation(L::ZZLat, G::MatGroup; ambient_representation::Bool=true, full::Bool=true, check::Bool=true)` | Returns `GAPGroupHomomorphism` — action of matrix group `G` on the discriminant group; `ambient_representation` selects coordinate system; `full` controls whether full discriminant group representation is computed; `check=true` validates input | |
 
 #### Spinor norm
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `signatures(Lf)` | Signatures of eigenspaces | |
-| `rational_spinor_norm(Lf; b)` | Rational spinor norm | |
+| `signatures(Lf::ZZLatWithIsom)` | Returns `Dict{Int, Tuple{Int, Int}}` — signatures of the hermitian-type eigenspace decomposition; upstream constrains this to hermitian-type lattices with isometry whose minimal polynomial is irreducible and cyclotomic | |
+| `rational_spinor_norm(Lf::ZZLatWithIsom; b::Int=-1)` | Returns `QQFieldElem` — rational spinor norm of the isometry with respect to the form `b·Φ`; default `b=-1` | |
 
 #### Enumeration
 

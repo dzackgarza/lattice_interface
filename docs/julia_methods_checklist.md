@@ -88,25 +88,20 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``is_elementary_with_prime(L)``
 ### 2.5 Reduction
 
-- [ ] ``lll(L::ZZLat; same_ambient=true)``
-- [ ] `LLLContext(δ, η)`
+- [ ] ``lll(L::ZZLat; same_ambient::Bool=true, redo::Bool=false, ctx::LLLContext=...)``
+  - Caveat: `redo=true` forces recomputation even if result is cached; Lovász parameters are passed via `ctx`; runs on indefinite lattices but "shortness" is relative to a majorant.
 ### 2.6 Vector enumeration
 
 - [ ] ``short_vectors(L, lb, ub)``
 - [x] ``short_vectors_iterator(L, lb, ub)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_enumeration.py::test_9_short_vectors_iterator_lazy_enumeration]
 - [ ] ``shortest_vectors(L)``
-- [ ] ``close_vectors(L, v, ub; lb=0, check=true)``
+- [ ] ``close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)``
+  - Caveat: **`check` defaults to `false`** (not `true`); with `check=false` it runs on indefinite lattices but distances can be negative/zero (result ill-posed); returns `Vector{Tuple{Vector{Int}, QQFieldElem}}`.
 - [x] ``short_vectors_affine(S, v, α, d)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_vinberg.py::test_3_short_vectors_affine_affine_enumeration]
 - [x] ``vectors_of_square_and_divisibility(L, n, d)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_enumeration.py::test_10_vectors_of_square_and_divisibility]
 - [x] ``enumerate_quadratic_triples(L, ...)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_enumeration.py::test_11_enumerate_quadratic_triples]
 - [ ] ``minimum(L)``
 - [ ] ``kissing_number(L)``
-- [ ] `rescale(L, -1)`
-- [ ] `short_vectors`
-- [ ] `shortest_vectors`
-- [x] `short_vectors_affine` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_vinberg.py::test_3_short_vectors_affine_affine_enumeration]
-- [ ] `close_vectors`
-- [ ] `check=false`
 ### 2.7 Genus and classification
 
 #### ZZGenus methods
@@ -343,21 +338,26 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: upstream computes the kernel of `f^l - 1`; also primitive in `L` by non-degeneracy.
 - [x] ``invariant_lattice(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_40_invariant_lattice_fixed_sublattice]
 - [x] ``coinvariant_lattice(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_41_coinvariant_lattice_orthogonal_complement_of_fixed]
-- [x] ``invariant_coinvariant_pair(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_44_invariant_coinvariant_pair_rank_sum_equals_full_rank]
+- [x] ``invariant_coinvariant_pair(Lf::ZZLatWithIsom)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_44_invariant_coinvariant_pair_rank_sum_equals_full_rank]
+  - Caveat: upstream return is `(ZZLatWithIsom, ZZLatWithIsom)` — invariant sublattice and coinvariant sublattice simultaneously.
 #### Discriminant groups
 
-- [ ] ``discriminant_group(Lf)``
-  - Caveat: upstream describes this as discriminant-module plus induced action data `(D, fD)`.
-- [ ] ``discriminant_group(TorQuadModuleWithIsom, Lf; ambient_representation=true)``
-- [x] ``image_centralizer_in_Oq(Lf)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_54_image_centralizer_in_oq_returns_group_and_homomorphism]
-  - Caveat: upstream local snapshot (`latwithisom.md`) states hermitian Miranda-Morrison theory (used to compute this image in the general case) is only available for even lattices; definite lattices, ±identity isometries, and Euler-totient-rank cases bypass Miranda-Morrison without this restriction.
+- [ ] ``discriminant_group(Lf::ZZLatWithIsom)``
+  - Caveat: upstream return is `(TorQuadModule, AutomorphismGroupElem)` — the discriminant module plus the element of `O(D_L)` induced by `f` (not just a module).
+- [ ] ``discriminant_group(::Type{TorQuadModuleWithIsom}, Lf::ZZLatWithIsom; ambient_representation::Bool=true)``
+  - Caveat: the type argument is `::Type{TorQuadModuleWithIsom}` (not a positional value); `ambient_representation` controls the coordinate basis for the induced action.
+- [x] ``image_centralizer_in_Oq(Lf::ZZLatWithIsom)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_54_image_centralizer_in_oq_returns_group_and_homomorphism]
+  - Caveat: upstream return is `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`. Hermitian Miranda-Morrison theory (used to compute this image in the general case) is only available for even lattices; definite lattices, ±identity isometries, and Euler-totient-rank cases bypass Miranda-Morrison without this restriction.
 - [ ] ``image_in_Oq(Lf)``
   - Caveat: upstream documents this as the general Miranda-Morrison image of π: O(L) → O(D_L), available for both definite and indefinite lattices (distinct from `image_centralizer_in_Oq`).
-- [x] ``discriminant_representation(L, G)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_53_discriminant_representation_returns_homomorphism]
+- [x] ``discriminant_representation(L::ZZLat, G::MatGroup; ambient_representation::Bool=true, full::Bool=true, check::Bool=true)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_with_isom.py::test_53_discriminant_representation_returns_homomorphism]
+  - Caveat: upstream return is `GAPGroupHomomorphism`; `full::Bool=true` controls whether full discriminant-group representation is computed; `check::Bool=true` validates input.
 #### Spinor norm
 
-- [ ] ``signatures(Lf)``
-- [ ] ``rational_spinor_norm(Lf; b)``
+- [ ] ``signatures(Lf::ZZLatWithIsom)``
+  - Caveat: upstream constrains this to hermitian-type lattices with isometry whose minimal polynomial is irreducible and cyclotomic; returns `Dict{Int, Tuple{Int, Int}}`.
+- [ ] ``rational_spinor_norm(Lf::ZZLatWithIsom; b::Int=-1)``
+  - Caveat: `b` defaults to `-1` (not unset); computes spinor norm of the isometry with respect to the form `b·Φ`; returns `QQFieldElem`.
 #### Enumeration
 
 - [ ] ``enumerate_classes_of_lattices_with_isometry(::Union{ZZGenus, ZZLat}, ::Int)``

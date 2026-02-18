@@ -17,6 +17,7 @@ Real work needed.
 - [x] Tighten `kernel_lattice(::ZZLatWithIsom, ...)` typed dispatch signatures (polynomial and integer overloads) and add primitivity caveats across checklist, Julia umbrella reference, and Hecke mirror reference — sourced from local snapshot `latwithisom.md`.
 - [x] Add missing even-lattice precondition to `image_centralizer_in_Oq` (hermitian Miranda-Morrison only available for even lattices) and differentiation caveat for `image_in_Oq` — sourced from local snapshot `latwithisom.md`.
 - [x] Add typed signatures and tuple return shapes for `TorQuadModuleWithIsom` submodule/aut-group methods (`sub`, `primary_part`, `orthogonal_submodule` return `(TorQuadModuleWithIsom, TorQuadModuleMap)`; `automorphism_group_with_inclusion` returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`) — sourced from OSCAR stable upstream `torquadmodwithisom` page (2026-02-18).
+- [x] Fix `discriminant_group(Lf)` return type to `(TorQuadModule, AutomorphismGroupElem)` and `::Type{TorQuadModuleWithIsom}` type-argument form; add `discriminant_representation` keyword args (`full`, `check`); add `invariant_coinvariant_pair(Lf)` tuple return `(ZZLatWithIsom, ZZLatWithIsom)`; add `signatures(Lf)` cyclotomic/irreducible constraint and `rational_spinor_norm` `b=-1` default; fix `close_vectors` `check` default to `false`; add `lll` `redo` and `ctx` kwargs; fix `rational_span(Lf)` return type to `QuadSpaceWithIsom` — all sourced from OSCAR stable upstream `latwithisom` and `integer_lattices` pages (2026-02-18).
 
 ## Missing Local Doc Copies
 

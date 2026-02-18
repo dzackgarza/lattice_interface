@@ -200,6 +200,26 @@ Access date (UTC): 2026-02-17
     - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` (§2.13),
     - `docs/julia_methods_checklist.md` (§2.18).
 
+## Pass-27 addendum (2026-02-18): ZZLatWithIsom return types and ZZLat vector-enumeration signature corrections
+
+- Sources used: OSCAR stable upstream `latwithisom` page and `integer_lattices` page (fetched 2026-02-18).
+- Key corrections verified:
+  - `discriminant_group(Lf::ZZLatWithIsom)` returns `(TorQuadModule, AutomorphismGroupElem)` — not just a module pair.
+  - `discriminant_group(::Type{TorQuadModuleWithIsom}, Lf::ZZLatWithIsom; ...)` — type argument is `::Type{...}`, not a positional value.
+  - `image_centralizer_in_Oq` returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`.
+  - `discriminant_representation(L::ZZLat, G::MatGroup; ambient_representation::Bool=true, full::Bool=true, check::Bool=true)` — `full` and `check` keywords were undocumented.
+  - `invariant_coinvariant_pair(Lf::ZZLatWithIsom)` returns `(ZZLatWithIsom, ZZLatWithIsom)`.
+  - `signatures(Lf)` constrained to hermitian-type with irreducible cyclotomic minimal polynomial; returns `Dict{Int, Tuple{Int, Int}}`.
+  - `rational_spinor_norm(Lf; b::Int=-1)` — default `b=-1`, not unspecified.
+  - `rational_span(Lf::ZZLatWithIsom)` returns `QuadSpaceWithIsom`, not plain `QuadSpace`.
+  - `lll(L::ZZLat; same_ambient::Bool=true, redo::Bool=false, ctx::LLLContext=...)` — `redo` and `ctx` kwargs were missing.
+  - `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` — `check` defaults to `false`, not `true`.
+- Local documentation alignment actions:
+  - All corrections applied to:
+    - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md` (§2.5, §2.14),
+    - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md` (§2.5, §2.11),
+    - `docs/julia_methods_checklist.md` (§2.5, §2.14 discriminant groups, spinor norm).
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

@@ -96,12 +96,12 @@ For cross-package Julia context (Oscar, Indefinite.jl, LLLplus, etc.), see `juli
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `lll(L::ZZLat; same_ambient=true)` | LLL reduction of integer lattice | `[RED, FLINT, INDEF]` |
-| `short_vectors(L, lb, ub)` | Enumerate bounded-norm vectors | `[PD, NT]` |
+| `lll(L::ZZLat; same_ambient::Bool=true, redo::Bool=false, ctx::LLLContext=...)` | LLL reduction; `redo=true` forces recomputation; Lovász parameters via `ctx` | `[RED, FLINT, INDEF]` |
+| `short_vectors(L::ZZLat, [lb=0,] ub, [elem_type=ZZRingElem]; check::Bool=true)` | Enumerate bounded-norm vectors; returns `Vector{Tuple{Vector{elem_type}, QQFieldElem}}` | `[PD, NT]` |
 | `short_vectors_iterator(L, lb, ub)` | Lazy bounded-norm iterator | `[PD, NT]` |
-| `shortest_vectors(L)` | Shortest vectors + norm | `[PD, NT]` |
+| `shortest_vectors(L::ZZLat, [elem_type=ZZRingElem]; check::Bool=true)` | Shortest vectors + norm | `[PD, NT]` |
 | `minimum(L)` / `kissing_number(L)` | Shortest norm / kissing number | `[PD, NT]` |
-| `close_vectors(L, v, ub; lb=0, check=true)` | Bounded close-vector enumeration | `[PD, NT]` |
+| `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` | Bounded close-vector enumeration; **`check` defaults to `false`**; returns `Vector{Tuple{Vector{Int}, QQFieldElem}}` | `[PD, NT]` |
 | `vectors_of_square_and_divisibility(L, n, d)` | Arithmetic vector constraints | `[PD, NT]` |
 | `short_vectors_affine(S, v, a, d)` | Affine constrained vector search | `[INDEF, NT]` |
 
