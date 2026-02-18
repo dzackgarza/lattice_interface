@@ -93,7 +93,6 @@ class Orchestrator(BaseModel):
 
             write_text(run_ctx.stdout_path, stdout)
             write_text(run_ctx.stderr_path, stderr)
-            write_text(run_ctx.transcript_path, f"{stdout}\n{stderr}")
 
             classified = classify_usage_limit(agent_obj.name, stdout, stderr)
             if classified:
