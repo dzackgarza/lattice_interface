@@ -19,17 +19,23 @@ Real work needed.
 - [x] Add typed signatures and tuple return shapes for `TorQuadModuleWithIsom` submodule/aut-group methods (`sub`, `primary_part`, `orthogonal_submodule` return `(TorQuadModuleWithIsom, TorQuadModuleMap)`; `automorphism_group_with_inclusion` returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)`) — sourced from OSCAR stable upstream `torquadmodwithisom` page (2026-02-18).
 - [x] Fix `discriminant_group(Lf)` return type to `(TorQuadModule, AutomorphismGroupElem)` and `::Type{TorQuadModuleWithIsom}` type-argument form; add `discriminant_representation` keyword args (`full`, `check`); add `invariant_coinvariant_pair(Lf)` tuple return `(ZZLatWithIsom, ZZLatWithIsom)`; add `signatures(Lf)` cyclotomic/irreducible constraint and `rational_spinor_norm` `b=-1` default; fix `close_vectors` `check` default to `false`; add `lll` `redo` and `ctx` kwargs; fix `rational_span(Lf)` return type to `QuadSpaceWithIsom` — all sourced from OSCAR stable upstream `latwithisom` and `integer_lattices` pages (2026-02-18).
 
+## Goal 2 contract-fidelity verification (2026-02-18 follow-up)
+
+- [x] Verified `torquadmodwithisom.md` local snapshot already has `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])` keyword contract — Julia references and checklist are consistent with local snapshot.
+
 ## Missing Local Doc Copies
 
-These packages need local copies of actual upstream docs (like the `.html` snapshots under `docs/sage/*/upstream/`):
+These packages have partial or need complete local copies of upstream docs:
 
-- [ ] flint
-- [ ] gap
-- [ ] ntl
-- [ ] fpylll
-- [ ] forms
-- [ ] g6k
-- [ ] hypercells
-- [ ] crystallographic_stack
-- [ ] flatter
-- [ ] pari_gp
+- [ ] flint (has .rst files under upstream/, needs integration check)
+- [ ] gap (core GAP docs)
+- [ ] ntl (has .txt/.cpp.html files under upstream/, needs integration check)
+- [ ] fpylll (partial docs)
+- [ ] forms (partial docs)
+- [ ] g6k (partial docs)
+- [ ] crystallographic_stack (partial docs)
+- [ ] pari_gp (partial docs)
+
+Already addressed:
+- [x] hypercells (has full chapter snapshots under upstream/)
+- [x] flatter (has README and example profiles under upstream/)
