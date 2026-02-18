@@ -24,9 +24,17 @@ EXIT_CODE=$?
 TASK_KEY=$(basename "$(dirname "$SCRIPT")")
 TASK_LOG="$REPO_DIR/tmp/agents/$TASK_KEY/task.log"
 
-# Extract last run's section from task log (from last === separator to EOF)
+# Extract last completed section from task log (second-to-last === block,
+# since the current run's block may be incomplete)
 if [ -f "$TASK_LOG" ]; then
-  LAST_SECTION=$(awk '/^===[[:space:]]/{s=$0"\n"; next} length(s)>0{s=s$0"\n"} END{printf "%s", s}' "$TASK_LOG" | tail -c 1800)
+  AWK_TMP=$(mktemp)
+  cat > "$AWK_TMP" << 'AWKEOF'
+/^===[[:space:]]/ { if (length(s)>0) sections[++n]=s; s=$0"\n"; next }
+length(s)>0       { s=s$0"\n" }
+END               { if (n>0) printf "%s", sections[n]; else printf "%s", s }
+AWKEOF
+  LAST_SECTION=$(awk -f "$AWK_TMP" "$TASK_LOG" | tail -c 1800)
+  rm -f "$AWK_TMP"
 else
   LAST_SECTION="(no task log)"
 fi
