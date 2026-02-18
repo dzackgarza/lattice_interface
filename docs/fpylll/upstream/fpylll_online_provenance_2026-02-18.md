@@ -32,3 +32,11 @@ Assignment context: documentation coverage audit for in-scope lattice-theory met
 ## Scope gate note
 
 This capture supports Euclidean lattice reduction/search APIs only. It does not broaden scope to non-bilinear-form polyhedral or optimization stacks.
+
+## Pass addendum (2026-02-18): BKZ placeholder-signature cleanup
+
+- Updated active documentation surfaces to remove residual BKZ `...` placeholders where source-backed signatures were already available.
+- Normalized BKZ coverage rows to:
+  - `BKZ.reduction(B, param, U=None, float_type=None, precision=0)` with explicit contract that `param` is a `BKZ.Param` object.
+  - full `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)` signature.
+- Goal 1 cursory maintenance check in the same pass found no new in-scope package-surface checklist gaps.

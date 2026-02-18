@@ -22,10 +22,11 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## 3. BKZ Surface
 
-- [ ] `BKZ.reduction(B, BKZ.Param(...), U=None, float_type=None, precision=0)`
+- [ ] `BKZ.reduction(B, param, U=None, float_type=None, precision=0)`
 - [ ] `BKZ.Reduction(M, lll_obj, param)`
-- [ ] `BKZ.Param(block_size, strategies=..., delta=..., flags=..., max_loops=..., max_time=..., auto_abort=..., gh_factor=..., min_success_probability=..., rerandomization_density=..., dump_gso_filename=..., **kwds)`
+- [ ] `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)`
   - Caveat: current modules page shows BKZ section headers without full member signatures; this checklist keeps BKZ signatures source-anchored to `bkz.pyx` / `bkz_param.pyx`.
+  - Contract note: `param` in `BKZ.reduction` is a `BKZ.Param` object.
 
 ## 4. Enumeration / SVP / CVP
 

@@ -16,6 +16,7 @@
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, `TorQuadModuleWithIsom` drift pass): reviewed active checklist inventory while reconciling current OSCAR torquad-with-isometry docs; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, GAP scope-archive pass): compared the active in-scope checklist inventory and upstream living map while archiving out-of-scope GAP umbrella families; no clear new bilinear-form lattice package checklist gap identified.
 - [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, Sage toric-archive pass): compared active in-scope checklist inventory against the upstream living map while archiving Sage toric/fan/polytope sections; no clear new bilinear-form lattice package checklist gap identified.
+- [x] Re-run cursory in-scope package-surface maintenance (2026-02-18, fpylll BKZ signature-fidelity pass): compared active in-scope checklist inventory against the upstream living map while reconciling BKZ signature placeholders; no clear new bilinear-form lattice package checklist gap identified.
 
 ## Goal 2 Contract-Fidelity Queue (In-Scope Surfaces)
 
@@ -55,6 +56,10 @@
   - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
   - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
   - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
+- [x] Remove residual fpylll BKZ placeholder signatures (`...`) and align active checklist/reference contracts to source-backed signatures in:
+  - `docs/fpylll_methods_checklist.md`
+  - `docs/fpylll/lattice/fpylll_lattice_reference.md`
+  - `docs/fpylll/upstream/fpylll_online_provenance_2026-02-18.md`
 
 ## Move Known Scope-Violation Surfaces to Archive
 

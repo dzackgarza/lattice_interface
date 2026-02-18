@@ -66,9 +66,9 @@ Parameter constraints from docs/source:
 
 | API | Contract summary | Tags |
 |-----|------------------|------|
-| `BKZ.reduction(B, BKZ.Param(...), U=None, float_type=None, precision=0)` | One-shot BKZ reduction over `IntegerMatrix` basis `B`. | `[RED, EUCLID, ZZMOD]` |
+| `BKZ.reduction(B, param, U=None, float_type=None, precision=0)` | One-shot BKZ reduction over `IntegerMatrix` basis `B`; `param` is a `BKZ.Param` object. | `[RED, EUCLID, ZZMOD]` |
 | `BKZ.Reduction(M, lll_obj, param)` | Stateful BKZ for repeated tours over the same GSO object. | `[RED, EUCLID]` |
-| `BKZ.Param(...)` | Full BKZ tuning surface (block size, strategies, abort/loop/time controls, GH/pruning controls). | `[RED, EUCLID, SRC]` |
+| `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)` | Full BKZ tuning surface (block size, strategies, abort/loop/time controls, GH/pruning controls). | `[RED, EUCLID, SRC]` |
 | `BKZ.EasyParam(block_size, **kwds)` | Convenience parameter builder (`bkz_param.pyx`) with default strategy file and keyword passthrough. | `[RED, EUCLID, SRC]` |
 
 Documentation caveat:
