@@ -73,14 +73,17 @@ class AgentInterface(BaseModel, ABC):
         final_args = [self.binary] + list(args) + [prompt_string]
         chunks: list[bytes] = []
         with run_ctx.transcript_path.open("wb") as live_log:
-            proc = subprocess.Popen(
-                final_args,
-                stdin=subprocess.DEVNULL,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                cwd=cwd,
-                env=env,
-            )
+            try:
+                proc = subprocess.Popen(
+                    final_args,
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    cwd=cwd,
+                    env=env,
+                )
+            except FileNotFoundError:
+                raise AgentMetadataError(f"Binary not found: {self.binary}")
             assert proc.stdout is not None
             for line in iter(proc.stdout.readline, b""):
                 live_log.write(line)
