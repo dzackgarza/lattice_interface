@@ -90,6 +90,20 @@ Access date (UTC): 2026-02-17
     - success returns `(true, map)` (or anti-map),
     - failure returns `(false, 0)`.
 
+## Pass-20 addendum (2026-02-18): `TorQuadModuleWithIsom` submodule signature fidelity
+
+- Re-checked local snapshot and online surfaces for `TorQuadModuleWithIsom` submodule enumeration:
+  - local snapshot: `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md`
+  - online pages re-used from this provenance note:
+    - https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/torquadmodwithisom/
+    - https://docs.oscar-system.org/dev/NumberTheory/QuadFormAndIsom/torquadmodwithisom/
+- Verified from these docs surfaces:
+  - the documented isometry-equipped submodule enumerator is `submodules(::TorQuadModuleWithIsom)`,
+  - no `quotype` keyword is documented on this `TorQuadModuleWithIsom` method surface.
+- Local documentation alignment action:
+  - removed unsupported placeholder `submodules(Tf; quotype=...)` from Julia umbrella and Hecke mirror references/checklist,
+  - replaced with the typed contract `submodules(::TorQuadModuleWithIsom)`.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

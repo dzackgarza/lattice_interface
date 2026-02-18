@@ -23,6 +23,11 @@
   - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
   - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
   - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
+- [x] Reconcile `TorQuadModuleWithIsom` submodule-enumerator signatures with upstream typed docs (remove unsupported `quotype` placeholder) in:
+  - `docs/julia_methods_checklist.md`
+  - `docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md`
+  - `docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md`
+  - `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`
 
 ## Move Known Scope-Violation Surfaces to Archive
 

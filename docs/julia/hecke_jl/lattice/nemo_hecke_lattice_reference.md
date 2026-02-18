@@ -219,7 +219,7 @@ This targets hyperbolic signatures `(1, n)` and reflection-group chamber computa
 | `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from module and map; upstream documents compatibility checks when `check=true` | `[NT]` |
 | `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from matrix data with validation under `check=true` | `[NT]` |
 | `sub(Tf, gens)` / `primary_part(Tf, m)` / `orthogonal_submodule(Tf, S; check=true)` | Stable-submodule and orthogonal-submodule operations with induced action; upstream requires isometry stability of input submodules | `[NT]` |
-| `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
+| `submodules(::TorQuadModuleWithIsom)` | Enumerate isometry-stable submodules of a torsion quadratic module with fixed isometry | `[NT]` |
 | `automorphism_group_with_inclusion(Tf)` / `automorphism_group(Tf)` | Automorphism group of the pair; centralizer-in-orthogonal-group contract for the inclusion form | `[NT]` |
 | `is_isomorphic_with_map(Tf, Sg)` / `is_anti_isomorphic_with_map(Tf, Sg)` | Upstream return contract is tuple-based: `(true, map)` on success and `(false, 0)` on failure (isomorphic and anti-isomorphic variants) | `[NT]` |
 

@@ -559,13 +559,14 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
 | `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
 | `orthogonal_submodule(Tf, S; check=true)` | Orthogonal complement in the finite quadratic module with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
-| `submodules(Tf; quotype=...)` | Enumerate isometry-stable submodules (optionally filtered by quadratic type) | `[NT]` |
+| `submodules(::TorQuadModuleWithIsom)` | Enumerate isometry-stable submodules of a torsion quadratic module with fixed isometry | `[NT]` |
 | `automorphism_group_with_inclusion(Tf)` | Automorphism group with inclusion map, identified upstream as the subgroup of `O(T)` commuting with the fixed isometry | `[NT]` |
 | `automorphism_group(Tf)` | Automorphism group of the pair `(T, f)` (upstream method list currently typesets `TorQuadModuleWithMap` here; context indicates `TorQuadModuleWithIsom`) | `[NT]` |
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
 Source note: contracts in §2.13/§2.14/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) accessed 2026-02-17, with tuple-return/precondition fidelity addendum captured on 2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
+- Signature-fidelity caveat: current `torquadmodwithisom` docs explicitly expose `submodules(::TorQuadModuleWithIsom)` and do not document a `quotype` keyword on this isometry-equipped surface.
 
 ### References
 
