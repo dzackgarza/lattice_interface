@@ -9,7 +9,7 @@ from typing import Literal, assert_never
 import typer
 
 from . import config, git, transcript
-from .agents import ClaudeAgent, CodexAgent, GeminiAgent, OllamaAgent, RunContext
+from .agents import ClaudeAgent, CodexAgent, GeminiAgent, HeartbeatAgent, OllamaAgent, RunContext
 from .agent_errors import classify_usage_limit
 from .errors import (
     AgentCommitMissingError,
@@ -30,17 +30,19 @@ from .tasks import (
     DebugSmokeCommitTask,
     DocumentCoverageTask,
     DocumentTestAlignmentTask,
+    HeartbeatTask,
 )
 
 app = typer.Typer(add_completion=False)
 
-AgentName = Literal["codex", "claude", "gemini", "ollama"]
+AgentName = Literal["codex", "claude", "gemini", "ollama", "heartbeat"]
 TaskName = Literal[
     "document_coverage",
     "document_test_alignment",
     "debug_smoke_commit",
     "debug_hello_world",
     "debug_hello_simple",
+    "heartbeat",
 ]
 
 
@@ -76,6 +78,11 @@ def _build_task(task_name: TaskName) -> AgentTask:
                 task_key="debug_hello_simple",
                 prompt_path=config.settings.task_prompts()["debug_hello_simple"],
                 requires_commit=False,
+            )
+        case "heartbeat":
+            return HeartbeatTask(
+                name="heartbeat",
+                task_key="heartbeat",
             )
         case _:
             assert_never(task_name)
@@ -116,6 +123,8 @@ def _build_agent(agent_name: AgentName):
                 base_args=[],
                 env=env,
             )
+        case "heartbeat":
+            return HeartbeatAgent(name="heartbeat")
         case _:
             assert_never(agent_name)
 
@@ -287,17 +296,18 @@ def run(
         summary_logger = get_summary_logger(run_ctx)
         summary_logger.info(header + summary_text)
 
-        notified, notify_err = _notify_success(
-            run_ctx=run_ctx,
-            start_time=start_time,
-            end_time=end_time,
-            elapsed=elapsed,
-            last_message=last_message,
-            token_count=token_count,
-            commit_summary=commit_summary,
-        )
-        if not notified:
-            logger.error("Notification failed", error=notify_err)
+        if task_obj.notify:
+            notified, notify_err = _notify_success(
+                run_ctx=run_ctx,
+                start_time=start_time,
+                end_time=end_time,
+                elapsed=elapsed,
+                last_message=last_message,
+                token_count=token_count,
+                commit_summary=commit_summary,
+            )
+            if not notified:
+                logger.error("Notification failed", error=notify_err)
         logger.info("Run complete")
         return 0
     except RateLimitUsageError as exc:

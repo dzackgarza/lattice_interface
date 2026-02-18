@@ -1,4 +1,5 @@
 import warnings
+import os
 
 import pytest
 
@@ -19,6 +20,8 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_gemini_direct():
+    if os.getenv("GEMINI_KNOWN_DOWN") == "1":
+        pytest.skip("Gemini CLI known down")
     agent = GeminiAgent(
         name="gemini",
         binary=config.settings.gemini_bin,

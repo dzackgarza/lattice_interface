@@ -13,6 +13,7 @@ class AgentTask(BaseModel, ABC):
     prompt_path: Path
     task_key: str
     requires_commit: bool = True
+    notify: bool = True
 
     def prompt_text(self) -> str:
         return self.prompt_path.read_text(encoding="utf-8")
@@ -28,3 +29,12 @@ class DocumentTestAlignmentTask(AgentTask):
 
 class DebugSmokeCommitTask(AgentTask):
     pass
+
+
+class HeartbeatTask(AgentTask):
+    prompt_path: Path = Path("/dev/null")
+    requires_commit: bool = False
+    notify: bool = False
+
+    def prompt_text(self) -> str:
+        return ""

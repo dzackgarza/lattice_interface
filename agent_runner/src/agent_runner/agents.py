@@ -164,3 +164,18 @@ class OllamaAgent(AgentInterface):
         return self._run_command(
             args=args, prompt_string=prompt_string, cwd=config.settings.repo_root
         )
+
+
+class HeartbeatAgent(AgentInterface):
+    binary: str = "heartbeat"
+    subcommand: str | None = None
+    base_args: list[str] = []
+    env: Mapping[str, str] = {}
+
+    def _run_with_prompt(
+        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+    ) -> ProcessResult:
+        from datetime import datetime, timezone
+
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        return ProcessResult(exit_code=0, stdout=f"heartbeat ok at {ts}", stderr="")
