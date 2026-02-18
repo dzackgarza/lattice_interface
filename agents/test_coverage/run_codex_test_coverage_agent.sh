@@ -14,7 +14,7 @@ LAST_MSG="$CODEX_DIR/${RUN_ID}_last_message.txt"
 
 mkdir -p "$TASK_DIR" "$CODEX_DIR"
 
-if ! /usr/bin/codex mcp get serena >/dev/null 2>&1; then
+if ! /home/dzack/.nvm/versions/node/v25.6.1/bin/codex mcp get serena >/dev/null 2>&1; then
   printf '\n=== %s [codex/test_coverage] ERROR: MCP server serena not configured ===\n' \
     "$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> "$TASK_LOG"
   exit 3
@@ -22,7 +22,7 @@ fi
 
 printf '\n=== %s [codex/test_coverage] ===\n' "$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> "$TASK_LOG"
 
-/usr/bin/codex exec \
+/home/dzack/.nvm/versions/node/v25.6.1/bin/codex exec \
   -C "$REPO_DIR" \
   --sandbox workspace-write \
   --full-auto \

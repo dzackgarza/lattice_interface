@@ -16,7 +16,7 @@ mkdir -p "$TASK_DIR" "$CODEX_DIR"
 
 printf '\n=== %s [codex/doc_coverage] ===\n' "$(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> "$TASK_LOG"
 
-/usr/bin/codex exec \
+/home/dzack/.nvm/versions/node/v25.6.1/bin/codex exec \
   -C "$REPO_DIR" \
   --sandbox workspace-write \
   --full-auto \
