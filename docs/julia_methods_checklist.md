@@ -246,8 +246,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [x] ``genus(T, sig_pair)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_19_genus_genus_from_discriminant_form_and_signature]
 - [x] ``is_genus(T, sig_pair)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_20_is_genus_check_genus_existence]
 - [x] ``direct_sum(T1, T2)` / `direct_product` / `biproduct`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_21_direct_sum_torquadmodule_direct_sum]
-- [x] ``submodules(T; ...)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_24_submodules_enumerate_submodules]
-- [x] ``stable_submodules(T, act; ...)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_31_stable_submodules]
+- [x] ``submodules(T::TorQuadModule; order::Int, index::Int, subtype::Vector{Int}, quotype::Vector{Int})`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_24_submodules_enumerate_submodules]
+  - Caveat: upstream docs expose four keyword filters: `order` (by cardinality), `index` (by index in `T`), `subtype` (by abelian-group invariants of submodule), `quotype` (by abelian-group invariants of quotient).
+- [x] ``stable_submodules(T::TorQuadModule, act::Vector{TorQuadModuleMap}; quotype::Vector{Int})`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_torquadmodule.py::test_31_stable_submodules]
+  - Caveat: upstream requires `act` to be a `Vector{TorQuadModuleMap}`; only `quotype` is documented as keyword filter for the isometry-stable surface.
 ### 2.12 Hermitian lattices (`HermLat` / `QuadLat`)
 
 - [x] ``base_field(L)` / `base_ring(L)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_hermitian_lattices.py::test_2_base_field_returns_number_field]
@@ -421,10 +423,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``isometry(Tf)``
 - [ ] ``order_of_isometry(Tf)``
   - Caveat: upstream states this is finite-order data cached after first computation; order is not precomputed on object construction.
-- [ ] ``torsion_quadratic_module_with_isometry(T, f; check=true)``
-  - Caveat: upstream documents `check=true` by default and validates compatibility; current method list accepts map/hom/matrix/group-element action data (`TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, `MatGroupElem`).
-- [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)``
-  - Caveat: upstream documents `check=true` by default and validates the matrix data as a torsion quadratic module with isometry.
+- [ ] ``torsion_quadratic_module_with_isometry(T::TorQuadModule, [f::U]; check::Bool=true)``
+  - Caveat: upstream stable docs document `U` as any of `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, or `MatGroupElem{QQFieldElem, QQMatrix}`; omitting `f` uses the identity; `check=true` validates compatibility.
+- [ ] ``torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)``
+  - Caveat: omitting `f` uses the identity; `check=true` validates matrix data as a torsion quadratic module with isometry.
 - [ ] ``sub(Tf, gens)``
   - Caveat: upstream requires the generated submodule to be stable under the fixed isometry.
 - [ ] ``primary_part(Tf, m)``

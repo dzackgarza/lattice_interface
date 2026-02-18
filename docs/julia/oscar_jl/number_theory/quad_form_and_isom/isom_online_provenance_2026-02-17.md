@@ -153,6 +153,21 @@ Access date (UTC): 2026-02-17
   - restored the `quotype` keyword contract on `submodules` in Julia umbrella and Hecke mirror references/checklist,
   - replaced prior "no `quotype` keyword documented" caveats with a source-backed drift note against the local snapshot file.
 
+## Pass-24 addendum (2026-02-18): `TorQuadModule.submodules`/`stable_submodules` typed signatures and `TorQuadModuleWithIsom` constructor type-union correction
+
+- Re-surveyed OSCAR stable upstream docs:
+  - `https://docs.oscar-system.org/stable/Hecke/manual/quad_forms/discriminant_group/` (TorQuadModule submodule/stable_submodules surface).
+  - `https://docs.oscar-system.org/stable/NumberTheory/QuadFormAndIsom/torquadmodwithisom/` (constructor type union).
+- Verified from these pages:
+  - `submodules(T::TorQuadModule; kw...)` is documented with four keyword filters: `order::Int` (by cardinality), `index::Int` (by index in `T`), `subtype::Vector{Int}` (by abelian-group invariants of submodule), `quotype::Vector{Int}` (by abelian-group invariants of quotient).
+  - `stable_submodules(T::TorQuadModule, act::Vector{TorQuadModuleMap}; quotype::Vector{Int})` is documented with `act` typed as `Vector{TorQuadModuleMap}` and only `quotype` as keyword filter.
+  - `torsion_quadratic_module_with_isometry(T::TorQuadModule, [f::U]; check::Bool=true)` documents `U` as any of: `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, `MatGroupElem{QQFieldElem, QQMatrix}`; both parameters are optional (identity default when `f` is omitted).
+  - `torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)` also documents `f` as optional.
+- Local documentation alignment actions:
+  - Replaced `submodules(T; ...)` and `stable_submodules(T, act; ...)` placeholders with source-backed typed signatures in Julia umbrella reference (§2.11) and Hecke mirror reference (§2.10).
+  - Added `AutomorphismGroupElem{TorQuadModule}` to the documented type union for the `f` parameter in both `torsion_quadratic_module_with_isometry` constructor rows across Julia umbrella reference (§2.18), Hecke mirror reference (§2.13), and checklist (§2.18).
+  - Added optional-parameter fidelity notation (`[f]`) to both `torsion_quadratic_module_with_isometry` rows in all three surfaces.
+
 ## Documentation caveat captured
 
 In current generated docs for torsion quadratic modules with isometry, one automorphism signature location typesets `TorQuadModuleWithMap` while the page/type context is `TorQuadModuleWithIsom`. Local references treat this as a documentation typing inconsistency and keep semantic interpretation aligned with the page context.

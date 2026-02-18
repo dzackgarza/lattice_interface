@@ -340,8 +340,8 @@ Computes Coxeter diagram of reflecting hyperplanes. Applicable to even hyperboli
 | `genus(T, sig_pair)` | Genus from discriminant form + signature | |
 | `is_genus(T, sig_pair)` | Check if a genus with this discriminant form exists | |
 | `direct_sum(T1, T2)` / `direct_product` / `biproduct` | Categorical constructions | |
-| `submodules(T; ...)` | Enumerate submodules | |
-| `stable_submodules(T, act; ...)` | Submodules stable under isometries | |
+| `submodules(T::TorQuadModule; order::Int, index::Int, subtype::Vector{Int}, quotype::Vector{Int})` | Iterator over submodules of `T`; keyword filters: `order` (by cardinality), `index` (by index in `T`), `subtype` (by abelian-group invariants of the submodule), `quotype` (by abelian-group invariants of the quotient) | |
+| `stable_submodules(T::TorQuadModule, act::Vector{TorQuadModuleMap}; quotype::Vector{Int})` | Iterator over submodules of `T` stable under the endomorphisms in `act`; keyword `quotype` filters by quotient abelian-group invariants | |
 
 ### 2.12 Hermitian lattices (`HermLat` / `QuadLat`)
 
@@ -554,8 +554,8 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `TorQuadModuleWithIsom` | Type for a torsion quadratic module paired with an isometry | `[NT]` |
 | `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
 | `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
-| `torsion_quadratic_module_with_isometry(T, f; check=true)` | Constructor from a `TorQuadModule` and compatible action data; current upstream signatures include map/hom/matrix/group-element styles (`TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, `MatGroupElem`) with `check=true` compatibility validation | `[NT]` |
-| `torsion_quadratic_module_with_isometry(q::QQMatrix, f::ZZMatrix; check=true)` | Constructor from quadratic-form matrix data and action matrix; `check=true` validates constraints | `[NT]` |
+| `torsion_quadratic_module_with_isometry(T::TorQuadModule, [f::U]; check::Bool=true)` | Constructor from a `TorQuadModule` and an optional isometry `f`; upstream stable docs document `U` as any of `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, or `MatGroupElem{QQFieldElem, QQMatrix}`; omitting `f` uses the identity; `check=true` validates compatibility | `[NT]` |
+| `torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)` | Constructor from quadratic-form matrix data and optional integer action matrix; omitting `f` uses the identity; `check=true` validates constraints | `[NT]` |
 | `sub(Tf, gens)` | Construct an isometry-stable submodule from generators | `[NT]` |
 | `primary_part(Tf, m)` | Primary part with induced isometry action | `[NT]` |
 | `orthogonal_submodule(Tf, S; check=true)` | Orthogonal complement in the finite quadratic module with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
@@ -565,8 +565,9 @@ Finite quadratic module workflows with a distinguished isometry action. This is 
 | `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
 | `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
 
-Source note: contracts in §2.7/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
+Source note: contracts in §2.7/§2.11/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 - Signature-fidelity caveat: local snapshot `docs/julia/oscar_jl/number_theory/quad_form_and_isom/torquadmodwithisom.md` still shows bare `submodules(::TorQuadModuleWithIsom)`, while current OSCAR docs expose `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])`.
+- Pass-24 addendum (2026-02-18): `TorQuadModule.submodules` and `stable_submodules` typed signatures updated in §2.11 from OSCAR upstream Hecke discriminant-group docs; `torsion_quadratic_module_with_isometry` type union in §2.18 updated to include `AutomorphismGroupElem{TorQuadModule}` per OSCAR stable upstream constructor docs.
 
 ### References
 
