@@ -4,17 +4,17 @@
 - Canonical governance files (source of truth):
   - `AGENTS.md` (assignment-type playbook router)
   - `TEST_QUALITY.md` (authoritative test-quality standard)
-  - `docs/documentation_coverage_audit_playbook.md`
-  - `docs/test_coverage_playbook.md`
-  - `docs/interface_design_playbook.md`
+  - `agents/doc_coverage/playbook.md`
+  - `agents/test_coverage/playbook.md`
+  - `agents/interface_design/playbook.md`
   - `README.md`
 - Playbook routing (`AGENTS.md`):
-  - documentation-only -> `docs/documentation_coverage_audit_playbook.md`
-  - code/test/runtime -> `docs/test_coverage_playbook.md`
-  - interface/type-contract -> `docs/interface_design_playbook.md`
+  - documentation-only -> `agents/doc_coverage/playbook.md`
+  - code/test/runtime -> `agents/test_coverage/playbook.md`
+  - interface/type-contract -> `agents/interface_design/playbook.md`
   - mixed assignments -> apply relevant playbooks together
 - Main directories:
-  - `docs/`: checklists, reference docs, upstream snapshots, playbooks, tracker CSV
+  - `docs/`: checklists, reference docs, upstream snapshots
   - `tests/`: static and runtime coverage tests
   - `scripts/`: scheduler/automation for recurring doc coverage work
   - `.serena/memories/`: continuity and handoff memory files
