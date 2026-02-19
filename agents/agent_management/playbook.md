@@ -110,6 +110,8 @@ Use these patterns when auditing transcripts to identify structural defects:
 | **Completion Cliff** | Declares task done after superficial check; no commits or trivial commits | Checked items in TODO; memories claiming "work is complete" | Remove checkmarks; delete completion-summary memories |
 | **Memory Poisoning** | Cites memory as authority instead of inspecting files | Memories contain task state or completion claims | Delete memories that let agents conclude "done" without file inspection |
 | **Missing Internal Tools** | Drift persists across runs; agent loses track mid-session | No instruction to use harness-provided tools | Add: "Use harness todo list if available for multi-step tracking"; "Activate planning mode if available for complex tasks" |
+| **Verify-And-Stop** | Picks task, verifies no gaps exist, declares success without pivoting | No "pivot on no-gap" instruction; task framed as verification rather than fix | Add: "If no gaps found, pivot to different task/package. A no-commit run is a failure. Job is to find gaps, not verify there are none." |
+| **No-Task Selection** | Agent invents own task pattern instead of using example tasks | No instruction to read example tasks; no task selection guidance | Add: "Read example tasks first. Pick one at random to execute." |
 
 ---
 
