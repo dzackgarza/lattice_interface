@@ -169,6 +169,51 @@ Management runs are vulnerable to **goal drift** — gradually expanding scope b
 
 ---
 
+## Exemplary Prompt Structure Patterns (LossFunk AI-Scientist)
+
+From Trehan & Chopra's successful pipeline (arXiv:2601.03315v1, accepted to Agents4Science 2025):
+
+### Output Format: Scratchpad + Action
+Every interaction must have exactly two sections:
+```
+### Scratchpad
+- Summarize what you just observed
+- State your current sub-goal
+- Provide brief reasoning (can be rough)
+
+### Action
+type: tool | finish
+name: <tool name or null>
+args: { JSON object }
+```
+Rule: `type: finish` only when all specified criteria are verified. Never finish early.
+
+### Explicit Finish Conditions
+Prompts include specific gates that must ALL pass:
+- "Only `type: finish` when X, Y, Z are complete"
+- JSON output format for finish verdict
+- Missing any gate → cannot finish
+
+### Process as Numbered Steps
+Each step has: Goal / Do / Expected Scratchpad output
+Example:
+- Step 1: "Ingest current state (1 turn)" — Goal: establish what's active now; Do: List_files → Read_file
+- Step 2: "Sweep evidence (loop; minimal turns)" — Goal: understand what results exist
+
+### Gating Rules with Traceability
+Every claim must point to concrete artifact (file path, line number).
+- "Traceability: Every claim used for the verdict points to concrete artifacts"
+- "If missing → Fail"
+- "Do not introduce new claims beyond what the evidence supports"
+
+### Failure Modes Section
+Each prompt includes "Critical Failure Modes to Avoid" with:
+- The failure mode
+- The control (what the system will do)
+- The acceptance check (how to verify)
+
+---
+
 ## Research-Backed Design Principles
 
 From Trehan & Chopra (arXiv:2601.03315v1), applicable to agent system design:
