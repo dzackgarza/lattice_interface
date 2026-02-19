@@ -3,7 +3,7 @@ import warnings
 import pytest
 
 from agent_runner import config
-from agent_runner.agents import OpenCodeAgent
+from agent_runner.agents import OpencodeAgent
 from agent_runner.errors import RateLimitUsageError
 from agent_runner.logging import build_run_context
 from agent_runner.tasks import DebugSmokeCommitTask
@@ -19,14 +19,16 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_opencode_direct():
-    agent = OpenCodeAgent(
+    agent = OpencodeAgent(
         name="opencode",
         binary=config.settings.opencode_bin,
-        subcommand="run",
+        subcommand=None,
         base_args=[],
-        env={},
+        env={"PATH": config.settings.path_prefix},
     )
-    run_ctx = build_run_context(agent_name=agent.name, task_name="debug_hello_simple", run_id="test")
+    run_ctx = build_run_context(
+        agent_name=agent.name, task_name="debug_hello_simple", run_id="test"
+    )
     try:
         result = agent.run_task(_task(), run_ctx)
         assert result.exit_code == 0
