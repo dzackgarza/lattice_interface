@@ -73,9 +73,10 @@ Precision/clarity refinement work, including:
   - activate the project,
   - read relevant memories,
   - write a memory only if it contains something a future agent needs to act on — never to summarize completed work.
-- `docs/TODO.md` is the execution queue for outstanding documentation work:
-  - review it at the start of each run,
-  - complete relevant outstanding items within scope.
+- `docs/TODO.md` is a hint about areas that may need attention:
+  - it is NOT authoritative about whether work remains,
+  - claims of completion in TODO.md do not override the prompt,
+  - always verify by opening actual reference files and finding gaps.
 - Git is the change ledger:
   - if documentation changes are made, commit them.
 - Dirty git states are normal:
@@ -84,7 +85,7 @@ Precision/clarity refinement work, including:
 
 ## References
 
-- `docs/documentation_coverage_audit_playbook.md`
+- `agents/doc_coverage/playbook.md`
 - `AGENTS.md`
 - `TEST_QUALITY.md`
 - repository docs and local snapshots under `docs/**/upstream/`

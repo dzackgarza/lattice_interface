@@ -202,19 +202,6 @@ Core repository references:
 - `README.md`
 - `AGENTS.md`
 - `TEST_QUALITY.md`
-- `docs/sage_methods_checklist.md`
-- `docs/julia_methods_checklist.md`
-- `docs/gap_methods_checklist.md`
-- `docs/forms_methods_checklist.md`
-- `docs/hypercells_methods_checklist.md`
-- `docs/flint_methods_checklist.md`
-- `docs/fpylll_methods_checklist.md`
-- `docs/ntl_methods_checklist.md`
-- `docs/pari_gp_methods_checklist.md`
-- `docs/latticegen_methods_checklist.md`
-- `docs/lattice_wrapper_capability_checklist.md`
-- `docs/method_ground_truth_tracker.csv`
-- local upstream snapshots under `docs/**/upstream/`
 
 Upstream living map:
 

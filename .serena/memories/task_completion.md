@@ -1,14 +1,14 @@
 # Task Completion Checklist
 - Determine assignment type first via `AGENTS.md`, then apply the corresponding playbook(s).
 - For documentation assignments:
-  - follow `prompt.md` and `docs/documentation_coverage_audit_playbook.md`;
-  - review `docs/TODO.md` and execute relevant outstanding items;
+  - follow `prompt.md` and `agents/doc_coverage/playbook.md`;
+  - `docs/TODO.md` is a hint about areas to investigate, not an authoritative work queue;
   - if documentation files changed, commit assignment-owned changes.
 - For code/test/runtime assignments:
-  - follow `docs/test_coverage_playbook.md`;
+  - follow `agents/test_coverage/playbook.md`;
   - run relevant tests (canonical: `just test`, or targeted Sage command) and report failures honestly.
 - For interface-contract assignments:
-  - follow `docs/interface_design_playbook.md`;
+  - follow `agents/interface_design/playbook.md`;
   - preserve mathematical/type-contract correctness over legacy compatibility.
 - Always:
   - keep changes source-backed and mathematically explicit;
