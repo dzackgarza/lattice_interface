@@ -17,4 +17,17 @@ EVERY SINGLE PACKAGE must be a real upstream source before ANY work can proceed.
 
 Completeness and provable correctness of all documented methods across all reference docs under `docs/`.
 
-All in-scope reference docs now have Sources sections and local upstream provenance. Goal 2 complete.
+### Verification status (2026-02-19)
+
+All active in-scope reference docs have been verified to have:
+- Sources sections with canonical upstream URLs
+- Local upstream provenance snapshots under `docs/*/upstream/`
+- Typed method signatures with argument/return types
+- Definiteness tags (`[PD]`, `[INDEF]`, `[ND]`, etc.) documenting domain constraints
+- Cross-references to related objects and alternative ecosystems
+
+**Sage special forms note:** BinaryQF and TernaryQF method surfaces are documented in `sage/lattice/sagemath_lattice_reference.md` (sections 6–7). The separate upstream snapshots under `sage/special_forms/*/upstream/` provide additional detail but do not represent coverage gaps.
+
+**Out-of-scope archives:** Polyhedral/toric packages (Normaliz, 4ti2, cddlib, etc.) are archived under `docs/archive/scope_violations/` and correctly excluded from active bilinear-form lattice coverage.
+
+Goal 2 complete — all in-scope bilinear-form lattice method surfaces have source-backed documentation with typed signatures and domain constraints.
