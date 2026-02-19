@@ -9,6 +9,7 @@ Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate t
 **Corrections applied (2026-02-19, follow-up pass)**:
 - GAP core reference: LLL and short-vector sections (1.2, 1.3) converted to 5-column format with source-backed argument types and return types from chap25.html; `LLLReducedBasis(...)` placeholder replaced with full optional-argument signature.
 - SageMath QuadraticForm reference: `local_representation_conditions` argument types corrected (was `—`, now `recompute_flag=False, silent_flag=False`) and critical ≥3-variable constraint added; return type corrected from `RepresentationConditions` to `LocalRepresentationConditions`.
+- GAP core reference: Section 1.1 (Normal forms and ℤ-module structure) converted to 5-column format with source-backed argument types and return types for all 20 functions; sources: matint.gd and chap25.html.
 
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
