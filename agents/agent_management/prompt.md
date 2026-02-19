@@ -50,6 +50,8 @@ Look for:
 - **Changelog memories** — Serena memories that summarize what past agents did rather than providing actionable insight for future agents; these poison subsequent runs by providing a false "done" signal
 - **Scope micromanagement** — prompts or playbooks that pre-enumerate what gaps exist, doing the agent's job for it
 - **History dependence** — task design that requires agents to read prior session state rather than examining current state directly; each run should be effectively Markov
+- **Verify-and-stop pattern** — agent picks a task, finds no gaps, declares "no gaps found" or "verification complete" instead of pivoting to a different task; caused by missing pivot instruction or task framed as verification
+- **No-task-selection** — agent invents own approach instead of using provided example tasks; caused by missing instruction to read and select from example tasks
 
 ## FOURTH GOAL (MANDATORY)
 

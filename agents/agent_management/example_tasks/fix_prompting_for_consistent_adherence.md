@@ -32,6 +32,27 @@ Agents claiming task completion after 1-3 minutes on substantial tasks. Examine 
    - Cosmetic formatting changes
    - Git diffs of only several lines on tasks meant to be substantial
 
+### Verify-And-Stop (Common in Perpetual Tasks)
+
+Agents that pick a task type, verify no gaps exist for that task, then declare success instead of pivoting. Examine transcripts for:
+
+1. **Task selection without pivot instruction**:
+   - Agent invents own approach instead of using provided example tasks
+   - No "read example tasks first" instruction in prompt
+   - No "pick one at random" guidance
+
+2. **Verification framing**:
+   - Task framed as "verify X" rather than "fix gaps in X"
+   - Last message says "no gaps found" or "verification complete"
+   - Agent treats absence of obvious problems as success
+
+3. **Missing perpetual-work framing**:
+   - No explicit statement that task has no terminal state
+   - No instruction to pivot to different task/package if current one has no gaps
+   - No "a no-commit run is a failure" rule
+
+Fix pattern: Add "Immediate Next Step" requiring example task reading, add explicit pivot instruction, frame job as "find and fix gaps" not "verify there are none".
+
 ### Churning / Timeout (Less Common)
 
 Agents that ran the full 15 minutes without completing. Check transcripts for:
