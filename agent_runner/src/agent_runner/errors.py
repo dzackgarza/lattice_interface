@@ -40,3 +40,16 @@ class AgentTimeoutError(AgentRunnerError):
         self.agent = agent
         self.task = task
         self.timeout_seconds = timeout_seconds
+
+
+class AgentConnectivityError(AgentRunnerError):
+    def __init__(self, agent: str, detail: str) -> None:
+        super().__init__(f"Agent {agent} connectivity check failed: {detail}")
+        self.agent = agent
+        self.detail = detail
+
+
+class AgentSelectionError(AgentRunnerError):
+    def __init__(self, detail: str) -> None:
+        super().__init__(f"Auto agent selection failed: {detail}")
+        self.detail = detail

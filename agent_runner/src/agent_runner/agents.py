@@ -14,7 +14,12 @@ from pydantic import BaseModel, ConfigDict
 
 from . import config
 from .agent_errors import classify_usage_limit
-from .errors import AgentMetadataError, AgentTimeoutError, RateLimitUsageError
+from .errors import (
+    AgentConnectivityError,
+    AgentMetadataError,
+    AgentTimeoutError,
+    RateLimitUsageError,
+)
 from .tasks import AgentTask
 
 TIMEOUT_SECONDS = int(os.environ.get("AGENT_RUNNER_TIMEOUT_SECONDS", "900"))  # 15 minutes default
@@ -47,17 +52,40 @@ class AgentInterface(BaseModel, ABC):
     subcommand: str | None
     base_args: list[str]
     env: Mapping[str, str]
+    quality: int
 
-    def run_task(self, task: AgentTask, run_ctx: RunContext) -> ProcessResult:
-        result = self._run_with_prompt(task.prompt_text(), task, run_ctx)
+    def run_task(
+        self, task: AgentTask, run_ctx: RunContext, timeout_seconds: int = TIMEOUT_SECONDS
+    ) -> ProcessResult:
+        result = self._run_with_prompt(task.prompt_text(), task, run_ctx, timeout_seconds)
         classified = classify_usage_limit(self.name, result.stdout)
         if classified:
             raise RateLimitUsageError(self.name, classified.message)
         return result
 
+    def check_connectivity(self, run_ctx: RunContext) -> None:
+        hello_task = AgentTask(
+            name="preflight_hello",
+            task_key="preflight_hello",
+            prompt_path=config.settings.debug_prompts()["smoke"],
+            requires_commit=False,
+        )
+        result = self._run_with_prompt(
+            hello_task.prompt_text(), hello_task, run_ctx, timeout_seconds=30
+        )
+        classified = classify_usage_limit(self.name, result.stdout)
+        if classified:
+            raise AgentConnectivityError(self.name, classified.message)
+        if result.exit_code != 0:
+            raise AgentConnectivityError(self.name, f"exit code {result.exit_code}")
+
     @abstractmethod
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,
+        run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         raise NotImplementedError
 
@@ -70,6 +98,7 @@ class AgentInterface(BaseModel, ABC):
         prompt_string: str,
         run_ctx: RunContext,
         cwd: Path | None = None,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         env = {**os.environ, **self._build_env()}
         final_args = [self.binary, *args, prompt_string]
@@ -104,7 +133,7 @@ class AgentInterface(BaseModel, ABC):
 
             reader_thread = threading.Thread(target=read_output)
             reader_thread.start()
-            reader_thread.join(timeout=TIMEOUT_SECONDS)
+            reader_thread.join(timeout=timeout_seconds)
 
             if reader_thread.is_alive():
                 timed_out = True
@@ -115,7 +144,7 @@ class AgentInterface(BaseModel, ABC):
                     reader_thread.join(timeout=2)
 
         if timed_out:
-            raise AgentTimeoutError(self.name, run_ctx.task_name, TIMEOUT_SECONDS)
+            raise AgentTimeoutError(self.name, run_ctx.task_name, timeout_seconds)
 
         # Invariant: only reachable when the process completed within TIMEOUT_SECONDS.
         # A timed-out process always raises above; proc.wait() is never called on a killed process.
@@ -126,8 +155,14 @@ class AgentInterface(BaseModel, ABC):
 
 
 class CodexAgent(AgentInterface):
+    quality: int = 90
+
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,
+        run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         last_message = run_ctx.run_dir / "last_message.txt"
         args = [
@@ -150,7 +185,9 @@ class CodexAgent(AgentInterface):
             if retcode != 0:
                 msg = "MCP server 'serena' not configured for codex"
                 raise AgentMetadataError(msg)
-        result = self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
+        result = self._run_command(
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx, timeout_seconds=timeout_seconds
+        )
         return ProcessResult(
             exit_code=result.exit_code,
             stdout=result.stdout,
@@ -159,11 +196,14 @@ class CodexAgent(AgentInterface):
 
 
 class ClaudeAgent(AgentInterface):
+    quality: int = 80
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         args = [
             "-p",
@@ -179,15 +219,19 @@ class ClaudeAgent(AgentInterface):
             prompt_string=prompt_string,
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
+            timeout_seconds=timeout_seconds,
         )
 
 
 class GeminiAgent(AgentInterface):
+    quality: int = 40
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         args = [
             "--model",
@@ -196,15 +240,20 @@ class GeminiAgent(AgentInterface):
             "json",
             "--prompt",
         ]
-        return self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
+        return self._run_command(
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx, timeout_seconds=timeout_seconds
+        )
 
 
 class OllamaAgent(AgentInterface):
+    quality: int = 50
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         model = os.environ.get("OLLAMA_MODEL", "minimax-m2.5:cloud")
         args = [
@@ -222,15 +271,19 @@ class OllamaAgent(AgentInterface):
             prompt_string=prompt_string,
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
+            timeout_seconds=timeout_seconds,
         )
 
 
 class KiloAgent(AgentInterface):
+    quality: int = 70
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         args = [
             "run",
@@ -243,15 +296,19 @@ class KiloAgent(AgentInterface):
             prompt_string=prompt_string,
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
+            timeout_seconds=timeout_seconds,
         )
 
 
 class OpencodeAgent(AgentInterface):
+    quality: int = 60
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         model = os.environ.get("OPENCODE_MODEL", "opencode/glm-5-free")
         args = [
@@ -264,15 +321,19 @@ class OpencodeAgent(AgentInterface):
             prompt_string=prompt_string,
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
+            timeout_seconds=timeout_seconds,
         )
 
 
 class QwenAgent(AgentInterface):
+    quality: int = 20
+
     def _run_with_prompt(
         self,
         prompt_string: str,
         task: AgentTask,  # noqa: ARG002
         run_ctx: RunContext,
+        timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
         model = os.environ.get("QWEN_MODEL", "coder-model")
         args = [
@@ -287,4 +348,5 @@ class QwenAgent(AgentInterface):
             prompt_string=prompt_string,
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
+            timeout_seconds=timeout_seconds,
         )

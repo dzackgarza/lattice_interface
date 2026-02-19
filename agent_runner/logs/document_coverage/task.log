@@ -161,3 +161,13 @@ last_message: {"type":"result","subtype":"success","uuid":"0aa8456d-eb72-4abd-83
 2026-02-19 20:20:03 UTC [kilo/document_coverage] elapsed=12m54s tokens=n/a files=1 loc=+2/-1
 last_message: I found and fixed a contract gap in the PARI/GP reference documentation. The `qfcholesky` function was incorrectly tagged as `[PD]` (positive-definite) in the reference doc, but the upstream PARI documentation only states "Given a square symmetric matrix M" without explicitly requiring positive-definiteness. This differs from other PARI functions like `qfisom`, `qfauto`, `qfisominit`, and `qfcvp` which explicitly state "positive definite quadratic form" in their documentation. I removed the unsupported `[PD]` tag and clarified that Cholesky decomposition mathematically succeeds only for positive (semi)definite matrices, added a source citation, and committed the fix.
 
+
+=== 2026-02-19 20:50:04 UTC [kilo/document_coverage] ===
+2026-02-19 20:50:04 UTC [kilo/document_coverage] elapsed=4m36s tokens=n/a files=1 loc=+22/-13
+last_message: The NTL reference doc was missing the `long` return type from all LLL/BKZ/LLL_plus/image method signatures - these methods return the rank `r` of the matrix, which is critical contract information for callers. Additionally, the `ComputeGS` and `NearVector` utility functions were completely absent from the reference despite existing in upstream. These gaps are now fixed with full signatures and source citations.
+
+
+=== 2026-02-19 21:20:04 UTC [kilo/document_coverage] ===
+2026-02-19 21:20:04 UTC [kilo/document_coverage] elapsed=5m58s tokens=n/a files=1 loc=+1/-1
+last_message: The `qfperfection` function in the PARI/GP reference doc was missing the `[PD]` tag required for positive-definite forms. The upstream documentation explicitly states it operates on "positive definite quadratic form" (lines 2595-2598 of the local snapshot), yet the reference only noted the rank-8 limitation without tagging the definiteness constraint. This created an inconsistency with other PARI functions like `qfisom`, `qfauto`, and `qfisominit` that properly document their PD requirements. The fix adds the `[PD]` tag and explicit constraint language, sourced from the local upstream docs.
+

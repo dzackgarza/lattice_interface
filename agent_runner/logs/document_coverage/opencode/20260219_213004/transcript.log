@@ -1,0 +1,273 @@
+[0m
+> build · glm-5-free
+[0m
+[0m⚙ [0mserena_read_file {"relative_path":"agents/doc_coverage/playbook.md"}
+[0m⚙ [0mserena_list_dir {"relative_path":"agents/doc_coverage/example_tasks","recursive":false}
+[0m⚙ [0mserena_read_file {"relative_path":"agents/doc_coverage/example_tasks/mathematical_contract_audit.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"agents/doc_coverage/example_tasks/deep_package_audit.md"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/TODO.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp_methods_checklist.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html"}
+[0m⚙ [0mserena_search_for_pattern {"substring_pattern":"qfcholesky","relative_path":"docs/pari_gp/upstream","context_lines_before":2,"context_lines_after":10}
+[0m⚙ [0mserena_search_for_pattern {"substring_pattern":"qfminim","relative_path":"docs/pari_gp/upstream","context_lines_before":2,"context_lines_after":15}
+[0m⚙ [0mserena_search_for_pattern {"substring_pattern":"qfcvp","relative_path":"docs/pari_gp/upstream","context_lines_before":2,"context_lines_after":15}
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [offset=1949, limit=100][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [offset=2390, limit=150][0m
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfisom\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfauto\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfsolve\\("}
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=80, offset=1875][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=80, offset=2176][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=60, offset=2654][0m
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfsign\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfperfection\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":25,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qfgaussred\\("}
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=40, offset=2640][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=40, offset=2590][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=70, offset=2115][0m
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qflllgram\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream","substring_pattern":"qflll\\("}
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=80, offset=2274][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=30, offset=2355][0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Current task: auditing PARI/GP reference doc for mathematical contract gaps, comparing documented signatures/tags against upstream HTML source.
+
+I've identified several gaps. Let me now fix them in the reference doc:
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -7,12 +7,14 @@
+ 
+ | Tag | Meaning |
+ |-----|---------|
+ | `[PD]` | Positive-definite assumptions |
++| `[PSD]` | Positive-semidefinite accepted (positive quadratic form, not necessarily definite) |
+ | `[INDEF]` | Indefinite-form workflow |
+ | `[ZZMOD]` | Integer/rational matrix basis setting |
+ | `[NT]` | Number-theoretic quadratic form workflows |
+ | `[RED]` | Basis reduction |
++| `[ND]` | Non-degenerate (non-zero determinant) required |
+ 
+ ---
+ 
+ ## 1. Scope
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -33,9 +33,9 @@
+ 
+ | Function | Argument Types | Return Type | Description | Tags |
+ |----------|----------------|-------------|-------------|------|
+ | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
+-| `qflllgram(G, {flag = 0})` | `G`: symmetric integer matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns reduced Gram matrix | `[PD, ZZMOD, RED]` |
++| `qflllgram(G, {flag = 0})` | `G`: symmetric real matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns transformation matrix `T` such that `x.T` is LLL-reduced. **Accepts positive quadratic forms (not necessarily definite)** — upstream states G must correspond to a positive quadratic form but x need not have maximal rank | `[PSD, ZZMOD, RED]` |
+ | `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
+ | `qfjacobi(G)` | `G`: symmetric real matrix | vector | Jacobi eigenvalue method for symmetric matrices; returns eigenvalues and eigenvectors | `[PD]` |
+ | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
+ | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -35,9 +35,9 @@
+ |----------|----------------|-------------|-------------|------|
+ | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
+ | `qflllgram(G, {flag = 0})` | `G`: symmetric real matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns transformation matrix `T` such that `x.T` is LLL-reduced. **Accepts positive quadratic forms (not necessarily definite)** — upstream states G must correspond to a positive quadratic form but x need not have maximal rank | `[PSD, ZZMOD, RED]` |
+ | `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
+-| `qfjacobi(G)` | `G`: symmetric real matrix | vector | Jacobi eigenvalue method for symmetric matrices; returns eigenvalues and eigenvectors | `[PD]` |
++| `qfjacobi(G)` | `G`: symmetric real matrix | vector `[L, V]` | Jacobi eigenvalue method for symmetric matrices; returns `L` (eigenvalues sorted increasingly) and `V` (orthogonal eigenvector matrix). **No positive-definite requirement** — upstream applies to any real symmetric matrix. Preferred over `mateigen` for symmetric matrices | `[RED]` |
+ | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
+ | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfautoexport(qfa, {flag})` | `qfa`: vector (automorphism data); `flag`: integer (optional) | vector | Export/format automorphism data | `[NT]` |
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -55,9 +55,9 @@
+ 
+ | Function | Argument Types | Return Type | Description | Tags |
+ |----------|----------------|-------------|-------------|------|
+ | `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` |
+-| `qfminimize(G)` | `G`: symmetric integer matrix | vector | Minimization helper workflow for forms | `[PD, NT]` |
++| `qfminimize(G)` | `G`: symmetric rational matrix with non-zero determinant | vector `[H, U, c]` | Minimization helper workflow for forms; returns `H = c*U~*G*U` with `H` integral and minimal determinant. **No positive-definite requirement** — upstream requires only rational coefficients and non-zero determinant | `[ND, NT]` |
+ | `qfcvp(x, t, {B}, {m}, {flag = 0})` | `x`: integer matrix (basis); `t`: integer vector (target); `B`, `m`, `flag`: optional integers | integer vector | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
+ | `qfrep(q, B, {flag = 0})` | `q`: integer; `B`: integer matrix; `flag`: integer (optional) | vector | Representation routines for quadratic forms | `[NT]` |
+ | `qfeval({q}, x, {y})` | `q`: quadratic form (optional); `x`: integer vector/matrix; `y`: integer vector (optional) | integer | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
+ | `qfnorm(x, {q})` | `x`: integer vector; `q`: quadratic form (optional) | integer | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -57,9 +57,9 @@
+ |----------|----------------|-------------|-------------|------|
+ | `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` |
+ | `qfminimize(G)` | `G`: symmetric rational matrix with non-zero determinant | vector `[H, U, c]` | Minimization helper workflow for forms; returns `H = c*U~*G*U` with `H` integral and minimal determinant. **No positive-definite requirement** — upstream requires only rational coefficients and non-zero determinant | `[ND, NT]` |
+ | `qfcvp(x, t, {B}, {m}, {flag = 0})` | `x`: integer matrix (basis); `t`: integer vector (target); `B`, `m`, `flag`: optional integers | integer vector | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
+-| `qfrep(q, B, {flag = 0})` | `q`: integer; `B`: integer matrix; `flag`: integer (optional) | vector | Representation routines for quadratic forms | `[NT]` |
++| `qfrep(q, B, {flag = 0})` | `q`: symmetric integer matrix (positive-definite); `B`: integer (bound); `flag`: integer (optional) | vector | Count vectors representing successive integers; returns vector whose i-th entry is half the count of vectors v with q(v) = i. **Requires positive-definite form** — upstream explicitly states q must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfeval({q}, x, {y})` | `q`: quadratic form (optional); `x`: integer vector/matrix; `y`: integer vector (optional) | integer | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
+ | `qfnorm(x, {q})` | `x`: integer vector; `q`: quadratic form (optional) | integer | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
+ | `qfbil(x, y, {q})` | `x`, `y`: vectors; `q`: quadratic form (optional) | integer | **OBSOLETE** - Bilinear form evaluation; superseded by `qfeval` | `[NT]` |
+ 
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -70,9 +70,9 @@
+ | Function | Argument Types | Return Type | Description | Tags |
+ |----------|----------------|-------------|-------------|------|
+ | `qfsolve(G)` | `G`: symmetric integer matrix | integer vector or 0 | Solve isotropy/zero-representation equation for form `G`; returns vector or 0 | `[INDEF, NT]` |
+ | `qfparam(G, sol, {flag = 0})` | `G`: symmetric integer matrix; `sol`: integer vector (isotropic); `flag`: integer (optional) | vector | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` |
+-| `qfsign(G)` | `G`: symmetric integer matrix | vector (3 components) | Signature-related analysis of form; returns [p, n, nullity] | `[INDEF, NT]` |
++| `qfsign(G)` | `G`: symmetric matrix | vector `[p, m]` | Signature of quadratic form; returns `p` (positive eigenvalues) and `m` (negative eigenvalues). Computed via Gaussian reduction. **No positive-definite requirement** — works for any symmetric matrix | `[INDEF, NT]` |
+ 
+ Use these for indefinite arithmetic problems where shortest-vector Euclidean workflows are not the right abstraction.
+ 
+ ---
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -80,9 +80,9 @@
+ ## 5. Binary/Low-Dimensional and Structural APIs
+ 
+ | Function | Argument Types | Return Type | Description | Tags |
+ |----------|----------------|-------------|-------------|------|
+-| `qfgaussred(q, {flag = 0})` | `q`: integer (binary form discriminant) or integer matrix; `flag`: integer (optional) | vector | Gauss reduction of binary quadratic forms | `[NT]` |
++| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U` | `[NT]` |
+ | `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` |
+ 
+ ---
+ 
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -44,11 +44,13 @@
+ | `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V`. **Requires** `G` contains `-I` (minus identity), and `V` should contain only one representative per pair `{v, -v}`; returns 0 if `G` does not stabilize `V` | `[NT]` |
+ 
+ Practical note:
+ 
+-- `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.
+-- `qfminim` and `qfcvp` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
+-- `qfauto`, `qfisom`, `qfisominit` require positive-definite forms (now tagged `[PD]` in method entries).
++- `qflllgram` accepts positive semidefinite forms (positive quadratic forms, not necessarily definite); the form need not have maximal rank.
++- `qfminim`, `qfcvp`, and `qfrep` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
++- `qfauto`, `qfisom`, `qfisominit`, `qfperfection` require positive-definite forms (tagged `[PD]` in method entries).
++- `qfminimize` requires only non-degenerate forms (non-zero determinant), not positive-definite.
++- `qfjacobi`, `qfsign`, `qfsolve`, `qfgaussred` have no positive-definite requirement.
+ 
+ ---
+ 
+ ## 3. Vector Search and Optimization APIs
+
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -102,8 +102,17 @@
+ ## 7. Sources
+ 
+ - PARI function index (stable): https://pari.math.u-bordeaux.fr/dochtml/ref-stable/function_index.html
+ - PARI vectors/matrices + qf APIs: https://pari.math.u-bordeaux.fr/dochtml/ref-stable/Vectors__matrices__linear_algebra_and_sets.html
+-- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` (§qfcholesky: no explicit PD requirement unlike qfcvp/qfminim)
++- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html`
++  - §qfcholesky (lines 1951-1956): no explicit PD requirement, returns `[]` if no solution
++  - §qfcvp (lines 1964-1975): requires positive definite; undefined behavior otherwise
++  - §qflllgram (lines 2357-2369): "positive quadratic form (not necessarily definite)" — accepts PSD
++  - §qfminim (lines 2396-2407): requires positive definite; undefined behavior otherwise
++  - §qfminimize (lines 2501-2504): requires non-zero determinant, not positive-definite
++  - §qfjacobi (lines 2238-2246): "real symmetric matrix" — no PD requirement
++  - §qfrep (lines 2614-2616): requires positive definite
++  - §qfsign (lines 2645-2648): returns [p, m] signature — no PD requirement
++  - §qfgaussred (lines 2133-2134): "Singular matrices are supported"
+ - Local provenance capture: `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
+ - PARI docs home: https://pari.math.u-bordeaux.fr/
+ - Sage PARI bridge docs for `qfsolve`/`qfparam`: https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/qfsolve.html
+
+[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 116 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/agent_management/claude/agent.log
+	modified:   agent_runner/logs/agent_management/task.log
+	modified:   agent_runner/logs/debug_hello_simple/kilo/agent.log
+	modified:   agent_runner/logs/debug_hello_simple/task.log
+	modified:   agent_runner/logs/document_coverage/kilo/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agent_runner/src/agent_runner/agents.py
+	modified:   agent_runner/src/agent_runner/errors.py
+	modified:   agent_runner/src/agent_runner/orchestrator.py
+	modified:   docs/pari_gp/lattice/pari_gp_lattice_reference.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	agent_runner/logs/agent_management/claude/20260219_204003/
+	agent_runner/logs/debug_hello_simple/claude/20260219_212816/
+	agent_runner/logs/debug_hello_simple/codex/20260219_212816/
+	agent_runner/logs/debug_hello_simple/kilo/20260219_212816/
+	agent_runner/logs/document_coverage/kilo/20260219_205004/
+	agent_runner/logs/document_coverage/kilo/20260219_212004/
+	agent_runner/logs/document_coverage/opencode/20260219_203003/metadata.json
+	agent_runner/logs/document_coverage/opencode/20260219_210003/
+	agent_runner/logs/document_coverage/opencode/20260219_213004/
+	agent_runner/logs/document_coverage/qwen/20260219_211002/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit add docs/pari_gp/lattice/pari_gp_lattice_reference.md && git commit -m "docs(pari_gp): correct domain tags and signatures for qf* methods
+
+Why: Previous doc incorrectly tagged qflllgram as [PD] when upstream allows
+positive semidefinite; qfminimize was incorrectly [PD] when only non-degenerate
+is required; qfjacobi was incorrectly [PD] when any real symmetric matrix works;
+qfrep was missing [PD] tag; qfsign return type was incorrect.
+
+Source: docs/pari_gp/upstream/vectors_matrices_linear_algebra.html
+- §qflllgram (lines 2357-2369): positive quadratic form (not necessarily definite)
+- §qfminimize (lines 2501-2504): requires non-zero determinant, not PD
+- §qfjacobi (lines 2238-2246): real symmetric matrix, no PD requirement
+- §qfrep (lines 2614-2616): requires positive definite
+- §qfsign (lines 2645-2648): returns [p, m] not [p, n, nullity]
+
+Next: Continue auditing other packages for similar contract gaps"
+[main 7996809] docs(pari_gp): correct domain tags and signatures for qf* methods
+ 1 file changed, 23 insertions(+), 10 deletions(-)
+[0m

@@ -1,0 +1,2 @@
+2026-02-19 20:50:04 UTC [kilo/document_coverage] elapsed=4m36s tokens=n/a files=1 loc=+22/-13
+last_message: The NTL reference doc was missing the `long` return type from all LLL/BKZ/LLL_plus/image method signatures - these methods return the rank `r` of the matrix, which is critical contract information for callers. Additionally, the `ComputeGS` and `NearVector` utility functions were completely absent from the reference despite existing in upstream. These gaps are now fixed with full signatures and source citations.

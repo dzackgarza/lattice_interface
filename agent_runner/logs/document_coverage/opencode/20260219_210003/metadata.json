@@ -1,0 +1,9 @@
+{
+  "agent": "opencode",
+  "classified_error": null,
+  "error": "OpencodeAgent._run_with_prompt() got an unexpected keyword argument 'timeout_seconds'",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_210003",
+  "task": "document_coverage"
+}
