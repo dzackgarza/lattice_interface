@@ -40,4 +40,4 @@ This section tracks gaps in method documentation completeness (argument surfaces
 
 ### Julia/Hecke.jl (`docs/julia_methods_checklist.md`)
 
-- [x] **Explicit Type Specifications:** Added to Construction and Intrinsic data sections in julia_lattice_methods_reference.md; remaining sections (Vector enumeration, Genus, TorQuadModule, ZZLatWithIsom) pending
+- [x] **Explicit Type Specifications:** Added to Construction and Intrinsic data sections in julia_lattice_methods_reference.md; also added to Vector enumeration (section 2.6), Genus (section 2.7), TorQuadModule (section 2.11), and ZZLatWithIsom (section 2.14) as of 2026-02-19
