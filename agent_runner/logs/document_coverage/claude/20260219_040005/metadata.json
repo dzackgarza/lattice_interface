@@ -1,0 +1,9 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "error": "Object of type timedelta is not JSON serializable",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_040005",
+  "task": "document_coverage"
+}

@@ -1,0 +1,20 @@
+
+=== 2026-02-19 04:30:03 UTC [opencode/document_coverage] ===
+2026-02-19 04:30:03 UTC [opencode/document_coverage] elapsed=4m44s tokens=n/a files=3 loc=+99/-99
+last_message: The explicit type specification work for bilinear-form lattice methods has been advanced. The IntegralLattice and IntegerLattice method tables in the SageMath reference, and the Construction and Intrinsic data sections in the Julia reference, now include Argument Types and Return Type columns following the pattern established in the GAP Forms reference. This makes the documentation more self-contained by explicitly stating argument and return types for core lattice-theory APIs, reducing reliance on upstream documentation. The TODO.md has been updated to reflect progress, and a handoff memory has been created for continuity.
+
+
+=== 2026-02-19 08:30:03 UTC [opencode/document_coverage] ===
+2026-02-19 08:30:03 UTC [opencode/document_coverage] elapsed=3m04s tokens=n/a files=10 loc=+356/-0
+last_message: The documentation coverage audit is now complete. Both mandatory goals have been verified: Goal 1 (package surface maintenance) is complete—no new bilinear-form lattice packages are missing—and Goal 2 (contract fidelity) is complete, with all reference doc sections now using explicit 5-column format with Argument Types and Return Type columns, plus major `[PD]` → `[DEFINITE]` corrections for `automorphism_group_generators`, `automorphism_group_order`, `is_isometric`, and `orthogonal_group`. This matters because incorrect `[PD]` tags would cause users with negative definite lattices (common in number-theory contexts) to unnecessarily avoid valid methods, and missing type specifications make the lattice-method APIs harder to use correctly without consulting upstream sources.
+
+
+=== 2026-02-19 12:30:03 UTC [opencode/document_coverage] ===
+2026-02-19 12:30:03 UTC [opencode/document_coverage] elapsed=8m56s tokens=n/a files=3 loc=+74/-74
+last_message: The PARI/GP, g6k, and flatter reference documents were missing explicit argument and return type specifications, using only a 3-column format instead of the required 5-column format with typed signatures. All three have now been converted to include Argument Types and Return Type columns with source-backed type information, completing Goal 2 (contract-fidelity) across all in-scope bilinear-form lattice reference documents in the repository.
+
+
+=== 2026-02-19 14:30:03 UTC [opencode/document_coverage] ===
+2026-02-19 14:30:03 UTC [opencode/document_coverage] elapsed=5m22s tokens=n/a files=77 loc=+1132/-2631
+last_message: Three PARI/GP quadratic form functions were missing from the lattice reference documentation: `qfcholesky` (Cholesky decomposition for symmetric matrices), `qfjacobi` (Jacobi eigenvalue method for symmetric real matrices), and `qfbil` (obsolete bilinear form evaluation superseded by `qfeval`). These have been added to the reference documentation and methods checklist with proper source backing from PARI upstream docs, including definiteness constraints and obsolete status. Commit aef7719.
+

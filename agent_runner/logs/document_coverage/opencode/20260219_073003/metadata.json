@@ -1,0 +1,9 @@
+{
+  "agent": "opencode",
+  "classified_error": null,
+  "error": "No git commits detected during agent run for opencode/document_coverage.",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_073003",
+  "task": "document_coverage"
+}

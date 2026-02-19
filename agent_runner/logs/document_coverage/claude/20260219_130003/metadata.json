@@ -1,0 +1,29 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "2d89e98d06eaddfe2b642d948cd7b3f4795f1115",
+      "date": "2026-02-19T13:07:11+00:00",
+      "subject": "docs: fix short_vectors, shortest_vectors, and integer_genera contracts in Julia references"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 5,
+  "dry_run": false,
+  "elapsed_seconds": 443.382293,
+  "end_time": "2026-02-19T13:07:26.567943+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md",
+    "docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md"
+  ],
+  "insertions": 4,
+  "last_message": "Three contract errors were present in the Julia lattice references and are now corrected: `short_vectors` and `shortest_vectors` in the main Oscar/Hecke reference lacked the `elem_type` and `check` parameters confirmed by upstream (the missing `check` parameter is especially significant because it defaults to `true` and governs whether definiteness is validated before enumeration, so callers relying on the old signature would not know the function silently accepts an `even=false` default and can raise errors on indefinite input). The `integer_genera` entry used a placeholder `...` rather than naming its keyword arguments `min_scale`, `max_scale`, and `even`, and the secondary Hecke reference additionally documented the default of `even` as `true` when upstream confirms it is `false`. This matters because a caller trusting the old documentation would assume odd-lattice enumeration is off by default, when in fact both even and odd lattices are included unless `even=true` is explicitly passed.",
+  "requires_commit": true,
+  "run_id": "20260219_130003",
+  "start_time": "2026-02-19T13:00:03.185650+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

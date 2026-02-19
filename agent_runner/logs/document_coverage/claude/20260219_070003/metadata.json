@@ -1,0 +1,29 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "2adf0d47426b32bf12455b9edc35b598ad69debb",
+      "date": "2026-02-19T07:12:46+00:00",
+      "subject": "docs: complete explicit type specifications for all Julia lattice reference sections"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 175,
+  "dry_run": false,
+  "elapsed_seconds": 796.412434,
+  "end_time": "2026-02-19T07:13:19.650240+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md"
+  ],
+  "insertions": 185,
+  "last_message": "The Julia reference previously marked all type-spec work as \"complete\" in TODO.md but left eleven sections (2.2, 2.5, 2.8\u20132.10, 2.12\u20132.13, 2.15\u20132.18) in the original 3-column format without argument or return types. All eleven sections now have explicit type specifications sourced from embedded signatures, local upstream snapshots, and the known Oscar/Hecke API \u2014 including precise sentinel return shapes for `is_isometric_with_isometry`, the `{+1,-1}` range for Hasse/Witt invariants, the `TorQuadModuleWithIsom` constructor type union, and the `Tuple{MatGroup, GAPGroupHomomorphism}` return for stabilizer methods. This matters because downstream users and test writers need accurate, structured type contracts to implement correct wrappers and integration tests without having to consult the full upstream source.",
+  "requires_commit": true,
+  "run_id": "20260219_070003",
+  "start_time": "2026-02-19T07:00:03.237806+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

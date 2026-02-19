@@ -1,0 +1,420 @@
+Loaded cached credentials.
+Error executing tool list_directory: Path not in workspace: Attempted path "/home/dzack/lattice_interface" resolves outside the allowed workspace directories: /home/dzack/lattice_interface/agent_runner or the project temp directory: /home/dzack/.gemini/tmp/agent-runner
+Error executing tool run_shell_command: Tool "run_shell_command" not found. Did you mean one of: "grep_search", "cli_help", "read_file"?
+Error executing tool read_file: Path not in workspace: Attempted path "/home/dzack/lattice_interface/docs/TODO.md" resolves outside the allowed workspace directories: /home/dzack/lattice_interface/agent_runner or the project temp directory: /home/dzack/.gemini/tmp/agent-runner
+Error executing tool activate_skill: Tool execution denied by policy.
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async LocalAgentExecutor.callModel (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/agents/local-executor.js:482:26) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.2/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"5c9f7d247a0e9-cli_help-ygctsv#9","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena and how do I read its memories for this project?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX/tNl5tAbnubRSvATCGPlLUdqOnjXBHBd+1KWcNxKfYKYQGPPWtfpYYdf9C3aOCS0Gahb5BVkqVaEA5R6Z1sGMz5dqXXdb/muQDrzfggjX4dkJjvAG57e5ih1oMNe69cDGCwBCfXMeksgk56xHSAauY7C8sydNzEJpwjYdk5QonmCyAKaQGPPWtf7SlFjx5eg6kJiK9y8vaxqC5AR6aWcQooydVWcTdVF+947Of+p7pAZVYe4T+jRqdLhyCoLBypbCAkHtppTSf3d6d6liWgf1TGYehItomq3Fi3ZO74BMltbWwuM/3TLc/JvvqK0Qp4AY89a18HDQFtlST0kBwYXWNyeyuApT7ylFh88tKzBK/QNks4e26lSGt4Bg9jW7rplgE1GI6f/MvtfU2Vj7PFeb6Xz0AQR+TT5kGXpHR328gx/l+8XYUBxWaUk4UIFpyDZuVy+UTmi5wULZxjdQKagk5Gt3UUK1xx","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiMBjz1rX1Gw9WLct2yH8Xr7fhyVtmKl7qtau7+n2Uk+z7489wpfAY89a19ea/u6Om90HqNAIArXy6ONI2kYx5GKyaRF5H2FTIDwoWFj8DqcgS/nhGlCcI4mh3PuN5NNmXhi9+mRn0/KKQhzxBoTeXxUGAsfEs0eluh8WeINyNWGfJT38kwKbwGPPWtf5Wdz8yHQe9eNf+eCg8OJs4wz7AWw05tI1sMXBRKcfujlXAGebLLu8vjVTwPzx/6akTYD0xBMs+LvBR4VNVlY9hdhDqV0SoGqbhJloR7LM8mjld762PuMk8dgy+LQD1NjmjT+kQidXQmUaAqiAQGPPWtfGtvEqdPP/vAfg4DZ3fgnGqqxkz6wQ0KHdTYhv0DZdvGnYJbeljYGN6HyqWtFxG6o34SEHsYlt/hY1b3mypETafeaJ9cTnJ0Jq01gaU0318oHxkinUhoQJ96UpMJetZ2v7CYeMMq/aSvG4EzGDK4ecNZ3MSmc9jc6ZUubcNFPcpstNRUuzRRQ4U2qV2MohbyiclNVDBPqtL9Qa4z/3wrPAQGPPWtfd4M3fNKojScOKN1IEHOlZsItkxzln9cj37h+Qr9ilN44qacfkOHfV1D0B0kzEarFi+fKzXUXcoHKwU2EPOpjeMwLd8IO9dO1dFPAkLEkaO8weKly+TNY0q/bDEIDloACkzy2PfWIil80c8sxZrysGLAYjK27+KkTlp4L+EHemBqeMDQxJLenpMnjgDGli+gX+zyvFGEcBvolOOzyD9kxR2u27wgbR4hGnIBjbFvGMJtQ1zjUPaPkKVugou/4KaZim0UTFhCjyQ24/QqCAgGPPWtfBWrAmPEhswTERey9iImTDbmQWjMFDhDPkJWg+8BY4nTRU3du+tc55AmW4zOc62wPIHZ/65eS5Y/X9rbBIEkd07Mg2ZaOx+Fs2H1SJTHqrJtIpDiSP3SkgQDrE6jaSki3F5bZkS5Rs8U8bh+65Luah8oba7zWk1dfNENPhQHH5pFVaoOgg9SOLrqtnUXsF6a/6Ho5rkCcObvmIAU/WG0wnIPM5j4eHx85n761D7P4JhOPB9NYj3z+aca3hm4gQSwhdVFDylUrCX61rWQ5Gi5MmSC5xfeK7Inc2FmAi6t7pjxuUJGaQeQS41X3rEqoXIKF6jVc7fa1ea4k0tjkIAqIAgGPPWtfdOBpptWAjgsxv3hBsoYe71WdbNMFzTxPUC1VwCosdrhOeajTiBx+Ts1qTW1l4bR4fpZgFgB++NMYCL890uhj3iwlRriaPw4k/NUXz19CPkQo1cXB8wDSCRnnl4pZ6xTM3HeM9Xe3DhQoU5DYIw8IsEujqXI4Ya7oK4YViypLvMVtE7jLxJPVemio7YVYpI+gpwwma65KfQvPVBFipJWrlmjXf2r9DZbthuvuhcIBYHzLvLamKs9SvxX5vC5qbHTUyba5xZJIHpJqr3rZdOIO8ZwbGlcVXLRh+MmNjvBI6+hR4dRdpT9CRY+sybcn57ojnK1dlOKAWj1795mG0TjsscoNhQrJAQGPPWtfYbBuEjMxdpxPiK8KsAJnEq+q0Qfg3y4cZY7KxqE/g2AquPad9wmPehTCQsB2h3+Cx2/syKFe1bfyS4JBYsDoO0H3cE77dgkx26U5m/RW0M6HRcIiZcpopfiVZfrXh4ilOoKNZZWH0ApNYluWlQdVpTrkPgprc831cQlWi6tRk+0u6KY3SF5Bv1VYU9Falx5uplSfdMo78I3dPbrYY57HSFrB/s3US1mNWSgC9qkn7u0WEhQ5q7kMUZRA8ccdbrASqhzN+w==","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"agents.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"cli/commands.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#3-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiUBjz1rX899krE9IckxJ6marwY7P8OQL3tsJIwnLiwK3L3wtngMCm4Bjz1rX5ydbPNnxLkUXXADkVeBYqoIFhIB9/5rQdcH+unOsXTwMn11LcrcweloZusoKJdVE7KUAD7k5Zxh2BzplPBxWBrjB7R74ijBa3XVzRGw1A7kOuolAxdy771/oQ9hl49LFwl9Jsg11w0A2wpjAY89a18wR5okFMChdDbvj4jM8l5tPsxhpAI0EkMezBQAUIdFrFnM5PvqmAnXrcc3U7bS8iFLCaw21K+TNfBsKUnudJZXsJF4bNnFVMNKQ+QJK/caItJyhMPMqk6XcVov/6/VCpEBAY89a196Wt+GePYCrdCsAThJmxhAmW5zZsTR6xRvILsj6/gN8LC23sy2qKIwobLh528n+843Qxk6F7p/WdPOgfRFdsV9AfSHbwmHFKS0NPa1/++di+5IRxg1zqIfdenxxjoA2ERsqxh3pGAVQDHCqZ331oPFTowMtDnKKM4yNyM8YXaJO+nMy9XMMEkBaO72jAq/AQGPPWtf7sUiRmkBWpzK2Ji6tp+1HWDwRdOJM55BB9nNCH4noWnI3fBmYwkTT11XpAFBeD8cqqj3z4JrFftHQQ+6xBcmVtDIAgmzGfeNP7Qkkl7VrSONSVEmpr6uX/6VPJVr9rKyvZsbe4ar1aBzDakFg3AZzmSzmXn/k30MvvxeLKCLD2hN7boVxmUTbHirifWNAGkya9G/DjWoX9RpqqaYvEeL9ERiTDRYi07STHDC/E48ylvGS0gyf6dafOqJCsUBAY89a1+WFnoF8Z+z5br6B8hRY6U4wUo0My8BYLHijjXc11iPoqyzj/dF66X/W2kZFnG1iGyrzd1d5ohGzz02gvegMDxcjlzhAX/EKEFYKXK+POwoQ1pmn3vYrkJHjexpmGJ2W52YUKyBtWNLUq4PUOSVdPIS4HIxSjQltlje18P2RPKo9BlStspc1L7STtSxOhC4zvGRGq/WnpwFTpRmilpnf6/zBDwMXMCyZnfja1//P7ZEr6MH4DuE81BX//EpynuTj9wK0wEBjz1rXxqqaLEo18Az4lndXMz2oyMfKkXuKJTl352OS4sp4PFwQzULVj0qSCWqOEcuSTHTR+L'... 51678 more characters,
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"5c9f7d247a0e9-cli_help-ygctsv#9","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena and how do I read its memories for this project?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX/tNl5tAbnubRSvATCGPlLUdqOnjXBHBd+1KWcNxKfYKYQGPPWtfpYYdf9C3aOCS0Gahb5BVkqVaEA5R6Z1sGMz5dqXXdb/muQDrzfggjX4dkJjvAG57e5ih1oMNe69cDGCwBCfXMeksgk56xHSAauY7C8sydNzEJpwjYdk5QonmCyAKaQGPPWtf7SlFjx5eg6kJiK9y8vaxqC5AR6aWcQooydVWcTdVF+947Of+p7pAZVYe4T+jRqdLhyCoLBypbCAkHtppTSf3d6d6liWgf1TGYehItomq3Fi3ZO74BMltbWwuM/3TLc/JvvqK0Qp4AY89a18HDQFtlST0kBwYXWNyeyuApT7ylFh88tKzBK/QNks4e26lSGt4Bg9jW7rplgE1GI6f/MvtfU2Vj7PFeb6Xz0AQR+TT5kGXpHR328gx/l+8XYUBxWaUk4UIFpyDZuVy+UTmi5wULZxjdQKagk5Gt3UUK1xx","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiMBjz1rX1Gw9WLct2yH8Xr7fhyVtmKl7qtau7+n2Uk+z7489wpfAY89a19ea/u6Om90HqNAIArXy6ONI2kYx5GKyaRF5H2FTIDwoWFj8DqcgS/nhGlCcI4mh3PuN5NNmXhi9+mRn0/KKQhzxBoTeXxUGAsfEs0eluh8WeINyNWGfJT38kwKbwGPPWtf5Wdz8yHQe9eNf+eCg8OJs4wz7AWw05tI1sMXBRKcfujlXAGebLLu8vjVTwPzx/6akTYD0xBMs+LvBR4VNVlY9hdhDqV0SoGqbhJloR7LM8mjld762PuMk8dgy+LQD1NjmjT+kQidXQmUaAqiAQGPPWtfGtvEqdPP/vAfg4DZ3fgnGqqxkz6wQ0KHdTYhv0DZdvGnYJbeljYGN6HyqWtFxG6o34SEHsYlt/hY1b3mypETafeaJ9cTnJ0Jq01gaU0318oHxkinUhoQJ96UpMJetZ2v7CYeMMq/aSvG4EzGDK4ecNZ3MSmc9jc6ZUubcNFPcpstNRUuzRRQ4U2qV2MohbyiclNVDBPqtL9Qa4z/3wrPAQGPPWtfd4M3fNKojScOKN1IEHOlZsItkxzln9cj37h+Qr9ilN44qacfkOHfV1D0B0kzEarFi+fKzXUXcoHKwU2EPOpjeMwLd8IO9dO1dFPAkLEkaO8weKly+TNY0q/bDEIDloACkzy2PfWIil80c8sxZrysGLAYjK27+KkTlp4L+EHemBqeMDQxJLenpMnjgDGli+gX+zyvFGEcBvolOOzyD9kxR2u27wgbR4hGnIBjbFvGMJtQ1zjUPaPkKVugou/4KaZim0UTFhCjyQ24/QqCAgGPPWtfBWrAmPEhswTERey9iImTDbmQWjMFDhDPkJWg+8BY4nTRU3du+tc55AmW4zOc62wPIHZ/65eS5Y/X9rbBIEkd07Mg2ZaOx+Fs2H1SJTHqrJtIpDiSP3SkgQDrE6jaSki3F5bZkS5Rs8U8bh+65Luah8oba7zWk1dfNENPhQHH5pFVaoOgg9SOLrqtnUXsF6a/6Ho5rkCcObvmIAU/WG0wnIPM5j4eHx85n761D7P4JhOPB9NYj3z+aca3hm4gQSwhdVFDylUrCX61rWQ5Gi5MmSC5xfeK7Inc2FmAi6t7pjxuUJGaQeQS41X3rEqoXIKF6jVc7fa1ea4k0tjkIAqIAgGPPWtfdOBpptWAjgsxv3hBsoYe71WdbNMFzTxPUC1VwCosdrhOeajTiBx+Ts1qTW1l4bR4fpZgFgB++NMYCL890uhj3iwlRriaPw4k/NUXz19CPkQo1cXB8wDSCRnnl4pZ6xTM3HeM9Xe3DhQoU5DYIw8IsEujqXI4Ya7oK4YViypLvMVtE7jLxJPVemio7YVYpI+gpwwma65KfQvPVBFipJWrlmjXf2r9DZbthuvuhcIBYHzLvLamKs9SvxX5vC5qbHTUyba5xZJIHpJqr3rZdOIO8ZwbGlcVXLRh+MmNjvBI6+hR4dRdpT9CRY+sybcn57ojnK1dlOKAWj1795mG0TjsscoNhQrJAQGPPWtfYbBuEjMxdpxPiK8KsAJnEq+q0Qfg3y4cZY7KxqE/g2AquPad9wmPehTCQsB2h3+Cx2/syKFe1bfyS4JBYsDoO0H3cE77dgkx26U5m/RW0M6HRcIiZcpopfiVZfrXh4ilOoKNZZWH0ApNYluWlQdVpTrkPgprc831cQlWi6tRk+0u6KY3SF5Bv1VYU9Falx5uplSfdMo78I3dPbrYY57HSFrB/s3US1mNWSgC9qkn7u0WEhQ5q7kMUZRA8ccdbrASqhzN+w==","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"agents.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"cli/commands.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#3-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiUBjz1rX899krE9IckxJ6marwY7P8OQL3tsJIwnLiwK3L3wtngMCm4Bjz1rX5ydbPNnxLkUXXADkVeBYqoIFhIB9/5rQdcH+unOsXTwMn11LcrcweloZusoKJdVE7KUAD7k5Zxh2BzplPBxWBrjB7R74ijBa3XVzRGw1A7kOuolAxdy771/oQ9hl49LFwl9Jsg11w0A2wpjAY89a18wR5okFMChdDbvj4jM8l5tPsxhpAI0EkMezBQAUIdFrFnM5PvqmAnXrcc3U7bS8iFLCaw21K+TNfBsKUnudJZXsJF4bNnFVMNKQ+QJK/caItJyhMPMqk6XcVov/6/VCpEBAY89a196Wt+GePYCrdCsAThJmxhAmW5zZsTR6xRvILsj6/gN8LC23sy2qKIwobLh528n+843Qxk6F7p/WdPOgfRFdsV9AfSHbwmHFKS0NPa1/++di+5IRxg1zqIfdenxxjoA2ERsqxh3pGAVQDHCqZ331oPFTowMtDnKKM4yNyM8YXaJO+nMy9XMMEkBaO72jAq/AQGPPWtf7sUiRmkBWpzK2Ji6tp+1HWDwRdOJM55BB9nNCH4noWnI3fBmYwkTT11XpAFBeD8cqqj3z4JrFftHQQ+6xBcmVtDIAgmzGfeNP7Qkkl7VrSONSVEmpr6uX/6VPJVr9rKyvZsbe4ar1aBzDakFg3AZzmSzmXn/k30MvvxeLKCLD2hN7boVxmUTbHirifWNAGkya9G/DjWoX9RpqqaYvEeL9ERiTDRYi07STHDC/E48ylvGS0gyf6dafOqJCsUBAY89a1+WFnoF8Z+z5br6B8hRY6U4wUo0My8BYLHijjXc11iPoqyzj/dF66X/W2kZFnG1iGyrzd1d5ohGzz02gvegMDxcjlzhAX/EKEFYKXK+POwoQ1pmn3vYrkJHjexpmGJ2W52YUKyBtWNLUq4PUOSVdPIS4HIxSjQltlje18P2RPKo9BlStspc1L7STtSxOhC4zvGRGq/WnpwFTpRmilpnf6/zBDwMXMCyZnfja1//P7ZEr6MH4DuE81BX//EpynuTj9wK0wEBjz1rXxqqaLEo18Az4lndXMz2oyMfKkXuKJTl352OS4sp4PFwQzULVj0qSCWqOEcuSTHTR+L'... 51678 more characters,
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 04:47:20 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=7460',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': 'f63802ced5164f0c',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 2 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async LocalAgentExecutor.callModel (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/agents/local-executor.js:482:26) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.2/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"5c9f7d247a0e9-cli_help-ygctsv#9","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena and how do I read its memories for this project?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX/tNl5tAbnubRSvATCGPlLUdqOnjXBHBd+1KWcNxKfYKYQGPPWtfpYYdf9C3aOCS0Gahb5BVkqVaEA5R6Z1sGMz5dqXXdb/muQDrzfggjX4dkJjvAG57e5ih1oMNe69cDGCwBCfXMeksgk56xHSAauY7C8sydNzEJpwjYdk5QonmCyAKaQGPPWtf7SlFjx5eg6kJiK9y8vaxqC5AR6aWcQooydVWcTdVF+947Of+p7pAZVYe4T+jRqdLhyCoLBypbCAkHtppTSf3d6d6liWgf1TGYehItomq3Fi3ZO74BMltbWwuM/3TLc/JvvqK0Qp4AY89a18HDQFtlST0kBwYXWNyeyuApT7ylFh88tKzBK/QNks4e26lSGt4Bg9jW7rplgE1GI6f/MvtfU2Vj7PFeb6Xz0AQR+TT5kGXpHR328gx/l+8XYUBxWaUk4UIFpyDZuVy+UTmi5wULZxjdQKagk5Gt3UUK1xx","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiMBjz1rX1Gw9WLct2yH8Xr7fhyVtmKl7qtau7+n2Uk+z7489wpfAY89a19ea/u6Om90HqNAIArXy6ONI2kYx5GKyaRF5H2FTIDwoWFj8DqcgS/nhGlCcI4mh3PuN5NNmXhi9+mRn0/KKQhzxBoTeXxUGAsfEs0eluh8WeINyNWGfJT38kwKbwGPPWtf5Wdz8yHQe9eNf+eCg8OJs4wz7AWw05tI1sMXBRKcfujlXAGebLLu8vjVTwPzx/6akTYD0xBMs+LvBR4VNVlY9hdhDqV0SoGqbhJloR7LM8mjld762PuMk8dgy+LQD1NjmjT+kQidXQmUaAqiAQGPPWtfGtvEqdPP/vAfg4DZ3fgnGqqxkz6wQ0KHdTYhv0DZdvGnYJbeljYGN6HyqWtFxG6o34SEHsYlt/hY1b3mypETafeaJ9cTnJ0Jq01gaU0318oHxkinUhoQJ96UpMJetZ2v7CYeMMq/aSvG4EzGDK4ecNZ3MSmc9jc6ZUubcNFPcpstNRUuzRRQ4U2qV2MohbyiclNVDBPqtL9Qa4z/3wrPAQGPPWtfd4M3fNKojScOKN1IEHOlZsItkxzln9cj37h+Qr9ilN44qacfkOHfV1D0B0kzEarFi+fKzXUXcoHKwU2EPOpjeMwLd8IO9dO1dFPAkLEkaO8weKly+TNY0q/bDEIDloACkzy2PfWIil80c8sxZrysGLAYjK27+KkTlp4L+EHemBqeMDQxJLenpMnjgDGli+gX+zyvFGEcBvolOOzyD9kxR2u27wgbR4hGnIBjbFvGMJtQ1zjUPaPkKVugou/4KaZim0UTFhCjyQ24/QqCAgGPPWtfBWrAmPEhswTERey9iImTDbmQWjMFDhDPkJWg+8BY4nTRU3du+tc55AmW4zOc62wPIHZ/65eS5Y/X9rbBIEkd07Mg2ZaOx+Fs2H1SJTHqrJtIpDiSP3SkgQDrE6jaSki3F5bZkS5Rs8U8bh+65Luah8oba7zWk1dfNENPhQHH5pFVaoOgg9SOLrqtnUXsF6a/6Ho5rkCcObvmIAU/WG0wnIPM5j4eHx85n761D7P4JhOPB9NYj3z+aca3hm4gQSwhdVFDylUrCX61rWQ5Gi5MmSC5xfeK7Inc2FmAi6t7pjxuUJGaQeQS41X3rEqoXIKF6jVc7fa1ea4k0tjkIAqIAgGPPWtfdOBpptWAjgsxv3hBsoYe71WdbNMFzTxPUC1VwCosdrhOeajTiBx+Ts1qTW1l4bR4fpZgFgB++NMYCL890uhj3iwlRriaPw4k/NUXz19CPkQo1cXB8wDSCRnnl4pZ6xTM3HeM9Xe3DhQoU5DYIw8IsEujqXI4Ya7oK4YViypLvMVtE7jLxJPVemio7YVYpI+gpwwma65KfQvPVBFipJWrlmjXf2r9DZbthuvuhcIBYHzLvLamKs9SvxX5vC5qbHTUyba5xZJIHpJqr3rZdOIO8ZwbGlcVXLRh+MmNjvBI6+hR4dRdpT9CRY+sybcn57ojnK1dlOKAWj1795mG0TjsscoNhQrJAQGPPWtfYbBuEjMxdpxPiK8KsAJnEq+q0Qfg3y4cZY7KxqE/g2AquPad9wmPehTCQsB2h3+Cx2/syKFe1bfyS4JBYsDoO0H3cE77dgkx26U5m/RW0M6HRcIiZcpopfiVZfrXh4ilOoKNZZWH0ApNYluWlQdVpTrkPgprc831cQlWi6tRk+0u6KY3SF5Bv1VYU9Falx5uplSfdMo78I3dPbrYY57HSFrB/s3US1mNWSgC9qkn7u0WEhQ5q7kMUZRA8ccdbrASqhzN+w==","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"agents.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"cli/commands.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#3-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiUBjz1rX899krE9IckxJ6marwY7P8OQL3tsJIwnLiwK3L3wtngMCm4Bjz1rX5ydbPNnxLkUXXADkVeBYqoIFhIB9/5rQdcH+unOsXTwMn11LcrcweloZusoKJdVE7KUAD7k5Zxh2BzplPBxWBrjB7R74ijBa3XVzRGw1A7kOuolAxdy771/oQ9hl49LFwl9Jsg11w0A2wpjAY89a18wR5okFMChdDbvj4jM8l5tPsxhpAI0EkMezBQAUIdFrFnM5PvqmAnXrcc3U7bS8iFLCaw21K+TNfBsKUnudJZXsJF4bNnFVMNKQ+QJK/caItJyhMPMqk6XcVov/6/VCpEBAY89a196Wt+GePYCrdCsAThJmxhAmW5zZsTR6xRvILsj6/gN8LC23sy2qKIwobLh528n+843Qxk6F7p/WdPOgfRFdsV9AfSHbwmHFKS0NPa1/++di+5IRxg1zqIfdenxxjoA2ERsqxh3pGAVQDHCqZ331oPFTowMtDnKKM4yNyM8YXaJO+nMy9XMMEkBaO72jAq/AQGPPWtf7sUiRmkBWpzK2Ji6tp+1HWDwRdOJM55BB9nNCH4noWnI3fBmYwkTT11XpAFBeD8cqqj3z4JrFftHQQ+6xBcmVtDIAgmzGfeNP7Qkkl7VrSONSVEmpr6uX/6VPJVr9rKyvZsbe4ar1aBzDakFg3AZzmSzmXn/k30MvvxeLKCLD2hN7boVxmUTbHirifWNAGkya9G/DjWoX9RpqqaYvEeL9ERiTDRYi07STHDC/E48ylvGS0gyf6dafOqJCsUBAY89a1+WFnoF8Z+z5br6B8hRY6U4wUo0My8BYLHijjXc11iPoqyzj/dF66X/W2kZFnG1iGyrzd1d5ohGzz02gvegMDxcjlzhAX/EKEFYKXK+POwoQ1pmn3vYrkJHjexpmGJ2W52YUKyBtWNLUq4PUOSVdPIS4HIxSjQltlje18P2RPKo9BlStspc1L7STtSxOhC4zvGRGq/WnpwFTpRmilpnf6/zBDwMXMCyZnfja1//P7ZEr6MH4DuE81BX//EpynuTj9wK0wEBjz1rXxqqaLEo18Az4lndXMz2oyMfKkXuKJTl352OS4sp4PFwQzULVj0qSCWqOEcuSTHTR+L'... 51678 more characters,
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"5c9f7d247a0e9-cli_help-ygctsv#9","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena and how do I read its memories for this project?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX/tNl5tAbnubRSvATCGPlLUdqOnjXBHBd+1KWcNxKfYKYQGPPWtfpYYdf9C3aOCS0Gahb5BVkqVaEA5R6Z1sGMz5dqXXdb/muQDrzfggjX4dkJjvAG57e5ih1oMNe69cDGCwBCfXMeksgk56xHSAauY7C8sydNzEJpwjYdk5QonmCyAKaQGPPWtf7SlFjx5eg6kJiK9y8vaxqC5AR6aWcQooydVWcTdVF+947Of+p7pAZVYe4T+jRqdLhyCoLBypbCAkHtppTSf3d6d6liWgf1TGYehItomq3Fi3ZO74BMltbWwuM/3TLc/JvvqK0Qp4AY89a18HDQFtlST0kBwYXWNyeyuApT7ylFh88tKzBK/QNks4e26lSGt4Bg9jW7rplgE1GI6f/MvtfU2Vj7PFeb6Xz0AQR+TT5kGXpHR328gx/l+8XYUBxWaUk4UIFpyDZuVy+UTmi5wULZxjdQKagk5Gt3UUK1xx","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiMBjz1rX1Gw9WLct2yH8Xr7fhyVtmKl7qtau7+n2Uk+z7489wpfAY89a19ea/u6Om90HqNAIArXy6ONI2kYx5GKyaRF5H2FTIDwoWFj8DqcgS/nhGlCcI4mh3PuN5NNmXhi9+mRn0/KKQhzxBoTeXxUGAsfEs0eluh8WeINyNWGfJT38kwKbwGPPWtf5Wdz8yHQe9eNf+eCg8OJs4wz7AWw05tI1sMXBRKcfujlXAGebLLu8vjVTwPzx/6akTYD0xBMs+LvBR4VNVlY9hdhDqV0SoGqbhJloR7LM8mjld762PuMk8dgy+LQD1NjmjT+kQidXQmUaAqiAQGPPWtfGtvEqdPP/vAfg4DZ3fgnGqqxkz6wQ0KHdTYhv0DZdvGnYJbeljYGN6HyqWtFxG6o34SEHsYlt/hY1b3mypETafeaJ9cTnJ0Jq01gaU0318oHxkinUhoQJ96UpMJetZ2v7CYeMMq/aSvG4EzGDK4ecNZ3MSmc9jc6ZUubcNFPcpstNRUuzRRQ4U2qV2MohbyiclNVDBPqtL9Qa4z/3wrPAQGPPWtfd4M3fNKojScOKN1IEHOlZsItkxzln9cj37h+Qr9ilN44qacfkOHfV1D0B0kzEarFi+fKzXUXcoHKwU2EPOpjeMwLd8IO9dO1dFPAkLEkaO8weKly+TNY0q/bDEIDloACkzy2PfWIil80c8sxZrysGLAYjK27+KkTlp4L+EHemBqeMDQxJLenpMnjgDGli+gX+zyvFGEcBvolOOzyD9kxR2u27wgbR4hGnIBjbFvGMJtQ1zjUPaPkKVugou/4KaZim0UTFhCjyQ24/QqCAgGPPWtfBWrAmPEhswTERey9iImTDbmQWjMFDhDPkJWg+8BY4nTRU3du+tc55AmW4zOc62wPIHZ/65eS5Y/X9rbBIEkd07Mg2ZaOx+Fs2H1SJTHqrJtIpDiSP3SkgQDrE6jaSki3F5bZkS5Rs8U8bh+65Luah8oba7zWk1dfNENPhQHH5pFVaoOgg9SOLrqtnUXsF6a/6Ho5rkCcObvmIAU/WG0wnIPM5j4eHx85n761D7P4JhOPB9NYj3z+aca3hm4gQSwhdVFDylUrCX61rWQ5Gi5MmSC5xfeK7Inc2FmAi6t7pjxuUJGaQeQS41X3rEqoXIKF6jVc7fa1ea4k0tjkIAqIAgGPPWtfdOBpptWAjgsxv3hBsoYe71WdbNMFzTxPUC1VwCosdrhOeajTiBx+Ts1qTW1l4bR4fpZgFgB++NMYCL890uhj3iwlRriaPw4k/NUXz19CPkQo1cXB8wDSCRnnl4pZ6xTM3HeM9Xe3DhQoU5DYIw8IsEujqXI4Ya7oK4YViypLvMVtE7jLxJPVemio7YVYpI+gpwwma65KfQvPVBFipJWrlmjXf2r9DZbthuvuhcIBYHzLvLamKs9SvxX5vC5qbHTUyba5xZJIHpJqr3rZdOIO8ZwbGlcVXLRh+MmNjvBI6+hR4dRdpT9CRY+sybcn57ojnK1dlOKAWj1795mG0TjsscoNhQrJAQGPPWtfYbBuEjMxdpxPiK8KsAJnEq+q0Qfg3y4cZY7KxqE/g2AquPad9wmPehTCQsB2h3+Cx2/syKFe1bfyS4JBYsDoO0H3cE77dgkx26U5m/RW0M6HRcIiZcpopfiVZfrXh4ilOoKNZZWH0ApNYluWlQdVpTrkPgprc831cQlWi6tRk+0u6KY3SF5Bv1VYU9Falx5uplSfdMo78I3dPbrYY57HSFrB/s3US1mNWSgC9qkn7u0WEhQ5q7kMUZRA8ccdbrASqhzN+w==","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"agents.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"cli/commands.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"5c9f7d247a0e9-cli_help-ygctsv#3-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiUBjz1rX899krE9IckxJ6marwY7P8OQL3tsJIwnLiwK3L3wtngMCm4Bjz1rX5ydbPNnxLkUXXADkVeBYqoIFhIB9/5rQdcH+unOsXTwMn11LcrcweloZusoKJdVE7KUAD7k5Zxh2BzplPBxWBrjB7R74ijBa3XVzRGw1A7kOuolAxdy771/oQ9hl49LFwl9Jsg11w0A2wpjAY89a18wR5okFMChdDbvj4jM8l5tPsxhpAI0EkMezBQAUIdFrFnM5PvqmAnXrcc3U7bS8iFLCaw21K+TNfBsKUnudJZXsJF4bNnFVMNKQ+QJK/caItJyhMPMqk6XcVov/6/VCpEBAY89a196Wt+GePYCrdCsAThJmxhAmW5zZsTR6xRvILsj6/gN8LC23sy2qKIwobLh528n+843Qxk6F7p/WdPOgfRFdsV9AfSHbwmHFKS0NPa1/++di+5IRxg1zqIfdenxxjoA2ERsqxh3pGAVQDHCqZ331oPFTowMtDnKKM4yNyM8YXaJO+nMy9XMMEkBaO72jAq/AQGPPWtf7sUiRmkBWpzK2Ji6tp+1HWDwRdOJM55BB9nNCH4noWnI3fBmYwkTT11XpAFBeD8cqqj3z4JrFftHQQ+6xBcmVtDIAgmzGfeNP7Qkkl7VrSONSVEmpr6uX/6VPJVr9rKyvZsbe4ar1aBzDakFg3AZzmSzmXn/k30MvvxeLKCLD2hN7boVxmUTbHirifWNAGkya9G/DjWoX9RpqqaYvEeL9ERiTDRYi07STHDC/E48ylvGS0gyf6dafOqJCsUBAY89a1+WFnoF8Z+z5br6B8hRY6U4wUo0My8BYLHijjXc11iPoqyzj/dF66X/W2kZFnG1iGyrzd1d5ohGzz02gvegMDxcjlzhAX/EKEFYKXK+POwoQ1pmn3vYrkJHjexpmGJ2W52YUKyBtWNLUq4PUOSVdPIS4HIxSjQltlje18P2RPKo9BlStspc1L7STtSxOhC4zvGRGq/WnpwFTpRmilpnf6/zBDwMXMCyZnfja1//P7ZEr6MH4DuE81BX//EpynuTj9wK0wEBjz1rXxqqaLEo18Az4lndXMz2oyMfKkXuKJTl352OS4sp4PFwQzULVj0qSCWqOEcuSTHTR+L'... 51678 more characters,
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 04:47:31 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=6819',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '2216cd63acf44cd0',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 3 failed: No capacity available for model gemini-3-flash-preview on the server. Max attempts reached
+Error executing tool cli_help: Subagent Failed: cli_help
+Error: No capacity available for model gemini-3-flash-preview on the server
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.2/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 04:47:42 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=333',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '8d50777c4aa9b55c',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 2 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.2/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        

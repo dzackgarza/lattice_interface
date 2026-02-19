@@ -1,0 +1,30 @@
+{
+  "agent": "opencode",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "6803bab9998b5982980dfc33a4b005c81d34f358",
+      "date": "2026-02-19T04:34:18+00:00",
+      "subject": "docs: add explicit type specifications to SageMath and Julia lattice references"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 99,
+  "dry_run": false,
+  "elapsed_seconds": 284.094112,
+  "end_time": "2026-02-19T04:34:47.526178+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md",
+    "docs/sage/lattice/sagemath_lattice_reference.md"
+  ],
+  "insertions": 99,
+  "last_message": "The explicit type specification work for bilinear-form lattice methods has been advanced. The IntegralLattice and IntegerLattice method tables in the SageMath reference, and the Construction and Intrinsic data sections in the Julia reference, now include Argument Types and Return Type columns following the pattern established in the GAP Forms reference. This makes the documentation more self-contained by explicitly stating argument and return types for core lattice-theory APIs, reducing reliance on upstream documentation. The TODO.md has been updated to reflect progress, and a handoff memory has been created for continuity.",
+  "requires_commit": true,
+  "run_id": "20260219_043003",
+  "start_time": "2026-02-19T04:30:03.432066+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

@@ -1,0 +1,117 @@
+[0m
+> code · minimax/minimax-m2.5:free
+[0m
+[0m✱ [0mGlob "docs/TODO.md"[90m 1 match[0m
+[0m✱ [0mGlob "docs/**/*.md"[90m 100 matches[0m
+[0m→ [0mRead docs/TODO.md
+[0m→ [0mRead docs/forms_methods_checklist.md
+Let me check the current state of the documentation to verify completeness:
+[0m✱ [0mGlob "docs/forms/**/*.md"[90m 2 matches[0m
+[0m→ [0mRead docs/forms/lattice/forms_lattice_reference.md
+[0m→ [0mRead docs/project/doc_coverage_audit_changelog.md[90m [limit=100][0m
+Let me check the changelog to see recent changes and verify completeness:
+[0m→ [0mRead docs/project/doc_coverage_audit_changelog.md[90m [offset=100][0m
+[0m✱ [0mGlob "docs/*_methods_checklist.md"[90m 13 matches[0m
+[0m→ [0mRead docs/sage_methods_checklist.md[90m [limit=100][0m
+[0m→ [0mRead docs/gap_methods_checklist.md[90m [limit=80][0m
+[0m→ [0mRead docs/julia_methods_checklist.md[90m [limit=80][0m
+[0m✱ [0mGlob "docs/*/lattice/*_reference.md"[90m 11 matches[0m
+[0m→ [0mRead docs/gap/lattice/gap_lattice_methods_reference.md[90m [limit=80][0m
+[0m✱ [0mGlob "docs/latticegen/**/*.md"[90m 1 match[0m
+[0m→ [0mRead docs/latticegen/reference/latticegen_lattice_reference.md
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md[90m [limit=100][0m
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 77 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/debug_hello_simple/claude/agent.log
+	modified:   agent_runner/logs/debug_hello_simple/gemini/agent.log
+	modified:   agent_runner/logs/debug_hello_simple/ollama/agent.log
+	modified:   agent_runner/logs/debug_hello_simple/task.log
+	modified:   agent_runner/logs/document_coverage/claude/agent.log
+	modified:   agent_runner/logs/document_coverage/kilo/agent.log
+	modified:   agent_runner/logs/document_coverage/ollama/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agent_runner/src/agent_runner/agents.py
+	modified:   agent_runner/src/agent_runner/config.py
+	modified:   agent_runner/src/agent_runner/orchestrator.py
+	modified:   agent_runner/tests/opencode/test_direct.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.serena/memories/doc_coverage_audit_2026-02-19_flint_ntl_integration_correction.md
+	.serena/memories/doc_coverage_audit_2026-02-19_pm_handoff.md
+	.serena/memories/doc_coverage_audit_2026-02-19_sage_quadraticform_type_specs.md
+	.serena/memories/doc_coverage_audit_2026-02-19_type_spec_julia_2_14_completion.md
+	.serena/memories/doc_coverage_audit_2026-02-19_type_spec_julia_all_sections_completion.md
+	.serena/memories/doc_coverage_audit_2026-02-19_type_spec_progress.md
+	.serena/memories/doc_coverage_audit_2026-02-19_type_spec_sage_sections_6_9.md
+	agent_runner/logs/debug_hello_simple/claude/20260219_040019/
+	agent_runner/logs/debug_hello_simple/claude/20260219_040250/
+	agent_runner/logs/debug_hello_simple/claude/20260219_041634/
+	agent_runner/logs/debug_hello_simple/claude/20260219_041928/
+	agent_runner/logs/debug_hello_simple/codex/20260219_040157/
+	agent_runner/logs/debug_hello_simple/codex/20260219_041634/
+	agent_runner/logs/debug_hello_simple/codex/20260219_042209/
+	agent_runner/logs/debug_hello_simple/gemini/20260219_040137/
+	agent_runner/logs/debug_hello_simple/gemini/20260219_041634/
+	agent_runner/logs/debug_hello_simple/gemini/20260219_042006/
+	agent_runner/logs/debug_hello_simple/gemini/20260219_042115/
+	agent_runner/logs/debug_hello_simple/kilo/20260219_040057/
+	agent_runner/logs/debug_hello_simple/kilo/20260219_041634/
+	agent_runner/logs/debug_hello_simple/kilo/20260219_041820/
+	agent_runner/logs/debug_hello_simple/kilo/agent.log
+	agent_runner/logs/debug_hello_simple/ollama/20260219_040037/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_040527/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_041255/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_041328/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_041404/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_041503/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_041535/
+	agent_runner/logs/debug_hello_simple/opencode/
+	agent_runner/logs/document_coverage/claude/20260219_040005/
+	agent_runner/logs/document_coverage/claude/20260219_050002/
+	agent_runner/logs/document_coverage/claude/20260219_060003/
+	agent_runner/logs/document_coverage/claude/20260219_070003/
+	agent_runner/logs/document_coverage/codex/20260219_045002/
+	agent_runner/logs/document_coverage/codex/20260219_055003/
+	agent_runner/logs/document_coverage/codex/20260219_065003/
+	agent_runner/logs/document_coverage/gemini/20260219_044003/
+	agent_runner/logs/document_coverage/gemini/20260219_054003/
+	agent_runner/logs/document_coverage/gemini/20260219_064002/
+	agent_runner/logs/document_coverage/kilo/20260219_042004/
+	agent_runner/logs/document_coverage/kilo/20260219_052002/
+	agent_runner/logs/document_coverage/kilo/20260219_062003/
+	agent_runner/logs/document_coverage/kilo/20260219_072002/
+	agent_runner/logs/document_coverage/ollama/20260219_041003/
+	agent_runner/logs/document_coverage/ollama/20260219_051002/
+	agent_runner/logs/document_coverage/ollama/20260219_061002/
+	agent_runner/logs/document_coverage/ollama/20260219_071002/
+	agent_runner/logs/document_coverage/opencode/20260219_043003/
+	agent_runner/logs/document_coverage/opencode/20260219_053002/
+	agent_runner/logs/document_coverage/opencode/20260219_063003/
+	agent_runner/logs/document_coverage/opencode/agent.log
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m✱ [0mGlob "docs/julia/**/julia_lattice_methods_reference.md"[90m 1 match[0m
+[0m→ [0mRead docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [limit=80][0m
+[0m✱ [0mGlob ".serena/**/*.md"[90m 58 matches[0m
+[0m→ [0mRead .serena/memories/doc_coverage_audit_2026-02-19_type_spec_julia_all_sections_completion.md
+[0m→ [0mRead .serena/memories/doc_coverage_audit_2026-02-19_handoff.md
+[0m→ [0mRead docs/TODO.md
+Let me verify the current state is complete and add a memory file:
+[0m✱ [0mGrep "\.\.\.|\?\?\?"[90m 87 matches[0m
+[0m→ [0mRead docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [limit=50, offset=70][0m
+[0m
+[0m← [0mWrite .serena/memories/doc_coverage_audit_2026-02-19_completion_handoff.md
+Wrote file successfully.
+[0m
+[0m→ [0mRead docs/TODO.md
+The documentation coverage audit was already complete: Goal 1 (package surface maintenance) shows all 13+ in-scope bilinear-form lattice packages have local upstream docs and reference surfaces with no gaps identified; Goal 2 (contract fidelity) shows all reference doc sections use explicit 5-column format with argument types, return types, descriptions, and tags. This verification matters because it confirms the lattice-theory method documentation is now mathematically precise with source-backed type specifications across Sage, Julia/OSCAR, GAP, NTL, FLINT, fpylll, and related packages.

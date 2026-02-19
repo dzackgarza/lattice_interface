@@ -1,0 +1,29 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "b324a7d60ab9f264b5c4ed3b12eead78ffa28c27",
+      "date": "2026-02-19T12:06:03+00:00",
+      "subject": "docs: convert GAP core section 1.1 to 5-column format with source-backed type specs"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 22,
+  "dry_run": false,
+  "elapsed_seconds": 390.150831,
+  "end_time": "2026-02-19T12:06:33.007221+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/gap/lattice/gap_lattice_methods_reference.md"
+  ],
+  "insertions": 23,
+  "last_message": "GAP core section 1.1 was missing the standard 5-column type-specification format that sections 1.2 and 1.3 already had; all 20 integer-matrix normal-form functions (`NullspaceIntMat`, `SolutionIntMat`, `HNF`/`SNF` variants, `NormalFormIntMat`, `ComplementIntMat`, `Decomposition`, etc.) lacked explicit argument types and return types. This is now corrected with types sourced directly from `matint.gd` and `chap25.html`, bringing the section into compliance with the project's contract-fidelity standard and ensuring callers can determine without consulting upstream what each function accepts and returns.",
+  "requires_commit": true,
+  "run_id": "20260219_120002",
+  "start_time": "2026-02-19T12:00:02.856390+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

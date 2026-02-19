@@ -1,0 +1,9 @@
+{
+  "agent": "gemini",
+  "classified_error": "timeout",
+  "error": "Agent gemini timed out after 900s for task document_coverage",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_104002",
+  "task": "document_coverage"
+}

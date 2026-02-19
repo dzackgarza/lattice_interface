@@ -1,0 +1,2 @@
+2026-02-19 12:30:03 UTC [opencode/document_coverage] elapsed=8m56s tokens=n/a files=3 loc=+74/-74
+last_message: The PARI/GP, g6k, and flatter reference documents were missing explicit argument and return type specifications, using only a 3-column format instead of the required 5-column format with typed signatures. All three have now been converted to include Argument Types and Return Type columns with source-backed type information, completing Goal 2 (contract-fidelity) across all in-scope bilinear-form lattice reference documents in the repository.

@@ -1,0 +1,9 @@
+{
+  "agent": "kilo",
+  "classified_error": null,
+  "error": "No git commits detected during agent run for kilo/document_coverage.",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_082003",
+  "task": "document_coverage"
+}

@@ -1,0 +1,2 @@
+2026-02-19 04:18:53 UTC [opencode/debug_hello_simple] elapsed=0m21s tokens=n/a files=0 loc=+0/-0
+last_message: Hello!

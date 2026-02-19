@@ -1,0 +1,30 @@
+{
+  "agent": "opencode",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "56e00719171dc23c9f93625d788b653bc4082ceb",
+      "date": "2026-02-19T12:38:12+00:00",
+      "subject": "Add explicit type specifications to PARI/GP, g6k, and flatter references"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 74,
+  "dry_run": false,
+  "elapsed_seconds": 536.211122,
+  "end_time": "2026-02-19T12:38:59.984339+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/flatter/lattice/flatter_lattice_reference.md",
+    "docs/g6k/lattice/g6k_lattice_reference.md",
+    "docs/pari_gp/lattice/pari_gp_lattice_reference.md"
+  ],
+  "insertions": 74,
+  "last_message": "The PARI/GP, g6k, and flatter reference documents were missing explicit argument and return type specifications, using only a 3-column format instead of the required 5-column format with typed signatures. All three have now been converted to include Argument Types and Return Type columns with source-backed type information, completing Goal 2 (contract-fidelity) across all in-scope bilinear-form lattice reference documents in the repository.",
+  "requires_commit": true,
+  "run_id": "20260219_123003",
+  "start_time": "2026-02-19T12:30:03.773217+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}
