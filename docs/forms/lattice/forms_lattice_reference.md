@@ -112,3 +112,5 @@ Workflow caveat:
 - Forms manual TOC: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
 - Forms manual chapter 4: `https://gap-packages.github.io/forms/doc/chap4_mj.html`
 - Forms manual chapter 5: `https://gap-packages.github.io/forms/doc/chap5_mj.html`
+- Local upstream snapshot (provenance): `docs/forms/upstream/forms_online_provenance_2026-02-17.md`
+- Local upstream chapters: `docs/forms/upstream/chap4_mj.html`, `docs/forms/upstream/chap5_mj.html` (type/characteristic caveats verified from these files)

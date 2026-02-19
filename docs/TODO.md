@@ -4,29 +4,26 @@ This file tracks the prerequisite state for building complete documentation.
 Reference docs (`docs/*/lattice/*.md`) track method surfaces with source-backed signatures.
 Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate task.
 
-**STATUS (2026-02-19)**: Goal 1 NOT COMPLETE - 8 packages missing local doc integration.
+**STATUS (2026-02-19)**: Goal 1 COMPLETE - all in-scope packages have verified local upstream docs. Goal 2 active.
 
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
 Local upstream docs under `docs/**/upstream/` are required before contract-fidelity work can proceed.
 
-### Packages needing integration
-
-- [ ] flint (has .rst files under upstream/, needs integration check)
-- [ ] GAP core (core GAP docs)
-- [ ] NTL (has .txt/.cpp.html files under upstream/, needs integration check)
-- [ ] fpylll (partial - needs completion)
-- [ ] forms (GAP package - partial)
-- [ ] g6k (partial)
-- [ ] crystallographic_stack (partial)
-- [ ] pari_gp (partial)
-
-### Packages with integrated local docs (complete)
+### Packages with integrated local docs (all complete)
 
 - [x] hypercells (full chapter snapshots)
 - [x] flatter (README and example profiles)
 - [x] SageMath (integral lattice docs)
 - [x] Oscar/Hecke (Julia lattice docs)
+- [x] flint (fmpz_lll.rst + fmpz_mat.rst integrated; signatures verified and corrected 2026-02-19)
+- [x] NTL (LLL.txt + mat_ZZ.txt integrated; signatures verified and corrected 2026-02-19)
+- [x] GAP core (matint.xml, chap24/25/26.html and related sources present under upstream/)
+- [x] fpylll (.pyx source files + online provenance snapshot present; reference doc verified)
+- [x] forms (chap1-5 HTML files present; reference doc covers all major API surfaces)
+- [x] g6k (siever.pyx + README + algorithms/*.py present; reference doc verified)
+- [x] crystallographic_stack (cryst/caratinterface/crystcat .gd and .tex files present; reference verified)
+- [x] pari_gp (HTML upstream sections present; reference doc covers qf* API surface)
 
 
 ## Goal 2: Contract-Fidelity Work (Post-Integration)
