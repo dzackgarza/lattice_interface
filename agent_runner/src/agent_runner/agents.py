@@ -208,3 +208,21 @@ class OllamaAgent(AgentInterface):
             run_ctx=run_ctx,
             cwd=config.settings.repo_root,
         )
+
+
+class KiloAgent(AgentInterface):
+    def _run_with_prompt(
+        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+    ) -> ProcessResult:
+        args = [
+            "run",
+            "--auto",
+            "-m",
+            "kilo/minimax/minimax-m2.5:free",
+        ]
+        return self._run_command(
+            args=args,
+            prompt_string=prompt_string,
+            run_ctx=run_ctx,
+            cwd=config.settings.repo_root,
+        )
