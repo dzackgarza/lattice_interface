@@ -16,6 +16,11 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `fmpz_lll_is_reduced(B, fl)`
 - [ ] `fmpz_mat_is_reduced(A, fl)`
   - Caveat: low-level floating variants (`fmpz_lll_d`, `fmpz_lll_mpf`) are documented as potentially returning non-reduced output in some cases.
+- [ ] `fmpz_mat_is_reduced_gram(A, delta, eta)`
+- [ ] `fmpz_mat_is_reduced_with_removal(A, delta, eta, gs_B, newd)`
+- [ ] `fmpz_mat_is_reduced_gram_with_removal(A, delta, eta, gs_B, newd)`
+- [ ] `fmpz_mat_lll_original(A, delta, eta)`
+- [ ] `fmpz_mat_lll_storjohann(A, delta, eta)`
 
 ## 2. Hermite Normal Form
 

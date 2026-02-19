@@ -9,9 +9,17 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 - [ ] `LLL(ZZ& det2, mat_ZZ& B, long verbose=0)`
 - [ ] `LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)`
+- [ ] `LLL(ZZ& det2, mat_ZZ& B, long a, long b, long verbose=0)`
+  - Caveat: explicit rational δ = a/b parameterization; not the default δ=0.99 variant.
+- [ ] `LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)`
+  - Caveat: explicit rational δ = a/b parameterization with transformation matrix.
 - [ ] `LLL_plus(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)`
 - [ ] `image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)`
 - [ ] `LatticeSolve(vec_ZZ& x, const mat_ZZ& A, const vec_ZZ& y, long reduce=0)`
+- [ ] `ComputeGS(const mat_ZZ& B, mat_RR& mu, vec_RR& c)`
+  - Caveat: Gram-Schmidt orthogonalization computation; outputs mu coefficients and squared lengths.
+- [ ] `NearVector(vec_ZZ& w, const mat_ZZ& B, const vec_ZZ& a)`
+  - Caveat: finds vector w ∈ B*Z such that w ≡ a (mod B*Z); CVP-like nearest vector to given target.
 
 ## 2. Floating LLL and BKZ Families
 

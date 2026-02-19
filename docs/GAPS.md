@@ -6,34 +6,24 @@ Gaps between upstream doc snapshots and checklist entries. Only upstream docs an
 
 Methods present in local upstream snapshots but absent from the corresponding checklist.
 
-### FLINT
-
-5 lattice-relevant `fmpz_mat` functions in `upstream/fmpz_mat.rst` not in `flint_methods_checklist.md`:
-
-- `fmpz_mat_lll_original(B, U, fl)`
-- `fmpz_mat_lll_storjohann(B, U, fl)`
-- `fmpz_mat_is_reduced_gram(A, fl)`
-- `fmpz_mat_is_reduced_gram_with_removal(A, gs_B, fl)`
-- `fmpz_mat_is_reduced_with_removal(A, gs_B, fl)`
-
 ### NTL
 
 3 functions in `upstream/LLL.txt` not in `ntl_methods_checklist.md`:
 
-- `ComputeGS(B, mu, c)` — Gram–Schmidt computation
-- `NearVector(w, B, a)` — nearest vector (CVP-like)
-- `LLL(det2, B, a, b, ...)` — LLL with explicit rational δ = a/b (overload variants)
+- `ComputeGS(B, mu, c)` — Gram–Schmidt computation - FIXED: added with exact signature
+- `NearVector(w, B, a)` — nearest vector (CVP-like) - FIXED: added with exact signature
+- `LLL(det2, B, a, b, ...)` — LLL with explicit rational δ = a/b (overload variants) - FIXED: added with exact signatures
 
 ### PARI/GP
 
 6 functions in `upstream/vectors_matrices_linear_algebra.html` not in `pari_gp_methods_checklist.md`:
 
-- `mathnf` — Hermite normal form
-- `mathnfmod` — HNF with modular algorithm
-- `mathnfmodid` — HNF mod ideal
-- `matsnf` — Smith normal form
-- `qfgaussred_positive` — Gaussian reduction (positive definite variant)
-- `qfvec` — vector of short vectors
+- `mathnf` — Hermite normal form - FIXED: added with flags documentation
+- `mathnfmod` — HNF with modular algorithm - FIXED: added
+- `mathnfmodid` — HNF mod ideal - FIXED: added
+- `matsnf` — Smith normal form - FIXED: added with flags documentation
+- `qfgaussred_positive` — Gaussian reduction (positive definite variant) - REMOVED: appears to be internal library function, not documented as user-facing GP function
+- `qfvec` — vector of short vectors - REMOVED: appears to be "forqfvec" iterator, not a direct function
 
 ## Gap 2: Upstream docs referenced in readmes but not locally copied
 

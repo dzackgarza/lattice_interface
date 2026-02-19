@@ -48,6 +48,17 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: singular matrices supported; no positive-definite requirement.
 - [ ] `qfperfection(G)`
 
+## 5. Matrix Normal Forms (HNF/SNF)
+
+- [ ] `mathnf(M, {flag = 0})`
+  - Caveat: returns upper triangular Hermite normal form; flags 0, 1, 4, 5 control algorithm and output format.
+- [ ] `mathnfmod(x, d)`
+  - Caveat: modular HNF algorithm using determinant multiple `d`; less memory than mathnf.
+- [ ] `mathnfmodid(x, d)`
+  - Caveat: HNF modulo ideal `d`; returns unimodular matrix.
+- [ ] `matsnf(X, {flag = 0})`
+  - Caveat: returns Smith normal form elementary divisors; flags control complete output and cleanup.
+
 ---
 
 ## Definiteness and Domain Caveats
