@@ -209,78 +209,78 @@ All Cartan types accepted by `CartanMatrix()` work.
 `[INT, ND]` unless otherwise noted.
 
 ### Intrinsic data
-| Method | Description | Tags |
-|--------|-------------|------|
-| `gram_matrix()` | Gram matrix of current basis: B·M·Bᵀ where B = `basis_matrix()` and M = `inner_product_matrix()` | |
-| `inner_product_matrix()` | Gram matrix of ambient space | |
-| `inner_product(u, v)` | Bilinear form value b(u,v) for lattice elements u, v; alias: `b(u, v)` | |
-| `basis_matrix()` | Rows form current basis | |
-| `degree()` | Dimension of ambient space | |
-| `rank()` | Rank of lattice | |
-| `is_positive_definite()` | Positive definite test | `[PD]` |
-| `is_negative_definite()` | Negative definite test | |
-| `is_definite()` | Positive or negative definite | |
-| `is_indefinite()` | Indefinite test | `[INDEF]` |
-| `is_even()` | All (x,x) ∈ 2ℤ | |
-| `is_unimodular()` | \|det(Gram)\| = 1 | |
-| `signature_pair()` | (p, n) count of ±1 eigenvalues | `[INDEF ok]` |
-| `signature()` | p − n | `[INDEF ok]` |
-| `discriminant()` | det(Gram) | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `gram_matrix()` | — | `Matrix<Integer>` | Gram matrix of current basis: B·M·Bᵀ where B = `basis_matrix()` and M = `inner_product_matrix()` | |
+| `inner_product_matrix()` | — | `Matrix<Integer>` | Gram matrix of ambient space | |
+| `inner_product(u, v)` | `u, v`: vector elements | `Integer` | Bilinear form value b(u,v) for lattice elements u, v; alias: `b(u, v)` | |
+| `basis_matrix()` | — | `Matrix<Integer>` | Rows form current basis | |
+| `degree()` | — | `Integer` | Dimension of ambient space | |
+| `rank()` | — | `Integer` | Rank of lattice | |
+| `is_positive_definite()` | — | `bool` | Positive definite test | `[PD]` |
+| `is_negative_definite()` | — | `bool` | Negative definite test | |
+| `is_definite()` | — | `bool` | Positive or negative definite | |
+| `is_indefinite()` | — | `bool` | Indefinite test | `[INDEF]` |
+| `is_even()` | — | `bool` | All (x,x) ∈ 2ℤ | |
+| `is_unimodular()` | — | `bool` | \|det(Gram)\| = 1 | |
+| `signature_pair()` | — | `tuple<Integer, Integer>` | (p, n) count of ±1 eigenvalues | `[INDEF ok]` |
+| `signature()` | — | `Integer` | p − n | `[INDEF ok]` |
+| `discriminant()` | — | `Integer` | det(Gram) | |
 
 ### Structural operations
-| Method | Description | Tags |
-|--------|-------------|------|
-| `direct_sum(other)` | Orthogonal direct sum | |
-| `sublattice(basis)` | Sublattice spanned by vectors; must be integral | `[INT]` |
-| `overlattice(gens)` | Overlattice spanned by L ∪ gens | `[RAT]` |
-| `tensor_product(other)` | Tensor product | |
-| `dual_lattice()` | L∨ = {x ∈ L⊗ℚ : (x,ℓ) ∈ ℤ ∀ℓ} | |
-| `orthogonal_complement(M)` | Orthogonal complement of M in L; M is a submodule or list of vectors | |
-| `discriminant_group(s=0)` | L∨/L as TorsionQuadraticModule; s-primary part if s≠0 | |
-| `change_basis(M)` | Lattice with new basis matrix M | |
-| `maximal_overlattice(p=None)` | Maximal even integral overlattice; if p given, maximise only at p | `[EVEN if p=None or p=2]` |
-| `is_primitive(M)` | Whether submodule M is primitive (L/M is torsion-free) | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `direct_sum(other)` | `other`: `IntegralLattice` | `IntegralLattice` | Orthogonal direct sum | |
+| `sublattice(basis)` | `basis`: `Matrix` or list | `IntegralLattice` | Sublattice spanned by vectors; must be integral | `[INT]` |
+| `overlattice(gens)` | `gens`: `Matrix` or list | `IntegralLattice` | Overlattice spanned by L ∪ gens | `[RAT]` |
+| `tensor_product(other)` | `other`: `IntegralLattice` | `IntegralLattice` | Tensor product | |
+| `dual_lattice()` | — | `FreeQuadraticModule` | L∨ = {x ∈ L⊗ℚ : (x,ℓ) ∈ ℤ ∀ℓ} | |
+| `orthogonal_complement(M)` | `M`: submodule or list | `FreeQuadraticModule` | Orthogonal complement of M in L; M is a submodule or list of vectors | |
+| `discriminant_group(s=0)` | `s`: `Integer` (optional) | `TorsionQuadraticModule` | L∨/L as TorsionQuadraticModule; s-primary part if s≠0 | |
+| `change_basis(M)` | `M`: `Matrix` | `IntegralLattice` | Lattice with new basis matrix M | |
+| `maximal_overlattice(p=None)` | `p`: prime (optional) | `IntegralLattice` | Maximal even integral overlattice; if p given, maximise only at p | `[EVEN if p=None or p=2]` |
+| `is_primitive(M)` | `M`: submodule or list | `bool` | Whether submodule M is primitive (L/M is torsion-free) | |
 
 ### Arithmetic / Vector enumeration
-| Method | Description | Tags |
-|--------|-------------|------|
-| `lll()` / `LLL()` | Return new LLL-reduced `IntegralLattice`; `lll` is alias for `LLL`; works on indefinite examples in the official docs | |
-| `enumerate_short_vectors()` | Iterator over all non-zero vectors (mod sign); uses lattice inner product; **does not guarantee non-decreasing norm order** — a vector of larger norm may be yielded before one of smaller norm (Sage 10.3+) | |
-| `enumerate_close_vectors(target)` | Iterator over lattice vectors closest to `target`; **does not guarantee non-decreasing distance order** — the first element yielded is not guaranteed to be the closest (Sage 10.3+) | |
-| `short_vectors(n)` | List of vectors x with (x,x) ≤ n | `[PD, PARI]` |
-| `minimum()` / `min()` | min{(x,x) : x ∈ L \ {0}}; finite for PD, −∞ otherwise | |
-| `maximum()` / `max()` | max{(x,x) : x ∈ L \ {0}}; finite for negative definite, +∞ otherwise | |
-| `twist(n, discard_basis=False)` | New lattice with form scaled by n | `[INDEF ok]` |
-| `genus()` | `Genus` object of this lattice | `[ND]` |
-| `theta_series(prec)` | Theta series Σ q^{(x,x)/2} | `[PD, PARI]` |
-| `quadratic_form()` | `QuadraticForm` from Gram matrix | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `lll()` / `LLL()` | — | `IntegralLattice` | Return new LLL-reduced `IntegralLattice`; `lll` is alias for `LLL`; works on indefinite examples in the official docs | |
+| `enumerate_short_vectors()` | — | `iterator` | Iterator over all non-zero vectors (mod sign); uses lattice inner product; **does not guarantee non-decreasing norm order** — a vector of larger norm may be yielded before one of smaller norm (Sage 10.3+) | |
+| `enumerate_close_vectors(target)` | `target`: vector | `iterator` | Iterator over lattice vectors closest to `target`; **does not guarantee non-decreasing distance order** — the first element yielded is not guaranteed to be the closest (Sage 10.3+) | |
+| `short_vectors(n)` | `n`: `Integer` | `list<tuple>` | List of vectors x with (x,x) ≤ n | `[PD, PARI]` |
+| `minimum()` / `min()` | — | `Integer` | min{(x,x) : x ∈ L \ {0}}; finite for PD, −∞ otherwise | |
+| `maximum()` / `max()` | — | `Integer` | max{(x,x) : x ∈ L \ {0}}; finite for negative definite, +∞ otherwise | |
+| `twist(n, discard_basis=False)` | `n`: scalar, `discard_basis`: `bool` (optional) | `IntegralLattice` | New lattice with form scaled by n | `[INDEF ok]` |
+| `genus()` | — | `Genus` | `Genus` object of this lattice | `[ND]` |
+| `theta_series(prec)` | `prec`: `Integer` | `power series` | Theta series Σ q^{(x,x)/2} | `[PD, PARI]` |
+| `quadratic_form()` | — | `QuadraticForm` | `QuadraticForm` from Gram matrix | |
 
 ### Symmetry
-| Method | Description | Tags |
-|--------|-------------|------|
-| `orthogonal_group(gens, is_finite)` | Matrix group of isometries of ambient space preserving L; generators computed automatically if `gens=None` | `[DEFINITE — indefinite raises NotImplementedError]` |
-| `automorphisms(gens, is_finite)` | Alias for `orthogonal_group()` | `[DEFINITE]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `orthogonal_group(gens, is_finite)` | `gens`: `Matrix` list (optional), `is_finite`: `bool` | `MatrixGroup` | Matrix group of isometries of ambient space preserving L; generators computed automatically if `gens=None` | `[DEFINITE — indefinite raises NotImplementedError]` |
+| `automorphisms(gens, is_finite)` | `gens`: `Matrix` list (optional), `is_finite`: `bool` | `MatrixGroup` | Alias for `orthogonal_group()` | `[DEFINITE]` |
 
 ---
 
 ## 4. `IntegerLattice` / `FreeModule_submodule_with_basis_integer` Methods
 Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bilinear form fixed by embedding; indefinite lattices impossible. All algorithms work with the form induced by the embedding, producing new bases for the same lattice.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `LLL(*args, **kwds)` | LLL basis reduction; **returns new basis matrix** AND updates `self.reduced_basis` in-place; passes all args to `Matrix.LLL()` | `[FPLLL]` |
-| `BKZ(*args, **kwds)` | BKZ basis reduction; returns matrix, updates `self.reduced_basis`; passes args to `Matrix.BKZ()` (e.g. `block_size=`) | `[FPLLL]` |
-| `HKZ(*args, **kwds)` | Hermite-Korkine-Zolotarev reduction; equivalent to `BKZ(block_size=self.rank())` | `[FPLLL]` |
-| `shortest_vector()` | Exact shortest vector (SVP) | `[FPLLL]` |
-| `closest_vector(t)` | Exact closest vector to target t (CVP) | `[FPLLL]` |
-| `approximate_closest_vector(t, delta=None, algorithm='embedding', ...)` | Approx CVP; runs LLL if not already δ-reduced; `algorithm`: `'embedding'`, `'nearest_plane'` (Babai), `'rounding_off'` | |
-| `babai(target, *args, **kwds)` | Babai nearest-plane approximation to CVP; convenience wrapper around reduction data | `[FPLLL]` |
-| `update_reduced_basis(*args, **kwds)` | Refresh cached reduced basis used by approximate-CVP helpers | `[FPLLL]` |
-| `discriminant()` | det(B·Bᵀ) | |
-| `volume()` | Covolume of the lattice in the ambient Euclidean space | |
-| `reduced_basis` | Property: current basis matrix after last reduction call | |
-| `voronoi_cell()` | Voronoi cell as a polytope | `[PD]` |
-| `voronoi_relevant_vectors()` | Vectors defining Voronoi cell facets | `[PD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `LLL(*args, **kwds)` | `*args, **kwds`: LLL parameters | `Matrix` | LLL basis reduction; **returns new basis matrix** AND updates `self.reduced_basis` in-place; passes all args to `Matrix.LLL()` | `[FPLLL]` |
+| `BKZ(*args, **kwds)` | `*args, **kwds`: BKZ parameters (e.g. `block_size=`) | `Matrix` | BKZ basis reduction; returns matrix, updates `self.reduced_basis`; passes args to `Matrix.BKZ()` | `[FPLLL]` |
+| `HKZ(*args, **kwds)` | — | `Matrix` | Hermite-Korkine-Zolotarev reduction; equivalent to `BKZ(block_size=self.rank())` | `[FPLLL]` |
+| `shortest_vector()` | — | `Vector` | Exact shortest vector (SVP) | `[FPLLL]` |
+| `closest_vector(t)` | `t`: `Vector` | `Vector` | Exact closest vector to target t (CVP) | `[FPLLL]` |
+| `approximate_closest_vector(t, delta=None, algorithm='embedding', ...)` | `t`: `Vector`, `delta`: `float` (optional), `algorithm`: `str` | `Vector` | Approx CVP; runs LLL if not already δ-reduced; `algorithm`: `'embedding'`, `'nearest_plane'` (Babai), `'rounding_off'` | |
+| `babai(target, *args, **kwds)` | `target`: `Vector`, `*args, **kwds`: LLL parameters | `Vector` | Babai nearest-plane approximation to CVP; convenience wrapper around reduction data | `[FPLLL]` |
+| `update_reduced_basis(*args, **kwds)` | `*args, **kwds`: LLL parameters | — | Refresh cached reduced basis used by approximate-CVP helpers | `[FPLLL]` |
+| `discriminant()` | — | `Integer` | det(B·Bᵀ) | |
+| `volume()` | — | `Real` | Covolume of the lattice in the ambient Euclidean space | |
+| `reduced_basis` | — | `Matrix` | Property: current basis matrix after last reduction call | |
+| `voronoi_cell()` | — | `Polyhedron` | Voronoi cell as a polytope | `[PD]` |
+| `voronoi_relevant_vectors()` | — | `list<Vector>` | Vectors defining Voronoi cell facets | `[PD]` |
 
 ---
 

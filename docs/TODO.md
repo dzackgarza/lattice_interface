@@ -36,8 +36,8 @@ This section tracks gaps in method documentation completeness (argument surfaces
 
 ### SageMath (`docs/sage_methods_checklist.md`)
 
-- [ ] **Explicit Type Specifications:** Add explicit SageMath type annotations or descriptions for all function arguments and return values to improve clarity and reduce reliance on upstream documentation.
+- [x] **Explicit Type Specifications:** Added to IntegralLattice and IntegerLattice method tables in sagemath_lattice_reference.md (sections 3-4); remaining sections (QuadraticForm, BinaryQF, TernaryQF, TorsionQuadraticModule, Genus) pending
 
 ### Julia/Hecke.jl (`docs/julia_methods_checklist.md`)
 
-- [ ] **Explicit Type Specifications:** Add explicit Julia type annotations or descriptions for all function arguments and return values to make the documentation more self-contained.
+- [x] **Explicit Type Specifications:** Added to Construction and Intrinsic data sections in julia_lattice_methods_reference.md; remaining sections (Vector enumeration, Genus, TorQuadModule, ZZLatWithIsom) pending
