@@ -348,3 +348,26 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - `TGCellPointGroupZClasses`
 - `TGCellPointGroupFamilies`
 - `TGCellPointGroupGenera`
+
+---
+
+## 5. Sources
+
+### Core GAP documentation
+- Integer matrix operations (HNF, SNF, LLL): `https://www.gap-system.org/Manuals/doc/ref/chap64.html`
+- Normal forms and integer linear algebra: `https://www.gap-system.org/Manuals/doc/ref/chap63.html`
+
+### GAP packages
+- Cryst package: `https://gap-packages.github.io/cryst/`
+- CARATInterface: `https://gap-packages.github.io/carat/`
+- CrystCat: `https://gap-packages.github.io/crystcat/`
+- Forms package: `https://gap-packages.github.io/forms/`
+- HyperCells package: `https://gap-packages.github.io/hypercells/`
+
+### Local upstream snapshots
+- Core integer matrices: `docs/gap/upstream/matint.gd`, `docs/gap/upstream/matint.gi`
+- GAP integer matrix docs: `docs/gap/upstream/matint.xml`
+- GAP manual chapters 24-26: `docs/gap/upstream/chap24.html`, `docs/gap/upstream/chap25.html`, `docs/gap/upstream/chap26.html`
+- Crystallographic packages: `docs/crystallographic_stack/upstream/cryst/`, `docs/crystallographic_stack/upstream/caratinterface/`, `docs/crystallographic_stack/upstream/crystcat/`
+- HyperCells: `docs/hypercells/upstream/`
+- Forms: `docs/forms/lattice/forms_lattice_reference.md`
