@@ -1,0 +1,36 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "758d7099de9fb38b450671d32cfd047572abd3d3",
+      "date": "2026-02-19T19:42:41+00:00",
+      "subject": "agent_runner: Add --output-format stream-json to QwenAgent"
+    },
+    {
+      "author": "Codex",
+      "commit": "48107a6d5f02e5cde08f7f58e223266fc4caeb37",
+      "date": "2026-02-19T19:48:59+00:00",
+      "subject": "agent_management: Prevent 'no gaps found' conclusions in doc_coverage"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 3,
+  "dry_run": false,
+  "elapsed_seconds": 548.732085,
+  "end_time": "2026-02-19T19:49:12.233807+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "agent_runner/src/agent_runner/agents.py",
+    "agents/agent_management/prompt.md",
+    "agents/doc_coverage/prompt.md"
+  ],
+  "insertions": 5,
+  "last_message": "The behavioral failure was that doc_coverage worker agents (kilo at 18:50, opencode at 19:39) concluded \"no gaps requiring immediate fixes were found\" after broad verification scans \u2014 one produced no commit, the other pivoted to management work outside its scope. The structural cause was that the doc_coverage prompt framed Goal 2 as \"find a gap, fix it,\" which agents satisfied by concluding they had looked and found none; the phrase \"no gaps requiring immediate fixes\" provided an implicit severity escape hatch that the prompt did not prohibit. The fixes add explicit statements that gaps always exist, ban \"no gaps found\" conclusions, prohibit pivoting to management work, make a no-commit run a failure regardless of verification effort, and require the output format to name a specific gap \u2014 runners who cannot do so have failed.",
+  "requires_commit": true,
+  "run_id": "20260219_194003",
+  "start_time": "2026-02-19T19:40:03.501722+00:00",
+  "task": "agent_management",
+  "token_count": null
+}

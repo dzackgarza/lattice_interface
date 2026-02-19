@@ -1,0 +1,42 @@
+[0m
+> build · glm-5-free
+[0m
+[0m⚙ [0mserena_read_file {"relative_path":"agents/doc_coverage/playbook.md"}
+[0m⚙ [0mserena_list_dir {"relative_path":"agents/doc_coverage/example_tasks","recursive":false}
+I'll start by reading the playbook and example tasks to understand the documentation coverage workflow.
+[0m⚙ [0mserena_read_file {"relative_path":"agents/doc_coverage/example_tasks/mathematical_contract_audit.md"}
+[0m⚙ [0mserena_list_dir {"relative_path":"docs","recursive":false}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/sage"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/TODO.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/sage/integral_lattice/sage_integral_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","max_answer_chars":50000}
+[0m⚙ [0mserena_search_for_pattern {"substring_pattern":"short_vectors|minimum|maximum|enumerate","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","context_lines_before":2,"context_lines_after":10}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":15,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"LLL.*\\(|def LLL"}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":15,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"orthogonal_group|automorphism"}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":50,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"Return the orthogonal group"}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":100,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"id=\"sage.modules.free_quadratic_module_integer_symmetric.FreeQuadraticModule_integer_symmetric.orthogonal_group\""}
+[0m⚙ [0mserena_read_file {"end_line":"1300","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":1060}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":50,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"id=\"sage.modules.free_quadratic_module_integer_symmetric.FreeQuadraticModule_integer_symmetric.discriminant_group\""}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":50,"context_lines_before":2,"relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","substring_pattern":"id=\"sage.modules.free_quadratic_module_integer_symmetric.FreeQuadraticModule_integer_symmetric.maximal_overlattice\""}
+[0m⚙ [0mserena_read_file {"end_line":"620","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":544}
+[0m⚙ [0mserena_read_file {"end_line":"970","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":892}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/julia"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/pari_gp"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","max_answer_chars":60000}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qfauto.*\\(|qfisom.*\\("}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qfauto\\("}
+[0m⚙ [0mserena_read_file {"end_line":"1950","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":1875}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qfisom\\(G, H"}
+[0m⚙ [0mserena_read_file {"end_line":"2250","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":2176}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":40,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qfminim\\(x,"}
+[0m⚙ [0mserena_read_file {"end_line":"2500","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":2392}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qfcvp\\("}
+[0m⚙ [0mserena_read_file {"end_line":"2030","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":1960}
+I found contract gaps in the PARI/GP reference doc. The `qfauto`, `qfisom`, and `qfisominit` functions are missing the `[PD]` tag despite upstream docs explicitly requiring positive-definite forms. Let me fix this.
+[0m⚙ [0mserena_replace_content {"relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","needle":"| `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices | `[NT]` |","repl":"| `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |","mode":"literal"}
+[0m⚙ [0mserena_replace_content {"mode":"literal","needle":"| `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise | `[NT]` |","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","repl":"| `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |"}
+[0m⚙ [0mserena_replace_content {"mode":"literal","needle":"| `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls | `[NT]` |","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","repl":"| `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |"}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qforbits\\("}
+[0m⚙ [0mserena_read_file {"end_line":"2570","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":2533}

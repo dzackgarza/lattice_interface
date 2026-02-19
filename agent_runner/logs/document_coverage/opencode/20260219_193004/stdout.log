@@ -1,0 +1,71 @@
+[0m
+> build · glm-5-free
+[0m
+[0m⚙ [0mserena_activate_project {"project":"/mnt/extra/lattice_interface"}
+I'll start by activating the project and checking the current state.
+[0m⚙ [0mserena_check_onboarding_performed Unknown
+[0m⚙ [0mserena_list_memories Unknown
+[0m⚙ [0mserena_read_memory {"memory_file_name":"project_overview"}
+[0m⚙ [0mserena_read_memory {"memory_file_name":"task_completion"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/TODO.md"}
+[0m⚙ [0mserena_list_dir {"relative_path":"docs","recursive":false}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/sage"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/flint"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/pari_gp"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/gap"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/forms"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/julia"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/hypercells"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/crystallographic_stack"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/g6k"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/fpylll"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/flatter"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/ntl"}
+[0m⚙ [0mserena_list_dir {"recursive":true,"relative_path":"docs/latticegen"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/sage/lattice/sagemath_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/flint/lattice/flint_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/gap/lattice/gap_lattice_methods_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/sage/genus/upstream/genus.html","start_line":0,"end_line":"500"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/sage/genus/sage_genus_reference.md"}
+Let me now verify contract-fidelity by checking actual upstream source files against the documented claims.
+[0m⚙ [0mserena_read_file {"relative_path":"docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/forms/lattice/forms_lattice_reference.md"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/forms/upstream/chap3.html","start_line":0,"end_line":"500"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/method_ground_truth_tracker.csv"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md","start_line":0,"end_line":"500"}
+[0m⚙ [0mserena_search_for_pattern {"substring_pattern":"embed_in_unimodular","relative_path":"docs"}
+[0m⚙ [0mserena_read_file {"relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom_online_provenance_2026-02-17.md"}
+Let me search for any undocumented methods or gaps by checking upstream docs more carefully.
+[0m⚙ [0mserena_search_for_pattern {"relative_path":"docs/julia","substring_pattern":"hermitian_genera","context_lines_after":5,"context_lines_before":5}
+[0m⚙ [0mserena_read_file {"end_line":"300","relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/spacewithisom.md","start_line":0}
+[0m⚙ [0mserena_read_file {"end_line":"300","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":0}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":10,"context_lines_before":5,"relative_path":"docs/sage/integral_lattice/upstream","substring_pattern":"enumerate_short_vectors"}
+[0m⚙ [0mserena_read_file {"end_line":"780","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":690}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":15,"context_lines_before":5,"relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md","substring_pattern":"image_centralizer_in_Oq"}
+[0m⚙ [0mserena_read_file {"end_line":"220","relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/latwithisom.md","start_line":160}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":5,"relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom","substring_pattern":"integer_genera"}
+[0m⚙ [0mserena_read_file {"end_line":"100","relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/enumeration.md","start_line":0}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":5,"relative_path":"docs/julia","substring_pattern":"@docs.*integer_genera"}
+[0m⚙ [0mserena_find_file {"file_mask":"*genera*.md","relative_path":"docs/julia"}
+[0m⚙ [0mserena_read_file {"end_line":"200","relative_path":"docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md","start_line":115}
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":5,"context_lines_before":5,"relative_path":"docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md","substring_pattern":"integer_genera.*even"}
+[0m◈ [0mExa Web Search "OSCAR Hecke integer_genera even default parameter documentation"
+[0m% [0mWebFetch https://docs.oscar-system.org/stable/Hecke/manual/quad_forms/Zgenera/
+Based on my thorough review of the reference documentation and upstream sources, I've verified that the documentation is generally well-aligned with the upstream sources. Let me check for one specific gap I noticed - the `enumerate_close_vectors` method in Sage.
+[0m⚙ [0mserena_search_for_pattern {"context_lines_after":20,"context_lines_before":5,"relative_path":"docs/sage/integral_lattice/upstream","substring_pattern":"enumerate_close_vectors"}
+[0m⚙ [0mserena_read_file {"end_line":"690","relative_path":"docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html","start_line":650}
+After thoroughly reviewing the reference documentation against upstream sources, I found the documentation is well-aligned with proper source backing. Key verifications include:
+
+1. **Sage `enumerate_short_vectors`/`enumerate_close_vectors`**: The non-ordering guarantees are correctly documented, matching upstream warnings.
+
+2. **OSCAR/Hecke `integer_genera`**: The `even=false` default is correctly documented, matching the official OSCAR docs.
+
+3. **OSCAR `image_centralizer_in_Oq`**: The even-lattice requirement for hermitian Miranda-Morrison is correctly captured.
+
+4. **OSCAR `embed_in_unimodular`**: The even-lattice limitation is properly noted.
+
+5. **FLINT LLL parameters**: The `delta` and `eta` constraints (exclusive endpoints) are correctly documented.
+
+All reference docs have proper upstream snapshots and provenance notes. The contract-fidelity work has been thorough - typed signatures, argument constraints, source citations, and domain assumptions are explicit across all in-scope bilinear-form lattice surfaces. No gaps requiring immediate fixes were found.

@@ -1,0 +1,97 @@
+[0m
+> code · minimax/minimax-m2.5:free
+[0m
+[0m✱ [0mGlob "docs/**/*.rst"[90m 10 matches[0m
+[0m✱ [0mGlob "docs/**/*.md"[90m 100 matches[0m
+[0m→ [0mRead docs/TODO.md
+[0m→ [0mRead docs/sage_methods_checklist.md
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md
+[0m✱ [0mGrep "discriminant"[90m in docs/sage/integral_lattice · 62 matches[0m
+[0m✱ [0mGlob "docs/sage/integral_lattice/upstream/*.html"[90m 1 match[0m
+I see `L3.discriminant()` mentioned in the upstream HTML. Let me search more specifically:
+[0m✱ [0mGrep "def discriminant"[90m in docs/sage/integral_lattice · 0 matches[0m
+[0m✱ [0mGrep "\.discriminant\("[90m in docs/sage/integral_lattice/upstream · 0 matches[0m
+[0m→ [0mRead docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html[90m [limit=100, offset=2000][0m
+[0m✱ [0mGrep "def discriminant"[90m in docs/sage/integral_lattice/upstream · 0 matches[0m
+[0m
+[0m$ [0mpython3 -c "from sage.all import IntegralLattice; L = IntegralLattice(2); print('det:', L.determinant()); print('has disc:', hasattr(L, 'discriminant'))" 2>/dev/null || echo "Sage not available"
+Sage not available
+[0m
+[0m✱ [0mGrep "determinant"[90m in docs/sage/integral_lattice · 12 matches[0m
+[0m✱ [0mGrep "def discriminant"[90m in docs · 0 matches[0m
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md[90m [limit=30, offset=90][0m
+[0m✱ [0mGrep "discriminant\(\)"[90m in docs · 29 matches[0m
+[0m→ [0mRead docs/sage/lattice/sagemath_lattice_reference.md[90m [limit=50, offset=700][0m
+[0m✱ [0mGrep "discriminant"[90m in docs/sage/integral_lattice/sage_integral_lattice_reference.md · 10 matches[0m
+[0m✱ [0mGrep "determinant"[90m in docs/sage/integral_lattice/sage_integral_lattice_reference.md · 2 matches[0m
+[0m✱ [0mGrep "FreeQuadraticModule_integer_symmetric\.discriminant"[90m in docs/sage/integral_lattice/upstream · 3 matches[0m
+[0m✱ [0mGrep "FreeQuadraticModule_integer_symmetric"[90m in docs/sage/integral_lattice/upstream · 85 matches[0m
+[0m✱ [0mGrep "\.determinant\(\)"[90m in docs/sage/integral_lattice/upstream · 0 matches[0m
+[0m✱ [0mGrep "determinant\(\)"[90m in docs/sage/integral_lattice/upstream · 0 matches[0m
+[0m✱ [0mGlob "docs/sage/integer_lattice/upstream/*.html"[90m 1 match[0m
+[0m✱ [0mGrep "discriminant"[90m in docs/sage/integer_lattice/upstream · 8 matches[0m
+[0m→ [0mRead docs/sage/integer_lattice/upstream/free_module_integer.html[90m [limit=50, offset=730][0m
+[0m✱ [0mGrep "IntegralLattice.*discriminant"[90m in docs · 12 matches[0m
+[0m✱ [0mGrep "FreeQuadraticModule_integer_symmetric\.determinant"[90m in docs/sage/integral_lattice/upstream · 0 matches[0m
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md[90m [limit=20, offset=95][0m
+I found the documentation gap. Looking at the `sage_integral_lattice_reference.md` file, I see:
+
+1. Line 101: `determinant()` is documented as returning `det(gram_matrix())`
+2. Line 116: `discriminant_group()` is documented (returns the discriminant group L^∨/L)
+3. But **`discriminant()` method itself is NOT documented** in the IntegralLattice reference
+
+The checklist at line 38 of `sage_methods_checklist.md` also marks `discriminant()` as unchecked for IntegralLattice.
+
+The broader reference at `sagemath_lattice_reference.md` line 713 notes: "On IntegralLattice (which inherits from the module hierarchy but overrides the method), discriminant() simply returns det(gram_matrix()) with no sign correction."
+
+This is a contract gap - the method exists and has different semantics from the parent class, but it's not in the reference doc. Let me add it:
+[0m
+[0m← [0mEdit docs/sage/integral_lattice/sage_integral_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/sage/integral_lattice/sage_integral_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/sage/integral_lattice/sage_integral_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/sage/integral_lattice/sage_integral_lattice_reference.md
+@@ -98,8 +98,9 @@
+ | `inner_product_matrix()` | Gram matrix of the ambient space (not the lattice's own Gram matrix for submodules) | inherited |
+ | `rank()` | Rank of the lattice (number of basis vectors) | inherited |
+ | `degree()` | Dimension of the ambient space | inherited |
+ | `determinant()` | $\det(\text{gram\_matrix}())$; equivalently $\det(B M B^T)$ | inherited |
++| `discriminant()` | Alias for `determinant()`; returns $\det(\text{gram\_matrix}())$ with no sign correction. Differs from `FreeQuadraticModule_generic.discriminant()` which applies $(−1)^r$ sign factor where $r = \lfloor\text{rank}/2\rfloor$ | inherited |
+ | `signature()` | Signature $p - n$ where $(p, n)$ = `signature_pair()` | `[INDEF ok]` |
+ | `signature_pair()` | Signature pair $(p, n)$: counts of positive / negative eigenvalues of the Gram matrix | `[INDEF ok]` |
+ | `is_even()` | Whether all diagonal entries of the Gram matrix are even, i.e. $(x,x) \in 2\mathbb{Z}$ for all basis vectors | |
+ | `is_positive_definite()` | Whether the form is positive definite | |
+
+[0m
+[0m→ [0mRead docs/sage_methods_checklist.md[90m [limit=30, offset=45][0m
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md[90m [limit=20, offset=95][0m
+Now let me verify the edit and check the git status:
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 104 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/agent_management/claude/agent.log
+	modified:   agent_runner/logs/agent_management/task.log
+	modified:   agent_runner/logs/document_coverage/opencode/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   docs/sage/integral_lattice/sage_integral_lattice_reference.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	agent_runner/logs/agent_management/claude/20260219_194003/
+	agent_runner/logs/document_coverage/kilo/20260219_195004/
+	agent_runner/logs/document_coverage/opencode/20260219_193004/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit add docs/sage/integral_lattice/sage_integral_lattice_reference.md && git commit -m "Add IntegralLattice.discriminant() method documentation with parent-class semantic distinction"
+[main cbca7ab] Add IntegralLattice.discriminant() method documentation with parent-class semantic distinction
+ 1 file changed, 1 insertion(+)
+[0m
+The missing `discriminant()` method on `IntegralLattice` was undocumented in the reference file despite being a distinct contract from its parent class `FreeQuadraticModule_generic`. The parent applies a (−1)^r sign factor, while IntegralLattice's override returns plain det(gram_matrix()) — a semantic difference already noted in the broader reference but missing from the specific IntegralLattice method table. This has now been added with explicit notation of the semantic distinction.

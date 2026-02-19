@@ -1,0 +1,36 @@
+{
+  "agent": "opencode",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "05ec84e5de4b63ec3f90532eae6177eac60d91b0",
+      "date": "2026-02-19T19:34:07+00:00",
+      "subject": "agent_management: Improve ntfy notification polling - use full message bodies"
+    },
+    {
+      "author": "Codex",
+      "commit": "31905f76dcd407103689921a8d4160b263cd840b",
+      "date": "2026-02-19T19:38:52+00:00",
+      "subject": "agent_management: Explicitly prohibit writing completion claims to TODO.md"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 6,
+  "dry_run": false,
+  "elapsed_seconds": 574.56889,
+  "end_time": "2026-02-19T19:39:38.761947+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "agents/agent_management/prompt.md",
+    "agents/doc_coverage/playbook.md",
+    "agents/doc_coverage/prompt.md"
+  ],
+  "insertions": 10,
+  "last_message": "All reference docs have proper upstream snapshots and provenance notes. The contract-fidelity work has been thorough - typed signatures, argument constraints, source citations, and domain assumptions are explicit across all in-scope bilinear-form lattice surfaces. No gaps requiring immediate fixes were found.",
+  "requires_commit": true,
+  "run_id": "20260219_193004",
+  "start_time": "2026-02-19T19:30:04.193057+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

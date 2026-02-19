@@ -141,3 +141,13 @@ last_message: The documentation coverage audit is complete. All in-scope bilinea
 2026-02-19 19:20:04 UTC [kilo/document_coverage] elapsed=6m43s tokens=n/a files=8 loc=+51/-59
 last_message: The documentation for in-scope bilinear-form lattice methods is complete and correct. All reference files have source-backed signatures with typed arguments, return types, and domain constraints (definiteness tags like [PD], [INDEF], [ND]). The documentation coverage has been verified for all major ecosystems (Sage, GAP, PARI/GP, Julia/OSCAR, fpylll, NTL, FLINT, flatter, g6k) and includes local upstream provenance snapshots. This matters because users need mathematically precise, source-attested API contracts to reliably use lattice-theory methods in the strict sense required by this project.
 
+
+=== 2026-02-19 19:30:04 UTC [opencode/document_coverage] ===
+2026-02-19 19:30:04 UTC [opencode/document_coverage] elapsed=9m34s tokens=n/a files=3 loc=+10/-6
+last_message: All reference docs have proper upstream snapshots and provenance notes. The contract-fidelity work has been thorough - typed signatures, argument constraints, source citations, and domain assumptions are explicit across all in-scope bilinear-form lattice surfaces. No gaps requiring immediate fixes were found.
+
+
+=== 2026-02-19 19:50:04 UTC [kilo/document_coverage] ===
+2026-02-19 19:50:04 UTC [kilo/document_coverage] elapsed=6m02s tokens=n/a files=6 loc=+45/-2
+last_message: The missing `discriminant()` method on `IntegralLattice` was undocumented in the reference file despite being a distinct contract from its parent class `FreeQuadraticModule_generic`. The parent applies a (−1)^r sign factor, while IntegralLattice's override returns plain det(gram_matrix()) — a semantic difference already noted in the broader reference but missing from the specific IntegralLattice method table. This has now been added with explicit notation of the semantic distinction.
+
