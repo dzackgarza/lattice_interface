@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import warnings
 from datetime import datetime, timedelta, timezone
+from enum import StrEnum
 from typing import Literal, assert_never
 
 import typer
@@ -10,6 +11,7 @@ from pydantic import BaseModel
 
 from . import config, git, transcript
 from .agents import (
+    AgentInterface,
     ClaudeAgent,
     CodexAgent,
     GeminiAgent,
@@ -22,8 +24,11 @@ from .agents import (
 from .agent_errors import classify_usage_limit
 from .errors import (
     AgentCommitMissingError,
+    AgentConnectivityError,
+    AgentMetadataError,
     AgentProcessError,
     AgentRunnerError,
+    AgentSelectionError,
     AgentTimeoutError,
     RateLimitUsageError,
 )
@@ -45,7 +50,19 @@ from .tasks import (
 
 app = typer.Typer(add_completion=False)
 
-AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama", "opencode", "qwen"]
+
+class AgentName(StrEnum):
+    codex = "codex"
+    claude = "claude"
+    gemini = "gemini"
+    kilo = "kilo"
+    ollama = "ollama"
+    opencode = "opencode"
+    qwen = "qwen"
+    auto = "auto"
+
+
+_CONCRETE_AGENT_NAMES = tuple(m for m in AgentName if m is not AgentName.auto)
 TaskName = Literal[
     "agent_management",
     "document_coverage",
@@ -70,13 +87,24 @@ class Orchestrator(BaseModel):
     def run(self) -> int:
         """Run an agent task with centralized logging."""
         task_obj = _build_task(self.args.task)
-        agent_obj = _build_agent(self.args.agent)
 
         now = datetime.now(timezone.utc)
         run_id = now.strftime("%Y%m%d_%H%M%S")
-        run_ctx = build_run_context(
-            agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id
-        )
+
+        connectivity_verified = False
+        if self.args.agent is AgentName.auto:
+            try:
+                agent_obj, run_ctx = _select_auto_agent(task_obj, run_id)
+            except AgentSelectionError as exc:
+                typer.echo(f"AgentSelectionError: {exc}", err=True)
+                return 13
+            connectivity_verified = True
+        else:
+            agent_obj = _build_agent(self.args.agent)
+            run_ctx = build_run_context(
+                agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id
+            )
+
         logger = get_logger(run_ctx)
 
         debug_prompt_path = None
@@ -102,6 +130,8 @@ class Orchestrator(BaseModel):
                 stdout = "(dry-run)"
                 exit_code = 0
             else:
+                if not connectivity_verified:
+                    agent_obj.check_connectivity(run_ctx)
                 proc_result = agent_obj.run_task(task_obj, run_ctx)
                 stdout = proc_result.stdout
                 exit_code = proc_result.exit_code
@@ -216,6 +246,23 @@ class Orchestrator(BaseModel):
                 "requires_commit": task_obj.requires_commit,
             }
             write_metadata(run_ctx.metadata_path, error_meta)
+        except AgentConnectivityError as exc:
+            end_time = datetime.now(timezone.utc)
+            exit_code = 12
+            error_type = "connectivity"
+            error_detail = str(exc)
+            logger.exception("Agent connectivity check failed")
+            typer.echo(f"AgentConnectivityError: {exc}", err=True)
+            error_meta = {
+                "run_id": run_ctx.run_id,
+                "agent": agent_obj.name,
+                "task": task_obj.name,
+                "exit_code": None,
+                "error": str(exc),
+                "classified_error": "connectivity",
+                "requires_commit": task_obj.requires_commit,
+            }
+            write_metadata(run_ctx.metadata_path, error_meta)
         except AgentTimeoutError as exc:
             end_time = datetime.now(timezone.utc)
             exit_code = 11
@@ -325,60 +372,83 @@ def _build_task(task_name: TaskName) -> AgentTask:
             assert_never(task_name)
 
 
-def _build_agent(agent_name: AgentName):
+def _all_agents() -> list[AgentInterface]:
+    return sorted(
+        [_build_agent(name) for name in _CONCRETE_AGENT_NAMES],
+        key=lambda a: a.quality,
+        reverse=True,
+    )
+
+
+def _select_auto_agent(task_obj: AgentTask, run_id: str) -> tuple[AgentInterface, RunContext]:
+    candidates = _all_agents()
+    last_exc: Exception | None = None
+    for agent in candidates:
+        run_ctx = build_run_context(agent_name=agent.name, task_name=task_obj.name, run_id=run_id)
+        try:
+            agent.check_connectivity(run_ctx)
+            return agent, run_ctx
+        except (AgentConnectivityError, AgentTimeoutError, AgentMetadataError) as exc:
+            last_exc = exc
+            continue
+    raise AgentSelectionError(str(last_exc) if last_exc else "no agents available")
+
+
+def _build_agent(agent_name: AgentName) -> AgentInterface:
+    assert agent_name is not AgentName.auto
     env = {"PATH": f"{config.settings.path_prefix}:{os.environ.get('PATH', '')}"}
     match agent_name:
-        case "codex":
+        case AgentName.codex:
             return CodexAgent(
-                name="codex",
+                name=agent_name,
                 binary=config.settings.codex_bin,
                 subcommand="exec",
                 base_args=[],
                 env=env,
             )
-        case "claude":
+        case AgentName.claude:
             return ClaudeAgent(
-                name="claude",
+                name=agent_name,
                 binary=config.settings.claude_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
             )
-        case "gemini":
+        case AgentName.gemini:
             return GeminiAgent(
-                name="gemini",
+                name=agent_name,
                 binary=config.settings.gemini_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
             )
-        case "ollama":
-            return OllamaAgent(
-                name="ollama",
-                binary=config.settings.ollama_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
-        case "kilo":
+        case AgentName.kilo:
             return KiloAgent(
-                name="kilo",
+                name=agent_name,
                 binary=config.settings.kilo_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
             )
-        case "opencode":
+        case AgentName.ollama:
+            return OllamaAgent(
+                name=agent_name,
+                binary=config.settings.ollama_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case AgentName.opencode:
             return OpencodeAgent(
-                name="opencode",
+                name=agent_name,
                 binary=config.settings.opencode_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
             )
-        case "qwen":
+        case AgentName.qwen:
             return QwenAgent(
-                name="qwen",
+                name=agent_name,
                 binary=config.settings.qwen_bin,
                 subcommand=None,
                 base_args=[],
