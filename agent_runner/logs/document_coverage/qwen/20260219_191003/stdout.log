@@ -1,0 +1,1 @@
+The documentation coverage audit is complete. All in-scope bilinear-form lattice method surfaces have been verified to contain source-backed documentation with typed signatures, definiteness constraints, and upstream provenance. The TODO.md now accurately reflects this verified completion state with explicit detail about what was checked.

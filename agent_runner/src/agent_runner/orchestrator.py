@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import warnings
-import time
 from datetime import datetime, timedelta, timezone
 from typing import Literal, assert_never
 
@@ -96,9 +95,7 @@ class Orchestrator(BaseModel):
             head_before = git.get_head()
 
             if debug_prompt_path is not None:
-                task_obj = task_obj.model_copy(
-                    update={"prompt_path": debug_prompt_path}
-                )
+                task_obj = task_obj.model_copy(update={"prompt_path": debug_prompt_path})
 
             if self.args.dry_run:
                 proc_result = None
@@ -135,15 +132,11 @@ class Orchestrator(BaseModel):
             last_message = transcript.parse_last_message(
                 agent=agent_obj.name,
                 stdout=stdout,
-                last_message_path=proc_result.last_message_path
-                if proc_result
-                else None,
+                last_message_path=proc_result.last_message_path if proc_result else None,
             )
             token_count = transcript.parse_token_usage_from_outputs(
                 stdout=stdout,
-                last_message_path=proc_result.last_message_path
-                if proc_result
-                else None,
+                last_message_path=proc_result.last_message_path if proc_result else None,
             )
             if agent_obj.name == "gemini":
                 gemini_message, gemini_tokens = transcript.parse_gemini_json(stdout)
@@ -420,10 +413,7 @@ def _notify_success(
     files_line = ", ".join(commit_summary.files_changed) or "(no files)"
     loc_line = f"+{commit_summary.insertions}/-{commit_summary.deletions}"
     commit_subjects = (
-        "\n".join(
-            f"- {commit.subject} ({commit.commit[:8]})"
-            for commit in commit_summary.commits
-        )
+        "\n".join(f"- {commit.subject} ({commit.commit[:8]})" for commit in commit_summary.commits)
         or "(no commits)"
     )
     body = (
@@ -439,9 +429,7 @@ def _notify_success(
         f"last_message:\n{last_message}\n"
     )
     title = f"[{run_ctx.task_name}] {run_ctx.agent_name} — SUCCESS — {end_str}"
-    return send_notification(
-        title=title, body=body, priority="default", tags="white_check_mark"
-    )
+    return send_notification(title=title, body=body, priority="default", tags="white_check_mark")
 
 
 def _notify_error(

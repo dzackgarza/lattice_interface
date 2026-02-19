@@ -65,9 +65,7 @@ def get_logger(run_ctx: RunContext) -> structlog.BoundLogger:
 
 
 def get_summary_logger(run_ctx: RunContext) -> logging.Logger:
-    logger = logging.getLogger(
-        f"agent_runner.summary.{run_ctx.task_name}.{run_ctx.agent_name}"
-    )
+    logger = logging.getLogger(f"agent_runner.summary.{run_ctx.task_name}.{run_ctx.agent_name}")
     if logger.handlers:
         return logger
     logger.setLevel(logging.INFO)

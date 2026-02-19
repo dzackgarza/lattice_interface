@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import os
 import signal
+import subprocess
 import threading
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Mapping
 
-import subprocess
 from plumbum import local
 from pydantic import BaseModel, ConfigDict
 
@@ -17,9 +17,7 @@ from .agent_errors import classify_usage_limit
 from .errors import AgentMetadataError, AgentTimeoutError, RateLimitUsageError
 from .tasks import AgentTask
 
-TIMEOUT_SECONDS = int(
-    os.environ.get("AGENT_RUNNER_TIMEOUT_SECONDS", 15 * 60)
-)  # 15 minutes default
+TIMEOUT_SECONDS = int(os.environ.get("AGENT_RUNNER_TIMEOUT_SECONDS", "900"))  # 15 minutes default
 
 
 @dataclass(frozen=True)
@@ -64,8 +62,7 @@ class AgentInterface(BaseModel, ABC):
         raise NotImplementedError
 
     def _build_env(self) -> dict[str, str]:
-        env = {"PATH": self.env.get("PATH", "")}
-        return env
+        return {"PATH": self.env.get("PATH", "")}
 
     def _run_command(
         self,
@@ -75,7 +72,7 @@ class AgentInterface(BaseModel, ABC):
         cwd: Path | None = None,
     ) -> ProcessResult:
         env = {**os.environ, **self._build_env()}
-        final_args = [self.binary] + list(args) + [prompt_string]
+        final_args = [self.binary, *args, prompt_string]
         chunks: list[bytes] = []
         timed_out = False
 
@@ -90,9 +87,11 @@ class AgentInterface(BaseModel, ABC):
                 start_new_session=True,
             )
         except FileNotFoundError:
-            raise AgentMetadataError(f"Binary not found: {self.binary}")
+            msg = f"Binary not found: {self.binary}"
+            raise AgentMetadataError(msg) from None
 
         with run_ctx.transcript_path.open("wb") as live_log:
+
             def read_output():
                 assert proc.stdout is not None
                 for line in iter(proc.stdout.readline, b""):
@@ -149,10 +148,9 @@ class CodexAgent(AgentInterface):
             mcp_cmd = local[self.binary]["mcp", "get", "serena"]
             retcode, _, _ = mcp_cmd.run(_env=self._build_env(), retcode=None)
             if retcode != 0:
-                raise AgentMetadataError("MCP server 'serena' not configured for codex")
-        result = self._run_command(
-            args=args, prompt_string=prompt_string, run_ctx=run_ctx
-        )
+                msg = "MCP server 'serena' not configured for codex"
+                raise AgentMetadataError(msg)
+        result = self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
         return ProcessResult(
             exit_code=result.exit_code,
             stdout=result.stdout,
@@ -162,7 +160,10 @@ class CodexAgent(AgentInterface):
 
 class ClaudeAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
         args = [
             "-p",
@@ -183,7 +184,10 @@ class ClaudeAgent(AgentInterface):
 
 class GeminiAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
         args = [
             "--model",
@@ -192,14 +196,15 @@ class GeminiAgent(AgentInterface):
             "json",
             "--prompt",
         ]
-        return self._run_command(
-            args=args, prompt_string=prompt_string, run_ctx=run_ctx
-        )
+        return self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
 
 
 class OllamaAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
         model = os.environ.get("OLLAMA_MODEL", "minimax-m2.5:cloud")
         args = [
@@ -222,7 +227,10 @@ class OllamaAgent(AgentInterface):
 
 class KiloAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
         args = [
             "run",
@@ -240,9 +248,12 @@ class KiloAgent(AgentInterface):
 
 class OpencodeAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
-        model = os.environ.get("OPENCODE_MODEL", "opencode/kimi-k2.5-free")
+        model = os.environ.get("OPENCODE_MODEL", "opencode/glm-5-free")
         args = [
             "run",
             "-m",
@@ -258,7 +269,10 @@ class OpencodeAgent(AgentInterface):
 
 class QwenAgent(AgentInterface):
     def _run_with_prompt(
-        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+        self,
+        prompt_string: str,
+        task: AgentTask,  # noqa: ARG002
+        run_ctx: RunContext,
     ) -> ProcessResult:
         model = os.environ.get("QWEN_MODEL", "coder-model")
         args = [

@@ -33,3 +33,13 @@ last_message: The two reference files previously lacked Sources sections, making
 2026-02-19 17:20:03 UTC [kilo/document_coverage] elapsed=8m39s tokens=n/a files=2 loc=+16/-2
 last_message: The "missing Sources sections" items in the TODO were marked as complete but the underlying issue was a false positive - both `docs/sage/lattice/sagemath_lattice_reference.md` (section 19) and `docs/gap/lattice/gap_lattice_methods_reference.md` (section 5) already had Sources sections. The actual gap was in the crystallographic_stack reference, which lacked a Sources section entirely - I added one with proper source references. Goal 2 is now verified as complete for all in-scope bilinear-form lattice reference docs.
 
+
+=== 2026-02-19 18:20:04 UTC [kilo/document_coverage] ===
+2026-02-19 18:20:04 UTC [kilo/document_coverage] elapsed=6m26s tokens=n/a files=1 loc=+3/-3
+last_message: The `is_positive_definite(L)`, `is_negative_definite(L)`, and `is_definite(L)` methods on Julia's `ZZLat` type in the Oscar.jl documentation previously had empty Description fields, making their mathematical semantics unclear. Added precise descriptions: "All eigenvalues > 0", "All eigenvalues < 0", and "Positive or negative definite (not indefinite or degenerate)" respectively, which matches the semantic meaning of these predicates in lattice theory. This ensures method coverage requirements are met with proper mathematical specifications.
+
+
+=== 2026-02-19 19:20:04 UTC [kilo/document_coverage] ===
+2026-02-19 19:20:04 UTC [kilo/document_coverage] elapsed=6m43s tokens=n/a files=8 loc=+51/-59
+last_message: The documentation for in-scope bilinear-form lattice methods is complete and correct. All reference files have source-backed signatures with typed arguments, return types, and domain constraints (definiteness tags like [PD], [INDEF], [ND]). The documentation coverage has been verified for all major ecosystems (Sage, GAP, PARI/GP, Julia/OSCAR, fpylll, NTL, FLINT, flatter, g6k) and includes local upstream provenance snapshots. This matters because users need mathematically precise, source-attested API contracts to reliably use lattice-theory methods in the strict sense required by this project.
+

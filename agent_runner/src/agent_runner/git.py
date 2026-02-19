@@ -15,7 +15,6 @@ def _to_str(value: object) -> str:
     return str(value)
 
 
-
 @dataclass(frozen=True)
 class CommitInfo:
     commit: str
