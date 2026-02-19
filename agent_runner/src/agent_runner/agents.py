@@ -1,7 +1,9 @@
 from __future__ import annotations
-from __future__ import annotations
 
 import os
+import signal
+import threading
+import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,8 +15,12 @@ from pydantic import BaseModel, ConfigDict
 
 from . import config
 from .agent_errors import classify_usage_limit
-from .errors import AgentMetadataError, RateLimitUsageError
+from .errors import AgentMetadataError, AgentTimeoutError, RateLimitUsageError
 from .tasks import AgentTask
+
+TIMEOUT_SECONDS = int(
+    os.environ.get("AGENT_RUNNER_TIMEOUT_SECONDS", 15 * 60)
+)  # 15 minutes default
 
 
 @dataclass(frozen=True)
@@ -84,6 +90,22 @@ class AgentInterface(BaseModel, ABC):
                 )
             except FileNotFoundError:
                 raise AgentMetadataError(f"Binary not found: {self.binary}")
+
+            def wait_with_timeout():
+                while proc.poll() is None:
+                    time.sleep(1)
+
+            timeout_thread = threading.Thread(target=wait_with_timeout)
+            timeout_thread.start()
+            timeout_thread.join(timeout=TIMEOUT_SECONDS)
+
+            if proc.poll() is None:
+                proc.send_signal(signal.SIGTERM)
+                timeout_thread.join(timeout=5)
+                if proc.poll() is None:
+                    proc.kill()
+                raise AgentTimeoutError(self.name, run_ctx.task_name, TIMEOUT_SECONDS)
+
             assert proc.stdout is not None
             for line in iter(proc.stdout.readline, b""):
                 live_log.write(line)
@@ -118,7 +140,9 @@ class CodexAgent(AgentInterface):
             retcode, _, _ = mcp_cmd.run(_env=self._build_env(), retcode=None)
             if retcode != 0:
                 raise AgentMetadataError("MCP server 'serena' not configured for codex")
-        result = self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
+        result = self._run_command(
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx
+        )
         return ProcessResult(
             exit_code=result.exit_code,
             stdout=result.stdout,
@@ -140,7 +164,10 @@ class ClaudeAgent(AgentInterface):
             "--no-session-persistence",
         ]
         return self._run_command(
-            args=args, prompt_string=prompt_string, run_ctx=run_ctx, cwd=config.settings.repo_root
+            args=args,
+            prompt_string=prompt_string,
+            run_ctx=run_ctx,
+            cwd=config.settings.repo_root,
         )
 
 
@@ -155,7 +182,9 @@ class GeminiAgent(AgentInterface):
             "json",
             "--prompt",
         ]
-        return self._run_command(args=args, prompt_string=prompt_string, run_ctx=run_ctx)
+        return self._run_command(
+            args=args, prompt_string=prompt_string, run_ctx=run_ctx
+        )
 
 
 class OllamaAgent(AgentInterface):
@@ -174,5 +203,8 @@ class OllamaAgent(AgentInterface):
             "--no-session-persistence",
         ]
         return self._run_command(
-            args=args, prompt_string=prompt_string, run_ctx=run_ctx, cwd=config.settings.repo_root
+            args=args,
+            prompt_string=prompt_string,
+            run_ctx=run_ctx,
+            cwd=config.settings.repo_root,
         )
