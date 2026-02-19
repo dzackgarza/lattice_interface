@@ -22,11 +22,13 @@ def test_kilo_direct():
     agent = KiloAgent(
         name="kilo",
         binary=config.settings.kilo_bin,
-        subcommand="run",
+        subcommand=None,
         base_args=[],
-        env={},
+        env={"PATH": config.settings.path_prefix},
     )
-    run_ctx = build_run_context(agent_name=agent.name, task_name="debug_hello_simple", run_id="test")
+    run_ctx = build_run_context(
+        agent_name=agent.name, task_name="debug_hello_simple", run_id="test"
+    )
     try:
         result = agent.run_task(_task(), run_ctx)
         assert result.exit_code == 0

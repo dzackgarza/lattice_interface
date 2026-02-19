@@ -10,7 +10,14 @@ import typer
 from pydantic import BaseModel
 
 from . import config, git, transcript
-from .agents import ClaudeAgent, CodexAgent, GeminiAgent, OllamaAgent, RunContext
+from .agents import (
+    ClaudeAgent,
+    CodexAgent,
+    GeminiAgent,
+    KiloAgent,
+    OllamaAgent,
+    RunContext,
+)
 from .agent_errors import classify_usage_limit
 from .errors import (
     AgentCommitMissingError,
@@ -36,7 +43,7 @@ from .tasks import (
 
 app = typer.Typer(add_completion=False)
 
-AgentName = Literal["codex", "claude", "gemini", "ollama"]
+AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama"]
 TaskName = Literal[
     "document_coverage",
     "document_test_alignment",
@@ -345,6 +352,14 @@ def _build_agent(agent_name: AgentName):
             return OllamaAgent(
                 name="ollama",
                 binary=config.settings.ollama_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case "kilo":
+            return KiloAgent(
+                name="kilo",
+                binary=config.settings.kilo_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
