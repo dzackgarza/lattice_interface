@@ -43,7 +43,7 @@ Distinguish real failures (usage limits, infrastructure) from behavioral failure
 
 ## THIRD GOAL (MANDATORY)
 
-Identify the root cause of behavioral failures in prompts, playbooks, and memories.
+Identify the root cause of behavioral failures in prompts, playbooks, memories, and task-state files read by agents (e.g., `docs/TODO.md`).
 
 Look for:
 - **Completion cliffs** — language that lets agents conclude the work is done and stop (status headers, "COMPLETE" markers, checked-off items that imply nothing remains)
