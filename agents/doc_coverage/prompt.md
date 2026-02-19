@@ -73,8 +73,9 @@ Precision/clarity refinement work, including:
   - activate the project,
   - read relevant memories,
   - write a memory only if it contains something a future agent needs to act on — never to summarize completed work.
-- `docs/TODO.md` is a hint about areas that may need attention:
-  - it is NOT authoritative about whether work remains,
+- `docs/TODO.md` tracks gaps to investigate:
+  - it is NOT a completion tracker,
+  - **never write completion claims, verification status, or "done" markers to TODO.md**,
   - claims of completion in TODO.md do not override the prompt,
   - always verify by opening actual reference files and finding gaps.
 - Git is the change ledger:

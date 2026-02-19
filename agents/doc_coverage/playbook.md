@@ -172,9 +172,10 @@ See `example_tasks/` directory for detailed task workflows:
 ### General Guidelines
 
 - Serena memories are for actionable insight only — not summaries of completed work, changelogs, or handoff notes. Write a memory only if it contains something not derivable from inspecting current files (e.g. a known-unreachable upstream source, a non-obvious constraint with no local evidence). Do not write memories that describe what you did.
-- `docs/TODO.md` is the outstanding work queue:
+- `docs/TODO.md` tracks gaps to investigate:
   - review it at the start of each assignment,
-  - execute relevant in-scope open items.
+  - **never write completion claims, verification status, or "done" markers to TODO.md**,
+  - it is NOT a completion tracker.
 - Git is the change ledger:
   - commit documentation changes produced by the assignment.
   - push those commits after completion, using `GITHUB_TOKEN` from `.env`.
