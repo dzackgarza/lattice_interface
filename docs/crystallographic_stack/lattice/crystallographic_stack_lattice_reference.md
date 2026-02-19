@@ -28,43 +28,43 @@
 
 ## 2. Canonical Cryst Method Surface (GAP Ref Chap. 35)
 
-| Method | Contract summary | Tags |
-|--------|------------------|------|
-| `AffineCrystGroupOnRight(S)` | Convert `S` into an affine crystallographic group with right action convention. | `[PKG, EUCLID, PD, GRP]` |
-| `AsAffineCrystGroupOnRight(S)` | Coerce to right-action affine crystallographic representation when possible. | `[PKG, EUCLID, PD, GRP]` |
-| `IsAffineCrystGroupOnRight(S)` | Predicate for right-action affine crystallographic objects. | `[PKG, EUCLID, PD, GRP]` |
-| `AffineCrystGroupOnLeft(S)` | Convert `S` into an affine crystallographic group with left action convention. | `[PKG, EUCLID, PD, GRP]` |
-| `PointGroup(S)` | Return point-group quotient data of crystallographic object `S`. | `[PKG, EUCLID, PD, GRP]` |
-| `TranslationsCrystGroup(S)` | Return translation subgroup/lattice part of crystallographic object `S`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `SpaceGroupsByPointGroupOnRight(P[, normedQclass[, orbitsQclass]])` | Enumerate/classify space groups with fixed point-group data `P`; `normedQclass` is `false` or a list of elements in `N_{GL(d,Z)}(P)`, and `orbitsQclass` is boolean (`true` requests all representatives in each normalizer orbit). | `[PKG, EUCLID, PD, GRP]` |
-| `WyckoffPositions(S)` | Compute Wyckoff-position classes for a space group `S`. | `[PKG, EUCLID, PD, GRP]` |
-| `WyckoffOrbit(G, p)` | Return Wyckoff orbit of point `p` under group `G`. | `[PKG, EUCLID, PD, GRP]` |
-| `WyckoffLattice(G, p)` | Return lattice/stabilizer data attached to Wyckoff computation at `(G, p)`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `WyckoffNormalClosure(G, p)` | Compute normal-closure object in the Wyckoff workflow for `(G, p)`. | `[PKG, EUCLID, PD, GRP]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `AffineCrystGroupOnRight(gens[, identity])` | `gens`: list of matrices (generators); `identity`: matrix (optional) | `AffineCrystGroup` (right-action) | Construct an affine crystallographic group with right action convention from generators; optionally specify identity matrix. | `[PKG, EUCLID, PD, GRP]` |
+| `AsAffineCrystGroupOnRight(S)` | `S`: matrix group | `AffineCrystGroup` (right-action) | Coerce existing matrix group `S` to right-action affine crystallographic representation. | `[PKG, EUCLID, PD, GRP]` |
+| `IsAffineCrystGroupOnRight(S)` | `S`: any object | `Boolean` | Predicate: whether `S` is an affine crystallographic group with right action convention. | `[PKG, EUCLID, PD, GRP]` |
+| `AffineCrystGroupOnLeft(gens[, identity])` | `gens`: list of matrices (generators); `identity`: matrix (optional) | `AffineCrystGroup` (left-action) | Construct an affine crystallographic group with left action convention from generators. | `[PKG, EUCLID, PD, GRP]` |
+| `PointGroup(S)` | `S`: `AffineCrystGroup` | GAP group (quotient group S/T) | Return the point-group quotient $S/T$ where $T$ is the translation subgroup. | `[PKG, EUCLID, PD, GRP]` |
+| `TranslationsCrystGroup(S)` | `S`: `AffineCrystGroup` | list (integer lattice generators of translation subgroup) | Return the translation subgroup (integral lattice) of the crystallographic group `S`; generators form a basis for the translation lattice. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `SpaceGroupsByPointGroupOnRight(P[, normedQclass[, orbitsQclass]])` | `P`: finite subgroup of $GL(d,\mathbb{Z})$; `normedQclass`: `false` or list of elements in $N_{GL(d,\mathbb{Z})}(P)$ (optional); `orbitsQclass`: boolean (optional; `true` returns all representatives in each normalizer orbit) | list of `AffineCrystGroup` objects | Enumerate space groups with point group `P`; optional selector arguments control normalizer orbit filtering. | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffPositions(S)` | `S`: space group (`AffineCrystGroup`) | list of Wyckoff position records | Compute the list of Wyckoff-position class representatives for space group `S`. | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffOrbit(G, p)` | `G`: `AffineCrystGroup`; `p`: Wyckoff position representative | list of Wyckoff position representatives | Return the orbit of Wyckoff position `p` under group `G`. | `[PKG, EUCLID, PD, GRP]` |
+| `WyckoffLattice(G, p)` | `G`: `AffineCrystGroup`; `p`: Wyckoff position representative | record (lattice/stabilizer data) | Return the lattice and stabilizer data for the Wyckoff computation at `(G, p)`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `WyckoffNormalClosure(G, p)` | `G`: `AffineCrystGroup`; `p`: Wyckoff position representative | `AffineCrystGroup` (normal closure) | Compute the normal-closure group in the Wyckoff workflow for `(G, p)`. | `[PKG, EUCLID, PD, GRP]` |
 
 ---
 
 ## 3. Canonical CARAT/Bravais Surface (GAP Ref Chap. 44.6)
 
-| Method | Contract summary | Tags |
-|--------|------------------|------|
-| `BravaisGroup(R)` | Compute Bravais group for matrix-group object `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `PointGroupsBravaisClass(R)` | Point-group data for Bravais class associated to `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `BravaisSubgroups(R)` | Enumerate Bravais subgroups of class/group input `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `BravaisSupergroups(R)` | Enumerate Bravais supergroups of class/group input `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `NormalizerInGLnZ(R)` | Compute normalizer of `R` in `GL(n, Z)`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `CentralizerInGLnZ(R)` | Compute centralizer of `R` in `GL(n, Z)`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `IsBravaisEquivalent(R, S)` | Decide Bravais equivalence between two class/group objects. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `CaratZClass(R)` | Return CARAT Z-class object for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `CaratZClassNumber(R)` | Return CARAT Z-class index/number for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `CaratQClass(R)` | Return CARAT Q-class object for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `CaratQClassNumber(R)` | Return CARAT Q-class index/number for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `RationalClassesMaximalSubgroups(R)` | Return maximal-subgroup data across rational classes for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `ZClassRepsQClass(R)` | Return Z-class representatives in the Q-class of `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `MaximalSubgroupsRepresentatives(R)` | Return representatives of maximal subgroups for input class/group `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `AffineNormalizer(R)` | Compute affine normalizer in crystallographic class context. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `IsCaratZClass(R)` | Predicate: object `R` is a CARAT Z-class object. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
-| `IsCaratQClass(R)` | Predicate: object `R` is a CARAT Q-class object. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `BravaisGroup(R)` | `R`: finite integer matrix group | integer matrix group (Bravais group of `R`) | Compute the Bravais group of `R`: the largest integer matrix group with the same rational span as `R` (44.6-11). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `PointGroupsBravaisClass(R)` | `R`: finite integer matrix group | list of integer matrix groups | Return point-group representatives in the Bravais class of `R` (44.6). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `BravaisSubgroups(R)` | `R`: finite integer matrix group | list of integer matrix groups (Bravais subgroups) | Enumerate subgroups of the Bravais group of `R` that are themselves Bravais groups (44.6-12). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `BravaisSupergroups(R)` | `R`: finite integer matrix group | list of integer matrix groups (Bravais supergroups) | Enumerate subgroups of $GL(n,\mathbb{Z})$ that contain the Bravais group of `R` and are themselves Bravais groups (44.6-13). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `NormalizerInGLnZ(R)` | `R`: integer matrix group of dimension n | integer matrix group (normalizer of `R` in $GL(n,\mathbb{Z})$) | Compute the normalizer of `R` in $GL(n,\mathbb{Z})$ (44.6-7). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CentralizerInGLnZ(R)` | `R`: integer matrix group of dimension n | integer matrix group (centralizer of `R` in $GL(n,\mathbb{Z})$) | Compute the centralizer of `R` in $GL(n,\mathbb{Z})$ (44.6-8). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `IsBravaisEquivalent(R, S)` | `R`, `S`: finite integer matrix groups | `Boolean` | Decide whether `R` and `S` belong to the same Bravais class (i.e., their Bravais groups are $GL(n,\mathbb{Z})$-conjugate). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratZClass(R)` | `R`: finite integer matrix group | record (CARAT Z-class data) | Return the CARAT Z-class object for `R` (conjugacy class in $GL(n,\mathbb{Z})$). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratZClassNumber(R)` | `R`: finite integer matrix group | integer (CARAT Z-class index) | Return the CARAT Z-class index/number for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratQClass(R)` | `R`: finite integer matrix group | record (CARAT Q-class data) | Return the CARAT Q-class object for `R` (conjugacy class in $GL(n,\mathbb{Q})$). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `CaratQClassNumber(R)` | `R`: finite integer matrix group | integer (CARAT Q-class index) | Return the CARAT Q-class index/number for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `RationalClassesMaximalSubgroups(R)` | `R`: finite integer matrix group | list of integer matrix groups | Return representatives of maximal-subgroup classes across rational ($GL(n,\mathbb{Q})$) conjugacy classes for `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `ZClassRepsQClass(R)` | `R`: finite integer matrix group | list of integer matrix groups | Return representative groups for all $\mathbb{Z}$-conjugacy classes (Z-classes) within the $\mathbb{Q}$-conjugacy class (Q-class) of `R` (44.6-9). | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `MaximalSubgroupsRepresentatives(R)` | `R`: finite integer matrix group | list of integer matrix groups | Return representatives of maximal subgroups of `R`. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `AffineNormalizer(R)` | `R`: finite integer matrix group | affine group (normalizer in affine context) | Compute the affine normalizer of `R` in the crystallographic class context. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `IsCaratZClass(R)` | `R`: any object | `Boolean` | Predicate: whether `R` is a CARAT Z-class record object. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
+| `IsCaratQClass(R)` | `R`: any object | `Boolean` | Predicate: whether `R` is a CARAT Q-class record object. | `[PKG, EUCLID, PD, ZZMOD, GRP]` |
 
 ---
 
