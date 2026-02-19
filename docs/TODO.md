@@ -6,6 +6,10 @@ Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate t
 
 **STATUS (2026-02-19)**: Goal 1 COMPLETE. Goal 2 COMPLETE - all reference doc sections now have explicit type specifications.
 
+**Corrections applied (2026-02-19, follow-up pass)**:
+- GAP core reference: LLL and short-vector sections (1.2, 1.3) converted to 5-column format with source-backed argument types and return types from chap25.html; `LLLReducedBasis(...)` placeholder replaced with full optional-argument signature.
+- SageMath QuadraticForm reference: `local_representation_conditions` argument types corrected (was `—`, now `recompute_flag=False, silent_flag=False`) and critical ≥3-variable constraint added; return type corrected from `RepresentationConditions` to `LocalRepresentationConditions`.
+
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
 Local upstream docs under `docs/**/upstream/` are required before contract-fidelity work can proceed.
