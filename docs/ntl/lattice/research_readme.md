@@ -37,7 +37,10 @@ Representation convention in these APIs: lattice/module bases are given by matri
 | `long LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | Exact LLL with rational `delta = a/b` plus unimodular transform output `U`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long verbose=0)` | LLL variant returning Gram-Schmidt squared-length vector `D`: `D[0]=1`, and for `i=1..r`, `D[i]/D[i-1]` is the squared length of the i-th Gram-Schmidt basis vector; `D[r]` equals `det2` from plain LLL. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform output `U`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
-| `long image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Computes image/lattice basis data from integer matrix input using LLL-driven workflow; returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long a, long b, long verbose=0)` | `LLL_plus` with explicit rational reduction parameter `delta = a/b`; requires `1/4 < a/b <= 1`, `a,b` positive integers. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | `LLL_plus` with rational `delta = a/b` and unimodular transform output `U`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long image(ZZ& det2, mat_ZZ& B, long verbose=0)` | Computes image/lattice basis data from integer matrix input using a cheap LLL-driven workflow (size-reduction only, no swaps unless dependencies found); returns rank `r`; first `m-r` rows become zero. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform `U` s.t. `U * old_B = new_B`; first `m-r` rows of `U` span the kernel of `old_B`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LatticeSolve(vec_ZZ& x, const mat_ZZ& A, const vec_ZZ& y, long reduce=0)` | Solves `x*A = y` over integers when possible; sets `x` to a solution and returns `1` if solvable, leaves `x` unchanged and returns `0` if no integer solution exists. Optional `reduce` (0/1/2) controls quality of solution when the solution is not unique: 0=no effort, 1=size reduction on kernel, 2=LLL on kernel (provably near-optimal). Source: `LLL.cpp` | `[ZZMOD, SOLVE, CPP]` |
 
 ---
@@ -46,8 +49,8 @@ Representation convention in these APIs: lattice/module bases are given by matri
 
 | API family | Description | Tags |
 |------------|-------------|------|
-| `long [G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants); returns rank. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
-| `long [G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model, with configurable block size and pruning; returns rank. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long [G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants); returns rank. **`delta` constraint: `0.50 <= delta < 1`** (note: lower bound is `1/2`, not `1/4` as in exact LLL; upper bound is exclusive). Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long [G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model; returns rank. **`delta` constraint: `0.50 <= delta < 1`** (same as floating LLL). **`BlockSize` constraint: `2 <= BlockSize <= m`** where `m` is the number of rows of `B`. `prune=0` disables pruning; `prune > 0` enables Volume Heuristic (Schnorr-Horner). `QP1` variant uses quad_float for Gram-Schmidt but double in block reduction search phase. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 
 Important caveats from upstream docs:
 
