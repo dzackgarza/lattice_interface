@@ -9,11 +9,11 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 - [ ] `qflll(x, {flag = 0})`
 - [ ] `qflllgram(G, {flag = 0})`
-  - Caveat: primary contract is positive-definite Gram reduction.
+  - Caveat: accepts positive semidefinite forms (positive quadratic form, not necessarily definite); form need not have maximal rank.
 - [ ] `qfcholesky(G)`
-  - Caveat: positive-definite requirement; returns `[]` if decomposition fails.
+  - Caveat: no explicit positive-definite requirement in upstream; returns `[]` if decomposition fails (when G is not positive semidefinite).
 - [ ] `qfjacobi(G)`
-  - Caveat: for symmetric real matrices only; preferred over `mateigen` for symmetric matrices.
+  - Caveat: no positive-definite requirement; applies to any real symmetric matrix. Returns `[L, V]` with eigenvalues and eigenvectors.
 - [ ] `qfisom(G, H, {fl}, {grp})`
 - [ ] `qfisominit(G, {fl}, {m})`
 - [ ] `qfauto(G, {fl})`
@@ -25,8 +25,10 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 - [ ] `qfminim(x, {B}, {m}, {flag = 0})`
 - [ ] `qfminimize(G)`
+  - Caveat: requires non-degenerate form (non-zero determinant), not positive-definite. Returns `[H, U, c]` with minimized integral form.
 - [ ] `qfcvp(x, t, {B}, {m}, {flag = 0})`
 - [ ] `qfrep(q, B, {flag = 0})`
+  - Caveat: requires positive-definite form per upstream.
 - [ ] `qfeval({q}, x, {y})`
 - [ ] `qfnorm(x, {q})`
   - Caveat: obsolete in upstream PARI docs; prefer `qfeval`.
@@ -38,18 +40,23 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `qfsolve(G)`
 - [ ] `qfparam(G, sol, {flag = 0})`
 - [ ] `qfsign(G)`
+  - Caveat: returns `[p, m]` (positive and negative eigenvalues); no positive-definite requirement.
 
 ## 4. Low-Dimensional and Structural APIs
 
 - [ ] `qfgaussred(q, {flag = 0})`
+  - Caveat: singular matrices supported; no positive-definite requirement.
 - [ ] `qfperfection(G)`
 
 ---
 
 ## Definiteness and Domain Caveats
 
-- `qflllgram`, `qfminim`, and `qfminimize` are documented in positive-definite workflows.
-- `qfauto`, `qfisom`, and `qfisominit` are documented for integer positive-definite quadratic forms.
+- `qflllgram` accepts positive semidefinite forms (positive quadratic form, not necessarily definite).
+- `qfminim`, `qfcvp`, and `qfrep` require positive-definite forms; behavior undefined otherwise.
+- `qfauto`, `qfisom`, `qfisominit`, and `qfperfection` require positive-definite forms.
+- `qfminimize` requires non-degenerate form (non-zero determinant), not positive-definite.
+- `qfjacobi`, `qfsign`, `qfsolve`, and `qfgaussred` have no positive-definite requirement.
 - Indefinite arithmetic workflows should prioritize `qfsolve`/`qfparam`/`qfsign` and isometry tools (`qfisom`, `qfauto`).
 
 ---
