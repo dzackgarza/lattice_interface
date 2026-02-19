@@ -36,11 +36,12 @@ Upstream README documents the main command and options:
 | Command / option | Argument Types | Return Type | Description | Tags |
 |------------------|----------------|-------------|-------------|------|
 | `flatter [OPTION] [INPUT_FILE [OUTPUT_FILE]]` | `OPTION`: flags, `INPUT_FILE`: str (optional), `OUTPUT_FILE`: str (optional) | integer matrix (stdout) | Main reduction command. | `[CLI, EUCLID, RED]` |
-| `-a ALPHA` | `ALPHA`: float | CLI flag | Reduction parameter (`0.5 < ALPHA <= 1`). | `[CLI, EUCLID, RED]` |
-| `-rhf R` | `R`: float | CLI flag | Alternate reduction parameter based on root-Hermite factor (`R > 1`). | `[CLI, EUCLID, RED]` |
-| `-logcond C` | `C`: float | CLI flag | Reduction parameter based on log-condition number (`C >= 0`). | `[CLI, EUCLID, RED]` |
-| `-p PREC` | `PREC`: int | CLI flag | Precision in bits (`PREC >= 1`; default `0` uses auto mode). | `[CLI, EUCLID, RED]` |
-| `-t THRS` | `THRS`: int | CLI flag | Number of threads (`THRS >= 1`; default `1`). | `[CLI, EUCLID, RED]` |
+| `-a ALPHA` | `ALPHA`: float | CLI flag | Reduction parameter. **Constraint not documented in upstream**; source code accepts any value without validation. Default is `0.06250805094100162` (corresponds to RHF 1.0219). | `[CLI, EUCLID, RED]` |
+| `-rhf R` | `R`: float | CLI flag | Alternate reduction parameter based on root-Hermite factor. **Constraint not documented in upstream**; mathematically RHF should be > 1 for meaningful reduction (alpha = 2*log2(RHF)). | `[CLI, EUCLID, RED]` |
+| `-delta DELTA` | `DELTA`: float | CLI flag | Alternate reduction parameter analogous to LLL delta. **Constraint not documented in upstream**. Source code computes alpha = (0.255 / DELTA)^2. | `[CLI, EUCLID, RED]` |
+| `-logcond C` | `C`: float | CLI flag | Reduction parameter based on log-condition number. **Constraint not documented in upstream**. | `[CLI, EUCLID, RED]` |
+| `-p PREC` | `PREC`: int | CLI flag | Precision in bits. **Constraint not documented in upstream**. Default `0` uses auto mode. | `[CLI, EUCLID, RED]` |
+| `-t THRS` | `THRS`: int | CLI flag | Number of threads. **Constraint not documented in upstream**. Default `1`. | `[CLI, EUCLID, RED]` |
 | `-v` | — | CLI flag | Verbose mode. | `[CLI, EUCLID]` |
 | `-q` | — | CLI flag | Quiet mode. | `[CLI, EUCLID]` |
 | `-h` | — | CLI flag | Help output. | `[CLI]` |

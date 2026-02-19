@@ -10,6 +10,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `flatter [OPTION] [INPUT_FILE [OUTPUT_FILE]]`
 - [ ] `-a ALPHA`
 - [ ] `-rhf R`
+- [ ] `-delta DELTA`
 - [ ] `-logcond C`
 - [ ] `-p PREC`
 - [ ] `-t THRS`
