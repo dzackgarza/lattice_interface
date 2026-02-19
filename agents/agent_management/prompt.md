@@ -72,7 +72,7 @@ Do not over-specify. Do not enumerate gaps for agents — that is the agent's jo
 - `agent_runner/logs/` contains per-agent, per-task run directories with `metadata.json`, `transcript.log`, and `runner.log`.
 - `agent_runner/logs/*/task.log` and `agent_runner/logs/*/agent.log` contain aggregate summaries.
 - Serena memories are under `.serena/memories/`. Delete any that are changelogs or completion summaries.
-- Task prompts are under `agents/*/prompt.md`. Playbooks are under `docs/*_playbook.md`.
+- Task prompts are under `agents/*/prompt.md`. Playbooks are under `agents/*/playbook.md`.
 - Git is the change ledger: commit all prompt, playbook, and memory changes made.
 
 ## Output Format (Mandatory)

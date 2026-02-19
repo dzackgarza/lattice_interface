@@ -46,7 +46,7 @@ Completeness and provable correctness of all documented methods:
 
 If any of the above is missing or unsupported for any method, triage that gap immediately.
 
-**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. There are always such gaps — the task is not to assess whether gaps exist but to pick a surface and fix the next one. A run that concludes "no gaps found" or "no gaps requiring immediate fixes" has not looked deeply enough. A no-commit run is a failure. Do not pivot to structural or management work when no documentation gap is obvious; go deeper into a specific reference file instead.
+**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. There are always such gaps — the task is not to assess whether gaps exist but to pick a surface and fix the next one. A run that concludes "no gaps found" or "no gaps requiring immediate fixes" has not looked deeply enough. A no-commit run is a failure. Your edits are limited to documentation files under `docs/` — never modify files under `agents/`. If no gap is visible after a broad scan, go deeper into a specific reference file line by line.
 
 Current-phase focus:
 
