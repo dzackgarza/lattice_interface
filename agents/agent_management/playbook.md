@@ -98,7 +98,7 @@ A playbook or prompt that enumerates specific things to check creates a meta-cli
 
 ## Research-Backed Failure Modes (Diagnostic Patterns)
 
-Use these patterns when auditing transcripts to identify structural defects:
+Use these patterns when auditing transcripts to identify structural defects. Research sources: Trehan & Chopra, "Why LLMs Aren't Scientists Yet" (arXiv:2601.03315v1).
 
 | Failure Mode | Transcript Symptoms | Structural Cause | Fix Pattern |
 |-------------|---------------------|-----------------|-------------|
@@ -112,6 +112,8 @@ Use these patterns when auditing transcripts to identify structural defects:
 | **Missing Internal Tools** | Drift persists across runs; agent loses track mid-session | No instruction to use harness-provided tools | Add: "Use harness todo list if available for multi-step tracking"; "Activate planning mode if available for complex tasks" |
 | **Verify-And-Stop** | Picks task, verifies no gaps exist, declares success without pivoting | No "pivot on no-gap" instruction; task framed as verification rather than fix | Add: "If no gaps found, pivot to different task/package. A no-commit run is a failure. Job is to find gaps, not verify there are none." |
 | **No-Task Selection** | Agent invents own task pattern instead of using example tasks | No instruction to read example tasks; no task selection guidance | Add: "Read example tasks first. Pick one at random to execute." |
+| **Overexcitement** (Trehan & Chopra §3.4) | "No gaps found"; claims success despite absence of substantive work; focuses on positive indicators | Task framed as verification; output format allows generic claims | Add: "If you cannot name a specific gap you found and fixed, your run has failed." |
+| **Implementation Drift** (Trehan & Chopra §3.2) | Simplifies task when encountering complexity; runs in "sample"/"test" mode; progressively abandons core work | No perpetuity framing; no "no-commit = failure" rule | Add: "This task has no terminal state. A no-commit run is a failure." |
 
 ---
 
@@ -164,6 +166,24 @@ Management runs are vulnerable to **goal drift** — gradually expanding scope b
   Research: <citation if research-backed>
   ```
 - **Use git history as state ledger** — `git log --oneline` and `git diff HEAD~N` are the authoritative record; do not duplicate in separate checkpoint files
+
+---
+
+## Research-Backed Design Principles
+
+From Trehan & Chopra (arXiv:2601.03315v1), applicable to agent system design:
+
+### 1. Start Abstract, Ground Later
+Domain expertise and technical details should be introduced gradually. Prompts become more specific as the process progresses. Maintain abstraction during ideation to prevent premature anchoring. This prevents bias on training data — models defaulting to popular patterns from training data rather than current instructions.
+
+### 2. Verify Everything
+Verification at every stage prevents error cascading. Ground verification in raw data, not LLM interpretations — LLMs "read signal in errors" and are "overly optimistic about clearly mid results" (called "p-hacking and eureka-ing" in the paper). In practice: programmatic review of logs, metrics, and original outputs rather than summary files.
+
+### 3. Plan For Failure and Recovery
+Long-duration tasks require prespecified recovery paths. Multi-turn agentic task design works better than zero-shot generation. Split coding tasks into modular tasks to prevent error cascading. Separate code generation from execution so verification hooks can be built in.
+
+### 4. Log Everything
+Comprehensive logging supports long-duration execution and later review. Everything from agent outputs to experimental metrics should be logged. This enables the human-in-the-loop to observe and intervene.
 
 ---
 
