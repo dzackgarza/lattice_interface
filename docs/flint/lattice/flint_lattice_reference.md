@@ -30,23 +30,17 @@ These are matrix-algorithm APIs, not high-level indefinite-lattice classificatio
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `fmpz_lll_context_init_default(fl)` | Initialize default LLL context parameters. | `[ZZMOD, RED, C]` |
-| `fmpz_lll_context_init(fl, delta, eta, rt, gt)` | Initialize context with explicit reduction parameters and representation/Gram strategy choices. | `[ZZMOD, RED, C]` |
-| `fmpz_lll(B, U, state, fl)` | Main LLL entry point over integer matrix basis, optionally tracking transform matrix `U`. | `[ZZMOD, RED, C]` |
-| `fmpz_lll_with_removal(B, U, gs_B, state, fl, new_size)` | LLL-with-removal variant returning reduced rank/size information. | `[ZZMOD, RED, C]` |
+| `fmpz_lll_context_init_default(fl)` | Initialize default LLL context parameters (delta=0.99, eta=0.51, rt=Z_BASIS, gt=APPROX). | `[ZZMOD, RED, C]` |
+| `fmpz_lll_context_init(fl, delta, eta, rt, gt)` | Initialize context with explicit reduction parameters. `[delta in (0.25, 1), eta in (0.5, sqrt(delta))]` Both endpoints exclusive. | `[ZZMOD, RED, C]` |
+| `fmpz_lll(B, U, fl)` | Main LLL entry point over integer matrix basis, optionally tracking transform matrix `U`. | `[ZZMOD, RED, C]` |
+| `fmpz_lll_with_removal(B, U, gs_B, fl)` | LLL-with-removal variant. Returns new dimension of `B` after removing vectors with Gram-Schmidt length exceeding `gs_B`. | `[ZZMOD, RED, C]` |
 | `fmpz_lll_is_reduced(B, fl)` | Predicate checking whether basis meets LLL conditions for context `fl`. | `[ZZMOD, RED, C]` |
 | `fmpz_mat_is_reduced(A, fl)` | Matrix-level reducedness predicate under LLL context. | `[ZZMOD, RED, C]` |
-
-Documented parameter constraints:
-
-- `delta` in `(0.25, 1)`,
-- `eta` in `(0.5, sqrt(delta))`.
-
-Note: both endpoints are exclusive; default values `delta=0.99`, `eta=0.51` confirm this.
 
 Practical caveat from upstream docs:
 
 - The low-level floating variants (`fmpz_lll_d`, `fmpz_lll_mpf`) can return successfully without guaranteeing reduced output in all cases.
+- The `fmpz_lll` function is the main user entry point; it currently calls ULLL internally.
 
 ---
 
@@ -71,9 +65,9 @@ Practical caveat from upstream docs:
 | API | Description | Tags |
 |-----|-------------|------|
 | `fmpz_mat_snf(S, A)` | Compute Smith normal form. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_snf_diagonal(S, A)` | Diagonalization-focused SNF helper. | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf_diagonal(S, A)` | Diagonalization-focused SNF helper; requires `A` to be diagonal. | `[ZZMOD, NF, C]` |
 | `fmpz_mat_snf_kannan_bachem(S, A)` | Kannan-Bachem SNF algorithm variant. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_snf_iliopoulos(S, A, mod)` | Iliopoulos SNF algorithm variant; requires `A` to be square and nonsingular; `mod` is a modular bound parameter. | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf_iliopoulos(S, A, mod)` | Iliopoulos SNF algorithm variant; requires `A` to be nonsingular `n×n`. Parameter `mod` is a modular bound (upstream does not specify constraints). | `[ZZMOD, NF, C]` |
 | `fmpz_mat_is_in_snf(S)` | Predicate that matrix is in SNF shape. | `[ZZMOD, NF, C]` |
 
 ---
