@@ -39,13 +39,13 @@ Representation model:
 | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
 | `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
 | `qfautoexport(qfa, {flag})` | `qfa`: vector (automorphism data); `flag`: integer (optional) | vector | Export/format automorphism data | `[NT]` |
-| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V` | `[NT]` |
+| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V`. **Requires** `G` contains `-I` (minus identity), and `V` should contain only one representative per pair `{v, -v}`; returns 0 if `G` does not stabilize `V` | `[NT]` |
 
 Practical note:
 
 - `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.
-- `qfauto`, `qfisom`, and `qfisominit` are documented for integer positive-definite forms.
-- `qforbits` requires `G` to include `-I` and `V` to contain one representative per pair `{v, -v}`.
+- `qfminim` and `qfcvp` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
+- `qfauto`, `qfisom`, `qfisominit` require positive-definite forms (now tagged `[PD]` in method entries).
 
 ---
 
