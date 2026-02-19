@@ -99,6 +99,7 @@ G = IntegralLatticeGluing([L1, L2], [[g1, g2]])
 | `rank()` | Rank of the lattice (number of basis vectors) | inherited |
 | `degree()` | Dimension of the ambient space | inherited |
 | `determinant()` | $\det(\text{gram\_matrix}())$; equivalently $\det(B M B^T)$ | inherited |
+| `discriminant()` | Alias for `determinant()`; returns $\det(\text{gram\_matrix}())$ with no sign correction. Differs from `FreeQuadraticModule_generic.discriminant()` which applies $(−1)^r$ sign factor where $r = \lfloor\text{rank}/2\rfloor$ | inherited |
 | `signature()` | Signature $p - n$ where $(p, n)$ = `signature_pair()` | `[INDEF ok]` |
 | `signature_pair()` | Signature pair $(p, n)$: counts of positive / negative eigenvalues of the Gram matrix | `[INDEF ok]` |
 | `is_even()` | Whether all diagonal entries of the Gram matrix are even, i.e. $(x,x) \in 2\mathbb{Z}$ for all basis vectors | |
