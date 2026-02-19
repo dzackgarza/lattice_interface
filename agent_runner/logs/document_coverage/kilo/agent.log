@@ -48,3 +48,8 @@ last_message: The documentation for in-scope bilinear-form lattice methods is co
 2026-02-19 19:50:04 UTC [kilo/document_coverage] elapsed=6m02s tokens=n/a files=6 loc=+45/-2
 last_message: The missing `discriminant()` method on `IntegralLattice` was undocumented in the reference file despite being a distinct contract from its parent class `FreeQuadraticModule_generic`. The parent applies a (−1)^r sign factor, while IntegralLattice's override returns plain det(gram_matrix()) — a semantic difference already noted in the broader reference but missing from the specific IntegralLattice method table. This has now been added with explicit notation of the semantic distinction.
 
+
+=== 2026-02-19 20:20:03 UTC [kilo/document_coverage] ===
+2026-02-19 20:20:03 UTC [kilo/document_coverage] elapsed=12m54s tokens=n/a files=1 loc=+2/-1
+last_message: I found and fixed a contract gap in the PARI/GP reference documentation. The `qfcholesky` function was incorrectly tagged as `[PD]` (positive-definite) in the reference doc, but the upstream PARI documentation only states "Given a square symmetric matrix M" without explicitly requiring positive-definiteness. This differs from other PARI functions like `qfisom`, `qfauto`, `qfisominit`, and `qfcvp` which explicitly state "positive definite quadratic form" in their documentation. I removed the unsupported `[PD]` tag and clarified that Cholesky decomposition mathematically succeeds only for positive (semi)definite matrices, added a source citation, and committed the fix.
+

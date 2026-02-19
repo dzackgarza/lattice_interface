@@ -1,0 +1,212 @@
+[0m
+> code · minimax/minimax-m2.5:free
+[0m
+[0m→ [0mRead agents/doc_coverage/playbook.md
+[0m✱ [0mGlob "agents/doc_coverage/example_tasks/*.md"[90m 7 matches[0m
+[0m→ [0mRead agents/doc_coverage/example_tasks/deep_package_audit.md
+[0m✱ [0mGlob "docs/**/*checklist*.md"[90m 29 matches[0m
+[0m✱ [0mGlob "docs/**/upstream/**"[90m 100 matches[0m
+[0m→ [0mRead agents/doc_coverage/example_tasks/mathematical_contract_audit.md
+Let me pick one reference doc to audit for mathematical contracts. Let me see what reference docs exist:
+[0m✱ [0mGlob "docs/**/*reference*.md"[90m 33 matches[0m
+[0m→ [0mRead docs/forms/lattice/forms_lattice_reference.md
+[0m→ [0mRead docs/forms_methods_checklist.md
+[0m✱ [0mGlob "docs/forms/upstream/**"[90m 24 matches[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md
+[0m→ [0mRead docs/flint/lattice/flint_lattice_reference.md
+This PARI/GP reference doc looks good. Let me check another reference doc that's perhaps less complete. Let me examine the FLINT reference:
+[0m→ [0mRead docs/ntl/lattice/ntl_lattice_reference.md
+Let me check the Oscar/Julia reference docs which tend to be more complex:
+[0m→ [0mRead docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md
+[0m✱ [0mGlob "docs/julia/**/upstream/**"[90m 0 matches[0m
+[0m
+[0m$ [0mls -la /mnt/extra/lattice_interface/docs/julia/
+total 20
+drwxrwxr-x  5 dzack dzack 4096 Feb 18 12:33 .
+drwxrwxr-x 17 dzack dzack 4096 Feb 19 16:19 ..
+drwxrwxr-x  3 dzack dzack 4096 Feb 18 12:33 hecke_jl
+drwxrwxr-x  3 dzack dzack 4096 Feb 18 12:33 indefinite_jl
+drwxrwxr-x  6 dzack dzack 4096 Feb 18 12:33 oscar_jl
+[0m
+[0m✱ [0mGlob "docs/pari_gp/upstream/**"[90m 5 matches[0m
+Let me read the GAP lattice reference:
+[0m→ [0mRead docs/gap/lattice/gap_lattice_methods_reference.md
+[0m✱ [0mGlob "docs/ntl/upstream/**"[90m 4 matches[0m
+[0m✱ [0mGlob "docs/julia/**/upstream/*"[90m 0 matches[0m
+[0m→ [0mRead docs/ntl/upstream/LLL.txt
+[0m→ [0mRead docs/gap/upstream/matint.gd[90m [limit=100][0m
+[0m→ [0mRead docs/TODO.md
+[0m→ [0mRead docs/sage/lattice/sagemath_lattice_reference.md
+[0m✱ [0mGlob "docs/sage/**/upstream/**"[90m 9 matches[0m
+[0m→ [0mRead docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+[0m
+[0m$ [0mls -la /mnt/extra/lattice_interface/docs/julia/hecke_jl/
+total 12
+drwxrwxr-x 3 dzack dzack 4096 Feb 18 12:33 .
+drwxrwxr-x 5 dzack dzack 4096 Feb 18 12:33 ..
+drwxrwxr-x 2 dzack dzack 4096 Feb 18 18:56 lattice
+[0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=100][0m
+[0m
+[0m$ [0mls -la /mnt/extra/lattice_interface/docs/julia/hecke_jl/lattice/
+total 32
+drwxrwxr-x 2 dzack dzack  4096 Feb 18 18:56 .
+drwxrwxr-x 3 dzack dzack  4096 Feb 18 12:33 ..
+-rw-rw-r-- 1 dzack dzack 22357 Feb 19 13:06 nemo_hecke_lattice_reference.md
+[0m
+[0m→ [0mRead docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md[90m [limit=150][0m
+[0m→ [0mRead docs/sage/genus/sage_genus_reference.md
+[0m→ [0mRead docs/flint/upstream/fmpz_mat.rst[90m [limit=100][0m
+[0m→ [0mRead docs/fpylll/lattice/fpylll_lattice_reference.md
+[0m→ [0mRead docs/gap_methods_checklist.md
+[0m✱ [0mGrep "Source:|source:|Local upstream"[90m in docs · 100 matches[0m
+[0m→ [0mRead docs/ntl/lattice/ntl_lattice_reference.md
+[0m
+[0m$ [0mls -la /mnt/extra/lattice_interface/docs/
+total 500
+drwxrwxr-x 17 dzack dzack   4096 Feb 19 16:19 .
+drwxrwxr-x 19 dzack dzack   4096 Feb 19 19:41 ..
+-rw-rw-r--  1 dzack dzack    830 Feb 19 19:21 TODO.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:14 archive
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 crystallographic_stack
+-rw-rw-r--  1 dzack dzack   2926 Feb 18 12:33 crystallographic_stack_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 flatter
+-rw-rw-r--  1 dzack dzack   1054 Feb 18 12:33 flatter_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 flint
+-rw-rw-r--  1 dzack dzack   1784 Feb 19 20:12 flint_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 forms
+-rw-rw-r--  1 dzack dzack   2922 Feb 18 12:33 forms_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 fpylll
+-rw-rw-r--  1 dzack dzack   3418 Feb 18 12:33 fpylll_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 g6k
+-rw-rw-r--  1 dzack dzack   1929 Feb 18 14:11 g6k_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 gap
+-rw-rw-r--  1 dzack dzack   7371 Feb 18 23:34 gap_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 hypercells
+-rw-rw-r--  1 dzack dzack  11145 Feb 18 12:33 hypercells_methods_checklist.md
+drwxrwxr-x  5 dzack dzack   4096 Feb 18 12:33 julia
+-rw-rw-r--  1 dzack dzack  47141 Feb 19 01:16 julia_methods_checklist.md
+-rw-rw-r--  1 dzack dzack 144361 Feb 18 12:33 lattice_wrapper_capability_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 19 19:02 latticegen
+-rw-rw-r--  1 dzack dzack   1724 Feb 19 19:05 latticegen_methods_checklist.md
+-rw-rw-r--  1 dzack dzack 150974 Feb 18 12:33 method_ground_truth_tracker.csv
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 ntl
+-rw-rw-r--  1 dzack dzack   1532 Feb 18 14:11 ntl_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 pari_gp
+-rw-rw-r--  1 dzack dzack   2235 Feb 19 14:33 pari_gp_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 project
+drwxrwxr-x  9 dzack dzack   4096 Feb 18 12:33 sage
+-rw-rw-r--  1 dzack dzack  29710 Feb 18 14:14 sage_methods_checklist.md
+[0m
+[0m✱ [0mGrep "fmpz_mat_hnf_minors"[90m in docs/flint/upstream · 1 match[0m
+[0m→ [0mRead docs/flint/upstream/fmpz_mat.rst[90m [limit=30, offset=1285][0m
+[0m✱ [0mGlob "docs/julia/**/upstream/**"[90m 0 matches[0m
+[0m
+[0m$ [0mls -la /mnt/extra/lattice_interface/docs/julia/
+total 20
+drwxrwxr-x  5 dzack dzack 4096 Feb 18 12:33 .
+drwxrwxr-x 17 dzack dzack 4096 Feb 19 16:19 ..
+drwxrwxr-x  3 dzack dzack 4096 Feb 18 12:33 hecke_jl
+drwxrwxr-x  3 dzack dzack 4096 Feb 18 12:33 indefinite_jl
+drwxrwxr-x  6 dzack dzack 4096 Feb 18 12:33 oscar_jl
+[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md[90m [limit=80][0m
+[0m✱ [0mGrep "Source:|source:|upstream:"[90m in docs/pari_gp/lattice · 0 matches[0m
+[0m→ [0mRead docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md[90m [limit=80, offset=140][0m
+[0m✱ [0mGrep "qfgenus|qfbinary"[90m in docs/pari_gp/upstream · 0 matches[0m
+[0m✱ [0mGrep "qfcholesky"[90m in docs/pari_gp/upstream · 5 matches[0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=20, offset=1945][0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=40, offset=1940][0m
+I found a gap! The `qfcholesky` function in the PARI reference doc states it requires `[PD, RED]` but the upstream documentation just says "Given a square symmetric matrix M" - it doesn't explicitly state positive-definite requirement. Let me verify more carefully:
+[0m✱ [0mGrep "qfisom"[90m in docs/pari_gp/upstream · 20 matches[0m
+[0m→ [0mRead docs/pari_gp/upstream/vectors_matrices_linear_algebra.html[90m [limit=30, offset=2175][0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md[90m [limit=20, offset=30][0m
+I found a contract gap in the PARI reference doc. The `qfcholesky(G)` function is tagged as `[PD, RED]` but the upstream documentation only states "Given a square symmetric matrix M" - it does NOT explicitly require positive definiteness unlike `qfisom`, `qfisominit`, `qfauto`, and `qfcvp` which all explicitly say "positive definite quadratic form".
+
+Let me fix this by removing the unsupported `[PD]` tag from `qfcholesky`:
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -32,9 +32,9 @@
+ | Function | Argument Types | Return Type | Description | Tags |
+ |----------|----------------|-------------|-------------|------|
+ | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
+ | `qflllgram(G, {flag = 0})` | `G`: symmetric integer matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns reduced Gram matrix | `[PD, ZZMOD, RED]` |
+-| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists | `[PD, RED]` |
++| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
+ | `qfjacobi(G)` | `G`: symmetric real matrix | vector | Jacobi eigenvalue method for symmetric matrices; returns eigenvalues and eigenvectors | `[PD]` |
+ | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
+ | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+
+[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md[90m [limit=15, offset=32][0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md[90m [limit=20, offset=90][0m
+[0m
+[0m← [0mEdit docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Index: /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+===================================================================
+--- /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ /mnt/extra/lattice_interface/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -98,7 +98,8 @@
+ ## 7. Sources
+ 
+ - PARI function index (stable): https://pari.math.u-bordeaux.fr/dochtml/ref-stable/function_index.html
+ - PARI vectors/matrices + qf APIs: https://pari.math.u-bordeaux.fr/dochtml/ref-stable/Vectors__matrices__linear_algebra_and_sets.html
++- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` (§qfcholesky: no explicit PD requirement unlike qfcvp/qfminim)
+ - Local provenance capture: `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
+ - PARI docs home: https://pari.math.u-bordeaux.fr/
+ - Sage PARI bridge docs for `qfsolve`/`qfparam`: https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/qfsolve.html
+
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 110 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/document_coverage/opencode/20260219_200003/transcript.log
+	modified:   agent_runner/logs/document_coverage/qwen/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agents/interface_design/prompt.md
+	modified:   agents/test_coverage/prompt.md
+	modified:   docs/pari_gp/lattice/pari_gp_lattice_reference.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	agent_runner/logs/document_coverage/kilo/20260219_202003/
+	agent_runner/logs/document_coverage/opencode/20260219_200003/metadata.json
+	agent_runner/logs/document_coverage/opencode/20260219_203003/
+	agent_runner/logs/document_coverage/qwen/20260219_201004/
+	agents/agent_management/example_tasks/agent_orchestration_new_agent_creation.md
+	agents/agent_management/telemetry-id
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit add docs/pari_gp/lattice/pari_gp_lattice_reference.md && git commit -m "pari_gp: fix qfcholesky contract - remove unsupported [PD] tag
+
+The upstream PARI docs for qfcholesky state 'Given a square symmetric
+matrix M' without explicitly requiring positive-definite forms. This
+differs from qfcvp/qfminim/qfisom which explicitly require 'positive
+definite quadratic form' in the documentation.
+
+Fix: removed [PD] tag from qfcholesky, clarified that decomposition
+succeeds only when G is positive (semi)definite (mathematical fact),
+not because upstream requires it.
+
+Source: docs/pari_gp/upstream/vectors_matrices_linear_algebra.html §qfcholesky"
+[main fe0deb0] pari_gp: fix qfcholesky contract - remove unsupported [PD] tag
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+[0m
+[0m$ [0mgit push
+fatal: could not read Username for 'https://github.com': No such device or address
+[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md[90m [limit=20, offset=32][0m
+The commit was successful. Let me verify the final state of the change:
+I found and fixed a contract gap in the PARI/GP reference documentation. The `qfcholesky` function was incorrectly tagged as `[PD]` (positive-definite) in the reference doc, but the upstream PARI documentation only states "Given a square symmetric matrix M" without explicitly requiring positive-definiteness. This differs from other PARI functions like `qfisom`, `qfauto`, `qfisominit`, and `qfcvp` which explicitly state "positive definite quadratic form" in their documentation. I removed the unsupported `[PD]` tag and clarified that Cholesky decomposition mathematically succeeds only for positive (semi)definite matrices, added a source citation, and committed the fix.

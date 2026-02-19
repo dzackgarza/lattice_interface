@@ -40,3 +40,65 @@ I found contract gaps in the PARI/GP reference doc. The `qfauto`, `qfisom`, and 
 [0m⚙ [0mserena_replace_content {"mode":"literal","needle":"| `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls | `[NT]` |","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","repl":"| `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |"}
 [0m⚙ [0mserena_search_for_pattern {"context_lines_after":30,"context_lines_before":2,"relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","substring_pattern":"qforbits\\("}
 [0m⚙ [0mserena_read_file {"end_line":"2570","relative_path":"docs/pari_gp/upstream/vectors_matrices_linear_algebra.html","start_line":2533}
+[0m⚙ [0mserena_replace_content {"mode":"literal","needle":"| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V` | `[NT]` |","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","repl":"| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V`. **Requires** `G` contains `-I` (minus identity), and `V` should contain only one representative per pair `{v, -v}`; returns 0 if `G` does not stabilize `V` | `[NT]` |"}
+[0m⚙ [0mserena_read_file {"end_line":"150","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","start_line":70}
+[0m⚙ [0mserena_read_file {"end_line":"70","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","start_line":50}
+[0m⚙ [0mserena_read_file {"end_line":"50","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","start_line":35}
+[0m⚙ [0mserena_replace_content {"mode":"literal","needle":"Practical note:\n\n- `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.\n- `qfauto`, `qfisom`, and `qfisominit` are documented for integer positive-definite forms.\n- `qforbits` requires `G` to include `-I` and `V` to contain one representative per pair `{v, -v}`.","relative_path":"docs/pari_gp/lattice/pari_gp_lattice_reference.md","repl":"Practical note:\n\n- `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.\n- `qfminim` and `qfcvp` behavior is undefined for non-positive-definite input; upstream notes a \"precision too low\" error is likely.\n- `qfauto`, `qfisom`, `qfisominit` require positive-definite forms (now tagged `[PD]` in method entries)."}
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 108 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/document_coverage/opencode/20260219_200003/transcript.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   docs/pari_gp/lattice/pari_gp_lattice_reference.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit diff docs/pari_gp/lattice/pari_gp_lattice_reference.md
+diff --git a/docs/pari_gp/lattice/pari_gp_lattice_reference.md b/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+index fbb7127..f5f1619 100644
+--- a/docs/pari_gp/lattice/pari_gp_lattice_reference.md
++++ b/docs/pari_gp/lattice/pari_gp_lattice_reference.md
+@@ -39,13 +39,13 @@ Representation model:
+ | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
+ | `qfautoexport(qfa, {flag})` | `qfa`: vector (automorphism data); `flag`: integer (optional) | vector | Export/format automorphism data | `[NT]` |
+-| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V` | `[NT]` |
++| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V`. **Requires** `G` contains `-I` (minus identity), and `V` should contain only one representative per pair `{v, -v}`; returns 0 if `G` does not stabilize `V` | `[NT]` |
+ 
+ Practical note:
+ 
+ - `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.
+-- `qfauto`, `qfisom`, and `qfisominit` are documented for integer positive-definite forms.
+-- `qforbits` requires `G` to include `-I` and `V` to contain one representative per pair `{v, -v}`.
++- `qfminim` and `qfcvp` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
++- `qfauto`, `qfisom`, `qfisominit` require positive-definite forms (now tagged `[PD]` in method entries).
+ 
+ ---
+[0m
+[0m$ [0mgit add docs/pari_gp/lattice/pari_gp_lattice_reference.md && git commit -m "pari_gp: add missing [PD] constraints for qfauto, qfisom, qfisominit
+
+Why: These functions explicitly require positive-definite quadratic forms
+per upstream docs but were missing the [PD] tag in the reference table.
+The qforbits function was also missing its documented constraints.
+
+Source: docs/pari_gp/upstream/vectors_matrices_linear_algebra.html
+- qfauto: 'G being a square and symmetric matrix with integer entries
+  representing a positive definite quadratic form'
+- qfisom: 'G, H being square and symmetric matrices with integer entries
+  representing positive definite quadratic forms'
+- qfisominit: 'G being a square and symmetric matrix with integer entries
+  representing a positive definite quadratic form'
+- qforbits: 'It is assumed that G contains minus identity, and only one
+  vector in {v, -v} should be given'
+
+Next: Continue auditing other reference docs for missing constraint tags"
+[main 85ebc04] pari_gp: add missing [PD] constraints for qfauto, qfisom, qfisominit
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+[0m

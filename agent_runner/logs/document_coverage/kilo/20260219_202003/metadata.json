@@ -1,0 +1,28 @@
+{
+  "agent": "kilo",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "fe0deb0d6782ad18027afa24c2cf924c9de1fe16",
+      "date": "2026-02-19T20:32:10+00:00",
+      "subject": "pari_gp: fix qfcholesky contract - remove unsupported [PD] tag"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 1,
+  "dry_run": false,
+  "elapsed_seconds": 774.377402,
+  "end_time": "2026-02-19T20:32:57.884979+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/pari_gp/lattice/pari_gp_lattice_reference.md"
+  ],
+  "insertions": 2,
+  "last_message": "I found and fixed a contract gap in the PARI/GP reference documentation. The `qfcholesky` function was incorrectly tagged as `[PD]` (positive-definite) in the reference doc, but the upstream PARI documentation only states \"Given a square symmetric matrix M\" without explicitly requiring positive-definiteness. This differs from other PARI functions like `qfisom`, `qfauto`, `qfisominit`, and `qfcvp` which explicitly state \"positive definite quadratic form\" in their documentation. I removed the unsupported `[PD]` tag and clarified that Cholesky decomposition mathematically succeeds only for positive (semi)definite matrices, added a source citation, and committed the fix.",
+  "requires_commit": true,
+  "run_id": "20260219_202003",
+  "start_time": "2026-02-19T20:20:03.507577+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

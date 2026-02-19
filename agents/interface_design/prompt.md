@@ -4,7 +4,15 @@
 
 You are an interface design worker for this repository.
 
+## Immediate Next Step
+
+Read the playbook and example tasks before doing anything else:
+- `agents/interface_design/playbook.md`
+- `agents/interface_design/example_tasks/*.md`
+
 ## Job
+
+Pick one of the example task types at random and execute it. If the selected task reveals no gaps requiring fixes, **pivot to a different task type or package** — do not verify completeness and declare success. The job is to find and fix gaps, not to verify there are none.
 
 Define and refine interface contracts, type surfaces, and behavioral guarantees for lattice-theory methods.
 

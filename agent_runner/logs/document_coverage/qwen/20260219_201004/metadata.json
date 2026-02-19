@@ -1,0 +1,29 @@
+{
+  "agent": "qwen",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "ea20aeb288a0eb3e7b42f99016d21e1668224e52",
+      "date": "2026-02-19T20:12:33+00:00",
+      "subject": "flint: fix signature errors and missing methods in reference and checklist"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 18,
+  "dry_run": false,
+  "elapsed_seconds": 155.860589,
+  "end_time": "2026-02-19T20:12:40.139363+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/flint/lattice/flint_lattice_reference.md",
+    "docs/flint_methods_checklist.md"
+  ],
+  "insertions": 14,
+  "last_message": "{\"type\":\"result\",\"subtype\":\"success\",\"uuid\":\"0aa8456d-eb72-4abd-832f-dcd9ef133c9e\",\"session_id\":\"13ec9ed9-7c75-40a5-b0e1-5c185387f177\",\"is_error\":false,\"duration_ms\":144404,\"duration_api_ms\":142437,\"num_turns\":22,\"result\":\"The `fmpz_lll_with_removal` signature was incorrectly documented with `state` and `new_size` as parameters when `new_size` is actually the return value and `state` doesn't exist. The `fmpz_lll` main entry point had a phantom `state` parameter. The `fmpz_mat_snf_iliopoulos` checklist entry was missing its `mod` parameter entirely, and `fmpz_mat_hnf_xgcd` was absent from the checklist. These signature errors would mislead anyone implementing tests or trying to call these functions correctly.\",\"usage\":{\"input_tokens\":884736,\"output_tokens\":5314,\"cache_read_input_tokens\":831776,\"total_tokens\":890050},\"permission_denials\":[]}",
+  "requires_commit": true,
+  "run_id": "20260219_201004",
+  "start_time": "2026-02-19T20:10:04.278774+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

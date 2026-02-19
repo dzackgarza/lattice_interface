@@ -151,3 +151,13 @@ last_message: All reference docs have proper upstream snapshots and provenance n
 2026-02-19 19:50:04 UTC [kilo/document_coverage] elapsed=6m02s tokens=n/a files=6 loc=+45/-2
 last_message: The missing `discriminant()` method on `IntegralLattice` was undocumented in the reference file despite being a distinct contract from its parent class `FreeQuadraticModule_generic`. The parent applies a (−1)^r sign factor, while IntegralLattice's override returns plain det(gram_matrix()) — a semantic difference already noted in the broader reference but missing from the specific IntegralLattice method table. This has now been added with explicit notation of the semantic distinction.
 
+
+=== 2026-02-19 20:10:04 UTC [qwen/document_coverage] ===
+2026-02-19 20:10:04 UTC [qwen/document_coverage] elapsed=2m35s tokens=n/a files=2 loc=+14/-18
+last_message: {"type":"result","subtype":"success","uuid":"0aa8456d-eb72-4abd-832f-dcd9ef133c9e","session_id":"13ec9ed9-7c75-40a5-b0e1-5c185387f177","is_error":false,"duration_ms":144404,"duration_api_ms":142437,"num_turns":22,"result":"The `fmpz_lll_with_removal` signature was incorrectly documented with `state` and `new_size` as parameters when `new_size` is actually the return value and `state` doesn't exist. The `fmpz_lll` main entry point had a phantom `state` parameter. The `fmpz_mat_snf_iliopoulos` checklist entry was missing its `mod` parameter entirely, and `fmpz_mat_hnf_xgcd` was absent from the checklist. These signature errors would mislead anyone implementing tests or trying to call these functions correctly.","usage":{"input_tokens":884736,"output_tokens":5314,"cache_read_input_tokens":831776,"total_tokens":890050},"permission_denials":[]}
+
+
+=== 2026-02-19 20:20:03 UTC [kilo/document_coverage] ===
+2026-02-19 20:20:03 UTC [kilo/document_coverage] elapsed=12m54s tokens=n/a files=1 loc=+2/-1
+last_message: I found and fixed a contract gap in the PARI/GP reference documentation. The `qfcholesky` function was incorrectly tagged as `[PD]` (positive-definite) in the reference doc, but the upstream PARI documentation only states "Given a square symmetric matrix M" without explicitly requiring positive-definiteness. This differs from other PARI functions like `qfisom`, `qfauto`, `qfisominit`, and `qfcvp` which explicitly state "positive definite quadratic form" in their documentation. I removed the unsupported `[PD]` tag and clarified that Cholesky decomposition mathematically succeeds only for positive (semi)definite matrices, added a source citation, and committed the fix.
+
