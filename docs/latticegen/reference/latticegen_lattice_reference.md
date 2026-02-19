@@ -1,5 +1,5 @@
 # latticegen Reference
-## Comprehensive guide to the two different "latticegen" toolchains
+## fplll latticegen CLI for lattice basis instance generation
 
 ---
 
@@ -10,7 +10,6 @@
 | `[GEN]` | Instance generation |
 | `[ZZMOD]` | Integer-basis lattice setting |
 | `[EUCLID]` | Euclidean lattice benchmark setting |
-| `[IMG]` | Image/moire lattice generation |
 
 ---
 
@@ -18,10 +17,10 @@
 
 "latticegen" refers to two different ecosystems:
 
-1. `fplll` ecosystem utility (`latticegen`) for lattice basis instance generation (benchmark/reduction pipelines).
-2. Python package `latticegen` (`TAdeJong/moire-lattice-generator`) for moire lattice image synthesis/analysis.
+1. **IN SCOPE**: `fplll` ecosystem utility (`latticegen`) for lattice basis instance generation (benchmark/reduction pipelines). This CLI generates integer lattice bases for LLL/BKZ/SVP/CVP benchmarking and operates on free Z-modules used in bilinear-form lattice reduction workflows.
+2. **OUT OF SCOPE**: Python package `latticegen` (`TAdeJong/moire-lattice-generator`) for moire lattice image synthesis/analysis. This package targets image processing and does not provide bilinear-form lattice-theoretic APIs per the project scope definition.
 
-This file documents both so downstream docs do not mix them.
+This file documents only the in-scope fplll latticegen CLI.
 
 ---
 
@@ -36,28 +35,33 @@ This file documents both so downstream docs do not mix them.
 - Generate instance with `latticegen ...`
 - Pipe/read into `fplll`/`fpylll` for reduction or search
 
-### 2.3 Common generator families/options
+### 2.3 Global options
 
-The `fplll` `latticegen` CLI exposes method codes and argument shapes:
+| Flag | Arguments | Description |
+|------|-----------|-------------|
+| `-randseed` | `<int>` or `time` | Seed for reproducibility. Must be first option if used. |
+| `--help` | none | Print usage help |
+| `--version` | none | Print version info |
+
+### 2.4 Generator methods
 
 `latticegen [-randseed <int|time>] <method> <args...>`
 
-| Method | Arguments | Generator in source | Typical use |
-|--------|-----------|---------------------|-------------|
-| `r` | `<d> <b>` | `gen_intrel` | Integer relation instances |
-| `s` | `<d> <b> <b2>` | `gen_simdioph` | Simultaneous Diophantine-style instances |
-| `u` | `<d> <b>` | `gen_uniform` | Uniform random integer lattices |
-| `n` | `<d> <b> <c>` | `gen_ntrulike` / `gen_ntrulike_bits` | NTRU-like bases |
-| `N` | `<d> <b> <c>` | `gen_ntrulike2` / `gen_ntrulike2_bits` | Alternate NTRU-like family |
-| `q` | `<d> <k> <b> <c>` | `gen_qary` / `gen_qary_bits` / `gen_qary_prime` | q-ary lattices |
-| `t` | `<d> <f>` | `gen_trg` | Triangular/randomized geometric family |
-| `T` | `<d>` + stdin weights | `gen_trg2` | Weighted/trg2 family from stdin data |
+| Method | Arguments | Generator | Semantics |
+|--------|-----------|-----------|-----------|
+| `r` | `<d> <b>` | `gen_intrel` | Knapsack-like matrix of dimension d x (d+1): i-th row starts with random integer of bit-length ≤b, followed by i-th canonical unit vector. |
+| `s` | `<d> <b> <b2>` | `gen_simdioph` | Simultaneous Diophantine approximation structure: first row starts with random integer of bit-length ≤b2 followed by d-1 integers of bit-length ≤b; i-th row for i>1 is i-th canonical unit vector scaled by 2^b. |
+| `u` | `<d> <b>` | `gen_uniform` | Uniform random d x d matrix with entries of bit-length ≤b. |
+| `n` | `<d> <b> <c>` | `gen_ntrulike` / `gen_ntrulike_bits` | NTRU-like matrix [[I, Rot(h)], [0, q*I]] (2d x 2d). Selector `c='b'` samples q with bit-length b; `c='q'` uses provided q value. Warning: not a genuine NTRU public key. |
+| `N` | `<d> <b> <c>` | `gen_ntrulike2` / `gen_ntrulike2_bits` | NTRU-like alternate [[q*I, 0], [Rot(h), I]] (2d x 2d). Same selector semantics as `n`. |
+| `q` | `<d> <k> <b> <c>` | `gen_qary` / `gen_qary_bits` / `gen_qary_prime` | q-ary (SIS/LWE) matrix [[I, H], [0, q*I]] where H is (d-k) x k uniform mod q. Selector: `c='b'` samples q of bit-length b; `c='p'` samples then updates to smallest prime ≥q; `c='q'` uses provided value. Goldstein-Mayer lattices: k=1, q prime. |
+| `t` | `<d> <f>` | `gen_trg` | Lower-triangular d x d matrix with B_ii = 2^((d-i+1)^f) and B_ij uniform in [-B_jj/2, B_jj/2] for j<i. |
+| `T` | `<d>` | `gen_trg2` | Lower-triangular d x d matrix with diagonal B_ii = vec[i] read from stdin, off-diagonal uniform as in `t`. |
 
 Selector values in source:
 
 - For `n` / `N`: `c in {'b','q'}`.
 - For `q`: `c in {'b','q','p'}`.
-- `-randseed time` or explicit integer seed controls reproducibility.
 
 | Option family | Purpose | Tags |
 |---------------|---------|------|
@@ -65,29 +69,9 @@ Selector values in source:
 | knapsack/NTRU-style families | Structured cryptanalytic benchmark lattices | `[GEN, ZZMOD, EUCLID]` |
 | dimension/seed controls | Reproducible scaling studies | `[GEN]` |
 
-This toolchain is the one relevant for reduction benchmarking workflows.
-
 ---
 
-## 3. Python `latticegen` (moire package)
-
-### 3.1 What it is
-
-The PyPI/GitHub package named `latticegen` is moire-lattice/image oriented and targets geometric/image analysis tasks.
-
-### 3.2 Capability surface
-
-| Capability | Description | Tags |
-|------------|-------------|------|
-| Moire lattice generation | Build synthetic moire lattice imagery and patterns | `[GEN, IMG]` |
-| Image-space lattice analysis | Analyze periodic structures in image data | `[IMG]` |
-| Python package workflow | Install/import as standard Python package | `[IMG]` |
-
-This package is not a drop-in replacement for `fplll` benchmark lattice generation.
-
----
-
-## 4. Selection Guide
+## 3. Selection Guide
 
 Use `fplll latticegen` when you need:
 
@@ -95,25 +79,23 @@ Use `fplll latticegen` when you need:
 - reduction benchmark corpora,
 - cryptanalytic test lattices for `fpylll`/`fplll`.
 
-Use Python `latticegen` when you need:
+---
 
-- moire pattern generation,
-- image-centric lattice analysis.
+## 4. Out-of-Scope Reference: Python `latticegen` (moire package)
+
+The PyPI package `latticegen` (`TAdeJong/moire-lattice-generator`) is for moire lattice image synthesis and does not provide bilinear-form lattice-theoretic APIs. It is **out of scope** for this project's documentation coverage. Documented here only to prevent naming collision confusion.
 
 ---
 
-## 5. Source-Backed Notes
+## 5. Sources
 
-- DeepWiki did not provide docs for the `TAdeJong/moire-lattice-generator` repository in this session.
-- `fplll` documentation is the canonical source for the CLI generator in reduction workflows.
+### Local upstream snapshots
 
----
+- `docs/latticegen/upstream/latticegen_online_provenance_2026-02-19.md`
 
-## 6. Sources
+### Canonical upstream
 
-- fplll docs home: https://fplll.github.io/fplll/
-- fplll `latticegen` manpage index: https://fplll.github.io/fplll/latticegen_8cpp.html
-- fplll source (`latticegen.cpp`): https://raw.githubusercontent.com/fplll/fplll/master/fplll/latticegen.cpp
+- fplll README.md: https://raw.githubusercontent.com/fplll/fplll/master/README.md
+- fplll `latticegen.cpp`: https://raw.githubusercontent.com/fplll/fplll/master/fplll/latticegen.cpp
+- fplll Doxygen: https://fplll.github.io/fplll/latticegen_8cpp.html
 - fplll repository: https://github.com/fplll/fplll
-- PyPI `latticegen`: https://pypi.org/project/latticegen/
-- `TAdeJong/moire-lattice-generator`: https://github.com/TAdeJong/moire-lattice-generator

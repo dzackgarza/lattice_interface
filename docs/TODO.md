@@ -7,19 +7,14 @@ Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate t
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
 Local upstream docs under `docs/**/upstream/` are required before contract-fidelity work to proceed.
-EVERY SINGLE PACKAGE must be a real upsteam source before ANY work can proceed.
+EVERY SINGLE PACKAGE must be a real upstream source before ANY work can proceed.
 
 ### Missing upstream directories
 
-- [ ] `docs/latticegen/upstream/` — reference doc and checklist exist but no upstream sources
+(None currently — all in-scope packages have upstream snapshots)
 
 ## Goal 2: Contract-Fidelity Work (Post-Integration)
 
 Completeness and provable correctness of all documented methods across all reference docs under `docs/`.
 
-### Missing Sources sections
-
-- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section (section 19)
-- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section (section 5)
-
-All in-scope reference docs now have Sources sections. Goal 2 complete.
+All in-scope reference docs now have Sources sections and local upstream provenance. Goal 2 complete.
