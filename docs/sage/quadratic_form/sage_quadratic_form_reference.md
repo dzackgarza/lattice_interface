@@ -317,7 +317,7 @@ Source note: contracts above were reconciled against `docs/sage/quadratic_form/u
 
 | Method | Argument Types | Return Type | Description |
 |--------|----------------|-------------|-------------|
-| `local_representation_conditions(...)` | — | `RepresentationConditions` | Computes local conditions for representability of integers by Q. |
+| `local_representation_conditions(recompute_flag=False, silent_flag=False)` | `recompute_flag`: `bool` (default `False`); `silent_flag`: `bool` (default `False`) | `LocalRepresentationConditions` | Computes local conditions for representability of integers by Q; result stored as `.local_representability_conditions`. **Constraint: only correct for forms in ≥3 variables that are locally universal at almost all primes.** |
 | `is_locally_universal_at_prime(p)` | `p`: `Integer` or `Prime` | `bool` | True if Q locally represents all p-adic integers. |
 | `is_locally_universal_at_all_primes()` | — | `bool` | True if Q is locally universal at every finite prime. |
 | `is_locally_universal_at_all_places()` | — | `bool` | True if Q is locally universal at all places (including ∞). |
