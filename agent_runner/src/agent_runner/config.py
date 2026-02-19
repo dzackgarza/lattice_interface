@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     ollama_bin: str = "ollama"
     kilo_bin: str = "/home/dzack/.nvm/versions/node/v25.6.1/bin/kilo"
     opencode_bin: str = "/home/dzack/.opencode/bin/opencode"
+    qwen_bin: str = "/home/dzack/.nvm/versions/node/v25.6.1/bin/qwen"
 
     def task_prompts(self) -> dict[str, Path]:
         return {

@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import signal
 import threading
-import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
@@ -97,8 +96,11 @@ class AgentInterface(BaseModel, ABC):
             def read_output():
                 assert proc.stdout is not None
                 for line in iter(proc.stdout.readline, b""):
-                    live_log.write(line)
-                    live_log.flush()
+                    try:
+                        live_log.write(line)
+                        live_log.flush()
+                    except ValueError:
+                        pass  # live_log closed during forced shutdown; chunks still captured
                     chunks.append(line)
 
             reader_thread = threading.Thread(target=read_output)
@@ -116,6 +118,9 @@ class AgentInterface(BaseModel, ABC):
         if timed_out:
             raise AgentTimeoutError(self.name, run_ctx.task_name, TIMEOUT_SECONDS)
 
+        # Invariant: only reachable when the process completed within TIMEOUT_SECONDS.
+        # A timed-out process always raises above; proc.wait() is never called on a killed process.
+        assert not timed_out
         exit_code = proc.wait()
         combined = b"".join(chunks).decode("utf-8", errors="replace")
         return ProcessResult(exit_code=exit_code, stdout=combined)
@@ -240,6 +245,24 @@ class OpencodeAgent(AgentInterface):
         model = os.environ.get("OPENCODE_MODEL", "opencode/kimi-k2.5-free")
         args = [
             "run",
+            "-m",
+            model,
+        ]
+        return self._run_command(
+            args=args,
+            prompt_string=prompt_string,
+            run_ctx=run_ctx,
+            cwd=config.settings.repo_root,
+        )
+
+
+class QwenAgent(AgentInterface):
+    def _run_with_prompt(
+        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+    ) -> ProcessResult:
+        model = os.environ.get("QWEN_MODEL", "coder-model")
+        args = [
+            "--yolo",
             "-m",
             model,
         ]

@@ -17,6 +17,7 @@ from .agents import (
     KiloAgent,
     OllamaAgent,
     OpencodeAgent,
+    QwenAgent,
     RunContext,
 )
 from .agent_errors import classify_usage_limit
@@ -45,7 +46,7 @@ from .tasks import (
 
 app = typer.Typer(add_completion=False)
 
-AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama", "opencode"]
+AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama", "opencode", "qwen"]
 TaskName = Literal[
     "agent_management",
     "document_coverage",
@@ -92,7 +93,6 @@ class Orchestrator(BaseModel):
         error_detail: str | None = None
 
         try:
-            start_monotonic = time.monotonic()
             head_before = git.get_head()
 
             if debug_prompt_path is not None:
@@ -129,6 +129,8 @@ class Orchestrator(BaseModel):
 
             end_time = datetime.now(timezone.utc)
             elapsed = end_time - start_time
+            # Invariant: every task runs forward in time; start_time was set before agent launch.
+            assert elapsed.total_seconds() >= 0
 
             last_message = transcript.parse_last_message(
                 agent=agent_obj.name,
@@ -156,7 +158,7 @@ class Orchestrator(BaseModel):
                 "task": task_obj.name,
                 "start_time": start_time.isoformat(),
                 "end_time": end_time.isoformat(),
-                "elapsed_seconds": elapsed.total_seconds() if elapsed else 0,
+                "elapsed_seconds": elapsed.total_seconds(),
                 "exit_code": exit_code,
                 "token_count": token_count,
                 "last_message": last_message,
@@ -377,6 +379,14 @@ def _build_agent(agent_name: AgentName):
             return OpencodeAgent(
                 name="opencode",
                 binary=config.settings.opencode_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case "qwen":
+            return QwenAgent(
+                name="qwen",
+                binary=config.settings.qwen_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,
