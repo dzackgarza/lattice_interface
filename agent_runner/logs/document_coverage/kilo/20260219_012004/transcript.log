@@ -1,0 +1,406 @@
+[0m
+> code · minimax/minimax-m2.5:free
+[0m
+[0m✱ [0mGlob "docs/**/*.md"[90m 0 matches[0m
+[0m
+[0m$ [0mls -la
+total 164
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 01:19 .
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:50 .claude
+-rw-rw-r--  1 dzack dzack   143 Feb 19 01:14 .env
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 16:53 .pytest_cache
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 01:08 .ruff_cache
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 .venv
+-rw-rw-r--  1 dzack dzack  2127 Feb 19 00:47 README.md
+-rw-rw-r--  1 dzack dzack    88 Feb 18 17:10 justfile
+drwxrwxr-x  7 dzack dzack  4096 Feb 18 19:58 logs
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 15:54 prompts
+-rw-rw-r--  1 dzack dzack   888 Feb 19 00:32 pyproject.toml
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 01:11 scripts
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 src
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 00:32 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 19 00:57 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 19 00:40 tests
+-rw-rw-r--  1 dzack dzack  1285 Feb 19 01:19 usage.json
+-rw-rw-r--  1 dzack dzack 93891 Feb 19 00:33 uv.lock
+[0m
+[0m✱ [0mGlob "docs/**/*"[90m 0 matches[0m
+[0m✱ [0mGlob "**/*.md"[90m 6 matches[0m
+[0m→ [0mRead README.md
+[0m
+[0m$ [0mls -la src/
+total 16
+drwxrwxr-x  4 dzack dzack 4096 Feb 18 16:05 .
+drwxrwxr-x 12 dzack dzack 4096 Feb 19 01:19 ..
+drwxrwxr-x  3 dzack dzack 4096 Feb 19 00:42 agent_runner
+drwxrwxr-x  2 dzack dzack 4096 Feb 19 00:33 agent_runner.egg-info
+[0m
+Let me explore the source code to understand what this project actually is:
+[0m✱ [0mGlob "src/**/*.py"[90m 13 matches[0m
+[0m→ [0mRead pyproject.toml
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/
+total 136
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 .
+drwxr-x--- 24 dzack dzack  4096 Feb 19 01:16 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:20 .claude
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .devcontainer
+-rw-------  1 dzack dzack    54 Feb 18 12:52 .env
+drwxrwxr-x  8 dzack dzack  4096 Feb 19 01:17 .git
+-rw-rw-r--  1 dzack dzack   197 Feb 18 19:57 .gitignore
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 13:19 .serena
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 23:25 .venv
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .vscode
+-rw-rw-r--  1 dzack dzack   439 Feb 18 12:33 AGENTS.md
+-rw-rw-r--  1 dzack dzack  3317 Feb 18 14:16 README.md
+-rw-rw-r--  1 dzack dzack 11244 Feb 18 12:33 TEST_QUALITY.md
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 __pycache__
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 01:19 agent_runner
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 13:06 agents
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 archived
+-rw-rw-r--  1 dzack dzack   737 Feb 18 12:33 conftest.py
+drwxrwxr-x 17 dzack dzack  4096 Feb 18 20:25 docs
+-rw-rw-r--  1 dzack dzack  7776 Feb 19 01:20 heartbeat.log
+-rw-rw-r--  1 dzack dzack  1523 Feb 18 17:10 justfile
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 notebooks
+-rw-rw-r--  1 dzack dzack    35 Feb 18 12:33 pyproject.toml
+-rw-rw-r--  1 dzack dzack   111 Feb 18 12:33 pytest.ini
+-rw-rw-r--  1 dzack dzack  3153 Feb 18 12:33 quad_forms_methods_from_docs_list.txt
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 19:40 scripts
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 18 23:43 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 18 15:58 tests
+drwxrwxr-x  6 dzack dzack  4096 Feb 18 17:06 tmp
+-rw-rw-r--  1 dzack dzack    52 Feb 18 23:25 uv.lock
+[0m
+[0m✱ [0mGlob "docs/**/*.md"[90m in .. · 100 matches[0m
+[0m→ [0mRead ../AGENTS.md
+[0m→ [0mRead ../docs/TODO.md
+[0m→ [0mRead ../docs/documentation_coverage_audit_playbook.md
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/.serena/
+total 28
+drwxrwxr-x  4 dzack dzack 4096 Feb 18 13:19 .
+drwxrwxr-x 18 dzack dzack 4096 Feb 18 23:43 ..
+-rw-rw-r--  1 dzack dzack    7 Feb 18 12:33 .gitignore
+drwxrwxr-x  3 dzack dzack 4096 Feb 18 13:19 cache
+drwxrwxr-x  2 dzack dzack 4096 Feb 19 01:17 memories
+-rw-rw-r--  1 dzack dzack 7478 Feb 18 12:33 project.yml
+[0m
+[0m✱ [0mGlob "**/*"[90m in ../.serena · 53 matches[0m
+[0m→ [0mRead ../docs/julia_methods_checklist.md[90m [limit=100][0m
+[0m→ [0mRead ../docs/julia_methods_checklist.md[90m [limit=100, offset=100][0m
+[0m→ [0mRead ../docs/sage_methods_checklist.md[90m [limit=100][0m
+[0m→ [0mRead ../docs/gap_methods_checklist.md[90m [limit=80][0m
+[0m→ [0mRead ../.serena/memories/doc_coverage_audit_2026-02-19_is_isometric_definiteness_contract_fidelity.md
+[0m✱ [0mGlob "**/*reference*.md"[90m in ../docs · 33 matches[0m
+[0m✱ [0mGlob "**/upstream/*"[90m in ../docs · 86 matches[0m
+[0m
+[0m$ [0mcd /home/dzack/lattice_interface && git status
+On branch main
+Your branch is ahead of 'origin/main' by 61 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/README.md
+	modified:   agent_runner/logs/debug_hello_simple/codex/test/last_message.txt
+	modified:   agent_runner/logs/debug_hello_simple/ollama/agent.log
+	modified:   agent_runner/logs/debug_hello_simple/task.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agent_runner/pyproject.toml
+	modified:   agent_runner/src/agent_runner/agents.py
+	modified:   agent_runner/src/agent_runner/config.py
+	modified:   agent_runner/src/agent_runner/errors.py
+	modified:   agent_runner/src/agent_runner/notifications_cli.py
+	modified:   agent_runner/src/agent_runner/orchestrator.py
+	modified:   agent_runner/src/agent_runner/transcript.py
+	modified:   agent_runner/tests/claude/test_direct.py
+	modified:   agent_runner/tests/codex/test_direct.py
+	modified:   agent_runner/tests/gemini/test_direct.py
+	modified:   agent_runner/tests/ollama/test_direct.py
+	modified:   agent_runner/tests/test_agents_direct.py
+	modified:   agent_runner/uv.lock
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.serena/memories/doc_coverage_audit_2026-02-18_automorphism_group_definiteness_contract_fidelity.md
+	.serena/memories/doc_coverage_audit_2026-02-18_gap_normalformintmat_decomposition_signature_fidelity.md
+	.serena/memories/doc_coverage_audit_2026-02-18_sage_orthogonal_group_definiteness_contract_fidelity.md
+	.serena/memories/doc_coverage_audit_2026-02-19_is_isometric_definiteness_contract_fidelity.md
+	agent_runner/logs/debug_hello_simple/claude/20260218_202953/
+	agent_runner/logs/debug_hello_simple/claude/20260218_203420/
+	agent_runner/logs/debug_hello_simple/claude/test/
+	agent_runner/logs/debug_hello_simple/codex/test/transcript.log
+	agent_runner/logs/debug_hello_simple/gemini/20260218_203036/
+	agent_runner/logs/debug_hello_simple/gemini/20260218_203459/
+	agent_runner/logs/debug_hello_simple/gemini/test/
+	agent_runner/logs/debug_hello_simple/ollama/20260218_203106/
+	agent_runner/logs/debug_hello_simple/ollama/20260218_203529/
+	agent_runner/logs/debug_hello_simple/ollama/20260218_232534/
+	agent_runner/logs/debug_hello_simple/ollama/20260218_233527/
+	agent_runner/logs/debug_hello_simple/ollama/20260219_001632/
+	agent_runner/logs/debug_hello_simple/ollama/test/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_202909/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_202921/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_202956/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_203141/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_203423/
+	agent_runner/logs/debug_smoke_commit/codex/20260218_203606/
+	agent_runner/logs/document_coverage/claude/
+	agent_runner/logs/document_coverage/codex/20260218_201503/
+	agent_runner/logs/document_coverage/codex/20260218_211502/
+	agent_runner/logs/document_coverage/codex/20260218_221502/
+	agent_runner/logs/document_coverage/codex/20260218_231504/
+	agent_runner/logs/document_coverage/kilo/
+	agent_runner/logs/document_coverage/ollama/
+	agent_runner/scripts/
+	agent_runner/stubs/
+	agent_runner/telemetry-id
+	agent_runner/tests/kilo/
+	agent_runner/tests/opencode/
+	agent_runner/tests/test_env_preflight.py
+	agent_runner/usage.json
+	telemetry-id
+	uv.lock
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m✱ [0mGrep "\[PD\]"[90m in ../docs/julia · 21 matches[0m
+[0m✱ [0mGrep "\[PD\]"[90m in ../docs/sage · 20 matches[0m
+[0m→ [0mRead ../docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [limit=200][0m
+[0m→ [0mRead ../docs/sage/lattice/sagemath_lattice_reference.md[90m [limit=150][0m
+[0m→ [0mRead ../docs/pari_gp_methods_checklist.md[90m [limit=100][0m
+[0m✱ [0mGrep "\[PD\]"[90m in ../docs · 49 matches[0m
+[0m✱ [0mGrep "\.\.\."[90m in ../docs/julia · 47 matches[0m
+[0m✱ [0mGrep "TODO"[90m in ../docs · 31 matches[0m
+[0m→ [0mRead ../docs/TODO.md
+[0m→ [0mRead ../docs/forms_methods_checklist.md[90m [limit=80][0m
+[0m→ [0mRead ../docs/fpylll/lattice/fpylll_lattice_reference.md[90m [limit=100][0m
+Let me check one of the incomplete doc surfaces to understand what work remains:
+Let me check a few specific checklist files to see what's still incomplete:
+[0m→ [0mRead ../docs/fpylll_methods_checklist.md[90m [limit=60][0m
+[0m
+[0m$ [0mcd /home/dzack/lattice_interface && git diff HEAD~1 --stat | head -20
+agent_runner/README.md                             |  20 ++
+ .../debug_hello_simple/codex/test/last_message.txt |   1 -
+ .../logs/debug_hello_simple/ollama/agent.log       |   5 +
+ agent_runner/logs/debug_hello_simple/task.log      |   5 +
+ agent_runner/logs/document_coverage/task.log       |  20 ++
+ agent_runner/logs/heartbeat/task.log               | 313 +++++++++++++++++++++
+ agent_runner/pyproject.toml                        |   4 +-
+ agent_runner/src/agent_runner/agents.py            | 150 +++++++---
+ agent_runner/src/agent_runner/config.py            |  10 +-
+ agent_runner/src/agent_runner/errors.py            |  12 +-
+ agent_runner/src/agent_runner/notifications_cli.py |  10 +-
+ agent_runner/src/agent_runner/orchestrator.py      | 162 +++++++++--
+ agent_runner/src/agent_runner/transcript.py        |  18 +-
+ agent_runner/tests/claude/test_direct.py           |   2 +-
+ agent_runner/tests/codex/test_direct.py            |   2 +-
+ agent_runner/tests/gemini/test_direct.py           |   2 +-
+ agent_runner/tests/ollama/test_direct.py           |   2 +-
+ agent_runner/tests/test_agents_direct.py           |  32 ++-
+ agent_runner/uv.lock                               |  39 +--
+ docs/TODO.md                                       |   2 +
+[0m
+[0m✱ [0mGrep "automorphism_group"[90m in ../docs · 44 matches[0m
+[0m✱ [0mGrep "\[NT\]"[90m in ../docs · 100 matches[0m
+[0m✱ [0mGrep "short_vectors.*\[PD\]"[90m in ../docs · 4 matches[0m
+[0m→ [0mRead ../docs/sage/genus/sage_genus_reference.md[90m [limit=80][0m
+[0m✱ [0mGrep "minimum.*\[PD\]"[90m in ../docs/julia · 2 matches[0m
+[0m→ [0mRead ../docs/TODO.md
+[0m→ [0mRead ../docs/julia_methods_checklist.md[90m [limit=50, offset=200][0m
+[0m✱ [0mGlob "**/*.md"[90m in ../docs/julia · 19 matches[0m
+[0m✱ [0mGrep "\[DEFINITE\]"[90m in ../docs · 9 matches[0m
+[0m✱ [0mGrep "signature_tuple"[90m in ../docs/julia · 11 matches[0m
+[0m✱ [0mGrep "\.\.\.|\.\.\.\)"[90m in ../docs/julia · 47 matches[0m
+[0m→ [0mRead ../docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [limit=50, offset=155][0m
+[0m✱ [0mGrep "- \[ \] `[a-zA-Z].*`"[90m in ../docs · 100 matches[0m
+[0m✱ [0mGrep "enumerate_quadratic_triples"[90m in ../docs · 2 matches[0m
+[0m→ [0mRead ../docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [limit=30, offset=685][0m
+[0m
+[0m$ [0mcd /home/dzack/lattice_interface && git log --oneline -10
+fc23d1b docs: correct is_isometric definiteness constraint from [PD] to [DEFINITE]
+51a9d73 docs: replace NormalFormIntMat and Decomposition placeholder signatures in GAP reference and checklist
+66ce0d1 fix: catch FileNotFoundError in _run_command and raise AgentMetadataError
+d086a29 fix: update test_parse_last_message_falls_back for removed stderr param
+b4936ad docs: correct automorphism_group_generators/order definiteness constraint from [PD] to [DEFINITE]
+08c2e42 docs: correct IntegralLattice.orthogonal_group definiteness constraint from [PD] to [DEFINITE]
+8879de3 docs: verify contract fidelity and add stabilizer method signatures
+32f4b04 fix: catch codex usage limit (exit 0, "hit your usage limit" message)
+0776507 refactor: remove stderr from ProcessResult, RunContext, and all callers
+65a4675 feat: tee agent stdout+stderr live to transcript_path during run
+[0m
+[0m✱ [0mGrep "kissing_number"[90m in ../docs/julia · 3 matches[0m
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/agent_runner/
+total 164
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 01:19 .
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:50 .claude
+-rw-rw-r--  1 dzack dzack   143 Feb 19 01:14 .env
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 16:53 .pytest_cache
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 01:08 .ruff_cache
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 .venv
+-rw-rw-r--  1 dzack dzack  2127 Feb 19 00:47 README.md
+-rw-rw-r--  1 dzack dzack    88 Feb 18 17:10 justfile
+drwxrwxr-x  7 dzack dzack  4096 Feb 18 19:58 logs
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 15:54 prompts
+-rw-rw-r--  1 dzack dzack   888 Feb 19 00:32 pyproject.toml
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 01:11 scripts
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 src
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 00:32 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 19 00:57 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 19 00:40 tests
+-rw-rw-r--  1 dzack dzack   500 Feb 19 01:29 usage.json
+-rw-rw-r--  1 dzack dzack 93891 Feb 19 00:33 uv.lock
+[0m
+[0m$ [0mcd /home/dzack/lattice_interface && git log --oneline -20 -- docs/
+fc23d1b docs: correct is_isometric definiteness constraint from [PD] to [DEFINITE]
+51a9d73 docs: replace NormalFormIntMat and Decomposition placeholder signatures in GAP reference and checklist
+b4936ad docs: correct automorphism_group_generators/order definiteness constraint from [PD] to [DEFINITE]
+08c2e42 docs: correct IntegralLattice.orthogonal_group definiteness constraint from [PD] to [DEFINITE]
+8879de3 docs: verify contract fidelity and add stabilizer method signatures
+54775c6 chore: migrate cron jobs to agent_runner; clean up old agent shell scripts
+647f48f docs: fix ZZLatWithIsom return types, close_vectors check default, lll kwargs, and related method contracts
+1f47209 docs: add typed signatures and tuple return shapes for TorQuadModuleWithIsom submodule/aut-group methods
+a2b2386 docs: tighten kernel_lattice typed signatures and add image_centralizer_in_Oq even-lattice precondition
+6274e07 docs: tighten TorQuadModule submodule signatures and constructor type union
+08f13f6 Fix TODO: Sage already has local docs
+6d444ca Fix TODO: real gap is missing LOCAL DOC COPIES, not provenance
+32f6752 Fix TODO: Julia docs already have provenance captured
+127ee06 Add real doc gap: missing upstream provenance captures
+f9d287e Rewrite TODO with real doc gap work items
+c0ea007 Rewrite TODO with real work priorities
+890870e Align method checklists with explicit test tags
+cc81c80 Move out-of-scope package docs to archive and clean playbook
+1b00b13 Reorganize automation into agent directories and add test coverage agent
+9679acc Save
+[0m
+[0m◇ [0mExa Code Search "Hecke.jl enumerate_quadratic_triples function signature documentation"
+[0m◇ [0mExa Code Search "Hecke.jl enumerate_quadratic_triples function signature parameters"
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/docs/ | head -20
+total 524
+drwxrwxr-x 17 dzack dzack   4096 Feb 18 20:25 .
+drwxrwxr-x 18 dzack dzack   4096 Feb 18 23:43 ..
+-rw-rw-r--  1 dzack dzack   5889 Feb 19 01:17 TODO.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:14 archive
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 crystallographic_stack
+-rw-rw-r--  1 dzack dzack   2926 Feb 18 12:33 crystallographic_stack_methods_checklist.md
+-rw-rw-r--  1 dzack dzack  10526 Feb 18 18:14 documentation_coverage_audit_playbook.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 flatter
+-rw-rw-r--  1 dzack dzack   1054 Feb 18 12:33 flatter_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 flint
+-rw-rw-r--  1 dzack dzack   1688 Feb 18 12:33 flint_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 forms
+-rw-rw-r--  1 dzack dzack   2922 Feb 18 12:33 forms_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 fpylll
+-rw-rw-r--  1 dzack dzack   3418 Feb 18 12:33 fpylll_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 g6k
+-rw-rw-r--  1 dzack dzack   1929 Feb 18 14:11 g6k_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 gap
+-rw-rw-r--  1 dzack dzack   7371 Feb 18 23:34 gap_methods_checklist.md
+[0m
+Based on my review of the codebase, I can see this is the lattice documentation project at `/home/dzack/lattice_interface/`, with the `agent_runner/` subdirectory being a separate tool. The documentation work has been progressing well:
+
+- **Goal 1** (package surface maintenance) is complete - no missing bilinear-form lattice packages
+- **Goal 2** (contract fidelity) has addressed the `[PD]` → `[DEFINITE]` errors for orthogonal_group, automorphism_group_generators/order, and is_isometric methods
+- Many unchecked test coverage boxes remain across checklists, and some `...` placeholder signatures exist in reference docs
+
+Let me write a continuity memory and update the TODO to reflect the current state:
+[0m← [0mWrite ../.serena/memories/doc_coverage_audit_2026-02-19_handoff.md
+Wrote file successfully.
+[0m
+[0m✱ [0mGrep "Hecke\.enumerate_quadratic_triples"[90m in ../docs · 0 matches[0m
+[0m◇ [0mExa Code Search "Julia Hecke enumerate_quadratic_triples lattice enumeration signature parameters positive definite"
+[0m◇ [0mExa Code Search ""enumerate_quadratic_triples" Hecke.jl Julia"
+[0m% [0mWebFetch https://github.com/thofma/Hecke.jl/search?q=enumerate_quadratic_triples
+[0m◇ [0mExa Code Search "Julia lattice "quadratic triples" enumeration positive definite"
+[0m✱ [0mGrep "enumerate_quadratic_triples"[90m in ../tests · 5 matches[0m
+[0m→ [0mRead ../tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_enumeration.py[90m [limit=30, offset=145][0m
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/docs/julia/oscar_jl/lattice/
+total 64
+drwxrwxr-x 2 dzack dzack  4096 Feb 18 20:20 .
+drwxrwxr-x 6 dzack dzack  4096 Feb 18 12:33 ..
+-rw-rw-r-- 1 dzack dzack 55721 Feb 19 01:14 julia_lattice_methods_reference.md
+[0m
+[0m$ [0mpwd
+/home/dzack/lattice_interface/agent_runner
+[0m
+[0m$ [0mcd /home/dzack/lattice_interface && ls -la
+total 136
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 .
+drwxr-x--- 24 dzack dzack  4096 Feb 19 01:16 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:20 .claude
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .devcontainer
+-rw-------  1 dzack dzack    54 Feb 18 12:52 .env
+drwxrwxr-x  8 dzack dzack  4096 Feb 19 01:23 .git
+-rw-rw-r--  1 dzack dzack   197 Feb 18 19:57 .gitignore
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 13:19 .serena
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 23:25 .venv
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .vscode
+-rw-rw-r--  1 dzack dzack   439 Feb 18 12:33 AGENTS.md
+-rw-rw-r--  1 dzack dzack  3317 Feb 18 14:16 README.md
+-rw-rw-r--  1 dzack dzack 11244 Feb 18 12:33 TEST_QUALITY.md
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 __pycache__
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 01:19 agent_runner
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 13:06 agents
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 archived
+-rw-rw-r--  1 dzack dzack   737 Feb 18 12:33 conftest.py
+drwxrwxr-x 17 dzack dzack  4096 Feb 18 20:25 docs
+-rw-rw-r--  1 dzack dzack  8184 Feb 19 01:37 heartbeat.log
+-rw-rw-r--  1 dzack dzack  1523 Feb 18 17:10 justfile
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 notebooks
+-rw-rw-r--  1 dzack dzack    35 Feb 18 12:33 pyproject.toml
+-rw-rw-r--  1 dzack dzack   111 Feb 18 12:33 pytest.ini
+-rw-rw-r--  1 dzack dzack  3153 Feb 18 12:33 quad_forms_methods_from_docs_list.txt
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 19:40 scripts
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 18 23:43 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 18 15:58 tests
+drwxrwxr-x  6 dzack dzack  4096 Feb 18 17:06 tmp
+-rw-rw-r--  1 dzack dzack    52 Feb 18 23:25 uv.lock
+[0m
+[0m$ [0mls -la /home/dzack/lattice_interface/agent_runner/
+total 164
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 01:19 .
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:50 .claude
+-rw-rw-r--  1 dzack dzack   143 Feb 19 01:14 .env
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 16:53 .pytest_cache
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 01:08 .ruff_cache
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 .venv
+-rw-rw-r--  1 dzack dzack  2127 Feb 19 00:47 README.md
+-rw-rw-r--  1 dzack dzack    88 Feb 18 17:10 justfile
+drwxrwxr-x  7 dzack dzack  4096 Feb 18 19:58 logs
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 15:54 prompts
+-rw-rw-r--  1 dzack dzack   888 Feb 19 00:32 pyproject.toml
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 01:11 scripts
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 16:05 src
+drwxrwxr-x  3 dzack dzack  4096 Feb 19 00:32 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 19 00:57 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 19 00:40 tests
+-rw-rw-r--  1 dzack dzack   500 Feb 19 01:29 usage.json
+-rw-rw-r--  1 dzack dzack 93891 Feb 19 00:33 uv.lock
+[0m
+You're right. Let me assess the REAL status:
+
+**Goal 1 (package surfaces)**: Complete - no new bilinear-form lattice packages needed.
+
+**Goal 2 (contract fidelity)**: Partially complete:
+- Fixed `[PD] → [DEFINITE]` for `orthogonal_group`, `automorphism_group_generators/order`, `is_isometric` 
+- BUT: many remaining `[PD]` tags are likely correct (e.g., `short_vectors`, `minimum`, `kissing_number` ARE positive-definite-only)
+- Some `...` placeholder signatures remain (e.g., `enumerate_quadratic_triples(L, ...)`)
+
+**Test coverage**: Many unchecked boxes across julia_methods_checklist.md, sage_methods_checklist.md, gap_methods_checklist.md
+
+**Local doc copies**: Still incomplete for flint, gap, ntl, fpylll, forms, g6k, crystallographic_stack, pari_gp
+
+The honest assessment: This is ongoing work with no critical blockers. The major contract fidelity issues (the `[PD]` errors) have been addressed. What remains is incremental - filling in remaining placeholders, continuing test coverage, and integrating local docs.
+
+Should I continue with a specific contract-fidelity item, or do you want me to commit the handoff memory I've created and conclude?

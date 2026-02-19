@@ -1,0 +1,21 @@
+{
+  "organization": {
+    "id": "90a29f32-0680-4d04-a2f4-95b2cdb081e2",
+    "name": "dzackgarza@gmail.com's Organization"
+  },
+  "agents": {
+    "claude_code": {
+      "five_hour": {
+        "utilization": 100.0,
+        "resets_at": "2026-02-19T04:00:00.219195+00:00",
+        "time_until_reset": "2h 30m"
+      },
+      "seven_day": {
+        "utilization": 34.0,
+        "resets_at": "2026-02-25T13:00:00.219214+00:00",
+        "time_until_reset": "155h 30m"
+      },
+      "extra": {}
+    }
+  }
+}

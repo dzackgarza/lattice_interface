@@ -1,0 +1,9 @@
+{
+  "agent": "ollama",
+  "classified_error": null,
+  "error": "Agent ollama failed for task document_coverage (exit=1)",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260218_234503",
+  "task": "document_coverage"
+}

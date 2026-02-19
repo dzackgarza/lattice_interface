@@ -1,0 +1,20 @@
+
+=== 2026-02-18 20:30:04 UTC [claude/document_coverage] ===
+2026-02-18 20:30:04 UTC [claude/document_coverage] elapsed=4m36s tokens=n/a files=3 loc=+11/-9
+last_message: The `IntegralLattice.orthogonal_group` method was documented with a `[PD]` (positive definite only) constraint in three locations across two Sage reference files, but upstream source docs confirm that negative definite lattices also succeed — only indefinite lattices raise `NotImplementedError`. This has been corrected to `[DEFINITE]` throughout, with matching caveat text and definiteness summary tables updated accordingly, sourced from the local upstream snapshot `free_quadratic_module_integer_symmetric.html`. The correct constraint matters because users with negative definite lattices (common in number-theory contexts, e.g. `E8(-1)` in K3 surface calculations) would incorrectly believe `orthogonal_group()` was unavailable to them.
+
+
+=== 2026-02-18 23:00:02 UTC [claude/document_coverage] ===
+2026-02-18 23:00:02 UTC [claude/document_coverage] elapsed=4m16s tokens=n/a files=4 loc=+12/-9
+last_message: `automorphism_group_generators` and `automorphism_group_order` were incorrectly tagged `[PD]` (positive definite only) across the Julia umbrella reference, Hecke mirror reference, and methods checklist, but upstream OSCAR/Hecke docs explicitly say "Given a **definite** lattice" — meaning negative definite lattices are fully supported and only indefinite forms are excluded. This is now corrected to `[DEFINITE]` in all three surfaces, and the previously undocumented `ambient_representation::Bool=true` keyword argument has been added to `automorphism_group_generators`. This matters because mislabeling ND lattices as unsupported would cause users to unnecessarily rescale lattices or incorrectly expect errors on valid inputs — the same class of error previously found in Sage's `orthogonal_group`, confirming a recurring `[PD]` vs `[DEFINITE]` pattern that warrants targeted review of other `[PD]`-tagged methods.
+
+
+=== 2026-02-18 23:30:04 UTC [claude/document_coverage] ===
+2026-02-18 23:30:04 UTC [claude/document_coverage] elapsed=4m56s tokens=n/a files=3 loc=+8/-4
+last_message: The GAP core reference had two `(...)` placeholder signatures for `NormalFormIntMat` and `Decomposition` — opaque stubs with no argument types, return shapes, or constraint information. Both are now documented with source-backed contracts: `NormalFormIntMat(mat, options)` specifies the integer-bitmask control surface (SNF vs. HNF, off-diagonal reduction, unimodular transform inclusion, destructive mode) and the full record-return shape (`normal`, `rowtrans`/`coltrans`, `signdet`, `rank`); `Decomposition(A, B, depth)` specifies the cyclotomic-matrix rank constraint, the `"nonnegative"` depth variant with its first-column positivity precondition, and the per-entry `fail` return semantics. These fixes matter because `NormalFormIntMat` is the primary unified entry point for HNF/SNF computation in GAP and the bitmask interface is non-obvious — a missing or wrong options description would cause silent incorrect-form selection.
+
+
+=== 2026-02-19 01:35:46 UTC [claude/document_coverage] ===
+2026-02-19 01:35:46 UTC [claude/document_coverage] elapsed=0m00s tokens=n/a files=0 loc=+0/-0
+last_message: (dry-run)
+

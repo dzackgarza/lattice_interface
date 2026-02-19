@@ -1,0 +1,19 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [],
+  "debug_prompt": null,
+  "deletions": 0,
+  "dry_run": true,
+  "elapsed_seconds": 0.02927130099851638,
+  "end_time": "2026-02-19T01:35:46.900479+00:00",
+  "exit_code": 0,
+  "files_changed": [],
+  "insertions": 0,
+  "last_message": "(dry-run)",
+  "requires_commit": true,
+  "run_id": "20260219_013546",
+  "start_time": "2026-02-19T01:35:46.871212+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

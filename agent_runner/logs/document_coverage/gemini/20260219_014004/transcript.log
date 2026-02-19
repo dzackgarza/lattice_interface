@@ -1,0 +1,910 @@
+Loaded cached credentials.
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:42:44 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=124172',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': 'd70cd8dce3e4ec92',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Error executing tool list_directory: Error: Failed to list directory.
+Error executing tool list_directory: Path not in workspace: Attempted path "/home/dzack/lattice_interface" resolves outside the allowed workspace directories: /home/dzack/lattice_interface/agent_runner or the project temp directory: /home/dzack/.gemini/tmp/agent-runner
+Error executing tool run_shell_command: Tool "run_shell_command" not found. Did you mean one of: "grep_search", "cli_help", "read_file"?
+Error executing tool codebase_investigator: Subagent Failed: codebase_investigator
+Error: The user aborted a request.
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:49:38 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=2120',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '214338daca622a9f',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 2 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:49:44 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=909',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': 'd64b851e89bde7e0',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:52:27 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=6159',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': 'e87def42a46c7a9d',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async Turn.run (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/turn.js:67:30) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:52:44 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=6550',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '60d7955e768e5784',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async LocalAgentExecutor.callModel (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/agents/local-executor.js:482:26) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#0","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]}],"systemInstruction":{"role":"user","parts":[{"text":"You are **CLI Help Agent**, an expert on Gemini CLI. Your purpose is to provide accurate information about Gemini CLI\'s features, configuration, and current state.\\n\\n### Runtime Context\\n- **CLI Version:** 0.29.2\\n- **Active Model:** gemini-3-flash-preview\\n- **Today\'s Date:** 2/19/2026\\n\\n### Instructions\\n1. **Explore Documentation**: Use the `get_internal_docs` tool to find answers. If you don\'t know where to start, call `get_internal_docs()` without arguments to see the full list of available documentation files.\\n2. **Be Precise**: Use the provided runtime context and documentation to give exact answers.\\n3. **Cite Sources**: Always include the specific documentation files you used in your final report.\\n4. **Non-Interactive**: You operate in a loop and cannot ask the user for more info. If the question is ambiguous, answer as best as you can with the information available.\\n\\nYou MUST call `complete_task` with a JSON report containing your `answer` and the `sources` you used.\\n\\n# Environment Context\\n- **Workspace Directories:**\\n  - /home/dzack/lattice_interface/agent_runner\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/home/dzack/lattice_interface/agent_runner/\\n├───.env\\n├───justfile\\n├───pyproject.toml\\n├───README.md\\n├───telemetry-id\\n├───usage.json\\n├───uv.lock\\n├───.claude/\\n│   └───settings.local.json\\n├───.pytest_cache/\\n│   └───v/...\\n├───.ruff_cache/\\n│   └───0.15.1/...\\n├───.venv/\\n│   ├───bin/...\\n│   └───lib/...\\n├───logs/\\n│   ├───debug_hello_simple/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180540/\\n│   │   │   ├───20260218_180839/\\n│   │   │   ├───20260218_181131/\\n│   │   │   ├───20260218_181927/\\n│   │   │   ├───20260218_192457/\\n│   │   │   ├───20260218_192605/\\n│   │   │   ├───20260218_193832/\\n│   │   │   ├───20260218_194828/\\n│   │   │   ├───20260218_202953/\\n│   │   │   ├───20260218_203420/\\n│   │   │   └───test/\\n│   │   ├───codex/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180417/\\n│   │   │   ├───20260218_180738/\\n│   │   │   ├───20260218_181022/\\n│   │   │   ├───20260218_181351/\\n│   │   │   ├───20260218_181524/\\n│   │   │   ├───20260218_181827/\\n│   │   │   ├───20260218_182112/\\n│   │   │   └───test/\\n│   │   ├───gemini/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180430/\\n│   │   │   ├───20260218_180752/\\n│   │   │   ├───20260218_181033/\\n│   │   │   ├───20260218_181404/\\n│   │   │   ├───20260218_181843/\\n│   │   │   ├───20260218_182126/\\n│   │   │   ├───20260218_192539/\\n│   │   │   ├───20260218_192643/\\n│   │   │   ├───20260218_203036/\\n│   │   │   ├───20260218_203459/\\n│   │   │   ├───manual/\\n│   │   │   └───test/\\n│   │   └───ollama/\\n│   │       ├───agent.log\\n│   │       ├───20260218_180520/\\n│   │       ├───20260218_180813/\\n│   │       ├───20260218_181111/\\n│   │       ├───20260218_181428/\\n│   │       ├───20260218_181909/\\n│   │       ├───20260218_192610/\\n│   │       ├───20260218_192714/\\n│   │       ├───20260218_193851/\\n│   │       ├───20260218_194921/\\n│   │       ├───20260218_203106/\\n│   │       ├───20260218_203529/\\n│   │       ├───20260218_232534/\\n│   │       ├───20260218_233527/\\n│   │       ├───20260219_001632/\\n│   │       └───test/\\n│   ├───debug_hello_world/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_165938/\\n│   │       ├───20260218_170554/\\n│   │       ├───20260218_170937/\\n│   │       └───20260218_171153/\\n│   ├───debug_smoke_commit/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_162832/\\n│   │       ├───20260218_162911/\\n│   │       ├───20260218_162958/\\n│   │       ├───20260218_163106/\\n│   │       ├───20260218_163238/\\n│   │       ├───20260218_163835/\\n│   │       ├───20260218_163947/\\n│   │       ├───20260218_164406/\\n│   │       ├───20260218_165207/\\n│   │       ├───20260218_165249/\\n│   │       ├───20260218_171450/\\n│   │       ├───20260218_171548/\\n│   │       ├───20260218_172408/\\n│   │       ├───20260218_173930/\\n│   │       ├───20260218_174842/\\n│   │       ├───20260218_175319/\\n│   │       ├───20260218_180559/\\n│   │       ├───20260218_180856/\\n│   │       ├───20260218_181152/\\n│   │       ├───20260218_181947/\\n│   │       ├───20260218_183759/\\n│   │       ├───20260218_190134/\\n│   │       ├───20260218_192509/\\n│   │       ├───20260218_192613/\\n│   │       ├───20260218_192728/\\n│   │       ├───20260218_193841/\\n│   │       ├───20260218_194011/\\n│   │       ├───20260218_194844/\\n│   │       ├───20260218_194955/\\n│   │       ├───20260218_202909/\\n│   │       ├───20260218_202921/\\n│   │       └───...\\n│   ├───document_coverage/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   ├───codex/\\n│   │   ├───gemini/\\n│   │   ├───kilo/\\n│   │   ├───ollama/\\n│   │   └───opencode/\\n│   └───heartbeat/\\n│       └───task.log\\n├───prompts/\\n│   └───debug/\\n│       ├───commit_smoke.md\\n│       ├───hello_simple.md\\n│       ├───hello_world.md\\n│       ├───ping.md\\n│       └───smoke.md\\n├───scripts/\\n│   └───claude_usage.py\\n├───src/\\n│   ├───agent_runner/\\n│   │   ├───__init__.py\\n│   │   ├───__main__.py\\n│   │   ├───agent_errors.py\\n│   │   ├───agents.py\\n│   │   ├───config.py\\n│   │   ├───errors.py\\n│   │   ├───git.py\\n│   │   ├───logging.py\\n│   │   ├───notifications_cli.py\\n│   │   ├───notifications.py\\n│   │   ├───orchestrator.py\\n│   │   ├───tasks.py\\n│   │   ├───transcript.py\\n│   │   └───__pycache__/...\\n│   └───agent_runner.egg-info/\\n│       ├───dependency_links.txt\\n│       ├───entry_points.txt\\n│       ├───PKG-INFO\\n│       ├───requires.txt\\n│       ├───SOURCES.txt\\n│       └───top_level.txt\\n├───stubs/\\n│   └───python_ntfy/\\n│       └───__init__.pyi\\n└───tests/\\n    ├───__init__.py\\n    ├───conftest.py\\n    ├───test_agents_direct.py\\n    ├───test_cli_match.py\\n    ├───test_env_preflight.py\\n    ├───test_git.py\\n    ├───test_integration_agents.py\\n    ├───test_integration_codex.py\\n    ├───test_transcript.py\\n    ├───__pycache__/...\\n    ├───claude/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───codex/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───gemini/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───kilo/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   └───__pycache__/...\\n    ├───ollama/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    └───opencode/\\n        ├───__init__.py\\n        ├───test_direct.py\\n        └───__pycache__/...\\nImportant Rules:\\n* You are running in a non-interactive mode. You CANNOT ask the user for input or clarification.\\n* Work systematically using available tools to complete your task.\\n* Always use absolute paths for file operations. Construct them using the provided \\"Environment Context\\".\\n* When you have completed your task, you MUST call the `complete_task` tool with your structured output.\\n* Do not call any other tools in the same turn as `complete_task`.\\n* This is the ONLY way to complete your mission. If you stop calling tools without calling this, you have failed."}]},"tools":[{"functionDeclarations":[{"name":"get_internal_docs","description":"Returns the content of Gemini CLI internal documentation files. If no path is provided, returns a list of all available documentation paths.","parametersJsonSchema":{"type":"object","properties":{"path":{"description":"The relative path to the documentation file (e.g., \'cli/commands.md\'). If omitted, lists all available documentation.","type":"string"}}}},{"name":"complete_task","description":"Call this tool to submit your final answer and complete the task. This is the ONLY way to finish.","parameters":{"type":"OBJECT","properties":{"report":{"type":"object","properties":{"answer":{"type":"string","description":"The detailed answer to the user question about Gemini CLI."},"sources":{"type":"array","items":{"type":"string"},"description":"The documentation files used to answer the question."}},"required":["answer","sources"],"additionalProperties":false}},"required":["report"]}}]}],"generationConfig":{"temperature":1,"topP":0.95,"topK":64,"thinkingConfig":{"includeThoughts":true,"thinkingLevel":"HIGH"}},"session_id":"d1a6006d-a741-468c-8ee2-0ace136a237f"}}',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#0","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]}],"systemInstruction":{"role":"user","parts":[{"text":"You are **CLI Help Agent**, an expert on Gemini CLI. Your purpose is to provide accurate information about Gemini CLI\'s features, configuration, and current state.\\n\\n### Runtime Context\\n- **CLI Version:** 0.29.2\\n- **Active Model:** gemini-3-flash-preview\\n- **Today\'s Date:** 2/19/2026\\n\\n### Instructions\\n1. **Explore Documentation**: Use the `get_internal_docs` tool to find answers. If you don\'t know where to start, call `get_internal_docs()` without arguments to see the full list of available documentation files.\\n2. **Be Precise**: Use the provided runtime context and documentation to give exact answers.\\n3. **Cite Sources**: Always include the specific documentation files you used in your final report.\\n4. **Non-Interactive**: You operate in a loop and cannot ask the user for more info. If the question is ambiguous, answer as best as you can with the information available.\\n\\nYou MUST call `complete_task` with a JSON report containing your `answer` and the `sources` you used.\\n\\n# Environment Context\\n- **Workspace Directories:**\\n  - /home/dzack/lattice_interface/agent_runner\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/home/dzack/lattice_interface/agent_runner/\\n├───.env\\n├───justfile\\n├───pyproject.toml\\n├───README.md\\n├───telemetry-id\\n├───usage.json\\n├───uv.lock\\n├───.claude/\\n│   └───settings.local.json\\n├───.pytest_cache/\\n│   └───v/...\\n├───.ruff_cache/\\n│   └───0.15.1/...\\n├───.venv/\\n│   ├───bin/...\\n│   └───lib/...\\n├───logs/\\n│   ├───debug_hello_simple/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180540/\\n│   │   │   ├───20260218_180839/\\n│   │   │   ├───20260218_181131/\\n│   │   │   ├───20260218_181927/\\n│   │   │   ├───20260218_192457/\\n│   │   │   ├───20260218_192605/\\n│   │   │   ├───20260218_193832/\\n│   │   │   ├───20260218_194828/\\n│   │   │   ├───20260218_202953/\\n│   │   │   ├───20260218_203420/\\n│   │   │   └───test/\\n│   │   ├───codex/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180417/\\n│   │   │   ├───20260218_180738/\\n│   │   │   ├───20260218_181022/\\n│   │   │   ├───20260218_181351/\\n│   │   │   ├───20260218_181524/\\n│   │   │   ├───20260218_181827/\\n│   │   │   ├───20260218_182112/\\n│   │   │   └───test/\\n│   │   ├───gemini/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180430/\\n│   │   │   ├───20260218_180752/\\n│   │   │   ├───20260218_181033/\\n│   │   │   ├───20260218_181404/\\n│   │   │   ├───20260218_181843/\\n│   │   │   ├───20260218_182126/\\n│   │   │   ├───20260218_192539/\\n│   │   │   ├───20260218_192643/\\n│   │   │   ├───20260218_203036/\\n│   │   │   ├───20260218_203459/\\n│   │   │   ├───manual/\\n│   │   │   └───test/\\n│   │   └───ollama/\\n│   │       ├───agent.log\\n│   │       ├───20260218_180520/\\n│   │       ├───20260218_180813/\\n│   │       ├───20260218_181111/\\n│   │       ├───20260218_181428/\\n│   │       ├───20260218_181909/\\n│   │       ├───20260218_192610/\\n│   │       ├───20260218_192714/\\n│   │       ├───20260218_193851/\\n│   │       ├───20260218_194921/\\n│   │       ├───20260218_203106/\\n│   │       ├───20260218_203529/\\n│   │       ├───20260218_232534/\\n│   │       ├───20260218_233527/\\n│   │       ├───20260219_001632/\\n│   │       └───test/\\n│   ├───debug_hello_world/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_165938/\\n│   │       ├───20260218_170554/\\n│   │       ├───20260218_170937/\\n│   │       └───20260218_171153/\\n│   ├───debug_smoke_commit/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_162832/\\n│   │       ├───20260218_162911/\\n│   │       ├───20260218_162958/\\n│   │       ├───20260218_163106/\\n│   │       ├───20260218_163238/\\n│   │       ├───20260218_163835/\\n│   │       ├───20260218_163947/\\n│   │       ├───20260218_164406/\\n│   │       ├───20260218_165207/\\n│   │       ├───20260218_165249/\\n│   │       ├───20260218_171450/\\n│   │       ├───20260218_171548/\\n│   │       ├───20260218_172408/\\n│   │       ├───20260218_173930/\\n│   │       ├───20260218_174842/\\n│   │       ├───20260218_175319/\\n│   │       ├───20260218_180559/\\n│   │       ├───20260218_180856/\\n│   │       ├───20260218_181152/\\n│   │       ├───20260218_181947/\\n│   │       ├───20260218_183759/\\n│   │       ├───20260218_190134/\\n│   │       ├───20260218_192509/\\n│   │       ├───20260218_192613/\\n│   │       ├───20260218_192728/\\n│   │       ├───20260218_193841/\\n│   │       ├───20260218_194011/\\n│   │       ├───20260218_194844/\\n│   │       ├───20260218_194955/\\n│   │       ├───20260218_202909/\\n│   │       ├───20260218_202921/\\n│   │       └───...\\n│   ├───document_coverage/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   ├───codex/\\n│   │   ├───gemini/\\n│   │   ├───kilo/\\n│   │   ├───ollama/\\n│   │   └───opencode/\\n│   └───heartbeat/\\n│       └───task.log\\n├───prompts/\\n│   └───debug/\\n│       ├───commit_smoke.md\\n│       ├───hello_simple.md\\n│       ├───hello_world.md\\n│       ├───ping.md\\n│       └───smoke.md\\n├───scripts/\\n│   └───claude_usage.py\\n├───src/\\n│   ├───agent_runner/\\n│   │   ├───__init__.py\\n│   │   ├───__main__.py\\n│   │   ├───agent_errors.py\\n│   │   ├───agents.py\\n│   │   ├───config.py\\n│   │   ├───errors.py\\n│   │   ├───git.py\\n│   │   ├───logging.py\\n│   │   ├───notifications_cli.py\\n│   │   ├───notifications.py\\n│   │   ├───orchestrator.py\\n│   │   ├───tasks.py\\n│   │   ├───transcript.py\\n│   │   └───__pycache__/...\\n│   └───agent_runner.egg-info/\\n│       ├───dependency_links.txt\\n│       ├───entry_points.txt\\n│       ├───PKG-INFO\\n│       ├───requires.txt\\n│       ├───SOURCES.txt\\n│       └───top_level.txt\\n├───stubs/\\n│   └───python_ntfy/\\n│       └───__init__.pyi\\n└───tests/\\n    ├───__init__.py\\n    ├───conftest.py\\n    ├───test_agents_direct.py\\n    ├───test_cli_match.py\\n    ├───test_env_preflight.py\\n    ├───test_git.py\\n    ├───test_integration_agents.py\\n    ├───test_integration_codex.py\\n    ├───test_transcript.py\\n    ├───__pycache__/...\\n    ├───claude/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───codex/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───gemini/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───kilo/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   └───__pycache__/...\\n    ├───ollama/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    └───opencode/\\n        ├───__init__.py\\n        ├───test_direct.py\\n        └───__pycache__/...\\nImportant Rules:\\n* You are running in a non-interactive mode. You CANNOT ask the user for input or clarification.\\n* Work systematically using available tools to complete your task.\\n* Always use absolute paths for file operations. Construct them using the provided \\"Environment Context\\".\\n* When you have completed your task, you MUST call the `complete_task` tool with your structured output.\\n* Do not call any other tools in the same turn as `complete_task`.\\n* This is the ONLY way to complete your mission. If you stop calling tools without calling this, you have failed."}]},"tools":[{"functionDeclarations":[{"name":"get_internal_docs","description":"Returns the content of Gemini CLI internal documentation files. If no path is provided, returns a list of all available documentation paths.","parametersJsonSchema":{"type":"object","properties":{"path":{"description":"The relative path to the documentation file (e.g., \'cli/commands.md\'). If omitted, lists all available documentation.","type":"string"}}}},{"name":"complete_task","description":"Call this tool to submit your final answer and complete the task. This is the ONLY way to finish.","parameters":{"type":"OBJECT","properties":{"report":{"type":"object","properties":{"answer":{"type":"string","description":"The detailed answer to the user question about Gemini CLI."},"sources":{"type":"array","items":{"type":"string"},"description":"The documentation files used to answer the question."}},"required":["answer","sources"],"additionalProperties":false}},"required":["report"]}}]}],"generationConfig":{"temperature":1,"topP":0.95,"topK":64,"thinkingConfig":{"includeThoughts":true,"thinkingLevel":"HIGH"}},"session_id":"d1a6006d-a741-468c-8ee2-0ace136a237f"}}',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:53:02 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=6294',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '116e6bee0af95d3f',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 2 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async LocalAgentExecutor.callModel (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/agents/local-executor.js:482:26) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#0","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]}],"systemInstruction":{"role":"user","parts":[{"text":"You are **CLI Help Agent**, an expert on Gemini CLI. Your purpose is to provide accurate information about Gemini CLI\'s features, configuration, and current state.\\n\\n### Runtime Context\\n- **CLI Version:** 0.29.2\\n- **Active Model:** gemini-3-flash-preview\\n- **Today\'s Date:** 2/19/2026\\n\\n### Instructions\\n1. **Explore Documentation**: Use the `get_internal_docs` tool to find answers. If you don\'t know where to start, call `get_internal_docs()` without arguments to see the full list of available documentation files.\\n2. **Be Precise**: Use the provided runtime context and documentation to give exact answers.\\n3. **Cite Sources**: Always include the specific documentation files you used in your final report.\\n4. **Non-Interactive**: You operate in a loop and cannot ask the user for more info. If the question is ambiguous, answer as best as you can with the information available.\\n\\nYou MUST call `complete_task` with a JSON report containing your `answer` and the `sources` you used.\\n\\n# Environment Context\\n- **Workspace Directories:**\\n  - /home/dzack/lattice_interface/agent_runner\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/home/dzack/lattice_interface/agent_runner/\\n├───.env\\n├───justfile\\n├───pyproject.toml\\n├───README.md\\n├───telemetry-id\\n├───usage.json\\n├───uv.lock\\n├───.claude/\\n│   └───settings.local.json\\n├───.pytest_cache/\\n│   └───v/...\\n├───.ruff_cache/\\n│   └───0.15.1/...\\n├───.venv/\\n│   ├───bin/...\\n│   └───lib/...\\n├───logs/\\n│   ├───debug_hello_simple/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180540/\\n│   │   │   ├───20260218_180839/\\n│   │   │   ├───20260218_181131/\\n│   │   │   ├───20260218_181927/\\n│   │   │   ├───20260218_192457/\\n│   │   │   ├───20260218_192605/\\n│   │   │   ├───20260218_193832/\\n│   │   │   ├───20260218_194828/\\n│   │   │   ├───20260218_202953/\\n│   │   │   ├───20260218_203420/\\n│   │   │   └───test/\\n│   │   ├───codex/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180417/\\n│   │   │   ├───20260218_180738/\\n│   │   │   ├───20260218_181022/\\n│   │   │   ├───20260218_181351/\\n│   │   │   ├───20260218_181524/\\n│   │   │   ├───20260218_181827/\\n│   │   │   ├───20260218_182112/\\n│   │   │   └───test/\\n│   │   ├───gemini/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180430/\\n│   │   │   ├───20260218_180752/\\n│   │   │   ├───20260218_181033/\\n│   │   │   ├───20260218_181404/\\n│   │   │   ├───20260218_181843/\\n│   │   │   ├───20260218_182126/\\n│   │   │   ├───20260218_192539/\\n│   │   │   ├───20260218_192643/\\n│   │   │   ├───20260218_203036/\\n│   │   │   ├───20260218_203459/\\n│   │   │   ├───manual/\\n│   │   │   └───test/\\n│   │   └───ollama/\\n│   │       ├───agent.log\\n│   │       ├───20260218_180520/\\n│   │       ├───20260218_180813/\\n│   │       ├───20260218_181111/\\n│   │       ├───20260218_181428/\\n│   │       ├───20260218_181909/\\n│   │       ├───20260218_192610/\\n│   │       ├───20260218_192714/\\n│   │       ├───20260218_193851/\\n│   │       ├───20260218_194921/\\n│   │       ├───20260218_203106/\\n│   │       ├───20260218_203529/\\n│   │       ├───20260218_232534/\\n│   │       ├───20260218_233527/\\n│   │       ├───20260219_001632/\\n│   │       └───test/\\n│   ├───debug_hello_world/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_165938/\\n│   │       ├───20260218_170554/\\n│   │       ├───20260218_170937/\\n│   │       └───20260218_171153/\\n│   ├───debug_smoke_commit/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_162832/\\n│   │       ├───20260218_162911/\\n│   │       ├───20260218_162958/\\n│   │       ├───20260218_163106/\\n│   │       ├───20260218_163238/\\n│   │       ├───20260218_163835/\\n│   │       ├───20260218_163947/\\n│   │       ├───20260218_164406/\\n│   │       ├───20260218_165207/\\n│   │       ├───20260218_165249/\\n│   │       ├───20260218_171450/\\n│   │       ├───20260218_171548/\\n│   │       ├───20260218_172408/\\n│   │       ├───20260218_173930/\\n│   │       ├───20260218_174842/\\n│   │       ├───20260218_175319/\\n│   │       ├───20260218_180559/\\n│   │       ├───20260218_180856/\\n│   │       ├───20260218_181152/\\n│   │       ├───20260218_181947/\\n│   │       ├───20260218_183759/\\n│   │       ├───20260218_190134/\\n│   │       ├───20260218_192509/\\n│   │       ├───20260218_192613/\\n│   │       ├───20260218_192728/\\n│   │       ├───20260218_193841/\\n│   │       ├───20260218_194011/\\n│   │       ├───20260218_194844/\\n│   │       ├───20260218_194955/\\n│   │       ├───20260218_202909/\\n│   │       ├───20260218_202921/\\n│   │       └───...\\n│   ├───document_coverage/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   ├───codex/\\n│   │   ├───gemini/\\n│   │   ├───kilo/\\n│   │   ├───ollama/\\n│   │   └───opencode/\\n│   └───heartbeat/\\n│       └───task.log\\n├───prompts/\\n│   └───debug/\\n│       ├───commit_smoke.md\\n│       ├───hello_simple.md\\n│       ├───hello_world.md\\n│       ├───ping.md\\n│       └───smoke.md\\n├───scripts/\\n│   └───claude_usage.py\\n├───src/\\n│   ├───agent_runner/\\n│   │   ├───__init__.py\\n│   │   ├───__main__.py\\n│   │   ├───agent_errors.py\\n│   │   ├───agents.py\\n│   │   ├───config.py\\n│   │   ├───errors.py\\n│   │   ├───git.py\\n│   │   ├───logging.py\\n│   │   ├───notifications_cli.py\\n│   │   ├───notifications.py\\n│   │   ├───orchestrator.py\\n│   │   ├───tasks.py\\n│   │   ├───transcript.py\\n│   │   └───__pycache__/...\\n│   └───agent_runner.egg-info/\\n│       ├───dependency_links.txt\\n│       ├───entry_points.txt\\n│       ├───PKG-INFO\\n│       ├───requires.txt\\n│       ├───SOURCES.txt\\n│       └───top_level.txt\\n├───stubs/\\n│   └───python_ntfy/\\n│       └───__init__.pyi\\n└───tests/\\n    ├───__init__.py\\n    ├───conftest.py\\n    ├───test_agents_direct.py\\n    ├───test_cli_match.py\\n    ├───test_env_preflight.py\\n    ├───test_git.py\\n    ├───test_integration_agents.py\\n    ├───test_integration_codex.py\\n    ├───test_transcript.py\\n    ├───__pycache__/...\\n    ├───claude/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───codex/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───gemini/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───kilo/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   └───__pycache__/...\\n    ├───ollama/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    └───opencode/\\n        ├───__init__.py\\n        ├───test_direct.py\\n        └───__pycache__/...\\nImportant Rules:\\n* You are running in a non-interactive mode. You CANNOT ask the user for input or clarification.\\n* Work systematically using available tools to complete your task.\\n* Always use absolute paths for file operations. Construct them using the provided \\"Environment Context\\".\\n* When you have completed your task, you MUST call the `complete_task` tool with your structured output.\\n* Do not call any other tools in the same turn as `complete_task`.\\n* This is the ONLY way to complete your mission. If you stop calling tools without calling this, you have failed."}]},"tools":[{"functionDeclarations":[{"name":"get_internal_docs","description":"Returns the content of Gemini CLI internal documentation files. If no path is provided, returns a list of all available documentation paths.","parametersJsonSchema":{"type":"object","properties":{"path":{"description":"The relative path to the documentation file (e.g., \'cli/commands.md\'). If omitted, lists all available documentation.","type":"string"}}}},{"name":"complete_task","description":"Call this tool to submit your final answer and complete the task. This is the ONLY way to finish.","parameters":{"type":"OBJECT","properties":{"report":{"type":"object","properties":{"answer":{"type":"string","description":"The detailed answer to the user question about Gemini CLI."},"sources":{"type":"array","items":{"type":"string"},"description":"The documentation files used to answer the question."}},"required":["answer","sources"],"additionalProperties":false}},"required":["report"]}}]}],"generationConfig":{"temperature":1,"topP":0.95,"topK":64,"thinkingConfig":{"includeThoughts":true,"thinkingLevel":"HIGH"}},"session_id":"d1a6006d-a741-468c-8ee2-0ace136a237f"}}',
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#0","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]}],"systemInstruction":{"role":"user","parts":[{"text":"You are **CLI Help Agent**, an expert on Gemini CLI. Your purpose is to provide accurate information about Gemini CLI\'s features, configuration, and current state.\\n\\n### Runtime Context\\n- **CLI Version:** 0.29.2\\n- **Active Model:** gemini-3-flash-preview\\n- **Today\'s Date:** 2/19/2026\\n\\n### Instructions\\n1. **Explore Documentation**: Use the `get_internal_docs` tool to find answers. If you don\'t know where to start, call `get_internal_docs()` without arguments to see the full list of available documentation files.\\n2. **Be Precise**: Use the provided runtime context and documentation to give exact answers.\\n3. **Cite Sources**: Always include the specific documentation files you used in your final report.\\n4. **Non-Interactive**: You operate in a loop and cannot ask the user for more info. If the question is ambiguous, answer as best as you can with the information available.\\n\\nYou MUST call `complete_task` with a JSON report containing your `answer` and the `sources` you used.\\n\\n# Environment Context\\n- **Workspace Directories:**\\n  - /home/dzack/lattice_interface/agent_runner\\n- **Directory Structure:**\\n\\nShowing up to 200 items (files + folders). Folders or files indicated with ... contain more items not shown, were ignored, or the display limit (200 items) was reached.\\n\\n/home/dzack/lattice_interface/agent_runner/\\n├───.env\\n├───justfile\\n├───pyproject.toml\\n├───README.md\\n├───telemetry-id\\n├───usage.json\\n├───uv.lock\\n├───.claude/\\n│   └───settings.local.json\\n├───.pytest_cache/\\n│   └───v/...\\n├───.ruff_cache/\\n│   └───0.15.1/...\\n├───.venv/\\n│   ├───bin/...\\n│   └───lib/...\\n├───logs/\\n│   ├───debug_hello_simple/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180540/\\n│   │   │   ├───20260218_180839/\\n│   │   │   ├───20260218_181131/\\n│   │   │   ├───20260218_181927/\\n│   │   │   ├───20260218_192457/\\n│   │   │   ├───20260218_192605/\\n│   │   │   ├───20260218_193832/\\n│   │   │   ├───20260218_194828/\\n│   │   │   ├───20260218_202953/\\n│   │   │   ├───20260218_203420/\\n│   │   │   └───test/\\n│   │   ├───codex/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180417/\\n│   │   │   ├───20260218_180738/\\n│   │   │   ├───20260218_181022/\\n│   │   │   ├───20260218_181351/\\n│   │   │   ├───20260218_181524/\\n│   │   │   ├───20260218_181827/\\n│   │   │   ├───20260218_182112/\\n│   │   │   └───test/\\n│   │   ├───gemini/\\n│   │   │   ├───agent.log\\n│   │   │   ├───20260218_180430/\\n│   │   │   ├───20260218_180752/\\n│   │   │   ├───20260218_181033/\\n│   │   │   ├───20260218_181404/\\n│   │   │   ├───20260218_181843/\\n│   │   │   ├───20260218_182126/\\n│   │   │   ├───20260218_192539/\\n│   │   │   ├───20260218_192643/\\n│   │   │   ├───20260218_203036/\\n│   │   │   ├───20260218_203459/\\n│   │   │   ├───manual/\\n│   │   │   └───test/\\n│   │   └───ollama/\\n│   │       ├───agent.log\\n│   │       ├───20260218_180520/\\n│   │       ├───20260218_180813/\\n│   │       ├───20260218_181111/\\n│   │       ├───20260218_181428/\\n│   │       ├───20260218_181909/\\n│   │       ├───20260218_192610/\\n│   │       ├───20260218_192714/\\n│   │       ├───20260218_193851/\\n│   │       ├───20260218_194921/\\n│   │       ├───20260218_203106/\\n│   │       ├───20260218_203529/\\n│   │       ├───20260218_232534/\\n│   │       ├───20260218_233527/\\n│   │       ├───20260219_001632/\\n│   │       └───test/\\n│   ├───debug_hello_world/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_165938/\\n│   │       ├───20260218_170554/\\n│   │       ├───20260218_170937/\\n│   │       └───20260218_171153/\\n│   ├───debug_smoke_commit/\\n│   │   ├───task.log\\n│   │   └───codex/\\n│   │       ├───agent.log\\n│   │       ├───20260218_162832/\\n│   │       ├───20260218_162911/\\n│   │       ├───20260218_162958/\\n│   │       ├───20260218_163106/\\n│   │       ├───20260218_163238/\\n│   │       ├───20260218_163835/\\n│   │       ├───20260218_163947/\\n│   │       ├───20260218_164406/\\n│   │       ├───20260218_165207/\\n│   │       ├───20260218_165249/\\n│   │       ├───20260218_171450/\\n│   │       ├───20260218_171548/\\n│   │       ├───20260218_172408/\\n│   │       ├───20260218_173930/\\n│   │       ├───20260218_174842/\\n│   │       ├───20260218_175319/\\n│   │       ├───20260218_180559/\\n│   │       ├───20260218_180856/\\n│   │       ├───20260218_181152/\\n│   │       ├───20260218_181947/\\n│   │       ├───20260218_183759/\\n│   │       ├───20260218_190134/\\n│   │       ├───20260218_192509/\\n│   │       ├───20260218_192613/\\n│   │       ├───20260218_192728/\\n│   │       ├───20260218_193841/\\n│   │       ├───20260218_194011/\\n│   │       ├───20260218_194844/\\n│   │       ├───20260218_194955/\\n│   │       ├───20260218_202909/\\n│   │       ├───20260218_202921/\\n│   │       └───...\\n│   ├───document_coverage/\\n│   │   ├───task.log\\n│   │   ├───claude/\\n│   │   ├───codex/\\n│   │   ├───gemini/\\n│   │   ├───kilo/\\n│   │   ├───ollama/\\n│   │   └───opencode/\\n│   └───heartbeat/\\n│       └───task.log\\n├───prompts/\\n│   └───debug/\\n│       ├───commit_smoke.md\\n│       ├───hello_simple.md\\n│       ├───hello_world.md\\n│       ├───ping.md\\n│       └───smoke.md\\n├───scripts/\\n│   └───claude_usage.py\\n├───src/\\n│   ├───agent_runner/\\n│   │   ├───__init__.py\\n│   │   ├───__main__.py\\n│   │   ├───agent_errors.py\\n│   │   ├───agents.py\\n│   │   ├───config.py\\n│   │   ├───errors.py\\n│   │   ├───git.py\\n│   │   ├───logging.py\\n│   │   ├───notifications_cli.py\\n│   │   ├───notifications.py\\n│   │   ├───orchestrator.py\\n│   │   ├───tasks.py\\n│   │   ├───transcript.py\\n│   │   └───__pycache__/...\\n│   └───agent_runner.egg-info/\\n│       ├───dependency_links.txt\\n│       ├───entry_points.txt\\n│       ├───PKG-INFO\\n│       ├───requires.txt\\n│       ├───SOURCES.txt\\n│       └───top_level.txt\\n├───stubs/\\n│   └───python_ntfy/\\n│       └───__init__.pyi\\n└───tests/\\n    ├───__init__.py\\n    ├───conftest.py\\n    ├───test_agents_direct.py\\n    ├───test_cli_match.py\\n    ├───test_env_preflight.py\\n    ├───test_git.py\\n    ├───test_integration_agents.py\\n    ├───test_integration_codex.py\\n    ├───test_transcript.py\\n    ├───__pycache__/...\\n    ├───claude/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───codex/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───gemini/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    ├───kilo/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   └───__pycache__/...\\n    ├───ollama/\\n    │   ├───__init__.py\\n    │   ├───test_direct.py\\n    │   ├───test_pipeline.py\\n    │   └───__pycache__/...\\n    └───opencode/\\n        ├───__init__.py\\n        ├───test_direct.py\\n        └───__pycache__/...\\nImportant Rules:\\n* You are running in a non-interactive mode. You CANNOT ask the user for input or clarification.\\n* Work systematically using available tools to complete your task.\\n* Always use absolute paths for file operations. Construct them using the provided \\"Environment Context\\".\\n* When you have completed your task, you MUST call the `complete_task` tool with your structured output.\\n* Do not call any other tools in the same turn as `complete_task`.\\n* This is the ONLY way to complete your mission. If you stop calling tools without calling this, you have failed."}]},"tools":[{"functionDeclarations":[{"name":"get_internal_docs","description":"Returns the content of Gemini CLI internal documentation files. If no path is provided, returns a list of all available documentation paths.","parametersJsonSchema":{"type":"object","properties":{"path":{"description":"The relative path to the documentation file (e.g., \'cli/commands.md\'). If omitted, lists all available documentation.","type":"string"}}}},{"name":"complete_task","description":"Call this tool to submit your final answer and complete the task. This is the ONLY way to finish.","parameters":{"type":"OBJECT","properties":{"report":{"type":"object","properties":{"answer":{"type":"string","description":"The detailed answer to the user question about Gemini CLI."},"sources":{"type":"array","items":{"type":"string"},"description":"The documentation files used to answer the question."}},"required":["answer","sources"],"additionalProperties":false}},"required":["report"]}}]}],"generationConfig":{"temperature":1,"topP":0.95,"topK":64,"thinkingConfig":{"includeThoughts":true,"thinkingLevel":"HIGH"}},"session_id":"d1a6006d-a741-468c-8ee2-0ace136a237f"}}',
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:53:07 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=160',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '1ce9bd471486a9fa',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}
+Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
+  "error": {
+    "code": 429,
+    "message": "No capacity available for model gemini-3-flash-preview on the server",
+    "errors": [
+      {
+        "message": "No capacity available for model gemini-3-flash-preview on the server",
+        "domain": "global",
+        "reason": "rateLimitExceeded"
+      }
+    ],
+    "status": "RESOURCE_EXHAUSTED",
+    "details": [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "reason": "MODEL_CAPACITY_EXHAUSTED",
+        "domain": "cloudcode-pa.googleapis.com",
+        "metadata": {
+          "model": "gemini-3-flash-preview"
+        }
+      }
+    ]
+  }
+}
+]
+    at Gaxios._request (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/gaxios/build/src/gaxios.js:142:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async OAuth2Client.requestAsync (/home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/google-auth-library/build/src/auth/oauth2client.js:429:18)
+    at async CodeAssistServer.requestStreamingPost (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:173:21)
+    at async CodeAssistServer.generateContentStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/code_assist/server.js:29:27)
+    at async file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/loggingContentGenerator.js:143:26
+    at async retryWithBackoff (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/utils/retry.js:128:28)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:444:32)
+    at async GeminiChat.streamWithRetries (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/core/geminiChat.js:265:40)
+    at async LocalAgentExecutor.callModel (file:///home/dzack/.nvm/versions/node/v25.6.1/lib/node_modules/@google/gemini-cli/node_modules/@google/gemini-cli-core/dist/src/agents/local-executor.js:482:26) {
+  config: {
+    url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+    method: 'POST',
+    params: { alt: 'sse' },
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent': 'GeminiCLI/0.29.1/gemini-3-pro-preview (linux; x64) google-api-nodejs-client/9.15.1',
+      Authorization: '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.',
+      'x-goog-api-client': 'gl-node/25.6.1'
+    },
+    responseType: 'stream',
+    body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#6","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX+RvEheS5aipAj74d5fb7/7EnRL6M1lgLGQrYomCCDAKXwGPPWtfd7c0dA3wjZjdgRLY9yU7kKA/ZxUUCR1kHZMYx0d+HRZC7VLEeR+vklWE/mv3xex4paS1uXBW4KFHMv2RqBCdRp4Y2W56qyZdQRxuE6kbT3wPAacAvkCXsx9SClcBjz1rX3LQYp9bzV3dFvi8oWnGwcKfm4nQrVp+iyoIZLgBixvgExlKwgdHRBSziGg9bige4yl0hlZJ71lGz0ZrpMC8EUihovs5a4XXrFzcS1AHJBe6ddkKswEBjz1rXxwTefCH/OzI7L3f/zrkewXrtvbNAL5J4URDMKwxImb0hKW6ghxhRGT6goK/KxCkmGeBowa6a2w8Cu+bUryd0WVdEOcadzLC5ra72G51Gh9ApekiLHBABkpgr3LBSChBvz/KEwFoaHFTwzuion14vXAKnvfJAjwEvnkv10UWZeMA+LevppX83+YG/HcUCSKZfiCGUD7YOgFrWVYU9sdWw4syB/46xYnwHXf8oeRgGwo2AY89a1+MaDeAyv3HT9FHlraZ6C03U49MJCjNbCNd7yUIT/Nmt2hX2pFCdm7xeIZs+vxjHw2z","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"README.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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'... 17606 more characters,
+    signal: AbortSignal { aborted: false },
+    paramsSerializer: [Function: paramsSerializer],
+    validateStatus: [Function: validateStatus],
+    errorRedactor: [Function: defaultErrorRedactor]
+  },
+  response: {
+    config: {
+      url: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse',
+      method: 'POST',
+      params: [Object],
+      headers: [Object],
+      responseType: 'stream',
+      body: '{"model":"gemini-3-flash-preview","project":"cobalt-biplane-mdpsm","user_prompt_id":"d93796e950d86-cli_help-yd6b63#6","request":{"contents":[{"role":"user","parts":[{"text":"Your task is to answer the following question about Gemini CLI:\\n<question>\\nWhat is Serena? Is it a skill or a system in Gemini CLI? And where is the project documentation located?\\n</question>"}]},{"role":"model","parts":[{"thoughtSignature":"CiQBjz1rX+RvEheS5aipAj74d5fb7/7EnRL6M1lgLGQrYomCCDAKXwGPPWtfd7c0dA3wjZjdgRLY9yU7kKA/ZxUUCR1kHZMYx0d+HRZC7VLEeR+vklWE/mv3xex4paS1uXBW4KFHMv2RqBCdRp4Y2W56qyZdQRxuE6kbT3wPAacAvkCXsx9SClcBjz1rX3LQYp9bzV3dFvi8oWnGwcKfm4nQrVp+iyoIZLgBixvgExlKwgdHRBSziGg9bige4yl0hlZJ71lGz0ZrpMC8EUihovs5a4XXrFzcS1AHJBe6ddkKswEBjz1rXxwTefCH/OzI7L3f/zrkewXrtvbNAL5J4URDMKwxImb0hKW6ghxhRGT6goK/KxCkmGeBowa6a2w8Cu+bUryd0WVdEOcadzLC5ra72G51Gh9ApekiLHBABkpgr3LBSChBvz/KEwFoaHFTwzuion14vXAKnvfJAjwEvnkv10UWZeMA+LevppX83+YG/HcUCSKZfiCGUD7YOgFrWVYU9sdWw4syB/46xYnwHXf8oeRgGwo2AY89a1+MaDeAyv3HT9FHlraZ6C03U49MJCjNbCNd7yUIT/Nmt2hX2pFCdm7xeIZs+vxjHw2z","functionCall":{"name":"get_internal_docs","args":{"path":""}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#0-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#1-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"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","functionCall":{"name":"get_internal_docs","args":{"path":"README.md"}}}]},{"role":"user","parts":[{"functionResponse":{"id":"d93796e950d86-cli_help-yd6b63#2-0","name":"get_internal_docs","response":{"error":"Tool execution denied by policy."}}}]},{"role":"model","parts":[{"thoughtSignature":"CiUBjz1rXzKZ3ccKjqx4e9odca8RpRkXtE+TVoo91oY0G616Zyg8Cm4Bjz1rXwVRvmTreA/kiX1d6V4BmlNAbksvjzWBW+XvprIJI0m6qbLmqu+Anq0IM+QkEubJ8FXND8wUbDG/3DaT/R6YQDD3awlrsmunB1lmmnaJvpVbOp8q/AkbMS94z6JdR7PtaDnSU0lzOsEbsQp7AY89a18sXzYFdS+U3jbrtnZGDIIhauERohnSFXzOHMvz1IqHQk0RXJzSi/5Kgrvki77UHSBUxATLp388AhY9olbxy8gynRM48KtBICDHQ1QPI+pktEZ/Q0o79XUGRhAyZeyZ1L00VJzYKa7Sgpk6Nmt8+AAq1G+VAvbFCqUBAY89a1/KcR1vz5O1+dfS3ptfNVVLqZLOD3aTHNjroYATnmYllsJltz5+9hWbYm7ncPu0cVT4jexgAyhQvnIuR7cS3Gs3edl8wVAyFCJFvlL5mRiD6JmiZft688TRusECmK05yRA4axcX19YcJcKeIA9va5h5qeKj+bRwVjwRHT/hLRgp2d1/v2eToiSZNnkYSysYWYpjo/B/UPP3Kq29rST16XkHCqQBAY89a18MszfiZyoaP1uVTpjBuhkRyoi4S928NL822XvKgMzZUvV6wNaB8NW4v4aDDNmG/uAKsMqTVuS6Bt45AQIKvMKF0XLxuP/8Dzw/MqGLBxW4QjxoyG4tCB8HvURHNVt9e5EVv4MYQfrWPYkVIzZUzs0ASq7hR41xAsMkYxz7wZaGZzJVl9eLzNRqvdBb2VrfUrvGWqlMJPxEDgCh1+kks+oKxwEBjz1rX0bhx37Rv+xFlSep0A8AqP/I9OpaVMC31wRUSDyFxiqp0SVPSRinh0jNi1bKJRRb6OvAIuTAqFXA/O+HIekOS0B4VYQrbYhS78kUT7R6aEC9BnVh8ggHt3z+6Zk8/gOGvpSGxDnw1ey9CsxzZkrCYBQT3aX9WCUY3InyagIbpw9iHANxqkA/Qrv29p24M6DceiCPOw8nCcQT0EtFSbJbDSNeY5Q9brLQFRBxZYtnPIOhIgbydKK0MCPPIKIk0xochOn3CtMBAY89a1+rv1QJkF3GKe6ppWGNbNI7gkThgUJ9aC0any7VPbmiCvxMSFcZV1M7yiPvGJgXQE7Dy5uOOvQvZvBA/EOBs/edLtLhOqaPVl4ahu3L+vjJC1wubblSnqcA8UTKHjicOJNc+izopm6WcdST8/OSjt52oOh1Wt5hJ/9Fr4CAqpiYZb9BntuqSC/bOHYo59FkOw71On8EEUz0SKB7D6pVVDKQj8+ZMHYhQsZHvc3wJFEiXZ3GqzWmQ/ldH8ua24fwjTGGC7tGI9Wl2I99zONDiQrvAQGPPWtfczxMUxKt33c/OFw88sKP3UT8OgYIolYBjvCyrrESLTeO96HXH4B24rZVS6YguenRQw63slaOf6/W1yu2FkuapBpSrnod8akTESUCNwkxMFjsveYWqBi134lHF+QC5tVuMg+2fqRLowItkXaofwTgoUadnkRmbVV+rkMHDgpJK4Z8QNsbNvPboowT2JcbZ9sVBNnsGyWMIUL+00wyW6gjRWQED5Xgimy1SaiH6nbqpHwmgFB8+LUQc07/B8+ttXwWJYwKgYPmd4/cKX/Vxz6JOZDfz3Vkr0ckbvOOMqvh4ABn2OZ9jDcaZhM/CuQBAY89a19s5BYjh2K8K03yEQC5kEyW62rI8eoeQBIuuIhYuO/p9pi4WAaiuTdOnqgSMGgNsfELYHXplrpXA7yK8IUXdVqSPlaGBZ7vWWWyEJJK6ZHqqySD1hXxfHmsYLdQbnw4LClHR26HNlpsTn+YIDsTXd5wr35Z0WlUxfVjL6a42ItB3YPbPCT82ZPi9hskw1RiU/2FYp+4Ocj3XHV+YaTXNuX7Xw9wdpFDun7+2uaGD2/+aELKvs/oeFWTkEOuYmMlwAsPkIMqg6kp5ioLZP68T9iKIXyMGB8PVj6buXfZLNWjCu8CAY89a1+TDd5k1dASzUnP70vHR/szXHTre2KYNkl9yi33OrpletsLvSc+OU6J9QnoxA+RjCQy7l3N4eimCzI2TUjnimGFrs7t6xC2svxIdteGJ/CyvsUio6wvvsxIhJDICsly3qB4BLjxiZXqtZYxozuUVL3yBnHUvg1P3ovqKx3PjKc3vZW2AAFjIZpRmvaO8dJu0p245sX3Ft5vWgOuSWnMHyby7TeNALmjB2WhwLiEJaGBSt9KV7RWYBnYXadr0vr0pnYPxU+TDArQBvDY5vEHLxH8nWJWSnZ69xrxBWPzU0jF/zb7Ti7jPxVFjrAf74mLF1WQpKkSgMkq+YKC9SSl6nWBeBThU9PPjSPKL6LxI78KJOtWYNT7UPCCXQY2ZYbCN27aFiwE+3qGw3/25klFJk8ZeIs/jyg7L44NDhI5WVMmw1ie4aODIgtx/NedgYiQVc71IFv2c7xZlnMQeRlScanxQ2E2p+QfgT6BuQqU'... 17606 more characters,
+      signal: [AbortSignal],
+      paramsSerializer: [Function: paramsSerializer],
+      validateStatus: [Function: validateStatus],
+      errorRedactor: [Function: defaultErrorRedactor]
+    },
+    data: '[{\n' +
+      '  "error": {\n' +
+      '    "code": 429,\n' +
+      '    "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '    "errors": [\n' +
+      '      {\n' +
+      '        "message": "No capacity available for model gemini-3-flash-preview on the server",\n' +
+      '        "domain": "global",\n' +
+      '        "reason": "rateLimitExceeded"\n' +
+      '      }\n' +
+      '    ],\n' +
+      '    "status": "RESOURCE_EXHAUSTED",\n' +
+      '    "details": [\n' +
+      '      {\n' +
+      '        "@type": "type.googleapis.com/google.rpc.ErrorInfo",\n' +
+      '        "reason": "MODEL_CAPACITY_EXHAUSTED",\n' +
+      '        "domain": "cloudcode-pa.googleapis.com",\n' +
+      '        "metadata": {\n' +
+      '          "model": "gemini-3-flash-preview"\n' +
+      '        }\n' +
+      '      }\n' +
+      '    ]\n' +
+      '  }\n' +
+      '}\n' +
+      ']',
+    headers: {
+      'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000',
+      'content-length': '630',
+      'content-type': 'application/json; charset=UTF-8',
+      date: 'Thu, 19 Feb 2026 01:54:33 GMT',
+      server: 'ESF',
+      'server-timing': 'gfet4t7; dur=7090',
+      vary: 'Origin, X-Origin, Referer',
+      'x-cloudaicompanion-trace-id': '5c4853c177ad499a',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-xss-protection': '0'
+    },
+    status: 429,
+    statusText: 'Too Many Requests',
+    request: {
+      responseURL: 'https://cloudcode-pa.googleapis.com/v1internal:streamGenerateContent?alt=sse'
+    }
+  },
+  error: undefined,
+  status: 429,
+  Symbol(gaxios-gaxios-error): '6.7.1'
+}

@@ -1,0 +1,30 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "08c2e4203a53155eb4fab19ca76ac2a8ca6ccaa6",
+      "date": "2026-02-18T20:33:58+00:00",
+      "subject": "docs: correct IntegralLattice.orthogonal_group definiteness constraint from [PD] to [DEFINITE]"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 9,
+  "dry_run": false,
+  "elapsed_seconds": 276.1239427340006,
+  "end_time": "2026-02-18T20:34:40.410462+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/sage/integral_lattice/sage_integral_lattice_reference.md",
+    "docs/sage/lattice/sagemath_lattice_reference.md"
+  ],
+  "insertions": 11,
+  "last_message": "The `IntegralLattice.orthogonal_group` method was documented with a `[PD]` (positive definite only) constraint in three locations across two Sage reference files, but upstream source docs confirm that negative definite lattices also succeed \u2014 only indefinite lattices raise `NotImplementedError`. This has been corrected to `[DEFINITE]` throughout, with matching caveat text and definiteness summary tables updated accordingly, sourced from the local upstream snapshot `free_quadratic_module_integer_symmetric.html`. The correct constraint matters because users with negative definite lattices (common in number-theory contexts, e.g. `E8(-1)` in K3 surface calculations) would incorrectly believe `orthogonal_group()` was unavailable to them.",
+  "requires_commit": true,
+  "run_id": "20260218_203004",
+  "start_time": "2026-02-18T20:30:04.286938+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

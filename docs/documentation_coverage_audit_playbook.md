@@ -54,9 +54,23 @@ Out of scope (documented but not tracked for checklist completion):
 ## FIRST GOAL (MANDATORY)
 
 Ensure checklist coverage exists for all known relevant in-scope bilinear-form lattice packages in the ecosystem.
-If a known in-scope package lacks a checklist surface in this repository, creating that checklist surface is the first priority.
+
+**CRITICAL PREREQUISITE**: Before checklist entries can be filled with source-backed accuracy, local copies of upstream documentation must exist under `docs/**/upstream/`. Without these local snapshots:
+- Method signatures cannot be verified against actual source
+- Argument contracts cannot be backed by cited documentation  
+- The checklist completeness assessment is meaningless
+
+If a known in-scope package lacks both:
+1. A checklist surface in this repository, AND
+2. Local upstream doc copies under `docs/**/upstream/`
+
+Then creating that checklist surface AND integrating the local doc copies are co-equal first priorities.
+
+Track specific package status in `docs/TODO.md` — do not litter this playbook with rotting timestamps and package lists.
 
 ## SECOND GOAL (MANDATORY)
+
+**Prerequisite**: Goal 1 is NOT complete until local doc copies are integrated for all in-scope packages. Do not proceed to Goal 2 work until the local doc prerequisite is demonstrably met.
 
 Completeness and provable correctness of all documented methods:
 
@@ -72,13 +86,15 @@ Scope gate for every assignment:
 - before adding or expanding any package surface, verify that the package has explicit APIs for free-module lattices with symmetric nondegenerate bilinear forms.
 - if it does not, treat it as out-of-scope and do not prioritize or expand it as a lattice-theory target.
 
-## MINOR GOAL (ONLY AFTER FIRST AND SECOND GOALS ARE CLEARLY SATISFIED)
+## MINOR GOAL (STRICTLY CONDITIONAL - ONLY AFTER FIRST AND SECOND GOALS ARE VERIFIABLY COMPLETE)
 
-Precision/clarity refinement work, including:
+Precision/clarification refinement work, including:
 
 - fine-tuning wording,
 - disambiguation,
 - structural polish.
+
+**This goal does NOT exist until FIRST and SECOND goals are demonstrably complete.** An agent treating this as an acceptable alternative to the mandatory goals has failed the assignment.
 
 ## What The Docs Are Supposed To Be
 

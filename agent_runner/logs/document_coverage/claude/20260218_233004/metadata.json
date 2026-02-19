@@ -1,0 +1,30 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "51a9d738c6e8de79e4b8f51531552833bab5c503",
+      "date": "2026-02-18T23:34:36+00:00",
+      "subject": "docs: replace NormalFormIntMat and Decomposition placeholder signatures in GAP reference and checklist"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 4,
+  "dry_run": false,
+  "elapsed_seconds": 296.15906589099905,
+  "end_time": "2026-02-18T23:35:00.926217+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/gap/lattice/gap_lattice_methods_reference.md",
+    "docs/gap_methods_checklist.md"
+  ],
+  "insertions": 8,
+  "last_message": "The GAP core reference had two `(...)` placeholder signatures for `NormalFormIntMat` and `Decomposition` \u2014 opaque stubs with no argument types, return shapes, or constraint information. Both are now documented with source-backed contracts: `NormalFormIntMat(mat, options)` specifies the integer-bitmask control surface (SNF vs. HNF, off-diagonal reduction, unimodular transform inclusion, destructive mode) and the full record-return shape (`normal`, `rowtrans`/`coltrans`, `signdet`, `rank`); `Decomposition(A, B, depth)` specifies the cyclotomic-matrix rank constraint, the `\"nonnegative\"` depth variant with its first-column positivity precondition, and the per-entry `fail` return semantics. These fixes matter because `NormalFormIntMat` is the primary unified entry point for HNF/SNF computation in GAP and the bitmask interface is non-obvious \u2014 a missing or wrong options description would cause silent incorrect-form selection.",
+  "requires_commit": true,
+  "run_id": "20260218_233004",
+  "start_time": "2026-02-18T23:30:04.767809+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

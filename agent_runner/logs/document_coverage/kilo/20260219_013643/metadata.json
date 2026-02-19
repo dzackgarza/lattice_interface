@@ -1,0 +1,19 @@
+{
+  "agent": "kilo",
+  "classified_error": null,
+  "commits": [],
+  "debug_prompt": null,
+  "deletions": 0,
+  "dry_run": true,
+  "elapsed_seconds": 0.02465743900393136,
+  "end_time": "2026-02-19T01:36:43.218093+00:00",
+  "exit_code": 0,
+  "files_changed": [],
+  "insertions": 0,
+  "last_message": "(dry-run)",
+  "requires_commit": true,
+  "run_id": "20260219_013643",
+  "start_time": "2026-02-19T01:36:43.193439+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

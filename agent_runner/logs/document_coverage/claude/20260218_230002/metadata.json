@@ -1,0 +1,31 @@
+{
+  "agent": "claude",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "b4936ad0919cd3b75d95a5f7191b9666cf60f7ef",
+      "date": "2026-02-18T23:03:37+00:00",
+      "subject": "docs: correct automorphism_group_generators/order definiteness constraint from [PD] to [DEFINITE]"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 9,
+  "dry_run": false,
+  "elapsed_seconds": 256.7882207069997,
+  "end_time": "2026-02-18T23:04:19.570534+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/julia/hecke_jl/lattice/nemo_hecke_lattice_reference.md",
+    "docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md",
+    "docs/julia_methods_checklist.md"
+  ],
+  "insertions": 12,
+  "last_message": "`automorphism_group_generators` and `automorphism_group_order` were incorrectly tagged `[PD]` (positive definite only) across the Julia umbrella reference, Hecke mirror reference, and methods checklist, but upstream OSCAR/Hecke docs explicitly say \"Given a **definite** lattice\" \u2014 meaning negative definite lattices are fully supported and only indefinite forms are excluded. This is now corrected to `[DEFINITE]` in all three surfaces, and the previously undocumented `ambient_representation::Bool=true` keyword argument has been added to `automorphism_group_generators`. This matters because mislabeling ND lattices as unsupported would cause users to unnecessarily rescale lattices or incorrectly expect errors on valid inputs \u2014 the same class of error previously found in Sage's `orthogonal_group`, confirming a recurring `[PD]` vs `[DEFINITE]` pattern that warrants targeted review of other `[PD]`-tagged methods.",
+  "requires_commit": true,
+  "run_id": "20260218_230002",
+  "start_time": "2026-02-18T23:00:02.782315+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}

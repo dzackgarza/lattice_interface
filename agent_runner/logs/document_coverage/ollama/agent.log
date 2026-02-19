@@ -1,0 +1,5 @@
+
+=== 2026-02-19 01:10:05 UTC [ollama/document_coverage] ===
+2026-02-19 01:10:05 UTC [ollama/document_coverage] elapsed=7m53s tokens=127654 files=4 loc=+8/-5
+last_message: The `is_isometric(L1, L2)` and `is_isometric_with_isometry(L1, L2)` methods were incorrectly tagged as `[PD]` (positive definite only) in the Julia lattice references, but source verification in Hecke.jl shows the implementation explicitly rescales negative definite lattices to positive definite before comparison—meaning both PD and ND (definite) lattices are supported. This has been corrected to `[DEFINITE]` across the Julia lattice methods reference, Hecke mirror reference, and the checklist, with appropriate caveats added documenting the upstream requirement.
+
