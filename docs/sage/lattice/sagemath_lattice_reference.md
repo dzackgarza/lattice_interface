@@ -288,144 +288,144 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 `[INT or FIELD]` depending on base ring; base ring explicit in constructor.
 
 ### Intrinsic data
-| Method | Description | Tags |
-|--------|-------------|------|
-| `base_ring()` | Ring R | |
-| `dim()` | Number of variables n | |
-| `rank()` | Rank of Gram matrix | |
-| `matrix()` | **Hessian matrix A** where Q(x) = **(1/2) xᵀ A x**; A[i,i] = 2·Q[i,i], A[i,j] = Q[i,j] for i≠j; = `Hessian_matrix()`; note A = 2·`Gram_matrix()` | |
-| `Gram_matrix()` | **Gram matrix G** where Q(x) = **xᵀ G x**; G[i,i] = Q[i,i], G[i,j] = Q[i,j]/2 for i≠j; G = `matrix()`/2 | |
-| `Gram_matrix_rational()` | Same as `Gram_matrix()` but over ℚ | `[RAT]` |
-| `Hessian_matrix()` | Same as `matrix()` — alias for the Hessian A; Q(x) = (1/2) xᵀ A x | |
-| `polynomial()` | Polynomial representation | |
-| `content()` | gcd of all coefficients | `[INT]` |
-| `coefficients()` | List of all n(n+1)/2 upper-triangle coefficients by reading across rows from main diagonal | |
-| `det()` | det(**Hessian**) = det(`matrix()`) = det(2·Gram) — **not** det(Gram); use `Gram_det()` for det(G) | |
-| `Gram_det()` | det(`Gram_matrix()`) = det(G); defined over fraction field | `[RAT]` |
-| `discriminant()` | det(Gram_matrix) = det(G); same as `Gram_det()` for integer forms | `[INT]` |
-| `level()` | Smallest N: N·Q^{-1} integral | `[INT]` |
-| `scale_by_factor(c)` | Multiply Q by scalar c | |
-| `change_ring(R)` | Change base ring | |
-| `base_change_to(M)` | Q(Mx) | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `base_ring()` | — | `Ring` | Ring R | |
+| `dim()` | — | `Integer` | Number of variables n | |
+| `rank()` | — | `Integer` | Rank of Gram matrix | |
+| `matrix()` | — | `Matrix` | **Hessian matrix A** where Q(x) = **(1/2) xᵀ A x**; A[i,i] = 2·Q[i,i], A[i,j] = Q[i,j] for i≠j; = `Hessian_matrix()`; note A = 2·`Gram_matrix()` | |
+| `Gram_matrix()` | — | `Matrix` | **Gram matrix G** where Q(x) = **xᵀ G x**; G[i,i] = Q[i,i], G[i,j] = Q[i,j]/2 for i≠j; G = `matrix()`/2 | |
+| `Gram_matrix_rational()` | — | `Matrix` | Same as `Gram_matrix()` but over ℚ | `[RAT]` |
+| `Hessian_matrix()` | — | `Matrix` | Same as `matrix()` — alias for the Hessian A; Q(x) = (1/2) xᵀ A x | |
+| `polynomial()` | — | `Polynomial` | Polynomial representation | |
+| `content()` | — | `Integer` | gcd of all coefficients | `[INT]` |
+| `coefficients()` | — | `list` | List of all n(n+1)/2 upper-triangle coefficients by reading across rows from main diagonal | |
+| `det()` | — | `Integer` or `Rational` | det(**Hessian**) = det(`matrix()`) = det(2·Gram) — **not** det(Gram); use `Gram_det()` for det(G) | |
+| `Gram_det()` | — | `Rational` | det(`Gram_matrix()`) = det(G); defined over fraction field | `[RAT]` |
+| `discriminant()` | — | `Integer` | det(Gram_matrix) = det(G); same as `Gram_det()` for integer forms | `[INT]` |
+| `level()` | — | `Integer` | Smallest N: N·Q^{-1} integral | `[INT]` |
+| `scale_by_factor(c)` | `c`: `RingElement` | `QuadraticForm` | Multiply Q by scalar c | |
+| `change_ring(R)` | `R`: `Ring` | `QuadraticForm` | Change base ring | |
+| `base_change_to(M)` | `M`: `Matrix` | `QuadraticForm` | Q(Mx) | |
 
 ### Definiteness
-| Method | Description | Tags |
-|--------|-------------|------|
-| `compute_definiteness()` | Caches definiteness string "pos_def"/"neg_def"/"indef"/"zero"/"degenerate" | `[ND ok]` |
-| `compute_definiteness_string_by_determinants()` | Same as `compute_definiteness()` but via upper-left subdeterminant signs; returns the string directly | |
-| `is_positive_definite()` | All eigenvalues > 0 | `[PD]` |
-| `is_negative_definite()` | All eigenvalues < 0 | |
-| `is_definite()` | Positive or negative definite (not zero, not degenerate, not indefinite) | |
-| `is_indefinite()` | Mixed signs; **degenerate forms are neither definite nor indefinite** | `[INDEF]` |
-| `is_degenerate()` | det = 0 | `[DEG]` |
-| `signature()` | p − n | |
-| `signature_vector()` | (p, n, z): positive, negative, zero eigenvalue counts | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `compute_definiteness()` | — | `None` | Caches definiteness string "pos_def"/"neg_def"/"indef"/"zero"/"degenerate" | `[ND ok]` |
+| `compute_definiteness_string_by_determinants()` | — | `str` | Same as `compute_definiteness()` but via upper-left subdeterminant signs; returns the string directly | |
+| `is_positive_definite()` | — | `bool` | All eigenvalues > 0 | `[PD]` |
+| `is_negative_definite()` | — | `bool` | All eigenvalues < 0 | |
+| `is_definite()` | — | `bool` | Positive or negative definite (not zero, not degenerate, not indefinite) | |
+| `is_indefinite()` | — | `bool` | Mixed signs; **degenerate forms are neither definite nor indefinite** | `[INDEF]` |
+| `is_degenerate()` | — | `bool` | det = 0 | `[DEG]` |
+| `signature()` | — | `Integer` | p − n | |
+| `signature_vector()` | — | `tuple` | (p, n, z): positive, negative, zero eigenvalue counts | |
 
 ### Equivalence and classification
-| Method | Description | Tags |
-|--------|-------------|------|
-| `is_globally_equivalent_to(other, return_matrix)` | GL_n(ℤ) equivalence | `[INT, PD for reliability, PARI]` |
-| `is_locally_equivalent_to(other, p)` | Local equivalence at p (p=−1 for ∞) | `[INT, INDEF ok]` |
-| `local_normal_form(p)` | Jordan decomposition at prime p | `[INT, PARI]` |
-| `p_adic_normal_form(p, ...)` | p-adic canonical form | `[INT]` |
-| `global_normal_form()` | Reduce over ℤ | `[PD, PARI]` |
-| `rational_diagonal_form(return_matrix)` | Diagonalize over ℚ | `[FIELD]` |
-| `is_rationally_isometric(other)` | ℚ-isometry | `[FIELD]` |
-| `genus()` | Genus object | `[INT, ND]` |
-| `genera(sig, det, even)` | All genera with given signature and discriminant `[static]` | `[INT]` |
-| `is_in_genus(G)` | Membership in genus G | `[INT]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `is_globally_equivalent_to(other, return_matrix)` | `other`: `QuadraticForm`, `return_matrix`: `bool` | `bool` or `tuple` | GL_n(ℤ) equivalence | `[INT, PD for reliability, PARI]` |
+| `is_locally_equivalent_to(other, p)` | `other`: `QuadraticForm`, `p`: `Integer` | `bool` | Local equivalence at p (p=−1 for ∞) | `[INT, INDEF ok]` |
+| `local_normal_form(p)` | `p`: `Integer` | `QuadraticForm` | Jordan decomposition at prime p | `[INT, PARI]` |
+| `p_adic_normal_form(p, ...)` | `p`: `Integer`, ... | `QuadraticForm` | p-adic canonical form | `[INT]` |
+| `global_normal_form()` | — | `QuadraticForm` | Reduce over ℤ | `[PD, PARI]` |
+| `rational_diagonal_form(return_matrix)` | `return_matrix`: `bool` | `QuadraticForm` or `tuple` | Diagonalize over ℚ | `[FIELD]` |
+| `is_rationally_isometric(other)` | `other`: `QuadraticForm` | `bool` | ℚ-isometry | `[FIELD]` |
+| `genus()` | — | `Genus` | Genus object | `[INT, ND]` |
+| `genera(sig, det, even)` | `sig`: `tuple`, `det`: `Integer`, `even`: `bool` | `list` | All genera with given signature and discriminant `[static]` | `[INT]` |
+| `is_in_genus(G)` | `G`: `Genus` | `bool` | Membership in genus G | `[INT]` |
 
 ### Local/Global invariants
-| Method | Description | Tags |
-|--------|-------------|------|
-| `hasse_invariant(p)` | Hasse-Minkowski invariant ±1 at p | `[ND, FIELD]` |
-| `hasse_invariant__OMeara(p)` | O'Meara convention Hasse invariant | `[ND, FIELD]` |
-| `hasse_conductor()` | Product of all primes p where the Hasse invariant is −1 | `[ND, INT]` |
-| `clifford_invariant(p)` | Clifford algebra class in Brauer group at prime p (takes a prime argument; even dim: class of Clifford algebra; odd dim: class of even Clifford algebra; see Lam GSM 67 p.117) | `[ND, FIELD]` |
-| `clifford_conductor()` | Product of primes where `clifford_invariant(p) == -1`; for ternary forms equals the discriminant of the quaternion algebra | `[ND, INT]` |
-| `CS_genus_symbol_list(force_recomputation=False)` | List of Conway-Sloane genus symbols at all primes dividing 2·det(Q), in increasing order of prime; each entry is a `GenusSymbol_p_adic_ring` object | `[INT, ND]` |
-| `anisotropic_primes()` | Primes (incl. −1 for ∞) where form is anisotropic; requires PARI | `[ND, INT, PARI]` |
-| `is_anisotropic(p)` | Anisotropic at p | `[ND, FIELD]` |
-| `is_isotropic(p)` | Isotropic at p | `[ND, FIELD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `hasse_invariant(p)` | `p`: `Integer` | `int` | Hasse-Minkowski invariant ±1 at p | `[ND, FIELD]` |
+| `hasse_invariant__OMeara(p)` | `p`: `Integer` | `int` | O'Meara convention Hasse invariant | `[ND, FIELD]` |
+| `hasse_conductor()` | — | `Integer` | Product of all primes p where the Hasse invariant is −1 | `[ND, INT]` |
+| `clifford_invariant(p)` | `p`: `Integer` | `int` | Clifford algebra class in Brauer group at prime p (takes a prime argument; even dim: class of Clifford algebra; odd dim: class of even Clifford algebra; see Lam GSM 67 p.117) | `[ND, FIELD]` |
+| `clifford_conductor()` | — | `Integer` | Product of primes where `clifford_invariant(p) == -1`; for ternary forms equals the discriminant of the quaternion algebra | `[ND, INT]` |
+| `CS_genus_symbol_list(force_recomputation=False)` | `force_recomputation`: `bool` | `list` | List of Conway-Sloane genus symbols at all primes dividing 2·det(Q), in increasing order of prime; each entry is a `GenusSymbol_p_adic_ring` object | `[INT, ND]` |
+| `anisotropic_primes()` | — | `list` | Primes (incl. −1 for ∞) where form is anisotropic; requires PARI | `[ND, INT, PARI]` |
+| `is_anisotropic(p)` | `p`: `Integer` | `bool` | Anisotropic at p | `[ND, FIELD]` |
+| `is_isotropic(p)` | `p`: `Integer` | `bool` | Isotropic at p | `[ND, FIELD]` |
 
 ### Representation theory
-| Method | Description | Tags |
-|--------|-------------|------|
-| `__call__(v)` | Evaluate Q(v) | |
-| `bilinear_map(v, w)` | Associated bilinear form B(v,w) = (Q(v+w)−Q(v)−Q(w))/2 | |
-| `is_locally_represented(m, p)` | Q(x)≡m solvable over ℤ_p | `[INT]` |
-| `is_locally_universal(p)` | Represents all ℤ locally at p | `[INT]` |
-| `local_density(p, m)` | Local density α_p(Q, m) | `[INT, PD for convergence]` |
-| `local_primitive_density(p, m)` | Primitive local density | `[INT]` |
-| `local_representation_conditions(recompute_flag=False, silent_flag=False)` | Returns a `QuadraticFormLocalRepresentationConditions` object summarizing the local (p-adic) representability of all integers; `recompute_flag=True` forces recomputation of the cache | `[INT]` |
-| `is_locally_represented_number(m, recompute_flag=False)` | Whether m is locally represented (i.e., by `local_representation_conditions()`) | `[INT]` |
-| `is_locally_universal_at_all_primes()` | Locally represents all of ℤ_p for all finite primes | `[INT]` |
-| `is_locally_universal_at_all_places()` | Locally represents all integers and is positive definite (universal at ∞ too) | `[INT, PD]` |
-| `is_globally_represented(m)` | Q(x) = m solvable over ℤ | `[INT]` |
-| `solve(m)` | Find x with Q(x) = m | `[RAT, PARI]` |
-| `basiclemma(M)` | Finds an integer represented by Q that is coprime to M; used in local normal form computation | `[INT]` |
-| `basiclemmavec(M)` | Finds a vector v such that Q(v) is coprime to M; companion to `basiclemma` | `[INT]` |
-| `short_vector_list_up_to_length(n, up_to_sign)` | Vectors with Q(x) ≤ n | `[PD, INT, PARI]` |
-| `short_primitive_vector_list_up_to_length(n)` | Primitive vectors with Q(x) ≤ n | `[PD, INT]` |
-| `basis_of_short_vectors(show_lengths=False)` | Basis for ℤ^n of minimal-length vectors; uses PARI qfminim; returns tuple of vectors (and optionally lengths) | `[PD, INT, PARI]` |
-| `vectors_by_length(b)` | Dict grouping vectors by norm 0..b | `[PD, INT]` |
-| `minimum(proof)` | Minimum nonzero value Q(x) | `[PD, INT]` |
-| `maximum(b)` | Maximum Q(x) for x with Q(x)≤b | `[PD, INT]` |
-| `count_congruence_solutions(B, n, m, p, k)` | Count Q(x)≡m (mod p^k) | `[INT]` |
-| `count_congruence_solutions__bad_type(B, n, m, p, k, NZvec, Zvec, p2)` | Conway-Sloane local counting helper: bad-type contribution in p-adic density decomposition | `[INT]` |
-| `count_congruence_solutions__bad_type_I(B, n, m, p, k, NZvec, Zvec, p2)` | Type-I bad-part contribution for local density counts | `[INT]` |
-| `count_congruence_solutions__bad_type_II(B, n, m, p, k, NZvec, Zvec, p2)` | Type-II bad-part contribution for local density counts | `[INT]` |
-| `count_congruence_solutions__good_type(B, n, m, p, k, NZvec, Zvec, p2)` | Good-type contribution in local counting decomposition | `[INT]` |
-| `count_congruence_solutions__zero_type(B, n, m, p, k, NZvec, Zvec, p2)` | Zero-type contribution in local counting decomposition | `[INT]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `__call__(v)` | `v`: `Vector` | `RingElement` | Evaluate Q(v) | |
+| `bilinear_map(v, w)` | `v`: `Vector`, `w`: `Vector` | `RingElement` | Associated bilinear form B(v,w) = (Q(v+w)−Q(v)−Q(w))/2 | |
+| `is_locally_represented(m, p)` | `m`: `Integer`, `p`: `Integer` | `bool` | Q(x)≡m solvable over ℤ_p | `[INT]` |
+| `is_locally_universal(p)` | `p`: `Integer` | `bool` | Represents all ℤ locally at p | `[INT]` |
+| `local_density(p, m)` | `p`: `Integer`, `m`: `Integer` | `Rational` | Local density α_p(Q, m) | `[INT, PD for convergence]` |
+| `local_primitive_density(p, m)` | `p`: `Integer`, `m`: `Integer` | `Rational` | Primitive local density | `[INT]` |
+| `local_representation_conditions(recompute_flag=False, silent_flag=False)` | `recompute_flag`: `bool`, `silent_flag`: `bool` | `QuadraticFormLocalRepresentationConditions` | Returns a `QuadraticFormLocalRepresentationConditions` object summarizing the local (p-adic) representability of all integers; `recompute_flag=True` forces recomputation of the cache | `[INT]` |
+| `is_locally_represented_number(m, recompute_flag=False)` | `m`: `Integer`, `recompute_flag`: `bool` | `bool` | Whether m is locally represented (i.e., by `local_representation_conditions()`) | `[INT]` |
+| `is_locally_universal_at_all_primes()` | — | `bool` | Locally represents all of ℤ_p for all finite primes | `[INT]` |
+| `is_locally_universal_at_all_places()` | — | `bool` | Locally represents all integers and is positive definite (universal at ∞ too) | `[INT, PD]` |
+| `is_globally_represented(m)` | `m`: `Integer` | `bool` | Q(x) = m solvable over ℤ | `[INT]` |
+| `solve(m)` | `m`: `RingElement` | `Vector` or `None` | Find x with Q(x) = m | `[RAT, PARI]` |
+| `basiclemma(M)` | `M`: `Integer` | `Integer` | Finds an integer represented by Q that is coprime to M; used in local normal form computation | `[INT]` |
+| `basiclemmavec(M)` | `M`: `Integer` | `Vector` | Finds a vector v such that Q(v) is coprime to M; companion to `basiclemma` | `[INT]` |
+| `short_vector_list_up_to_length(n, up_to_sign)` | `n`: `Integer`, `up_to_sign`: `bool` | `list` | Vectors with Q(x) ≤ n | `[PD, INT, PARI]` |
+| `short_primitive_vector_list_up_to_length(n)` | `n`: `Integer` | `list` | Primitive vectors with Q(x) ≤ n | `[PD, INT]` |
+| `basis_of_short_vectors(show_lengths=False)` | `show_lengths`: `bool` | `tuple` | Basis for ℤ^n of minimal-length vectors; uses PARI qfminim; returns tuple of vectors (and optionally lengths) | `[PD, INT, PARI]` |
+| `vectors_by_length(b)` | `b`: `Integer` | `dict` | Dict grouping vectors by norm 0..b | `[PD, INT]` |
+| `minimum(proof)` | `proof`: `bool` | `Integer` | Minimum nonzero value Q(x) | `[PD, INT]` |
+| `maximum(b)` | `b`: `Integer` | `Integer` | Maximum Q(x) for x with Q(x)≤b | `[PD, INT]` |
+| `count_congruence_solutions(B, n, m, p, k)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer` | `Integer` | Count Q(x)≡m (mod p^k) | `[INT]` |
+| `count_congruence_solutions__bad_type(B, n, m, p, k, NZvec, Zvec, p2)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer`, `NZvec`: `list`, `Zvec`: `list`, `p2`: `Integer` | `Integer` | Conway-Sloane local counting helper: bad-type contribution in p-adic density decomposition | `[INT]` |
+| `count_congruence_solutions__bad_type_I(B, n, m, p, k, NZvec, Zvec, p2)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer`, `NZvec`: `list`, `Zvec`: `list`, `p2`: `Integer` | `Integer` | Type-I bad-part contribution for local density counts | `[INT]` |
+| `count_congruence_solutions__bad_type_II(B, n, m, p, k, NZvec, Zvec, p2)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer`, `NZvec`: `list`, `Zvec`: `list`, `p2`: `Integer` | `Integer` | Type-II bad-part contribution for local density counts | `[INT]` |
+| `count_congruence_solutions__good_type(B, n, m, p, k, NZvec, Zvec, p2)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer`, `NZvec`: `list`, `Zvec`: `list`, `p2`: `Integer` | `Integer` | Good-type contribution in local counting decomposition | `[INT]` |
+| `count_congruence_solutions__zero_type(B, n, m, p, k, NZvec, Zvec, p2)` | `B`: `Integer`, `n`: `Integer`, `m`: `Integer`, `p`: `Integer`, `k`: `Integer`, `NZvec`: `list`, `Zvec`: `list`, `p2`: `Integer` | `Integer` | Zero-type contribution in local counting decomposition | `[INT]` |
 
 ### Automorphisms
-| Method | Description | Tags |
-|--------|-------------|------|
-| `automorphisms()` | List of automorphism matrices | `[INT, PD, PARI]` |
-| `automorphism_group()` | Automorphism group | `[INT, PD, PARI]` |
-| `number_of_automorphisms()` | \|Aut(Q)\| | `[INT, PD, PARI]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `automorphisms()` | — | `list` | List of automorphism matrices | `[INT, PD, PARI]` |
+| `automorphism_group()` | — | `MatrixGroup` | Automorphism group | `[INT, PD, PARI]` |
+| `number_of_automorphisms()` | — | `Integer` | \|Aut(Q)\| | `[INT, PD, PARI]` |
 
 ### Analytic / modular
-| Method | Description | Tags |
-|--------|-------------|------|
-| `theta_series(prec)` | Formal power series Σ r(n) q^n | `[PD, INT]` |
-| `theta_series_degree_2(prec)` | Siegel modular form | `[PD, INT]` |
-| `mass(M=None)` | Total mass of genus = Σ 1/\|Aut(Q')\| over genus representatives; uses GHY formula | `[PD?, INT]` |
-| `conway_mass()` | Conway-Sloane mass formula implementation for integral forms | `[INT, PD]` |
-| `conway_standard_mass()` | Conway-Sloane standard mass term | `[INT, PD]` |
-| `conway_p_mass(p)` | Conway local p-mass factor | `[INT, PD]` |
-| `conway_standard_p_mass(p)` | Standardized local p-mass contribution in Conway mass formula | `[INT, PD]` |
-| `conway_type_factor(p)` | Type factor in Conway-Sloane local mass expression | `[INT, PD]` |
-| `conway_diagonal_factor(p)` | Diagonal factor in Conway local mass term | `[INT, PD]` |
-| `conway_cross_product_doubled_power(p)` | Cross-product doubled-power exponent term in Conway local mass | `[INT, PD]` |
-| `conway_species_list_at_2()` | 2-adic species data used in Conway local mass calculations | `[INT, PD]` |
-| `conway_species_list_at_odd_prime(p)` | Odd-prime species data used in Conway local mass calculations | `[INT, PD]` |
-| `conway_octane_of_this_unimodular_Jordan_block_at_2(block)` | Octane invariant for a 2-adic unimodular Jordan block in Conway notation | `[INT, PD]` |
-| `GHY_mass__maximal()` | Mass via GHY formula for maximal lattices; valid over any number field; returns a rational number | `[PD, INT]` |
-| `Kitaoka_mass_at_2()` | Local mass factor at p=2 per Kitaoka Thrm 5.6.3; returns a rational > 0; **docstring warns verification needed** | `[INT, PD]` |
-| `Watson_mass_at_2()` | Local mass factor at p=2 per Watson 1976; requires `sage.symbolic`; returns a rational number | `[INT, PD]` |
-| `Pall_mass_density_at_odd_prime(p)` | Self-representation local density at odd prime p per Pall (1965); p must be an odd prime; returns a rational number | `[INT, PD]` |
-| `local_mass_factor(p)` | Combined local mass factor at prime p | `[INT]` |
-| `p_neighbor(p, y)` | p-neighbor lattice (for genus traversal) | `[INT, ND]` |
-| `cholesky_decomposition(bit_prec=53)` | Upper-triangular real Cholesky of precision bit_prec; Q must be over ℤ, ℚ, or a real field with at least bit_prec precision | `[PD, FIELD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `theta_series(prec)` | `prec`: `Integer` | `PowerSeries` | Formal power series Σ r(n) q^n | `[PD, INT]` |
+| `theta_series_degree_2(prec)` | `prec`: `Integer` | `SiegelThetaSeries` | Siegel modular form | `[PD, INT]` |
+| `mass(M=None)` | `M`: `QuadraticForm` or `None` | `Rational` | Total mass of genus = Σ 1/\|Aut(Q')\| over genus representatives; uses GHY formula | `[PD?, INT]` |
+| `conway_mass()` | — | `Rational` | Conway-Sloane mass formula implementation for integral forms | `[INT, PD]` |
+| `conway_standard_mass()` | — | `Rational` | Conway-Sloane standard mass term | `[INT, PD]` |
+| `conway_p_mass(p)` | `p`: `Integer` | `Rational` | Conway local p-mass factor | `[INT, PD]` |
+| `conway_standard_p_mass(p)` | `p`: `Integer` | `Rational` | Standardized local p-mass contribution in Conway mass formula | `[INT, PD]` |
+| `conway_type_factor(p)` | `p`: `Integer` | `Rational` | Type factor in Conway-Sloane local mass expression | `[INT, PD]` |
+| `conway_diagonal_factor(p)` | `p`: `Integer` | `Rational` | Diagonal factor in Conway local mass term | `[INT, PD]` |
+| `conway_cross_product_doubled_power(p)` | `p`: `Integer` | `Integer` | Cross-product doubled-power exponent term in Conway local mass | `[INT, PD]` |
+| `conway_species_list_at_2()` | — | `list` | 2-adic species data used in Conway local mass calculations | `[INT, PD]` |
+| `conway_species_list_at_odd_prime(p)` | `p`: `Integer` | `list` | Odd-prime species data used in Conway local mass calculations | `[INT, PD]` |
+| `conway_octane_of_this_unimodular_Jordan_block_at_2(block)` | `block`: `list` | `Integer` | Octane invariant for a 2-adic unimodular Jordan block in Conway notation | `[INT, PD]` |
+| `GHY_mass__maximal()` | — | `Rational` | Mass via GHY formula for maximal lattices; valid over any number field; returns a rational number | `[PD, INT]` |
+| `Kitaoka_mass_at_2()` | — | `Rational` | Local mass factor at p=2 per Kitaoka Thrm 5.6.3; returns a rational > 0; **docstring warns verification needed** | `[INT, PD]` |
+| `Watson_mass_at_2()` | — | `Rational` | Local mass factor at p=2 per Watson 1976; requires `sage.symbolic`; returns a rational number | `[INT, PD]` |
+| `Pall_mass_density_at_odd_prime(p)` | `p`: `Integer` | `Rational` | Self-representation local density at odd prime p per Pall (1965); p must be an odd prime; returns a rational number | `[INT, PD]` |
+| `local_mass_factor(p)` | `p`: `Integer` | `Rational` | Combined local mass factor at prime p | `[INT]` |
+| `p_neighbor(p, y)` | `p`: `Integer`, `y`: `Vector` | `QuadraticForm` | p-neighbor lattice (for genus traversal) | `[INT, ND]` |
+| `cholesky_decomposition(bit_prec=53)` | `bit_prec`: `Integer` | `tuple` | Upper-triangular real Cholesky of precision bit_prec; Q must be over ℤ, ℚ, or a real field with at least bit_prec precision | `[PD, FIELD]` |
 
 ### Arithmetic / module structure
-| Method | Description | Tags |
-|--------|-------------|------|
-| `direct_sum(other)` | Orthogonal sum | |
-| `tensor_product(other)` | Tensor product | |
-| `extract_variables(indices)` | Restriction to subset of variables | |
-| `complementary_subform(indices)` | Orthogonal complement subform (by variable index list) | |
-| `complementary_subform_to_vector(v)` | Finds the (n-1)-dimensional quadratic form whose variables are orthogonal to the given vector v; extends v to a unimodular matrix for a cleaner split than the C++ version | `[INT]` |
-| `adjoint()` | Integral form with matrix = adj(Q.matrix()); = QuadraticForm with Hessian = classical adjoint of self's Hessian | `[INT, ND]` |
-| `adjoint_primitive()` | Primitive adjoint: smallest-discriminant integral form whose matrix is a scalar multiple of Q.matrix()⁻¹; formerly and incorrectly called `primitive_adjoint()` | `[INT, ND]` |
-| `antiadjoint()` | Integral form P such that P.adjoint() == self; raises `ValueError: not an adjoint` if self is not an adjoint of any integral form | `[INT, ND]` |
-| `is_adjoint()` | True if `self` is the adjoint of some other integral form | `[INT, ND]` |
-| `reciprocal_form()` | Q' with Gram = Q.Gram^{-1} (up to scalar) | `[INT, ND]` |
-| `add_symmetric(c, i, j, in_place=False)` | Performs the substitution **x_j → x_j + c·x_i** (equivalently, symmetrically adds c times the j-th row/col to the i-th row/col); used internally by `local_normal_form()`; returns new form unless `in_place=True` | `[RING]` |
-| `divide_variable(c, i, in_place=False)` | Substitute x_i → x_i/c, scaling row/col i by 1/c; requires c⁻¹ to exist in base ring; returns new form or None if `in_place=True` | `[RING]` |
-| `elementary_substitution(c, i, j, in_place=False)` | Performs substitution **x_i → x_i + c·x_j** (opposite direction from `add_symmetric`); returns new form unless `in_place=True`. `add_symmetric` is the lower-level building block used in `local_normal_form()` | `[RING]` |
-| `split_local_cover(p=None)` | *(internal)* Find a local cover that splits off a hyperbolic plane at prime p; used internally in genus and representation computations | `[INT, ND]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `direct_sum(other)` | `other`: `QuadraticForm` | `QuadraticForm` | Orthogonal sum | |
+| `tensor_product(other)` | `other`: `QuadraticForm` | `QuadraticForm` | Tensor product | |
+| `extract_variables(indices)` | `indices`: `list` | `QuadraticForm` | Restriction to subset of variables | |
+| `complementary_subform(indices)` | `indices`: `list` | `QuadraticForm` | Orthogonal complement subform (by variable index list) | |
+| `complementary_subform_to_vector(v)` | `v`: `Vector` | `QuadraticForm` | Finds the (n-1)-dimensional quadratic form whose variables are orthogonal to the given vector v; extends v to a unimodular matrix for a cleaner split than the C++ version | `[INT]` |
+| `adjoint()` | — | `QuadraticForm` | Integral form with matrix = adj(Q.matrix()); = QuadraticForm with Hessian = classical adjoint of self's Hessian | `[INT, ND]` |
+| `adjoint_primitive()` | — | `QuadraticForm` | Primitive adjoint: smallest-discriminant integral form whose matrix is a scalar multiple of Q.matrix()⁻¹; formerly and incorrectly called `primitive_adjoint()` | `[INT, ND]` |
+| `antiadjoint()` | — | `QuadraticForm` | Integral form P such that P.adjoint() == self; raises `ValueError: not an adjoint` if self is not an adjoint of any integral form | `[INT, ND]` |
+| `is_adjoint()` | — | `bool` | True if `self` is the adjoint of some other integral form | `[INT, ND]` |
+| `reciprocal_form()` | — | `QuadraticForm` | Q' with Gram = Q.Gram^{-1} (up to scalar) | `[INT, ND]` |
+| `add_symmetric(c, i, j, in_place=False)` | `c`: `RingElement`, `i`: `Integer`, `j`: `Integer`, `in_place`: `bool` | `QuadraticForm` | Performs the substitution **x_j → x_j + c·x_i** (equivalently, symmetrically adds c times the j-th row/col to the i-th row/col); used internally by `local_normal_form()`; returns new form unless `in_place=True` | `[RING]` |
+| `divide_variable(c, i, in_place=False)` | `c`: `RingElement`, `i`: `Integer`, `in_place`: `bool` | `QuadraticForm` or `None` | Substitute x_i → x_i/c, scaling row/col i by 1/c; requires c⁻¹ to exist in base ring; returns new form or None if `in_place=True` | `[RING]` |
+| `elementary_substitution(c, i, j, in_place=False)` | `c`: `RingElement`, `i`: `Integer`, `j`: `Integer`, `in_place`: `bool` | `QuadraticForm` | Performs substitution **x_i → x_i + c·x_j** (opposite direction from `add_symmetric`); returns new form unless `in_place=True`. `add_symmetric` is the lower-level building block used in `local_normal_form()` | `[RING]` |
+| `split_local_cover(p=None)` | `p`: `Integer` or `None` | `QuadraticForm` | *(internal)* Find a local cover that splits off a hyperbolic plane at prime p; used internally in genus and representation computations | `[INT, ND]` |
 
 ---
 
