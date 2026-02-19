@@ -118,26 +118,25 @@ Precision/clarification refinement work, including:
 
 ## Process Guidelines
 
-### Gap Identification (MANDATORY - BEFORE ANY EDITING)
+### You Must Execute Concrete Tasks
 
-You may NOT make any edits until you have first completed gap identification. This is not optional. This is not verification. This is the work.
+The only acceptable work is completing one of the example tasks in `example_tasks/`. Read the full task file, follow its workflow exactly, and complete it before your run ends.
 
-**Required process for each run:**
+**Available tasks** (pick ONE and do it fully):
+- `deep_package_audit.md` — Compare upstream docs against checklist, find missing entries
+- `checklist_annotation.md` — Add source citations to checklist entries  
+- `upstream_discovery_and_integration.md` — Find and integrate missing upstream docs
+- `cross_package_method_reconciliation.md` — Compare method implementations across packages
+- `mathematical_contract_audit.md` — Verify explicit constraints with citations
+- `reference_to_checklist_reconciliation.md` — Ensure checklist and reference alignment
 
-1. **Pick ONE package** from the in-scope registry
-2. **Read its upstream docs** under `docs/<package>/upstream/` 
-3. **Read its checklist** under `docs/<package>_methods_checklist.md`
-4. **Identify ONE specific method** present in upstream but absent from checklist
-5. **Record it** in `docs/TODO.md` with: package name, method name, upstream source location
-6. **Then** add that method to the checklist with proper source citations
+**Do NOT do anything else.** Do not:
+- Add undefined tags to legends
+- Fix formatting or column widths
+- Reorganize sections
+- "Check for gaps" in vague ways
 
-**Output requirement**: Before any edit, your scratchpad must contain:
-- The specific package you examined
-- The specific method you found missing
-- The specific upstream file and line where it exists
-- The specific checklist file where it should be added
-
-If you cannot produce these four specifics, you have not completed gap identification. Do not proceed to editing.
+If your edit is not directly advancing one of these concrete tasks, it is wrong. A no-commit run is a failure.
 
 ### State Anchoring (Anti-Drift)
 
