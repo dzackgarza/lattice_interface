@@ -1093,3 +1093,24 @@ I.gram_matrix()       # 4×4 Gram matrix over ZZ; entries are reduced norms of b
 
 Detailed toric/fan/polytope discussion and method notes that are out of active bilinear-form lattice scope were moved to:
 `docs/archive/scope_violations/sage/lattice/sagemath_lattice_reference_toric_sections_2026-02-18.md`.
+
+---
+
+## 19. Sources
+
+### Core SageMath documentation
+- IntegralLattice and FreeQuadraticModule: `https://doc.sagemath.org/html/en/reference/modules/sage.modules.free_quadratic_module_integer_symmetric.html`
+- IntegerLattice (FreeModule_submodule_with_basis_integer): `https://doc.sagemath.org/html/en/reference/modules/sage.modules.free_module_integer.html`
+- QuadraticForm: `https://doc.sagemath.org/html/en/reference/quadratic_forms/sage.quadratic_forms.quadratic_form.html`
+- TorsionQuadraticModule: `https://doc.sagemath.org/html/en/reference/modules/sage.modules.torsion_quadratic_module.html`
+- BinaryQF and TernaryQF: `https://doc.sagemath.org/html/en/reference/special_forms/binary_quadratic_forms.html`
+- Genus and LocalGenusSymbol: `https://doc.sagemath.org/html/en/reference/quadratic_forms/genus.html`
+
+### Local upstream snapshots
+- `docs/sage/integral_lattice/upstream/free_quadratic_module_integer_symmetric.html`
+- `docs/sage/integer_lattice/upstream/free_module_integer.html`
+- `docs/sage/quadratic_form/upstream/quadratic_form.html`
+- `docs/sage/torsion_quadratic_module/upstream/torsion_quadratic_module.html`
+- `docs/sage/special_forms/binary_quadratic_forms/upstream/binary_qf.html`
+- `docs/sage/special_forms/ternary_quadratic_forms/upstream/ternary_qf.html`
+- `docs/sage/genus/upstream/genus.html`
