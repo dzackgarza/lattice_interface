@@ -138,6 +138,18 @@ surface because current GAP reference and CARATInterface docs expose one-argumen
 
 ---
 
+## Sources
+
+### Core GAP documentation
+- Cryst package: https://gap-packages.github.io/cryst/
+- CARATInterface: https://gap-packages.github.io/carat/
+- CrystCat: https://gap-packages.github.io/crystcat/
+
+### Local upstream snapshots
+- Crystallographic packages: `docs/crystallographic_stack/upstream/cryst/`, `docs/crystallographic_stack/upstream/caratinterface/`, `docs/crystallographic_stack/upstream/crystcat/`
+
+---
+
 ## References
 
 - `docs/crystallographic_stack_methods_checklist.md`

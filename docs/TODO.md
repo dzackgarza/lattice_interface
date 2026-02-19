@@ -19,5 +19,7 @@ Completeness and provable correctness of all documented methods across all refer
 
 ### Missing Sources sections
 
-- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section
-- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section
+- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section (section 19)
+- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section (section 5)
+
+All in-scope reference docs now have Sources sections. Goal 2 complete.
