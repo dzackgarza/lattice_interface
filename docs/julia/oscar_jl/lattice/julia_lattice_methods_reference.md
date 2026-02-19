@@ -148,17 +148,17 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 ### 2.6 Vector enumeration
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `short_vectors(L, lb, ub)` | Nonzero vectors with $lb \le \|v\|^2 \le ub$ (up to sign) | `[PD]` |
-| `short_vectors_iterator(L, lb, ub)` | Lazy iterator version of `short_vectors` | `[PD]` |
-| `shortest_vectors(L)` | Shortest vectors and their squared norm | `[PD]` |
-| `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` | Returns `Vector{Tuple{Vector{Int}, QQFieldElem}}` — lattice points $x$ with $b(v-x, v-x) \le ub$; Fincke–Pohst enumeration; **`check` defaults to `false`** (not `true`) | `[PD]` |
-| `short_vectors_affine(S, v, α, d)` | Vectors $x \in S$ with $x^2 = d$ and $x \cdot v = \alpha$ (Vinberg) | `[INDEF]` |
-| `vectors_of_square_and_divisibility(L, n, d)` | Vectors $v$ with $v^2 = n$ and divisibility $d$ in $L$ | `[PD]` |
-| `enumerate_quadratic_triples(L, ...)` | Enumerate quadratic solutions in lattice | `[PD]` |
-| `minimum(L)` | Squared length of shortest nonzero vector | `[PD]` |
-| `kissing_number(L)` | Number of shortest vectors | `[PD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `short_vectors(L, lb, ub)` | `L`: `ZZLat`, `lb`: `Integer`, `ub`: `Integer` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Nonzero vectors with $lb \le \|v\|^2 \le ub$ (up to sign) | `[PD]` |
+| `short_vectors_iterator(L, lb, ub)` | `L`: `ZZLat`, `lb`: `Integer`, `ub`: `Integer` | Iterator | Lazy iterator version of `short_vectors` | `[PD]` |
+| `shortest_vectors(L)` | `L`: `ZZLat` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Shortest vectors and their squared norm | `[PD]` |
+| `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` | `L`: `ZZLat`, `v`: `Vector`, `lb`: `Integer` (optional), `ub`: `Integer`, `check`: `Bool` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Returns lattice points $x$ with $b(v-x, v-x) \le ub$; Fincke–Pohst enumeration; **`check` defaults to `false`** (not `true`) | `[PD]` |
+| `short_vectors_affine(S, v, α, d)` | `S`: `ZZLat`, `v`: `Vector`, `α`: `RingElement`, `d`: `RingElement` | `Vector` | Vectors $x \in S$ with $x^2 = d$ and $x \cdot v = \alpha$ (Vinberg) | `[INDEF]` |
+| `vectors_of_square_and_divisibility(L, n, d)` | `L`: `ZZLat`, `n`: `Integer`, `d`: `Integer` | `Vector{Vector{Int}}` | Vectors $v$ with $v^2 = n$ and divisibility $d$ in $L$ | `[PD]` |
+| `enumerate_quadratic_triples(L, ...)` | `L`: `ZZLat`, `...` | `Vector` | Enumerate quadratic solutions in lattice | `[PD]` |
+| `minimum(L)` | `L`: `ZZLat` | `ZZRingElem` | Squared length of shortest nonzero vector | `[PD]` |
+| `kissing_number(L)` | `L`: `ZZLat` | `Int` | Number of shortest vectors | `[PD]` |
 
 - ND lattices: use `rescale(L, -1)` then enumerate (no scalar rescaling makes INDEF → PD)
 - INDEF: `short_vectors` / `shortest_vectors` refuse; use `short_vectors_affine` or genus methods
@@ -168,56 +168,59 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 #### ZZGenus methods
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `genus(L::ZZLat)` | `ZZGenus` — genus symbol (local invariants at all primes) | `[INDEF ok]` |
-| `genus(A::MatElem)` | Genus from Gram matrix | `[INDEF ok]` |
-| `genus(L, p)` | Local genus `ZZLocalGenus` at prime $p$ | |
-| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)` / `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)` | Enumerate all genus symbols with signature `sig=(s_+, s_-)` and determinant `det`; upstream requires determinant sign compatibility (`det` has sign `(-1)^{s_-}`) and parity compatibility (`det ∈ 2ZZ` when `even=true`, `det ∈ ZZ` when `even=false`) | |
-| `direct_sum(G1::ZZGenus, G2::ZZGenus)` | Genus of the orthogonal direct sum | |
-| `representative(gen)` | Concrete lattice for a genus class | |
-| `representatives(gen)` | All classes in genus | |
-| `mass(gen)` | Mass of the genus | |
-| `dim(gen)` / `rank(gen)` | Dimension / rank of genus | |
-| `signature(gen)` | Signature pair | |
-| `det(gen)` | Determinant | |
-| `iseven(gen)` | Evenness | |
-| `is_definite(gen)` | Definiteness | |
-| `level(gen)` | Level | |
-| `scale(gen)` / `norm(gen)` | Scale / norm of genus | |
-| `primes(gen)` | List of primes appearing in local symbols | |
-| `is_integral(gen)` | Integrality | |
-| `local_symbol(gen, p)` | Retrieve `ZZLocalGenus` at prime $p$ | |
-| `quadratic_space(gen)` | Quadratic space representing the genus | |
-| `rational_representative(gen)` | Rational form | |
-| `rescale(gen, a)` | Rescaled genus | |
-| `represents(G1, G2)` | Whether genus $G_1$ represents $G_2$ | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `genus(L::ZZLat)` | `L`: `ZZLat` | `ZZGenus` | Genus symbol (local invariants at all primes) | `[INDEF ok]` |
+| `genus(A::MatElem)` | `A`: `MatElem` | `ZZGenus` | Genus from Gram matrix | `[INDEF ok]` |
+| `genus(L, p)` | `L`: `ZZLat`, `p`: `Int` | `ZZLocalGenus` | Local genus at prime $p$ | |
+| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; ...)` | `sig`: `Tuple{Int, Int}`, `det`: `RationalUnion`, `...` | `Vector{ZZGenus}` | Enumerate all genus symbols with signature and determinant | |
+| `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; ...)` | `sig`: `Tuple{Int, Int}`, `det`: `QQFieldElem`, `...` | `Vector{ZZGenus}` | Enumerate all genus symbols (alternate signature) | |
+| `direct_sum(G1::ZZGenus, G2::ZZGenus)` | `G1`: `ZZGenus`, `G2`: `ZZGenus` | `ZZGenus` | Genus of the orthogonal direct sum | |
+| `representative(gen)` | `gen`: `ZZGenus` | `ZZLat` | Concrete lattice for a genus class | |
+| `representatives(gen)` | `gen`: `ZZGenus` | `Vector{ZZLat}` | All classes in genus | |
+| `mass(gen)` | `gen`: `ZZGenus` | `QQFieldElem` | Mass of the genus | |
+| `dim(gen)` / `rank(gen)` | `gen`: `ZZGenus` | `Int` | Dimension / rank of genus | |
+| `signature(gen)` | `gen`: `ZZGenus` | `Tuple{Int, Int}` | Signature pair | |
+| `det(gen)` | `gen`: `ZZGenus` | `ZZRingElem` | Determinant | |
+| `iseven(gen)` | `gen`: `ZZGenus` | `Bool` | Evenness | |
+| `is_definite(gen)` | `gen`: `ZZGenus` | `Bool` | Definiteness | |
+| `level(gen)` | `gen`: `ZZGenus` | `ZZRingElem` | Level | |
+| `scale(gen)` / `norm(gen)` | `gen`: `ZZGenus` | `ZZIdeal` | Scale / norm of genus | |
+| `primes(gen)` | `gen`: `ZZGenus` | `Vector{Int}` | List of primes appearing in local symbols | |
+| `is_integral(gen)` | `gen`: `ZZGenus` | `Bool` | Integrality | |
+| `local_symbol(gen, p)` | `gen`: `ZZGenus`, `p`: `Int` | `ZZLocalGenus` | Retrieve local genus at prime $p$ | |
+| `quadratic_space(gen)` | `gen`: `ZZGenus` | `QuadSpace` | Quadratic space representing the genus | |
+| `rational_representative(gen)` | `gen`: `ZZGenus` | `QuadSpace` | Rational form | |
+| `rescale(gen, a)` | `gen`: `ZZGenus`, `a`: `RingElement` | `ZZGenus` | Rescaled genus | |
+| `represents(G1, G2)` | `G1`: `ZZGenus`, `G2`: `ZZGenus` | `Bool` | Whether genus $G_1$ represents $G_2$ | |
 
 #### ZZLocalGenus methods
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `prime(S)` | Underlying prime | |
-| `iseven(S)` | Evenness at $p$ | |
-| `symbol(S, scale)` | Jordan block invariants | |
-| `hasse_invariant(S)` | Hasse invariant | |
-| `det(S)` / `dim(S)` / `rank(S)` | Determinant / dimension / rank | |
-| `excess(S)` | $p$-excess | |
-| `signature(S)` | $p$-signature | |
-| `oddity(S)` | 2-adic oddity | |
-| `scale(S)` / `norm(S)` / `level(S)` | Scale / norm / level | |
-| `representative(S)` / `gram_matrix(S)` | Representative lattice / Gram | |
-| `rescale(S, a)` | Rescaled local genus | |
-| `direct_sum(S1, S2)` | Local genus direct sum | |
-| `represents(S1, S2)` | Local representation check | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `prime(S)` | `S`: `ZZLocalGenus` | `Int` | Underlying prime | |
+| `iseven(S)` | `S`: `ZZLocalGenus` | `Bool` | Evenness at $p$ | |
+| `symbol(S, scale)` | `S`: `ZZLocalGenus`, `scale`: `Int` | `ZZLocalGenusSymbol` | Jordan block invariants | |
+| `hasse_invariant(S)` | `S`: `ZZLocalGenus` | `Int` | Hasse invariant | |
+| `det(S)` | `S`: `ZZLocalGenus` | `ZZRingElem` | Determinant | |
+| `dim(S)` / `rank(S)` | `S`: `ZZLocalGenus` | `Int` | Dimension / rank | |
+| `excess(S)` | `S`: `ZZLocalGenus` | `Int` | $p$-excess | |
+| `signature(S)` | `S`: `ZZLocalGenus` | `Tuple{Int, Int}` | $p$-signature | |
+| `oddity(S)` | `S`: `ZZLocalGenus` | `Int` | 2-adic oddity | |
+| `scale(S)` / `norm(S)` / `level(S)` | `S`: `ZZLocalGenus` | `ZZIdeal` | Scale / norm / level | |
+| `representative(S)` | `S`: `ZZLocalGenus` | `ZZLat` | Representative lattice | |
+| `gram_matrix(S)` | `S`: `ZZLocalGenus` | `QQMatrix` | Gram matrix | |
+| `rescale(S, a)` | `S`: `ZZLocalGenus`, `a`: `RingElement` | `ZZLocalGenus` | Rescaled local genus | |
+| `direct_sum(S1, S2)` | `S1`: `ZZLocalGenus`, `S2`: `ZZLocalGenus` | `ZZLocalGenus` | Local genus direct sum | |
+| `represents(S1, S2)` | `S1`: `ZZLocalGenus`, `S2`: `ZZLocalGenus` | `Bool` | Local representation check | |
 
 #### Discriminant group and classification
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `discriminant_group(L)` | $L^\vee / L$ as `TorQuadModule` | |
-| `genus_representatives(L)` | All isometry class representatives in the genus of $L$ | |
-| `Hecke.quadratic_lattice_database()` | DB of lattices rank ≥ 3 with class number 1 or 2 | `[PD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `discriminant_group(L)` | `L`: `ZZLat` | `TorQuadModule` | $L^\vee / L$ as torsion quadratic module | |
+| `genus_representatives(L)` | `L`: `ZZLat` | `Vector{ZZLat}` | All isometry class representatives in the genus of $L$ | |
+| `Hecke.quadratic_lattice_database()` | — | `LatticeDatabase` | DB of lattices rank ≥ 3 with class number 1 or 2 | `[PD]` |
 
 - Genus relies on local theory (Jordan decomposition, local densities) via MAGMA/GAP
 - INDEF genus: can compute discriminant forms and genera even for indefinite lattices
@@ -310,38 +313,43 @@ Computes Coxeter diagram of reflecting hyperplanes. Applicable to even hyperboli
 
 ### 2.11 Discriminant groups (`TorQuadModule`)
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `torsion_quadratic_module(M, N)` | Torsion quadratic module $M/N$ | |
-| `torsion_quadratic_module(q::QQMatrix)` | From rational Gram matrix | |
-| `discriminant_group(L)` | $L^\vee / L$ as `TorQuadModule` | |
-| `abelian_group(T)` | Underlying abelian group | |
-| `cover(T)` / `relations(T)` | Cover lattice / relation lattice | |
-| `gram_matrix_bilinear(T)` | Bilinear Gram matrix over $\mathbb{Q}/\mathbb{Z}$ | |
-| `gram_matrix_quadratic(T)` | Quadratic Gram matrix over $\mathbb{Q}/2\mathbb{Z}$ | |
-| `value_module(T)` | Value module of bilinear form | |
-| `value_module_quadratic_form(T)` | Value module of quadratic form | |
-| `modulus_bilinear_form(T)` | Modulus of bilinear form | |
-| `modulus_quadratic_form(T)` | Modulus of quadratic form | |
-| `quadratic_product(a)` | $q(a)$ for element $a \in T$ | |
-| `inner_product(a, b)` | $b(a,b)$ for elements $a,b \in T$ | |
-| `lift(a)` / `representative(a)` | Lift element to cover lattice | |
-| `orthogonal_submodule(T, S)` | Orthogonal complement of submodule $S$ in $T$ | |
-| `is_isometric_with_isometry(T, U)` | Isometry test returning `(Bool, map)` (or `(false, 0)` if no isometry). Upstream states the contract assumes either equal quadratic-form moduli or prior rescaling to match, plus semiregular decomposition checks on `T ⊕ U` and `T ⊕ U^{-1}` | |
-| `is_anti_isometric_with_anti_isometry(T, U)` | Anti-isometry test returning `(Bool, anti_map)` (or `(false, 0)` if absent). Upstream documents the same modulus-matching/rescale precondition and semiregular decomposition checks | |
-| `is_degenerate(T)` | Degeneracy test | |
-| `is_semi_regular(T)` | Semi-regularity test | |
-| `radical_bilinear(T)` | Radical of bilinear form | |
-| `radical_quadratic(T)` | Radical of quadratic form | |
-| `normal_form(T; partial=false)` | Normal form of torsion quadratic module | |
-| `brown_invariant(T)` | Brown invariant (mod 8) | |
-| `snf(T)` / `is_snf(T)` | Smith normal form / test | |
-| `rescale(T, k)` | Rescaled module | |
-| `genus(T, sig_pair)` | Genus from discriminant form + signature | |
-| `is_genus(T, sig_pair)` | Check if a genus with this discriminant form exists | |
-| `direct_sum(T1, T2)` / `direct_product` / `biproduct` | Categorical constructions | |
-| `submodules(T::TorQuadModule; order::Int, index::Int, subtype::Vector{Int}, quotype::Vector{Int})` | Iterator over submodules of `T`; keyword filters: `order` (by cardinality), `index` (by index in `T`), `subtype` (by abelian-group invariants of the submodule), `quotype` (by abelian-group invariants of the quotient) | |
-| `stable_submodules(T::TorQuadModule, act::Vector{TorQuadModuleMap}; quotype::Vector{Int})` | Iterator over submodules of `T` stable under the endomorphisms in `act`; keyword `quotype` filters by quotient abelian-group invariants | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `torsion_quadratic_module(M, N)` | `M`: `ZZLat`, `N`: `ZZLat` | `TorQuadModule` | Torsion quadratic module $M/N$ | |
+| `torsion_quadratic_module(q::QQMatrix)` | `q`: `QQMatrix` | `TorQuadModule` | From rational Gram matrix | |
+| `discriminant_group(L)` | `L`: `ZZLat` | `TorQuadModule` | $L^\vee / L$ as torsion quadratic module | |
+| `abelian_group(T)` | `T`: `TorQuadModule` | `FinGenAbGroup` | Underlying abelian group | |
+| `cover(T)` | `T`: `TorQuadModule` | `ZZLat` | Cover lattice | |
+| `relations(T)` | `T`: `TorQuadModule` | `ZZLat` | Relation lattice | |
+| `gram_matrix_bilinear(T)` | `T`: `TorQuadModule` | `QQMatrix` | Bilinear Gram matrix over $\mathbb{Q}/\mathbb{Z}$ | |
+| `gram_matrix_quadratic(T)` | `T`: `TorQuadModule` | `QQMatrix` | Quadratic Gram matrix over $\mathbb{Q}/2\mathbb{Z}$ | |
+| `value_module(T)` | `T`: `TorQuadModule` | `FinGenAbGroup` | Value module of bilinear form | |
+| `value_module_quadratic_form(T)` | `T`: `TorQuadModule` | `FinGenAbGroup` | Value module of quadratic form | |
+| `modulus_bilinear_form(T)` | `T`: `TorQuadModule` | `QQFieldElem` | Modulus of bilinear form | |
+| `modulus_quadratic_form(T)` | `T`: `TorQuadModule` | `QQFieldElem` | Modulus of quadratic form | |
+| `quadratic_product(a)` | `a`: `TorQuadModuleElem` | `QQFieldElem` | $q(a)$ for element $a \in T$ | |
+| `inner_product(a, b)` | `a`: `TorQuadModuleElem`, `b`: `TorQuadModuleElem` | `QQFieldElem` | $b(a,b)$ for elements $a,b \in T$ | |
+| `lift(a)` | `a`: `TorQuadModuleElem` | `Vector{QQFieldElem}` | Lift element to cover lattice | |
+| `representative(a)` | `a`: `TorQuadModuleElem` | `Vector{QQFieldElem}` | Representative of element | |
+| `orthogonal_submodule(T, S)` | `T`: `TorQuadModule`, `S`: `TorQuadModule` | `TorQuadModule` | Orthogonal complement of submodule $S$ in $T$ | |
+| `is_isometric_with_isometry(T, U)` | `T`: `TorQuadModule`, `U`: `TorQuadModule` | `Tuple{Bool, TorQuadModuleMap}` | Isometry test returning `(Bool, map)` (or `(false, 0)` if no isometry). Upstream states the contract assumes either equal quadratic-form moduli or prior rescaling to match | |
+| `is_anti_isometric_with_anti_isometry(T, U)` | `T`: `TorQuadModule`, `U`: `TorQuadModule` | `Tuple{Bool, TorQuadModuleMap}` | Anti-isometry test returning `(Bool, anti_map)` (or `(false, 0)` if absent) | |
+| `is_degenerate(T)` | `T`: `TorQuadModule` | `Bool` | Degeneracy test | |
+| `is_semi_regular(T)` | `T`: `TorQuadModule` | `Bool` | Semi-regularity test | |
+| `radical_bilinear(T)` | `T`: `TorQuadModule` | `TorQuadModule` | Radical of bilinear form | |
+| `radical_quadratic(T)` | `T`: `TorQuadModule` | `TorQuadModule` | Radical of quadratic form | |
+| `normal_form(T; partial=false)` | `T`: `TorQuadModule`, `partial`: `Bool` | `TorQuadModule` | Normal form of torsion quadratic module | |
+| `brown_invariant(T)` | `T`: `TorQuadModule` | `Int` | Brown invariant (mod 8) | |
+| `snf(T)` | `T`: `TorQuadModule` | `TorQuadModule` | Smith normal form | |
+| `is_snf(T)` | `T`: `TorQuadModule` | `Bool` | Smith normal form test | |
+| `rescale(T, k)` | `T`: `TorQuadModule`, `k`: `RingElement` | `TorQuadModule` | Rescaled module | |
+| `genus(T, sig_pair)` | `T`: `TorQuadModule`, `sig_pair`: `Tuple{Int, Int}` | `ZZGenus` | Genus from discriminant form + signature | |
+| `is_genus(T, sig_pair)` | `T`: `TorQuadModule`, `sig_pair`: `Tuple{Int, Int}` | `Bool` | Check if a genus with this discriminant form exists | |
+| `direct_sum(T1, T2)` | `T1`: `TorQuadModule`, `T2`: `TorQuadModule` | `TorQuadModule` | Direct sum | |
+| `direct_product(T1, T2)` | `T1`: `TorQuadModule`, `T2`: `TorQuadModule` | `TorQuadModule` | Direct product | |
+| `biproduct(T1, T2)` | `T1`: `TorQuadModule`, `T2`: `TorQuadModule` | `TorQuadModule` | Biproduct | |
+| `submodules(T::TorQuadModule; ...)` | `T`: `TorQuadModule`, `order`: `Int` (keyword), `index`: `Int` (keyword), `subtype`: `Vector{Int}` (keyword), `quotype`: `Vector{Int}` (keyword) | Iterator | Iterator over submodules of `T` with keyword filters | |
+| `stable_submodules(T::TorQuadModule, act::Vector{TorQuadModuleMap}; ...)` | `T`: `TorQuadModule`, `act`: `Vector{TorQuadModuleMap}`, `quotype`: `Vector{Int}` (keyword) | Iterator | Iterator over submodules stable under endomorphisms | |
 
 ### 2.12 Hermitian lattices (`HermLat` / `QuadLat`)
 
@@ -451,13 +459,13 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 #### Kernel sublattices
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})` | Kernel of polynomial $p$ applied to the isometry $f$, as a sublattice with induced action; primitive in $L$ (non-degeneracy ensures this) | |
-| `kernel_lattice(Lf::ZZLatWithIsom, l::Integer)` | Kernel of $f^l - 1$ as a sublattice with induced action; primitive in $L$ | |
-| `invariant_lattice(Lf::ZZLatWithIsom)` | Returns `ZZLatWithIsom` — fixed sublattice $L^f$ with induced isometry | |
-| `coinvariant_lattice(Lf::ZZLatWithIsom)` | Returns `ZZLatWithIsom` — orthogonal complement of $L^f$ with induced isometry | |
-| `invariant_coinvariant_pair(Lf::ZZLatWithIsom)` | Returns `(ZZLatWithIsom, ZZLatWithIsom)` — invariant and coinvariant sublattices simultaneously | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `kernel_lattice(Lf::ZZLatWithIsom, p::Union{ZZPolyRingElem, QQPolyRingElem})` | `Lf`: `ZZLatWithIsom`, `p`: `Union{ZZPolyRingElem, QQPolyRingElem}` | `ZZLatWithIsom` | Kernel of polynomial $p$ applied to the isometry $f$, as a sublattice with induced action; primitive in $L$ | |
+| `kernel_lattice(Lf::ZZLatWithIsom, l::Integer)` | `Lf`: `ZZLatWithIsom`, `l`: `Integer` | `ZZLatWithIsom` | Kernel of $f^l - 1$ as a sublattice with induced action; primitive in $L$ | |
+| `invariant_lattice(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `ZZLatWithIsom` | Fixed sublattice $L^f$ with induced isometry | |
+| `coinvariant_lattice(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `ZZLatWithIsom` | Orthogonal complement of $L^f$ with induced isometry | |
+| `invariant_coinvariant_pair(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `Tuple{ZZLatWithIsom, ZZLatWithIsom}` | Invariant and coinvariant sublattices simultaneously | |
 
 #### Discriminant groups
 
