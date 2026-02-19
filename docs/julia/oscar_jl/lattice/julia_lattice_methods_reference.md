@@ -67,32 +67,32 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 ### 2.2 Quadratic and hermitian spaces
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `quadratic_space(K, n)` / `quadratic_space(K, G)` | Quadratic space from dimension or Gram matrix | |
-| `hermitian_space(E, n)` / `hermitian_space(E, G)` | Hermitian space from dimension or Gram matrix | |
-| `rank(V)` / `dim(V)` | Rank / dimension | |
-| `gram_matrix(V)` / `gram_matrix(V, M)` | Gram matrix (optionally on subspace $M$) | |
-| `det(V)` / `discriminant(V)` | Determinant / discriminant | |
-| `diagonal(V)` | Diagonal entries after diagonalization | |
-| `diagonal_with_transform(V)` | Diagonal + transformation matrix | |
-| `orthogonal_basis(V)` | Orthogonal basis | |
-| `signature_tuple(V)` | $(p, n)$ | `[INDEF ok]` |
-| `is_regular(V)` | Non-degeneracy | |
-| `is_quadratic(V)` / `is_hermitian(V)` | Type check | |
-| `is_positive_definite(V)` / `is_negative_definite(V)` / `is_definite(V)` | Definiteness | |
-| `hasse_invariant(V, p)` / `witt_invariant(V, p)` | Local invariants | |
-| `invariants(V)` | All rational invariants (dim, det, signatures, Hasse) | |
-| `is_isometric(V, W)` / `is_isometric(V, W, p)` | Global / local isometry test | |
-| `is_locally_represented_by(U, V, p)` | Whether $U$ is locally represented by $V$ | |
-| `is_represented_by(U, V)` | Whether $U$ is globally represented by $V$ | |
-| `inner_product(V, v, w)` | Evaluate bilinear form | |
-| `orthogonal_complement(V, M)` | Orthogonal complement of subspace $M$ | |
-| `orthogonal_projection(V, M)` | Projection onto subspace $M$ | |
-| `is_isotropic(V, p)` | Local isotropy test | |
-| `is_locally_hyperbolic(V, p)` | Whether $V_p$ is hyperbolic (hermitian spaces) | |
-| `restrict_scalars(V, K, α)` | Restriction of scalars | |
-| `direct_sum(V, W)` / `direct_product` / `biproduct` | Categorical constructions | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `quadratic_space(K, n)` / `quadratic_space(K, G)` | `K`: `Field`, `n`: `Int` / `G`: `Matrix` | `QuadSpace` | Quadratic space from dimension or Gram matrix | |
+| `hermitian_space(E, n)` / `hermitian_space(E, G)` | `E`: `Field`, `n`: `Int` / `G`: `Matrix` | `HermSpace` | Hermitian space from dimension or Gram matrix | |
+| `rank(V)` / `dim(V)` | `V`: `QuadSpace` | `Int` | Rank / dimension | |
+| `gram_matrix(V)` / `gram_matrix(V, M)` | `V`: `QuadSpace`, `M`: `Matrix` (optional) | `Matrix` | Gram matrix (optionally on subspace $M$) | |
+| `det(V)` / `discriminant(V)` | `V`: `QuadSpace` | `FieldElem` | Determinant / discriminant | |
+| `diagonal(V)` | `V`: `QuadSpace` | `Vector{FieldElem}` | Diagonal entries after diagonalization | |
+| `diagonal_with_transform(V)` | `V`: `QuadSpace` | `Tuple{Vector{FieldElem}, Matrix}` | Diagonal + transformation matrix | |
+| `orthogonal_basis(V)` | `V`: `QuadSpace` | `Matrix` | Orthogonal basis | |
+| `signature_tuple(V)` | `V`: `QuadSpace` | `Tuple{Int, Int, Int}` | $(n_+, n_0, n_-)$ | `[INDEF ok]` |
+| `is_regular(V)` | `V`: `QuadSpace` | `Bool` | Non-degeneracy | |
+| `is_quadratic(V)` / `is_hermitian(V)` | `V`: `AbstractSpace` | `Bool` | Type check | |
+| `is_positive_definite(V)` / `is_negative_definite(V)` / `is_definite(V)` | `V`: `QuadSpace` | `Bool` | Definiteness | |
+| `hasse_invariant(V, p)` / `witt_invariant(V, p)` | `V`: `QuadSpace`, `p`: `Int` | `Int` | Local invariants; value in $\{+1, -1\}$ | |
+| `invariants(V)` | `V`: `QuadSpace` | `Tuple` | All rational invariants (dim, det, signatures, Hasse) | |
+| `is_isometric(V, W)` / `is_isometric(V, W, p)` | `V`: `QuadSpace`, `W`: `QuadSpace`, `p`: `Int` (local form only) | `Bool` | Global / local isometry test | |
+| `is_locally_represented_by(U, V, p)` | `U`: `QuadSpace`, `V`: `QuadSpace`, `p`: `Int` | `Bool` | Whether $U$ is locally represented by $V$ | |
+| `is_represented_by(U, V)` | `U`: `QuadSpace`, `V`: `QuadSpace` | `Bool` | Whether $U$ is globally represented by $V$ | |
+| `inner_product(V, v, w)` | `V`: `QuadSpace`, `v`: `Vector`, `w`: `Vector` | `FieldElem` | Evaluate bilinear form $b(v,w)$ | |
+| `orthogonal_complement(V, M)` | `V`: `QuadSpace`, `M`: `Matrix` | `QuadSpace` | Orthogonal complement of subspace $M$ | |
+| `orthogonal_projection(V, M)` | `V`: `QuadSpace`, `M`: `Matrix` | `Matrix` | Projection matrix onto subspace $M$ | |
+| `is_isotropic(V, p)` | `V`: `QuadSpace`, `p`: `Int` | `Bool` | Local isotropy test | |
+| `is_locally_hyperbolic(V, p)` | `V`: `HermSpace`, `p`: `Int` | `Bool` | Whether $V_p$ is hyperbolic (hermitian spaces) | |
+| `restrict_scalars(V, K, α)` | `V`: `HermSpace`, `K`: `Field`, `α`: `FieldElem` | `QuadSpace` | Restriction of scalars | |
+| `direct_sum(V, W)` / `direct_product` / `biproduct` | `V`: `QuadSpace`, `W`: `QuadSpace` | `Tuple{QuadSpace, ...}` | Categorical constructions returning space plus injection/projection maps | |
 
 ### 2.3 Construction
 
@@ -139,9 +139,9 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 ### 2.5 Reduction
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `lll(L::ZZLat; same_ambient::Bool=true, redo::Bool=false, ctx::LLLContext=...)` | LLL-reduced basis; returns new lattice; `redo=true` forces recomputation even if cached; `ctx` specifies Lovász parameters | `[INDEF ok, FLINT]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `lll(L; same_ambient=true, redo=false, ctx=...)` | `L`: `ZZLat`, `same_ambient`: `Bool`, `redo`: `Bool`, `ctx`: `LLLContext` | `ZZLat` | LLL-reduced basis; `redo=true` forces recomputation even if cached; `ctx` specifies Lovász parameters | `[INDEF ok, FLINT]` |
 
 - PD: specify Lovász parameters via `LLLContext(δ, η)` passed as `ctx`
 - INDEF: runs but "shorter" is w.r.t. a majorant, not the indefinite form itself
@@ -229,16 +229,16 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 ### 2.8 Automorphism and isometry
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `automorphism_group_generators(L::AbstractLat; ambient_representation::Bool=true, depth::Int=-1, bacher_depth::Int=0)` | Generators of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite); `ambient_representation=true` returns matrices in ambient-space coordinates | `[DEFINITE, GAP]` |
-| `automorphism_group_order(L::AbstractLat; depth::Int=-1, bacher_depth::Int=0)` | Order of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite) | `[DEFINITE]` |
-| `is_isometric(L1, L2)` | Isometry test; upstream requires `is_definite(L1)` and `is_definite(L2)` (positive or negative definite); uses LLL to rescale ND to PD before comparison | `[DEFINITE]` |
-| `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream requires `is_definite(L1)` and `is_definite(L2)`; docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[DEFINITE]` |
-| `is_locally_isometric(L1, L2, p)` | $p$-adic isometry test | |
-| `is_rationally_isometric(L1, L2)` | Rational (ℚ) isometry test | `[INDEF ok]` |
-| `hasse_invariant(L, p)` | Hasse invariant at prime $p$ | |
-| `witt_invariant(L, p)` | Witt invariant at prime $p$ | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `automorphism_group_generators(L; ambient_representation=true, depth=-1, bacher_depth=0)` | `L`: `AbstractLat`, `ambient_representation`: `Bool`, `depth`: `Int`, `bacher_depth`: `Int` | `Vector{QQMatrix}` | Generators of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite); `ambient_representation=true` returns matrices in ambient-space coordinates; `ambient_representation=false` returns `ZZMatrix` in lattice-basis coordinates | `[DEFINITE, GAP]` |
+| `automorphism_group_order(L; depth=-1, bacher_depth=0)` | `L`: `AbstractLat`, `depth`: `Int`, `bacher_depth`: `Int` | `ZZRingElem` | Order of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite) | `[DEFINITE]` |
+| `is_isometric(L1, L2)` | `L1`: `AbstractLat`, `L2`: `AbstractLat` | `Bool` | Isometry test; upstream requires `is_definite(L1)` and `is_definite(L2)` (positive or negative definite); uses LLL to rescale ND to PD before comparison | `[DEFINITE]` |
+| `is_isometric_with_isometry(L1, L2; depth=3, bacher_depth=5, ambient_representation=true)` | `L1`: `AbstractLat`, `L2`: `AbstractLat`, `depth`: `Int`, `bacher_depth`: `Int`, `ambient_representation`: `Bool` | `Tuple{Bool, QQMatrix}` | Returns `(true, f)` when isometry exists, `(false, zero_matrix(QQ, 0, 0))` otherwise; upstream requires `is_definite(L1)` and `is_definite(L2)` | `[DEFINITE]` |
+| `is_locally_isometric(L1, L2, p)` | `L1`: `AbstractLat`, `L2`: `AbstractLat`, `p`: `Int` | `Bool` | $p$-adic isometry test | |
+| `is_rationally_isometric(L1, L2)` | `L1`: `AbstractLat`, `L2`: `AbstractLat` | `Bool` | Rational (ℚ) isometry test | `[INDEF ok]` |
+| `hasse_invariant(L, p)` | `L`: `ZZLat`, `p`: `Int` | `Int` | Hasse invariant at prime $p$; value in $\{+1, -1\}$ | |
+| `witt_invariant(L, p)` | `L`: `ZZLat`, `p`: `Int` | `Int` | Witt invariant at prime $p$; value in $\{+1, -1\}$ | |
 
 - DEFINITE (PD or ND): `automorphism_group_generators` / `automorphism_group_order` support both positive and negative definite lattices; finite groups computed via shortest vectors + symmetries (e.g. $E_8$ Weyl group); negative definite lattices may be passed directly (no need to rescale by $-1$ first)
 - Oscar also exposes "Lattices with isometry" and "Groups of automorphisms" sections
@@ -247,67 +247,67 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 ### 2.9 Module operations and embeddings
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `direct_sum(L1, L2)` | Orthogonal direct sum; returns $(L, i_1, i_2)$ with injection maps | |
-| `direct_product(L1, L2)` | Direct product; returns $(L, p_1, p_2)$ with projection maps | |
-| `biproduct(L1, L2)` | Biproduct; returns $(L, i_1, i_2, p_1, p_2)$ | |
-| `intersect(L1, L2)` | Intersection in common ambient space | |
-| `+(L1, L2)` | Sum of lattices in common ambient | |
-| `*(n, L)` | Scalar multiple of lattice | |
-| `lattice_in_same_ambient_space(L, B)` | Sublattice with basis B in ambient of L | |
-| `orthogonal_submodule(L, S)` | Orthogonal complement of S in L | |
-| `dual(L)` | Dual lattice $L^\vee$ | |
-| `is_sublattice(L, S)` | Whether $S \subseteq L$ | |
-| `is_sublattice_with_relations(L, S)` | Sublattice test + inclusion relations | |
-| `is_primitive(L, S)` | Whether S is primitive in L ($L/S$ torsion-free) | |
-| `primitive_closure(L, S)` | Smallest primitive sublattice of $L$ containing $S$ | |
-| `divisibility(L, v)` | Divisibility of vector $v$ in $L$ | |
-| `in(v, L)` | Vector membership test | |
-| `irreducible_components(L)` | Decompose into orthogonally irreducible components | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `direct_sum(L1, L2)` | `L1`: `ZZLat`, `L2`: `ZZLat` | `Tuple{ZZLat, AbstractSpaceMor, AbstractSpaceMor}` | Orthogonal direct sum; returns $(L, i_1, i_2)$ with injection maps | |
+| `direct_product(L1, L2)` | `L1`: `ZZLat`, `L2`: `ZZLat` | `Tuple{ZZLat, AbstractSpaceMor, AbstractSpaceMor}` | Direct product; returns $(L, p_1, p_2)$ with projection maps | |
+| `biproduct(L1, L2)` | `L1`: `ZZLat`, `L2`: `ZZLat` | `Tuple{ZZLat, AbstractSpaceMor, AbstractSpaceMor, AbstractSpaceMor, AbstractSpaceMor}` | Biproduct; returns $(L, i_1, i_2, p_1, p_2)$ | |
+| `intersect(L1, L2)` | `L1`: `ZZLat`, `L2`: `ZZLat` | `ZZLat` | Intersection in common ambient space | |
+| `+(L1, L2)` | `L1`: `ZZLat`, `L2`: `ZZLat` | `ZZLat` | Sum of lattices in common ambient | |
+| `*(n, L)` | `n`: `Integer`, `L`: `ZZLat` | `ZZLat` | Scalar multiple of lattice | |
+| `lattice_in_same_ambient_space(L, B)` | `L`: `ZZLat`, `B`: `Matrix` | `ZZLat` | Sublattice with basis B in ambient of L | |
+| `orthogonal_submodule(L, S)` | `L`: `ZZLat`, `S`: `ZZLat` | `ZZLat` | Orthogonal complement of S in L | |
+| `dual(L)` | `L`: `ZZLat` | `ZZLat` | Dual lattice $L^\vee$ | |
+| `is_sublattice(L, S)` | `L`: `ZZLat`, `S`: `ZZLat` | `Bool` | Whether $S \subseteq L$ | |
+| `is_sublattice_with_relations(L, S)` | `L`: `ZZLat`, `S`: `ZZLat` | `Tuple{Bool, QQMatrix}` | Sublattice test + inclusion relation matrix | |
+| `is_primitive(L, S)` | `L`: `ZZLat`, `S`: `ZZLat` | `Bool` | Whether S is primitive in L ($L/S$ torsion-free) | |
+| `primitive_closure(L, S)` | `L`: `ZZLat`, `S`: `ZZLat` | `ZZLat` | Smallest primitive sublattice of $L$ containing $S$ | |
+| `divisibility(L, v)` | `L`: `ZZLat`, `v`: `Vector` | `ZZRingElem` | Divisibility of vector $v$ in $L$ | |
+| `in(v, L)` | `v`: `Vector`, `L`: `ZZLat` | `Bool` | Vector membership test | |
+| `irreducible_components(L)` | `L`: `ZZLat` | `Vector{ZZLat}` | Decompose into orthogonally irreducible components | |
 
 #### Overlattices and embeddings
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `glue_map(L, S, gen_imgs)` | Construct glue map for primitive extension | |
-| `overlattice(glue_map)` | Build overlattice from a glue map | |
-| `primitive_extension(L1, L2, glue_map)` | Nikulin gluing: lattice from isometric discriminant subquotients | |
-| `local_modification(M, L, p)` | Local modification at prime $p$; docs assume `M` is $\mathbf{Z}_p$-maximal and `L` is isomorphic to `M` over $\mathbf{Q}_p$ | |
-| `maximal_integral_lattice(L)` | Maximal integral overlattice | |
-| `is_maximal_integral(L)` | Whether $L$ is already maximal integral | |
-| `is_maximal(L)` | Whether $L$ is maximal | |
-| `embed(L, gen)` | Embed lattice into a genus | |
-| `embed_in_unimodular(L, ...)` | Embed into a unimodular lattice; current Hecke docs note this presently works only for even lattices | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `glue_map(L, S, gen_imgs)` | `L`: `ZZLat`, `S`: `ZZLat`, `gen_imgs`: `Vector` | `TorQuadModuleMap` | Construct glue map for primitive extension | |
+| `overlattice(glue_map)` | `glue_map`: `TorQuadModuleMap` | `ZZLat` | Build overlattice from a glue map | |
+| `primitive_extension(L1, L2, glue_map)` | `L1`: `ZZLat`, `L2`: `ZZLat`, `glue_map`: `TorQuadModuleMap` | `ZZLat` | Nikulin gluing: lattice from isometric discriminant subquotients | |
+| `local_modification(M, L, p)` | `M`: `ZZLat`, `L`: `ZZLat`, `p`: `Int` | `ZZLat` | Local modification at prime $p$; docs assume `M` is $\mathbf{Z}_p$-maximal and `L` is isomorphic to `M` over $\mathbf{Q}_p$ | |
+| `maximal_integral_lattice(L)` | `L`: `ZZLat` | `ZZLat` | Maximal integral overlattice | |
+| `is_maximal_integral(L)` | `L`: `ZZLat` | `Bool` | Whether $L$ is already maximal integral | |
+| `is_maximal(L)` | `L`: `ZZLat` | `Bool` | Whether $L$ is maximal | |
+| `embed(L, gen)` | `L`: `ZZLat`, `gen`: `ZZGenus` | `ZZLat` | Embed lattice into a genus | |
+| `embed_in_unimodular(L, ...)` | `L`: `ZZLat` | `ZZLat` | Embed into a unimodular lattice; current Hecke docs note this presently works only for even lattices | |
 
 #### Endomorphism-based sublattices
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `kernel_lattice(L, f)` | Kernel of endomorphism $f$ on $L$ | |
-| `invariant_lattice(::ZZLat, ::MatGroup)` | Fixed-point sublattice $L^G$ under finite group action | |
-| `coinvariant_lattice(::ZZLat, ::MatGroup)` | Orthogonal complement of $L^G$ in $L$ for finite group action | |
-| `invariant_coinvariant_pair(::ZZLat, ::Union{QQMatrix, Vector{QQMatrix}, MatGroup})` | Compute invariant/coinvariant pair simultaneously from a single isometry, a list of matrices, or a matrix group action | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `kernel_lattice(L, f)` | `L`: `ZZLat`, `f`: `QQMatrix` | `ZZLat` | Kernel of endomorphism $f$ on $L$ | |
+| `invariant_lattice(L, G)` | `L`: `ZZLat`, `G`: `MatGroup` | `ZZLat` | Fixed-point sublattice $L^G$ under finite group action | |
+| `coinvariant_lattice(L, G)` | `L`: `ZZLat`, `G`: `MatGroup` | `ZZLat` | Orthogonal complement of $L^G$ in $L$ for finite group action | |
+| `invariant_coinvariant_pair(L, f)` | `L`: `ZZLat`, `f`: `Union{QQMatrix, Vector{QQMatrix}, MatGroup}` | `Tuple{ZZLat, ZZLat}` | Compute invariant/coinvariant pair simultaneously from a single isometry, a list of matrices, or a matrix group action | |
 
 #### Root lattice recognition
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `root_lattice_recognition(L)` | Identify ADE type of root sublattice | `[PD]` |
-| `root_lattice_recognition_fundamental(L)` | Find fundamental root system | `[PD]` |
-| `ADE_type(L)` | Determine root lattice type | `[PD]` |
-| `coxeter_number(L)` | Coxeter number | `[PD]` |
-| `highest_root(L)` | Highest root coordinates | `[PD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `root_lattice_recognition(L)` | `L`: `ZZLat` | `Tuple{Vector{Pair{Symbol, Int}}, ZZLat}` | Identify ADE type of root sublattice; returns type list and root sublattice | `[PD]` |
+| `root_lattice_recognition_fundamental(L)` | `L`: `ZZLat` | `Tuple{Vector{Pair{Symbol, Int}}, ZZLat}` | Find fundamental root system; returns ADE type list and root sublattice | `[PD]` |
+| `ADE_type(L)` | `L`: `ZZLat` | `Pair{Symbol, Int}` | Determine root lattice type (e.g. `:A => 2`) | `[PD]` |
+| `coxeter_number(L)` | `L`: `ZZLat` | `Int` | Coxeter number | `[PD]` |
+| `highest_root(L)` | `L`: `ZZLat` | `ZZMatrix` | Highest root coordinates | `[PD]` |
 
 ### 2.10 Vinberg's algorithm
 
 `[INDEF]` — For hyperbolic lattices (signature $(1,n)$). Enumerates simple roots defining the Weyl chamber of the reflection group.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `vinberg_algorithm(Q::ZZMatrix, ub; v0, root_lengths, direction_vector)` | Fundamental roots of hyperbolic reflection lattice from Gram matrix | `[INDEF]` |
-| `vinberg_algorithm(S::ZZLat, ub; v0, root_lengths, direction_vector)` | Same, from `ZZLat` of signature $(1,0,n)$ | `[INDEF]` |
-| `short_vectors_affine(S, v, α, d)` | Vectors $x$ with $x^2 = d$, $x \cdot v = \alpha$ (used internally by Vinberg) | `[INDEF]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `vinberg_algorithm(Q, ub; v0, root_lengths, direction_vector)` | `Q`: `ZZMatrix`, `ub`: `Integer`, `v0`: `Vector` (keyword), `root_lengths`: `Vector` (keyword), `direction_vector`: `Vector` (keyword) | `Vector{ZZMatrix}` | Fundamental roots of hyperbolic reflection lattice from Gram matrix | `[INDEF]` |
+| `vinberg_algorithm(S, ub; v0, root_lengths, direction_vector)` | `S`: `ZZLat`, `ub`: `Integer`, `v0`: `Vector` (keyword), `root_lengths`: `Vector` (keyword), `direction_vector`: `Vector` (keyword) | `Vector{ZZMatrix}` | Same, from `ZZLat` of signature $(1,0,n)$ | `[INDEF]` |
+| `short_vectors_affine(S, v, α, d)` | `S`: `ZZLat`, `v`: `Vector`, `α`: `RingElement`, `d`: `RingElement` | `Vector` | Vectors $x$ with $x^2 = d$, $x \cdot v = \alpha$ (used internally by Vinberg) | `[INDEF]` |
 
 Computes Coxeter diagram of reflecting hyperplanes. Applicable to even hyperbolic lattices ($U \oplus E_8(-1)$, etc.). Implementation follows Algorithm 2.2 of Jingyu Shi 2015.
 
@@ -355,39 +355,44 @@ Computes Coxeter diagram of reflecting hyperplanes. Applicable to even hyperboli
 
 Methods shared with `ZZLat` (construction, rank, det, etc.) are listed in §2.2–2.8. Additional methods specific to lattices over number fields:
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `base_field(L)` / `base_ring(L)` | Base field $K$ / ring of integers $\mathcal{O}_K$ | |
-| `fixed_field(L)` / `fixed_ring(L)` | Fixed field under involution / its ring | |
-| `involution(L)` | Involution of the hermitian form | |
-| `pseudo_matrix(L)` / `pseudo_basis(L)` | Pseudo-matrix / pseudo-basis (fractional ideals + vectors) | |
-| `coefficient_ideals(L)` | Coefficient ideals of pseudo-basis | |
-| `absolute_basis(L)` / `absolute_basis_matrix(L)` | Absolute $\mathbb{Z}$-basis | |
-| `generators(L)` / `gram_matrix_of_generators(L)` | Generators and their Gram matrix | |
-| `local_basis_matrix(L, p)` | Basis matrix of $L_p$ | |
-| `jordan_decomposition(L, p)` | Jordan decomposition at prime $p$ | |
-| `is_isotropic(L, p)` | Whether $L_p$ is isotropic | |
-| `is_modular(L)` / `is_modular(L, p)` | Modular lattice test (global / local) | |
-| `can_scale_totally_positive(L)` | Whether the form can be rescaled to totally positive | |
-| `volume(L)` | Volume ideal | |
-| `is_maximal_integral(L)` / `is_maximal(L)` | Maximality tests | |
-| `maximal_integral_lattice(L)` | Maximal integral overlattice | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `base_field(L)` / `base_ring(L)` | `L`: `AbstractLat` | `Field` / `Ring` | Base field $K$ / ring of integers $\mathcal{O}_K$ | |
+| `fixed_field(L)` / `fixed_ring(L)` | `L`: `HermLat` | `Field` / `Ring` | Fixed field under involution / its ring of integers | |
+| `involution(L)` | `L`: `HermLat` | `Map` | Involution of the hermitian form | |
+| `pseudo_matrix(L)` / `pseudo_basis(L)` | `L`: `AbstractLat` | `PMat` / `Vector{Tuple{Ideal, Vector}}` | Pseudo-matrix / pseudo-basis (fractional ideals + vectors) | |
+| `coefficient_ideals(L)` | `L`: `AbstractLat` | `Vector{Ideal}` | Coefficient ideals of pseudo-basis | |
+| `absolute_basis(L)` / `absolute_basis_matrix(L)` | `L`: `AbstractLat` | `Vector` / `Matrix` | Absolute $\mathbb{Z}$-basis / basis matrix | |
+| `generators(L)` / `gram_matrix_of_generators(L)` | `L`: `AbstractLat` | `Vector` / `Matrix` | Generators and their Gram matrix | |
+| `local_basis_matrix(L, p)` | `L`: `AbstractLat`, `p`: `Ideal` | `Matrix` | Basis matrix of local completion $L_p$ | |
+| `jordan_decomposition(L, p)` | `L`: `AbstractLat`, `p`: `Ideal` | `Tuple` | Jordan decomposition at prime $p$ | |
+| `is_isotropic(L, p)` | `L`: `AbstractLat`, `p`: `Ideal` | `Bool` | Whether $L_p$ is isotropic | |
+| `is_modular(L)` / `is_modular(L, p)` | `L`: `AbstractLat`, `p`: `Ideal` (local form) | `Bool` | Modular lattice test (global / local) | |
+| `can_scale_totally_positive(L)` | `L`: `HermLat` | `Bool` | Whether the form can be rescaled to totally positive | |
+| `volume(L)` | `L`: `AbstractLat` | `Ideal` | Volume ideal | |
+| `is_maximal_integral(L)` / `is_maximal(L)` | `L`: `AbstractLat` | `Bool` | Maximality tests | |
+| `maximal_integral_lattice(L)` | `L`: `AbstractLat` | `AbstractLat` | Maximal integral overlattice | |
 
 ### 2.13 Quadratic spaces with isometry (`QuadSpaceWithIsom`)
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `quadratic_space_with_isometry(V, f; check)` | Pair space $V$ with isometry matrix $f$ (pass `check` explicitly; upstream docs currently show conflicting default wording) | |
-| `quadratic_space_with_isometry(V; neg=false)` | Pair with identity (or negation) | |
-| `space(Vf)` / `isometry(Vf)` / `order_of_isometry(Vf)` | Accessors (`order_of_isometry(Vf)=PosInf` for infinite-order isometries; rank-0 case uses `-1`) | |
-| `rank(Vf)` / `dim(Vf)` / `gram_matrix(Vf)` / `det(Vf)` / `discriminant(Vf)` | Space attributes | |
-| `diagonal(Vf)` / `signature_tuple(Vf)` | Diagonal / signature | |
-| `is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)` | Definiteness | |
-| `characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)` | Polynomials of isometry | |
-| `^(Vf, n)` | Raise isometry to power | |
-| `direct_sum(Vf::Union{QuadSpaceWithIsom, Vector{QuadSpaceWithIsom}}...)` | Equivariant direct sum of quadratic spaces with isometry; current upstream signatures accept varargs and vector input, with binary form returning `(Vf, emb1, emb2)` | |
-| `rescale(Vf, a)` | Rescale preserving isometry | |
-| `rational_spinor_norm(Vf; b)` | Rational spinor norm | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `quadratic_space_with_isometry(V, f; check)` | `V`: `QuadSpace`, `f`: `QQMatrix`, `check`: `Bool` | `QuadSpaceWithIsom` | Pair space $V$ with isometry matrix $f$ (pass `check` explicitly; upstream docs currently show conflicting default wording) | |
+| `quadratic_space_with_isometry(V; neg=false)` | `V`: `QuadSpace`, `neg`: `Bool` | `QuadSpaceWithIsom` | Pair with identity (or negation if `neg=true`) | |
+| `space(Vf)` | `Vf`: `QuadSpaceWithIsom` | `QuadSpace` | Underlying quadratic space | |
+| `isometry(Vf)` | `Vf`: `QuadSpaceWithIsom` | `QQMatrix` | Isometry matrix | |
+| `order_of_isometry(Vf)` | `Vf`: `QuadSpaceWithIsom` | `Union{Int, PosInf}` | Order of isometry; `PosInf` for infinite-order; `-1` for rank-0 case | |
+| `rank(Vf)` / `dim(Vf)` | `Vf`: `QuadSpaceWithIsom` | `Int` | Rank / dimension of underlying space | |
+| `gram_matrix(Vf)` | `Vf`: `QuadSpaceWithIsom` | `QQMatrix` | Gram matrix of underlying space | |
+| `det(Vf)` / `discriminant(Vf)` | `Vf`: `QuadSpaceWithIsom` | `QQFieldElem` | Determinant / discriminant of underlying space | |
+| `diagonal(Vf)` | `Vf`: `QuadSpaceWithIsom` | `Vector{QQFieldElem}` | Diagonal entries of underlying space | |
+| `signature_tuple(Vf)` | `Vf`: `QuadSpaceWithIsom` | `Tuple{Int, Int, Int}` | Signature triple $(n_+, n_0, n_-)$ of underlying space | |
+| `is_definite(Vf)` / `is_positive_definite(Vf)` / `is_negative_definite(Vf)` | `Vf`: `QuadSpaceWithIsom` | `Bool` | Definiteness of underlying space | |
+| `characteristic_polynomial(Vf)` / `minimal_polynomial(Vf)` | `Vf`: `QuadSpaceWithIsom` | `QQPolyRingElem` | Characteristic / minimal polynomial of isometry | |
+| `^(Vf, n)` | `Vf`: `QuadSpaceWithIsom`, `n`: `Int` | `QuadSpaceWithIsom` | Raise isometry to power $n$ | |
+| `direct_sum(Vf...)` | `Vf`: `Union{QuadSpaceWithIsom, Vector{QuadSpaceWithIsom}}` | `Tuple{QuadSpaceWithIsom, ...}` | Equivariant direct sum; binary form returns `(Vf, emb1, emb2)`; varargs and vector input accepted | |
+| `rescale(Vf, a)` | `Vf`: `QuadSpaceWithIsom`, `a`: `RationalUnion` | `QuadSpaceWithIsom` | Rescale underlying space preserving isometry | |
+| `rational_spinor_norm(Vf; b=-1)` | `Vf`: `QuadSpaceWithIsom`, `b`: `Int` | `QQFieldElem` | Rational spinor norm of isometry w.r.t. form `b·Φ`; default `b=-1` | |
 
 ### 2.14 Lattices with isometry (`ZZLatWithIsom`)
 
@@ -501,54 +506,59 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 ### 2.15 Primitive embeddings
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `primitive_embeddings(L, M)` | Primitive embeddings of $M$ into $L$ | |
-| `primitive_embeddings(G::ZZGenus, M)` | Primitive embeddings into lattices of genus $G$ | |
-| `primitive_embeddings(q::TorQuadModule, sig, M)` | Via discriminant form + signature | |
-| `primitive_extensions(M, N)` | Isomorphism classes of primitive extensions of $M \oplus N$ | |
-| `equivariant_primitive_extensions(Mf::ZZLatWithIsom, Nf::ZZLatWithIsom; glue_only=false)` | Equivariant primitive extensions (with isometries); returns `Vector{ZZLatWithIsom}` | |
-| `admissible_equivariant_primitive_extensions(Mf, Nf, gen, poly, p)` | Admissible equivariant extensions satisfying type conditions for a target genus | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `primitive_embeddings(L, M)` | `L`: `ZZLat`, `M`: `ZZLat` | `Vector` | Primitive embeddings of $M$ into $L$; returns isomorphism-class representatives (requires `L` unique in its genus) | |
+| `primitive_embeddings(G, M)` | `G`: `ZZGenus`, `M`: `ZZLat` | `Vector` | Primitive embeddings into lattices of genus $G$ | |
+| `primitive_embeddings(q, sig, M)` | `q`: `TorQuadModule`, `sig`: `Tuple{Int, Int}`, `M`: `ZZLat` | `Vector` | Primitive embeddings via discriminant form + signature | |
+| `primitive_extensions(M, N)` | `M`: `ZZLat`, `N`: `ZZLat` | `Vector{ZZLat}` | Isomorphism classes of primitive extensions of $M \oplus N$ | |
+| `equivariant_primitive_extensions(Mf, Nf; glue_only=false)` | `Mf`: `ZZLatWithIsom`, `Nf`: `ZZLatWithIsom`, `glue_only`: `Bool` | `Vector{ZZLatWithIsom}` | Equivariant primitive extensions (with isometries) | |
+| `admissible_equivariant_primitive_extensions(Mf, Nf, gen, poly, p)` | `Mf`: `ZZLatWithIsom`, `Nf`: `ZZLatWithIsom`, `gen`: `ZZGenus`, `poly`: `Union{ZZPolyRingElem, QQPolyRingElem}`, `p`: `Int` | `Vector{ZZLatWithIsom}` | Admissible equivariant extensions satisfying type conditions for a target genus | |
 
 ### 2.16 Hermitian genera
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `genus(L::HermLat)` | Global genus of hermitian lattice | |
-| `genus(L::HermLat, p)` | Local genus at prime $p$ | |
-| `hermitian_genera(E::NumField, rank::Int, signatures::Vector{Tuple{Int, Int}}, determinant::Vector{QQFieldElem}; min_scale::Int=(determinant[1] != 0 ? 0 : -3), max_scale::Int=(determinant[1] != 0 ? 0 : 3), kwargs...)` | Enumerate hermitian genera; upstream requires `E` imaginary quadratic, `rank > 0`, and all determinants to have the same sign (positive if `rank` is even, negative if `rank` is odd) | |
-| `hermitian_local_genera(E::NumField, p::AbsNumFieldOrderIdeal, rank::Int, determinant::QQFieldElem, min_scale::Int, max_scale::Int)` | Enumerate local hermitian genera at ideal `p` within the explicit scale window `[min_scale, max_scale]` | |
-| `representative(G)` / `representatives(G)` | Representatives of genus classes | |
-| `genus_representatives(L)` | All representatives in genus of $L$ | |
-| `mass(L)` | Mass of hermitian lattice | |
-| `rank(G)` / `primes(G)` / `signatures(G)` / `is_integral(G)` | Genus attributes | |
-| `scale(G)` / `norm(G)` / `local_symbols(G)` | Scale, norm, local data | |
-| `direct_sum(G1, G2)` / `rescale(G, a)` | Operations on genera | |
-| `is_ramified(g)` / `is_split(g)` / `is_inert(g)` / `is_dyadic(g)` | Local genus splitting behavior | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `genus(L)` | `L`: `HermLat` | `HermGenus` | Global genus of hermitian lattice | |
+| `genus(L, p)` | `L`: `HermLat`, `p`: `AbsNumFieldOrderIdeal` | `HermLocalGenus` | Local genus at prime $p$ | |
+| `hermitian_genera(E, rank, signatures, determinant; min_scale, max_scale, ...)` | `E`: `NumField`, `rank`: `Int`, `signatures`: `Vector{Tuple{Int, Int}}`, `determinant`: `Vector{QQFieldElem}`, `min_scale`: `Int`, `max_scale`: `Int` | `Vector{HermGenus}` | Enumerate hermitian genera; upstream requires `E` imaginary quadratic, `rank > 0`, and all determinants same sign (positive if `rank` even, negative if `rank` odd) | |
+| `hermitian_local_genera(E, p, rank, determinant, min_scale, max_scale)` | `E`: `NumField`, `p`: `AbsNumFieldOrderIdeal`, `rank`: `Int`, `determinant`: `QQFieldElem`, `min_scale`: `Int`, `max_scale`: `Int` | `Vector{HermLocalGenus}` | Enumerate local hermitian genera at ideal `p` within scale window `[min_scale, max_scale]` | |
+| `representative(G)` / `representatives(G)` | `G`: `HermGenus` | `HermLat` / `Vector{HermLat}` | Single representative / all representatives of genus class | |
+| `genus_representatives(L)` | `L`: `HermLat` | `Vector{HermLat}` | All representatives in genus of $L$ | |
+| `mass(L)` | `L`: `HermLat` | `QQFieldElem` | Mass of hermitian lattice | |
+| `rank(G)` / `is_integral(G)` | `G`: `HermGenus` | `Int` / `Bool` | Genus rank / integrality test | |
+| `primes(G)` | `G`: `HermGenus` | `Vector{AbsNumFieldOrderIdeal}` | Primes where genus is non-trivial | |
+| `signatures(G)` | `G`: `HermGenus` | `Dict` | Signatures of genus | |
+| `scale(G)` / `norm(G)` | `G`: `HermGenus` | `Ideal` | Scale / norm ideal | |
+| `local_symbols(G)` | `G`: `HermGenus` | `Vector{HermLocalGenus}` | Local symbol data | |
+| `direct_sum(G1, G2)` / `rescale(G, a)` | `G1`: `HermGenus`, `G2`: `HermGenus` / `a`: `FieldElem` | `HermGenus` | Operations on genera | |
+| `is_ramified(g)` / `is_split(g)` / `is_inert(g)` / `is_dyadic(g)` | `g`: `HermLocalGenus` | `Bool` | Local genus splitting behavior | |
 
 ### 2.17 Isometry group actions on lattices
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `is_isometry(::Hecke.QuadSpace, ::QQMatrix)` / `is_isometry(::ZZLat, ::QQMatrix)` | Matrix-level isometry check for quadratic spaces / integer lattices | |
-| `is_isometry_list(::Hecke.QuadSpace, ::Vector{QQMatrix})` / `is_isometry_list(::ZZLat, ::Vector{QQMatrix})` | Batch isometry checks for matrix lists | |
-| `is_isometry_group(::Hecke.QuadSpace, ::MatGroup)` / `is_isometry_group(::ZZLat, ::MatGroup)` | Group-level isometry check (upstream docs note these matrix/group check helpers are not exported) | |
-| `is_stable_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry acts trivially on the discriminant group (stable isometry) | |
-| `is_special_isometry(::ZZLatWithIsom)` | Predicate that fixed isometry has determinant $+1$ (special isometry) | |
-| `special_orthogonal_group(::ZZLat)` / `special_subgroup(::ZZLat, ::MatGroup)` | $SO(L)$ and special subgroup of a finite isometry group | |
-| `stable_orthogonal_group(::ZZLat)` / `stable_subgroup(::ZZLat, ::MatGroup)` | Stable orthogonal group $O^{\#}(L)$ and stable subgroup of a finite isometry group | |
-| `stabilizer_discriminant_subgroup(L::ZZLat, G::MatGroup, H::TorQuadModule; pointwise::Bool=false, ambient_representation::Bool=true, check::Bool=true)` | Largest subgroup of `G` preserving discriminant-group submodule `H`; returns `(MatGroup, GAPGroupHomomorphism)` | |
-| `stabilizer_in_orthogonal_group(L::ZZLat, B::QQMatrix; stable::Bool=false, special::Bool=false, check::Bool=true, kwargs...)` | Joint stabilizer in `O(L)` of vectors represented by rows of `B`; upstream requires the largest saturated orthogonal submodule of `L` orthogonal to `B` to be definite or of rank 2 | |
-| `pointwise_stabilizer_in_orthogonal_group(L::ZZLat, S::ZZLat; kwargs...)` | Pointwise stabilizer (fixes each vector of sublattice `S`); upstream requires the largest saturated orthogonal submodule of `L` orthogonal to `S` to be definite or of rank 2 | |
-| `setwise_stabilizer_in_orthogonal_group(L::ZZLat, S::Union{QQMatrix, ZZLat}; stable::Bool=false, special::Bool=false, check::Bool=true, kwargs...)` | Setwise stabilizer of `S`; upstream requires `S` and `S^\perp` to be definite or of rank 2 (with non-primitive `S` allowed) | |
-| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L::ZZLat, S::Union{QQMatrix, ZZLat}; check::Bool=true, kwargs...)` | Pointwise stabilizer of the orthogonal complement `S^\perp`; upstream requires `S` to be definite or of rank 2 | |
-| `stabilizer_in_diagonal_action(L::ZZLat, K::ZZLat, N::ZZLat, OK::MatGroup, ON::MatGroup; check::Bool=true)` | Generators for the setwise stabilizer of a primitive extension `K ⊕ N ⊆ L`; returns `Vector{QQMatrix}` | |
-| `maximal_extension(::ZZLat, ::ZZLat, ::MatGroup)` | Maximal extension in the group-action framework | |
-| `saturation(::ZZLat, ::MatGroup, ::MatGroup)` | Saturation of subgroup $H \le G$; current docs state this explicit computation for finite `G` | |
-| `saturation(::ZZLat, ::MatGroup)` | Saturation inside $O(L)$; current docs require coinvariant lattice definite or rank 2 | |
-| `is_saturated_with_saturation(...)` | Saturation predicate plus witness; current docs state availability when coinvariant lattice is definite | |
-| `extend_to_ambient_space(L::ZZLat, F::T; check::Bool=false) where T <: Union{QQMatrix, Vector{QQMatrix}, MatGroup}` | Convert a collection of isometries from fixed lattice-basis coordinates to ambient-space coordinates; returns the same container type `T` | |
-| `restrict_to_lattice(L::ZZLat, F::T; check::Bool=false) where T <: Union{QQMatrix, Vector{QQMatrix}, MatGroup}` | Convert ambient-space isometries preserving `L` back to fixed lattice-basis coordinates; returns the same container type `T` | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `is_isometry(V, f)` | `V`: `Hecke.QuadSpace` or `ZZLat`, `f`: `QQMatrix` | `Bool` | Matrix-level isometry check for quadratic spaces / integer lattices | |
+| `is_isometry_list(V, fs)` | `V`: `Hecke.QuadSpace` or `ZZLat`, `fs`: `Vector{QQMatrix}` | `Bool` | Batch isometry check for matrix list (upstream docs note not exported) | |
+| `is_isometry_group(V, G)` | `V`: `Hecke.QuadSpace` or `ZZLat`, `G`: `MatGroup` | `Bool` | Group-level isometry check (upstream docs note not exported) | |
+| `is_stable_isometry(Lf)` | `Lf`: `ZZLatWithIsom` | `Bool` | Fixed isometry acts trivially on discriminant group | |
+| `is_special_isometry(Lf)` | `Lf`: `ZZLatWithIsom` | `Bool` | Fixed isometry has determinant $+1$ | |
+| `special_orthogonal_group(L)` | `L`: `ZZLat` | `MatGroup` | Special orthogonal group $SO(L)$ | |
+| `special_subgroup(L, G)` | `L`: `ZZLat`, `G`: `MatGroup` | `MatGroup` | Special subgroup of a finite isometry group | |
+| `stable_orthogonal_group(L)` | `L`: `ZZLat` | `MatGroup` | Stable orthogonal group $O^{\#}(L)$ | |
+| `stable_subgroup(L, G)` | `L`: `ZZLat`, `G`: `MatGroup` | `MatGroup` | Stable subgroup of a finite isometry group | |
+| `stabilizer_discriminant_subgroup(L, G, H; pointwise=false, ambient_representation=true, check=true)` | `L`: `ZZLat`, `G`: `MatGroup`, `H`: `TorQuadModule`, `pointwise`: `Bool`, `ambient_representation`: `Bool`, `check`: `Bool` | `Tuple{MatGroup, GAPGroupHomomorphism}` | Largest subgroup of `G` preserving discriminant-group submodule `H` | |
+| `stabilizer_in_orthogonal_group(L, B; stable=false, special=false, check=true, ...)` | `L`: `ZZLat`, `B`: `QQMatrix`, `stable`: `Bool`, `special`: `Bool`, `check`: `Bool` | `MatGroup` | Joint stabilizer in `O(L)` of rows of `B`; upstream requires largest saturated orthogonal submodule of `L` orthogonal to `B` to be definite or rank 2 | |
+| `pointwise_stabilizer_in_orthogonal_group(L, S; ...)` | `L`: `ZZLat`, `S`: `ZZLat` | `MatGroup` | Pointwise stabilizer of sublattice `S`; upstream requires same definite/rank-2 condition on orthogonal submodule | |
+| `setwise_stabilizer_in_orthogonal_group(L, S; stable=false, special=false, check=true, ...)` | `L`: `ZZLat`, `S`: `Union{QQMatrix, ZZLat}`, `stable`: `Bool`, `special`: `Bool`, `check`: `Bool` | `MatGroup` | Setwise stabilizer of `S`; upstream requires `S` and `S^\perp` definite or rank 2 | |
+| `pointwise_stabilizer_orthogonal_complement_in_orthogonal_group(L, S; check=true, ...)` | `L`: `ZZLat`, `S`: `Union{QQMatrix, ZZLat}`, `check`: `Bool` | `MatGroup` | Pointwise stabilizer of `S^\perp`; upstream requires `S` definite or rank 2 | |
+| `stabilizer_in_diagonal_action(L, K, N, OK, ON; check=true)` | `L`: `ZZLat`, `K`: `ZZLat`, `N`: `ZZLat`, `OK`: `MatGroup`, `ON`: `MatGroup`, `check`: `Bool` | `Vector{QQMatrix}` | Generators for setwise stabilizer of primitive extension `K ⊕ N ⊆ L` | |
+| `maximal_extension(L, K, G)` | `L`: `ZZLat`, `K`: `ZZLat`, `G`: `MatGroup` | `MatGroup` | Maximal extension in the group-action framework | |
+| `saturation(L, G, H)` | `L`: `ZZLat`, `G`: `MatGroup`, `H`: `MatGroup` | `MatGroup` | Saturation of subgroup $H \le G$; requires finite `G` | |
+| `saturation(L, G)` | `L`: `ZZLat`, `G`: `MatGroup` | `MatGroup` | Saturation inside $O(L)$; upstream requires coinvariant lattice definite or rank 2 | |
+| `is_saturated_with_saturation(...)` | Varies | `Tuple{Bool, MatGroup}` | Saturation predicate plus witness; upstream requires coinvariant lattice definite | |
+| `extend_to_ambient_space(L, F; check=false)` | `L`: `ZZLat`, `F`: `Union{QQMatrix, Vector{QQMatrix}, MatGroup}`, `check`: `Bool` | Same type as `F` | Convert isometries from lattice-basis to ambient-space coordinates | |
+| `restrict_to_lattice(L, F; check=false)` | `L`: `ZZLat`, `F`: `Union{QQMatrix, Vector{QQMatrix}, MatGroup}`, `check`: `Bool` | Same type as `F` | Convert ambient-space isometries preserving `L` to lattice-basis coordinates | |
 
 - Constraint caveat: stabilizer-family methods carry explicit geometric preconditions in upstream docs (definite/rank-2 requirements on relevant orthogonal sublattices); these constraints are part of the method contracts.
 - Representation caveat: upstream text frames `extend_to_ambient_space` / `restrict_to_lattice` as basis-representation conversion for collections of isometries, with `restrict_to_lattice` also usable for ambient-space isometries preserving `L`.
@@ -557,21 +567,21 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 Finite quadratic module workflows with a distinguished isometry action. This is the discriminant-form analogue of lattice-with-isometry surfaces and is central for equivariant gluing/classification contracts.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `TorQuadModuleWithIsom` | Type for a torsion quadratic module paired with an isometry | `[NT]` |
-| `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | Access underlying finite quadratic module | `[NT]` |
-| `isometry(Tf)` / `order_of_isometry(Tf)` | Access isometry and its order; upstream notes order is finite-order data computed lazily and cached | `[NT]` |
-| `torsion_quadratic_module_with_isometry(T::TorQuadModule, [f::U]; check::Bool=true)` | Constructor from a `TorQuadModule` and an optional isometry `f`; upstream stable docs document `U` as any of `AutomorphismGroupElem{TorQuadModule}`, `TorQuadModuleMap`, `FinGenAbGroupHom`, `ZZMatrix`, or `MatGroupElem{QQFieldElem, QQMatrix}`; omitting `f` uses the identity; `check=true` validates compatibility | `[NT]` |
-| `torsion_quadratic_module_with_isometry(q::QQMatrix, [f::ZZMatrix]; check::Bool=true)` | Constructor from quadratic-form matrix data and optional integer action matrix; omitting `f` uses the identity; `check=true` validates constraints | `[NT]` |
-| `sub(Tf::TorQuadModuleWithIsom, gene::Vector{TorQuadModuleElem})` | Construct an isometry-stable submodule from generators; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)` | `[NT]` |
-| `primary_part(Tf::TorQuadModuleWithIsom, m::IntegerUnion)` | Primary part with induced isometry action; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)` | `[NT]` |
-| `orthogonal_submodule(Tf::TorQuadModuleWithIsom, S::TorQuadModule; check::Bool=true)` | Orthogonal complement with induced action; returns `(TorQuadModuleWithIsom, TorQuadModuleMap)`; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
-| `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])` | Enumerate isometry-stable submodules of a torsion quadratic module with fixed isometry; upstream docs expose `quotype` filtering and restrict accepted selector values to `0,1,2,3` | `[NT]` |
-| `automorphism_group_with_inclusion(Tf::TorQuadModuleWithIsom)` | Automorphism group of the pair commuting with fixed isometry; returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)` | `[NT]` |
-| `automorphism_group(Tf::TorQuadModuleWithMap)` | Automorphism group of the pair `(T, f)` (upstream method list typesets `TorQuadModuleWithMap` at this signature location; page context is `TorQuadModuleWithIsom` — treat as a documentation typesetting inconsistency) | `[NT]` |
-| `is_isomorphic_with_map(Tf, Sg)` | Isomorphism test between pairs; upstream return contract is `(true, map)` on success and `(false, 0)` on failure | `[NT]` |
-| `is_anti_isomorphic_with_map(Tf, Sg)` | Anti-isomorphism test between pairs; upstream return contract is `(true, anti_map)` on success and `(false, 0)` on failure | `[NT]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `torsion_quadratic_module_with_isometry(T, [f]; check=true)` | `T`: `TorQuadModule`, `f`: `Union{AutomorphismGroupElem{TorQuadModule}, TorQuadModuleMap, FinGenAbGroupHom, ZZMatrix, MatGroupElem{QQFieldElem, QQMatrix}}` (optional), `check`: `Bool` | `TorQuadModuleWithIsom` | Constructor from `TorQuadModule` and optional isometry; omitting `f` uses identity; `check=true` validates compatibility | `[NT]` |
+| `torsion_quadratic_module_with_isometry(q, [f]; check=true)` | `q`: `QQMatrix`, `f`: `ZZMatrix` (optional), `check`: `Bool` | `TorQuadModuleWithIsom` | Constructor from quadratic-form matrix and optional integer action matrix | `[NT]` |
+| `underlying_module(Tf)` / `torsion_quadratic_module(Tf)` | `Tf`: `TorQuadModuleWithIsom` | `TorQuadModule` | Access underlying finite quadratic module | `[NT]` |
+| `isometry(Tf)` | `Tf`: `TorQuadModuleWithIsom` | `AutomorphismGroupElem{TorQuadModule}` | Access isometry of the pair | `[NT]` |
+| `order_of_isometry(Tf)` | `Tf`: `TorQuadModuleWithIsom` | `Int` | Order of isometry (finite; computed lazily and cached) | `[NT]` |
+| `sub(Tf, gene)` | `Tf`: `TorQuadModuleWithIsom`, `gene`: `Vector{TorQuadModuleElem}` | `Tuple{TorQuadModuleWithIsom, TorQuadModuleMap}` | Construct isometry-stable submodule from generators | `[NT]` |
+| `primary_part(Tf, m)` | `Tf`: `TorQuadModuleWithIsom`, `m`: `IntegerUnion` | `Tuple{TorQuadModuleWithIsom, TorQuadModuleMap}` | Primary part with induced isometry action | `[NT]` |
+| `orthogonal_submodule(Tf, S; check=true)` | `Tf`: `TorQuadModuleWithIsom`, `S`: `TorQuadModule`, `check`: `Bool` | `Tuple{TorQuadModuleWithIsom, TorQuadModuleMap}` | Orthogonal complement with induced action; upstream requires `S` stable under isometry (enforced when `check=true`) | `[NT]` |
+| `submodules(Tf; quotype=Int[])` | `Tf`: `TorQuadModuleWithIsom`, `quotype`: `Vector{Int}` | Iterator | Enumerate isometry-stable submodules; upstream restricts `quotype` entries to `{0,1,2,3}` | `[NT]` |
+| `automorphism_group_with_inclusion(Tf)` | `Tf`: `TorQuadModuleWithIsom` | `Tuple{AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism}` | Automorphism group of the pair commuting with fixed isometry | `[NT]` |
+| `automorphism_group(Tf)` | `Tf`: `TorQuadModuleWithIsom` | `AutomorphismGroup{TorQuadModule}` | Automorphism group of the pair `(T, f)` (upstream typesets arg as `TorQuadModuleWithMap` — documentation typesetting inconsistency) | `[NT]` |
+| `is_isomorphic_with_map(Tf, Sg)` | `Tf`: `TorQuadModuleWithIsom`, `Sg`: `TorQuadModuleWithIsom` | `Tuple{Bool, TorQuadModuleMap}` | Isomorphism test; returns `(true, map)` on success, `(false, 0)` on failure | `[NT]` |
+| `is_anti_isomorphic_with_map(Tf, Sg)` | `Tf`: `TorQuadModuleWithIsom`, `Sg`: `TorQuadModuleWithIsom` | `Tuple{Bool, TorQuadModuleMap}` | Anti-isomorphism test; returns `(true, anti_map)` on success, `(false, 0)` on failure | `[NT]` |
 
 Source note: contracts in §2.7/§2.11/§2.13/§2.14/§2.16/§2.17/§2.18 were reconciled against local snapshots under `docs/julia/oscar_jl/number_theory/quad_form_and_isom/` plus OSCAR stable/dev `QuadFormAndIsom` pages (including `spacewithisom`, `latwithisom`, `fingrpact`, `torquadmodwithisom`, and current index surfacing for collections/enumeration) and Hecke manual pages for genera (`quad_forms/genera`, `quad_forms/genusherm`) accessed 2026-02-17/2026-02-18. See provenance note `docs/julia/oscar_jl/number_theory/quad_form_and_isom/isom_online_provenance_2026-02-17.md`.
 - Pass-24 addendum (2026-02-18): `TorQuadModule.submodules` and `stable_submodules` typed signatures updated in §2.11 from OSCAR upstream Hecke discriminant-group docs; `torsion_quadratic_module_with_isometry` type union in §2.18 updated to include `AutomorphismGroupElem{TorQuadModule}` per OSCAR stable upstream constructor docs.

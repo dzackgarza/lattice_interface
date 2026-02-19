@@ -4,7 +4,7 @@ This file tracks the prerequisite state for building complete documentation.
 Reference docs (`docs/*/lattice/*.md`) track method surfaces with source-backed signatures.
 Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate task.
 
-**STATUS (2026-02-19)**: Goal 1 COMPLETE - all in-scope packages have verified local upstream docs. Goal 2 active.
+**STATUS (2026-02-19)**: Goal 1 COMPLETE. Goal 2 COMPLETE - all reference doc sections now have explicit type specifications.
 
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
@@ -40,4 +40,4 @@ This section tracks gaps in method documentation completeness (argument surfaces
 
 ### Julia/Hecke.jl (`docs/julia_methods_checklist.md`)
 
-- [x] **Explicit Type Specifications:** Added to all sections in julia_lattice_methods_reference.md: Construction (2.3), Intrinsic data (2.4), Vector enumeration (2.6), Genus/ZZGenus/ZZLocalGenus (2.7), TorQuadModule (2.11), and all ZZLatWithIsom subsections including Construction/Accessors/Attributes/Type classification/Operations/Kernel sublattices/Discriminant groups/Spinor norm/Enumeration (2.14); completed 2026-02-19
+- [x] **Explicit Type Specifications:** Added to all sections in julia_lattice_methods_reference.md: Quadratic/hermitian spaces (2.2), Construction (2.3), Intrinsic data (2.4), Reduction (2.5), Vector enumeration (2.6), Genus/ZZGenus/ZZLocalGenus (2.7), Automorphism/isometry (2.8), Module operations/embeddings (2.9), Vinberg's algorithm (2.10), TorQuadModule (2.11), Hermitian lattices HermLat/QuadLat (2.12), QuadSpaceWithIsom (2.13), all ZZLatWithIsom subsections (2.14), Primitive embeddings (2.15), Hermitian genera (2.16), Isometry group actions (2.17), TorQuadModuleWithIsom (2.18); all sections completed 2026-02-19
