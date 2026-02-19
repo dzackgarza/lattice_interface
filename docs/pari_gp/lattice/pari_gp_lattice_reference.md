@@ -33,7 +33,7 @@ Representation model:
 |----------|----------------|-------------|-------------|------|
 | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
 | `qflllgram(G, {flag = 0})` | `G`: symmetric integer matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns reduced Gram matrix | `[PD, ZZMOD, RED]` |
-| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists | `[PD, RED]` |
+| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
 | `qfjacobi(G)` | `G`: symmetric real matrix | vector | Jacobi eigenvalue method for symmetric matrices; returns eigenvalues and eigenvectors | `[PD]` |
 | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
 | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
@@ -99,6 +99,7 @@ For indefinite lattices/forms:
 
 - PARI function index (stable): https://pari.math.u-bordeaux.fr/dochtml/ref-stable/function_index.html
 - PARI vectors/matrices + qf APIs: https://pari.math.u-bordeaux.fr/dochtml/ref-stable/Vectors__matrices__linear_algebra_and_sets.html
+- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` (§qfcholesky: no explicit PD requirement unlike qfcvp/qfminim)
 - Local provenance capture: `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
 - PARI docs home: https://pari.math.u-bordeaux.fr/
 - Sage PARI bridge docs for `qfsolve`/`qfparam`: https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/qfsolve.html
