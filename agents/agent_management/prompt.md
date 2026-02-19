@@ -19,13 +19,15 @@ Read the playbook and all example tasks before doing anything else:
 Check the ntfy topic for recent notifications first. Every run (success or failure) pushes a notification. This is the entry point for understanding what has been happening:
 
 ```bash
-curl -s -H "Accept: application/json" "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=2h" | jq .
+curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
 ```
+
+Read the full message bodies - they contain commit summaries and `last_message` that reveal what work was actually done. A "SUCCESS" may be trivial or harmful (e.g., committing completion claims, creating changelog memories).
 
 Cross-reference notification timestamps against crontab. Triage:
 1. **Missing notification** = silent failure (highest priority)
 2. **Failed notification** (tag: `x`) = agent ran but failed
-3. **Success notification** (tag: `white_check_mark`) = no action needed
+3. **Success notification** (tag: `white_check_mark`) = still audit for trivial/harmful work
 
 ## SECOND GOAL (MANDATORY)
 
