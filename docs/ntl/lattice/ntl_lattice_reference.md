@@ -31,14 +31,14 @@ Representation convention in these APIs: lattice/module bases are given by matri
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `LLL(ZZ& det2, mat_ZZ& B, long verbose=0)` | Exact LLL; default `delta=3/4`; returns rank `r`; first `m-r` rows of `B` become zero; `det2` is set to the squared determinant of the reduced lattice. | `[ZZMOD, RED, CPP]` |
-| `LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Exact LLL with unimodular transform `U` s.t. `U * old_B = new_B`; first `m-r` rows of `U` span the kernel of `old_B`. | `[ZZMOD, RED, CPP]` |
-| `LLL(ZZ& det2, mat_ZZ& B, long a, long b, long verbose=0)` | Exact LLL with rational reduction parameter `delta = a/b`; requires `1/4 < a/b <= 1`, `a,b` positive integers. | `[ZZMOD, RED, CPP]` |
-| `LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | Exact LLL with rational `delta = a/b` plus unimodular transform output `U`. | `[ZZMOD, RED, CPP]` |
-| `LLL_plus(vec_ZZ& D, mat_ZZ& B, long verbose=0)` | LLL variant returning Gram-Schmidt squared-length vector `D`: `D[0]=1`, and for `i=1..r`, `D[i]/D[i-1]` is the squared length of the i-th Gram-Schmidt basis vector; `D[r]` equals `det2` from plain LLL. | `[ZZMOD, RED, CPP]` |
-| `LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform output `U`. | `[ZZMOD, RED, CPP]` |
-| `image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Computes image/lattice basis data from integer matrix input using LLL-driven workflow. | `[ZZMOD, RED, CPP]` |
-| `LatticeSolve(vec_ZZ& x, const mat_ZZ& A, const vec_ZZ& y, long reduce=0)` | Solves `x*A = y` over integers when possible; sets `x` to a solution and returns `1` if solvable, leaves `x` unchanged and returns `0` if no integer solution exists. Optional `reduce` (0/1/2) controls quality of solution when the solution is not unique: 0=no effort, 1=size reduction on kernel, 2=LLL on kernel (provably near-optimal). | `[ZZMOD, SOLVE, CPP]` |
+| `long LLL(ZZ& det2, mat_ZZ& B, long verbose=0)` | Exact LLL; default `delta=3/4`; returns rank `r`; first `m-r` rows of `B` become zero; `det2` is set to the squared determinant of the reduced lattice. | `[ZZMOD, RED, CPP]` |
+| `long LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Exact LLL with unimodular transform `U` s.t. `U * old_B = new_B`; first `m-r` rows of `U` span the kernel of `old_B`. | `[ZZMOD, RED, CPP]` |
+| `long LLL(ZZ& det2, mat_ZZ& B, long a, long b, long verbose=0)` | Exact LLL with rational reduction parameter `delta = a/b`; requires `1/4 < a/b <= 1`, `a,b` positive integers. | `[ZZMOD, RED, CPP]` |
+| `long LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | Exact LLL with rational `delta = a/b` plus unimodular transform output `U`. | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long verbose=0)` | LLL variant returning Gram-Schmidt squared-length vector `D`: `D[0]=1`, and for `i=1..r`, `D[i]/D[i-1]` is the squared length of the i-th Gram-Schmidt basis vector; `D[r]` equals `det2` from plain LLL. Returns rank `r`. | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform output `U`. Returns rank `r`. | `[ZZMOD, RED, CPP]` |
+| `long image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Computes image/lattice basis data from integer matrix input using LLL-driven workflow; returns rank `r`. | `[ZZMOD, RED, CPP]` |
+| `long LatticeSolve(vec_ZZ& x, const mat_ZZ& A, const vec_ZZ& y, long reduce=0)` | Solves `x*A = y` over integers when possible; sets `x` to a solution and returns `1` if solvable, leaves `x` unchanged and returns `0` if no integer solution exists. Optional `reduce` (0/1/2) controls quality of solution when the solution is not unique: 0=no effort, 1=size reduction on kernel, 2=LLL on kernel (provably near-optimal). | `[ZZMOD, SOLVE, CPP]` |
 
 ---
 
@@ -46,8 +46,8 @@ Representation convention in these APIs: lattice/module bases are given by matri
 
 | API family | Description | Tags |
 |------------|-------------|------|
-| `[G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants). | `[ZZMOD, RED, CPP]` |
-| `[G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model, with configurable block size and pruning. | `[ZZMOD, RED, CPP]` |
+| `long [G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants); returns rank. | `[ZZMOD, RED, CPP]` |
+| `long [G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model, with configurable block size and pruning; returns rank. | `[ZZMOD, RED, CPP]` |
 
 Important caveats from upstream docs:
 
@@ -76,12 +76,21 @@ NTL's lattice-reduction APIs here are integer-matrix and Euclidean-reduction ori
 
 ---
 
-## 6. Sources
+## 6. Additional Utility APIs
+
+| API | Description | Tags |
+|-----|-------------|------|
+| `void ComputeGS(const mat_ZZ& B, mat_RR& mu, vec_RR& c)` | Computes Gramm-Schmidt data for B. Assumes B is an m x n matrix of rank m. Let {B^*(i)} be the orthogonal basis, then c(i) = |B^*(i)|^2, and B^*(i) = B(i) - sum_{j=1}^{i-1} mu(i,j) B^*(j). Uses classical Gramm-Schmidt orthogonalization. | `[ZZMOD, CPP]` |
+| `void NearVector(vec_ZZ& w, const mat_ZZ& B, const vec_ZZ& a)` | Computes a vector w that is an approximation to the closest vector in the lattice spanned by B to a, using the "closest plane" algorithm from Babai (Combinatorica 6:1-13, 1986). B must be a square matrix, and it is assumed that B is already LLL or BKZ reduced (the better the reduction the better the approximation). Uses RR arithmetic with current precision. | `[ZZMOD, CPP]` |
+
+---
+
+## 7. Sources
 
 - NTL module map (LLL + HNF listed): `https://libntl.org/doc/tour-modules.html`
 - NTL LLL/BKZ and solve API docs: `https://libntl.org/doc/LLL.cpp.html`
 - NTL HNF API docs: `https://libntl.org/doc/HNF.cpp.html`
 - NTL lattice-reduction tutorial examples: `https://libntl.org/doc/tour-ex4.html`
-- Local upstream snapshot: `docs/ntl/upstream/LLL.txt` (exact LLL, LLL_plus, image, LatticeSolve signatures verified from this file)
-- Local upstream snapshot: `docs/ntl/upstream/mat_ZZ.txt` (mat_ZZ type definitions)
+- Local upstream snapshot: `docs/ntl/upstream/LLL.cpp.html` (exact LLL, LLL_plus, image, LatticeSolve, ComputeGS, NearVector signatures verified from this file)
+- Local upstream snapshot: `docs/ntl/upstream/mat_ZZ.cpp.html` (mat_ZZ type definitions)
 
