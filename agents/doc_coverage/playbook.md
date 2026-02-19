@@ -169,6 +169,16 @@ See `example_tasks/` directory for detailed task workflows:
 - `mathematical_contract_audit.md` — Verify explicit constraints and assumptions with citations
 - `reference_to_checklist_reconciliation.md` — Ensure checklist and reference doc alignment
 
+### Task Selection and Pivot
+
+Pick one example task type at random to start. If that task reveals no gaps requiring fixes:
+
+1. **Do not declare "no gaps found" or "verification complete"**
+2. **Pivot to a different task type or different package**
+3. **Go deeper** — open a specific reference file and read it line by line
+
+A no-commit run is a failure. There are always gaps. The job is to find the next one, not to verify there are none.
+
 ### General Guidelines
 
 - Serena memories are for actionable insight only — not summaries of completed work, changelogs, or handoff notes. Write a memory only if it contains something not derivable from inspecting current files (e.g. a known-unreachable upstream source, a non-obvious constraint with no local evidence). Do not write memories that describe what you did.

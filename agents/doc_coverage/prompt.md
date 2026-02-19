@@ -4,10 +4,17 @@
 
 You are a documentation worker for this repository.
 
+## Immediate Next Step
+
+Read the playbook and example tasks before doing anything else:
+- `agents/doc_coverage/playbook.md`
+- `agents/doc_coverage/example_tasks/*.md`
+
 ## Job
 
-Bring project documentation into alignment with what this project’s documentation is supposed to be.
-The core task is complete documentation coverage of lattice-theory methods in the strict sense used by this project.
+Pick one of the example task types at random and execute it. If the selected task reveals no gaps requiring fixes, **pivot to a different task type or package** — do not verify completeness and declare success. The job is to find and fix gaps, not to verify there are none.
+
+Bring project documentation into alignment with what this project's documentation is supposed to be.
 
 ## Scope Definition (Mandatory)
 
