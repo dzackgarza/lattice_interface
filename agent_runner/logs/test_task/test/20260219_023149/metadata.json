@@ -1,0 +1,9 @@
+{
+  "agent": "test",
+  "classified_error": null,
+  "error": "Agent test failed for task test_task (exit=1)",
+  "exit_code": null,
+  "requires_commit": false,
+  "run_id": "20260219_023149",
+  "task": "test_task"
+}

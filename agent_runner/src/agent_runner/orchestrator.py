@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import warnings
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Literal, assert_never
 
 import typer
@@ -16,6 +16,7 @@ from .errors import (
     AgentCommitMissingError,
     AgentProcessError,
     AgentRunnerError,
+    AgentTimeoutError,
     RateLimitUsageError,
 )
 from .logging import (
@@ -63,7 +64,9 @@ class Orchestrator(BaseModel):
 
         now = datetime.now(timezone.utc)
         run_id = now.strftime("%Y%m%d_%H%M%S")
-        run_ctx = build_run_context(agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id)
+        run_ctx = build_run_context(
+            agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id
+        )
         logger = get_logger(run_ctx)
 
         debug_prompt_path = None
@@ -72,13 +75,20 @@ class Orchestrator(BaseModel):
         elif self.args.debug:
             debug_prompt_path = config.settings.debug_prompts()["smoke"]
 
+        start_time = datetime.now(timezone.utc)
+        end_time = start_time
+        exit_code = 0
+        error_type: str | None = None
+        error_detail: str | None = None
+
         try:
-            start_time = datetime.now(timezone.utc)
             start_monotonic = time.monotonic()
             head_before = git.get_head()
 
             if debug_prompt_path is not None:
-                task_obj = task_obj.model_copy(update={"prompt_path": debug_prompt_path})
+                task_obj = task_obj.model_copy(
+                    update={"prompt_path": debug_prompt_path}
+                )
 
             if self.args.dry_run:
                 proc_result = None
@@ -108,16 +118,20 @@ class Orchestrator(BaseModel):
                 raise AgentCommitMissingError(agent_obj.name, task_obj.name)
 
             end_time = datetime.now(timezone.utc)
-            elapsed = time.monotonic() - start_monotonic
+            elapsed = end_time - start_time
 
             last_message = transcript.parse_last_message(
                 agent=agent_obj.name,
                 stdout=stdout,
-                last_message_path=proc_result.last_message_path if proc_result else None,
+                last_message_path=proc_result.last_message_path
+                if proc_result
+                else None,
             )
             token_count = transcript.parse_token_usage_from_outputs(
                 stdout=stdout,
-                last_message_path=proc_result.last_message_path if proc_result else None,
+                last_message_path=proc_result.last_message_path
+                if proc_result
+                else None,
             )
             if agent_obj.name == "gemini":
                 gemini_message, gemini_tokens = transcript.parse_gemini_json(stdout)
@@ -143,7 +157,7 @@ class Orchestrator(BaseModel):
                 "debug_prompt": str(debug_prompt_path) if debug_prompt_path else None,
                 "dry_run": self.args.dry_run,
                 "requires_commit": task_obj.requires_commit,
-                "classified_error": "usage_limit" if classified else None,
+                "classified_error": None,
             }
             write_metadata(run_ctx.metadata_path, metadata)
 
@@ -180,6 +194,10 @@ class Orchestrator(BaseModel):
             logger.info("Run complete")
             return 0
         except RateLimitUsageError as exc:
+            end_time = datetime.now(timezone.utc)
+            exit_code = 10
+            error_type = "usage limit"
+            error_detail = str(exc)
             logger.exception("Agent runner error")
             warnings.warn(str(exc), RuntimeWarning)
             typer.echo(f"RateLimitUsageError: {exc}", err=True)
@@ -193,11 +211,28 @@ class Orchestrator(BaseModel):
                 "requires_commit": task_obj.requires_commit,
             }
             write_metadata(run_ctx.metadata_path, error_meta)
-            notified, notify_err = _notify_error(run_ctx, str(exc))
-            if not notified:
-                logger.error("Notification failed", error=notify_err)
-            return 10
+        except AgentTimeoutError as exc:
+            end_time = datetime.now(timezone.utc)
+            exit_code = 11
+            error_type = "timeout"
+            error_detail = str(exc)
+            logger.exception("Agent timed out")
+            typer.echo(f"AgentTimeoutError: {exc}", err=True)
+            error_meta = {
+                "run_id": run_ctx.run_id,
+                "agent": agent_obj.name,
+                "task": task_obj.name,
+                "exit_code": None,
+                "error": str(exc),
+                "classified_error": "timeout",
+                "requires_commit": task_obj.requires_commit,
+            }
+            write_metadata(run_ctx.metadata_path, error_meta)
         except AgentRunnerError as exc:
+            end_time = datetime.now(timezone.utc)
+            exit_code = 1
+            error_type = "unknown"
+            error_detail = str(exc)
             logger.exception("Agent runner error")
             error_meta = {
                 "run_id": run_ctx.run_id,
@@ -209,18 +244,37 @@ class Orchestrator(BaseModel):
                 "requires_commit": task_obj.requires_commit,
             }
             write_metadata(run_ctx.metadata_path, error_meta)
-            notified, notify_err = _notify_error(run_ctx, str(exc))
-            if not notified:
-                logger.error("Notification failed", error=notify_err)
-            return 1
         except typer.Exit:
             raise
         except Exception as exc:  # pragma: no cover
+            end_time = datetime.now(timezone.utc)
+            exit_code = 2
+            error_type = "unhandled"
+            error_detail = str(exc)
             logger.exception("Unhandled error", error=str(exc))
-            notified, notify_err = _notify_error(run_ctx, f"Unhandled error: {exc}")
-            if not notified:
-                logger.error("Notification failed", error=notify_err)
-            return 2
+            error_meta = {
+                "run_id": run_ctx.run_id,
+                "agent": agent_obj.name,
+                "task": task_obj.name,
+                "exit_code": None,
+                "error": str(exc),
+                "classified_error": None,
+                "requires_commit": task_obj.requires_commit,
+            }
+            write_metadata(run_ctx.metadata_path, error_meta)
+        finally:
+            if error_type is not None and task_obj.notify:
+                notified, notify_err = _notify_error(
+                    run_ctx=run_ctx,
+                    error_type=error_type,
+                    error_detail=error_detail,
+                    start_time=start_time,
+                    end_time=end_time,
+                )
+                if not notified:
+                    logger.error("Notification failed", error=notify_err)
+
+        return exit_code
 
 
 def _build_task(task_name: TaskName) -> AgentTask:
@@ -299,8 +353,12 @@ def _build_agent(agent_name: AgentName):
             assert_never(agent_name)
 
 
-def _format_elapsed(seconds: float) -> str:
-    minutes, secs = divmod(int(seconds), 60)
+def _format_elapsed(elapsed: float | timedelta) -> str:
+    if isinstance(elapsed, timedelta):
+        total_seconds = elapsed.total_seconds()
+    else:
+        total_seconds = elapsed
+    minutes, secs = divmod(int(total_seconds), 60)
     return f"{minutes}m{secs:02d}s"
 
 
@@ -308,7 +366,7 @@ def _notify_success(
     run_ctx: RunContext,
     start_time: datetime,
     end_time: datetime,
-    elapsed: float,
+    elapsed: float | timedelta,
     last_message: str,
     token_count: int | None,
     commit_summary: git.CommitSummary,
@@ -319,9 +377,13 @@ def _notify_success(
     token_line = f"tokens: {token_count}" if token_count is not None else "tokens: n/a"
     files_line = ", ".join(commit_summary.files_changed) or "(no files)"
     loc_line = f"+{commit_summary.insertions}/-{commit_summary.deletions}"
-    commit_subjects = "\n".join(
-        f"- {commit.subject} ({commit.commit[:8]})" for commit in commit_summary.commits
-    ) or "(no commits)"
+    commit_subjects = (
+        "\n".join(
+            f"- {commit.subject} ({commit.commit[:8]})"
+            for commit in commit_summary.commits
+        )
+        or "(no commits)"
+    )
     body = (
         f"agent: {run_ctx.agent_name}\n"
         f"task: {run_ctx.task_name}\n"
@@ -335,12 +397,34 @@ def _notify_success(
         f"last_message:\n{last_message}\n"
     )
     title = f"[{run_ctx.task_name}] {run_ctx.agent_name} — SUCCESS — {end_str}"
-    return send_notification(title=title, body=body, priority="default", tags="white_check_mark")
+    return send_notification(
+        title=title, body=body, priority="default", tags="white_check_mark"
+    )
 
 
-def _notify_error(run_ctx: RunContext, message: str) -> tuple[bool, str | None]:
+def _notify_error(
+    run_ctx: RunContext,
+    error_type: str,
+    error_detail: str | None,
+    start_time: datetime,
+    end_time: datetime,
+) -> tuple[bool, str | None]:
+    start_str = start_time.strftime("%Y-%m-%d %H:%M:%S UTC")
+    end_str = end_time.strftime("%Y-%m-%d %H:%M:%S UTC")
+    elapsed = end_time - start_time
+    elapsed_str = _format_elapsed(elapsed)
+
+    detail_line = f"{error_detail}\n" if error_detail else ""
+    body = (
+        f"Agent: {run_ctx.agent_name}\n"
+        f"Task: {run_ctx.task_name}\n"
+        f"Start: {start_str}\n"
+        f"End: {end_str}\n"
+        f"Elapsed: {elapsed_str}\n\n"
+        f"Error: {error_type}\n"
+        f"{detail_line}"
+    )
     title = f"[{run_ctx.task_name}] {run_ctx.agent_name} — FAILED"
-    body = f"{message}\nrun_id: {run_ctx.run_id}\nlog_dir: {run_ctx.run_dir}"
     return send_notification(title=title, body=body, priority="high", tags="x")
 
 

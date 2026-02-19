@@ -1,0 +1,3 @@
+/usr/bin/sleep: invalid time interval ‘/usr/bin/sleep’
+/usr/bin/sleep: invalid time interval ‘test prompt’
+Try '/usr/bin/sleep --help' for more information.

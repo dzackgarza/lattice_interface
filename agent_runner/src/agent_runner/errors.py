@@ -6,7 +6,9 @@ class AgentRunnerError(Exception):
 
 
 class AgentProcessError(AgentRunnerError):
-    def __init__(self, agent: str, task: str, exit_code: int, detail: str | None = None) -> None:
+    def __init__(
+        self, agent: str, task: str, exit_code: int, detail: str | None = None
+    ) -> None:
         detail_msg = f" ({detail})" if detail else ""
         super().__init__(
             f"Agent {agent} failed for task {task} (exit={exit_code}){detail_msg}"
@@ -36,3 +38,13 @@ class RateLimitUsageError(AgentRunnerError):
 class AgentMetadataError(AgentRunnerError):
     def __init__(self, message: str) -> None:
         super().__init__(message)
+
+
+class AgentTimeoutError(AgentRunnerError):
+    def __init__(self, agent: str, task: str, timeout_seconds: int) -> None:
+        super().__init__(
+            f"Agent {agent} timed out after {timeout_seconds}s for task {task}"
+        )
+        self.agent = agent
+        self.task = task
+        self.timeout_seconds = timeout_seconds

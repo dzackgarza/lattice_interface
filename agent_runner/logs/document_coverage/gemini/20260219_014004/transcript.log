@@ -1360,3 +1360,4 @@ Attempt 1 failed with status 429. Retrying with backoff... GaxiosError: [{
   status: 429,
   Symbol(gaxios-gaxios-error): '6.7.1'
 }
+Error executing tool list_directory: Path not in workspace: Attempted path "/home/dzack/lattice_interface" resolves outside the allowed workspace directories: /home/dzack/lattice_interface/agent_runner or the project temp directory: /home/dzack/.gemini/tmp/agent-runner
