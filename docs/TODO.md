@@ -1,9 +1,10 @@
 # Documentation Gaps - Bilinear-Form Lattice Methods
 
-This file tracks missing prerequisites for building the per-package method checklists correctly.
-The checklists themselves track per-method completion; this file tracks what must exist *before* checklist entries can be filled out with source-backed accuracy (primarily: local copies of upstream docs).
+This file tracks the prerequisite state for building complete documentation.
+Reference docs (`docs/*/lattice/*.md`) track method surfaces with source-backed signatures.
+Checklist files (`docs/*_methods_checklist.md`) track TEST COVERAGE - separate task.
 
-**STATUS (2026-02-19)**: Goal 1 NOT COMPLETE - local doc copies missing for 8 packages.
+**STATUS (2026-02-19)**: Goal 1 NOT COMPLETE - 8 packages missing local doc integration.
 
 ## Goal 1: Local Doc Integration (MANDATORY PREREQUISITE)
 
@@ -26,3 +27,20 @@ Local upstream docs under `docs/**/upstream/` are required before contract-fidel
 - [x] flatter (README and example profiles)
 - [x] SageMath (integral lattice docs)
 - [x] Oscar/Hecke (Julia lattice docs)
+
+
+## Goal 2: Contract-Fidelity Work (Post-Integration)
+
+This section tracks gaps in method documentation completeness (argument surfaces, types, assumptions, constraints) for packages with integrated local docs.
+
+### GAP Forms Package (`docs/forms/lattice/forms_lattice_reference.md`)
+
+- [ ] **Explicit Type Specifications:** Add explicit GAP type annotations or descriptions for all function arguments and return values. The current documentation lacks this detail, making it harder to use without consulting the original GAP manual.
+
+### SageMath (`docs/sage_methods_checklist.md`)
+
+- [ ] **Explicit Type Specifications:** Add explicit SageMath type annotations or descriptions for all function arguments and return values to improve clarity and reduce reliance on upstream documentation.
+
+### Julia/Hecke.jl (`docs/julia_methods_checklist.md`)
+
+- [ ] **Explicit Type Specifications:** Add explicit Julia type annotations or descriptions for all function arguments and return values to make the documentation more self-contained.
