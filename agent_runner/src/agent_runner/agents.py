@@ -78,39 +78,44 @@ class AgentInterface(BaseModel, ABC):
         env = {**os.environ, **self._build_env()}
         final_args = [self.binary] + list(args) + [prompt_string]
         chunks: list[bytes] = []
+        timed_out = False
+
+        try:
+            proc = subprocess.Popen(
+                final_args,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                cwd=cwd,
+                env=env,
+                start_new_session=True,
+            )
+        except FileNotFoundError:
+            raise AgentMetadataError(f"Binary not found: {self.binary}")
+
         with run_ctx.transcript_path.open("wb") as live_log:
-            try:
-                proc = subprocess.Popen(
-                    final_args,
-                    stdin=subprocess.DEVNULL,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    cwd=cwd,
-                    env=env,
-                )
-            except FileNotFoundError:
-                raise AgentMetadataError(f"Binary not found: {self.binary}")
+            def read_output():
+                assert proc.stdout is not None
+                for line in iter(proc.stdout.readline, b""):
+                    live_log.write(line)
+                    live_log.flush()
+                    chunks.append(line)
 
-            def wait_with_timeout():
-                while proc.poll() is None:
-                    time.sleep(1)
+            reader_thread = threading.Thread(target=read_output)
+            reader_thread.start()
+            reader_thread.join(timeout=TIMEOUT_SECONDS)
 
-            timeout_thread = threading.Thread(target=wait_with_timeout)
-            timeout_thread.start()
-            timeout_thread.join(timeout=TIMEOUT_SECONDS)
+            if reader_thread.is_alive():
+                timed_out = True
+                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+                reader_thread.join(timeout=5)
+                if reader_thread.is_alive():
+                    os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+                    reader_thread.join(timeout=2)
 
-            if proc.poll() is None:
-                proc.send_signal(signal.SIGTERM)
-                timeout_thread.join(timeout=5)
-                if proc.poll() is None:
-                    proc.kill()
-                raise AgentTimeoutError(self.name, run_ctx.task_name, TIMEOUT_SECONDS)
+        if timed_out:
+            raise AgentTimeoutError(self.name, run_ctx.task_name, TIMEOUT_SECONDS)
 
-            assert proc.stdout is not None
-            for line in iter(proc.stdout.readline, b""):
-                live_log.write(line)
-                live_log.flush()
-                chunks.append(line)
         exit_code = proc.wait()
         combined = b"".join(chunks).decode("utf-8", errors="replace")
         return ProcessResult(exit_code=exit_code, stdout=combined)
@@ -219,6 +224,24 @@ class KiloAgent(AgentInterface):
             "--auto",
             "-m",
             "kilo/minimax/minimax-m2.5:free",
+        ]
+        return self._run_command(
+            args=args,
+            prompt_string=prompt_string,
+            run_ctx=run_ctx,
+            cwd=config.settings.repo_root,
+        )
+
+
+class OpencodeAgent(AgentInterface):
+    def _run_with_prompt(
+        self, prompt_string: str, task: AgentTask, run_ctx: RunContext
+    ) -> ProcessResult:
+        model = os.environ.get("OPENCODE_MODEL", "opencode/kimi-k2.5-free")
+        args = [
+            "run",
+            "-m",
+            model,
         ]
         return self._run_command(
             args=args,

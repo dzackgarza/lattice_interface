@@ -27,9 +27,11 @@ class Settings(BaseSettings):
     gemini_model: str = "auto"
     ollama_bin: str = "ollama"
     kilo_bin: str = "/home/dzack/.nvm/versions/node/v25.6.1/bin/kilo"
+    opencode_bin: str = "/home/dzack/.opencode/bin/opencode"
 
     def task_prompts(self) -> dict[str, Path]:
         return {
+            "agent_management": self.agents_dir / "agent_management" / "prompt.md",
             "document_coverage": self.agents_dir / "doc_coverage" / "prompt.md",
             "document_test_alignment": self.agents_dir / "test_coverage" / "prompt.md",
             "debug_smoke_commit": self.prompts_dir / "debug" / "commit_smoke.md",

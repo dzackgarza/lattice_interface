@@ -29,3 +29,7 @@ class DocumentTestAlignmentTask(AgentTask):
 
 class DebugSmokeCommitTask(AgentTask):
     pass
+
+
+class AgentManagementTask(AgentTask):
+    pass

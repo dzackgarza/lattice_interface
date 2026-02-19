@@ -16,6 +16,7 @@ from .agents import (
     GeminiAgent,
     KiloAgent,
     OllamaAgent,
+    OpencodeAgent,
     RunContext,
 )
 from .agent_errors import classify_usage_limit
@@ -36,6 +37,7 @@ from .logging import (
 from .notifications import send_notification
 from .tasks import (
     AgentTask,
+    AgentManagementTask,
     DebugSmokeCommitTask,
     DocumentCoverageTask,
     DocumentTestAlignmentTask,
@@ -43,8 +45,9 @@ from .tasks import (
 
 app = typer.Typer(add_completion=False)
 
-AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama"]
+AgentName = Literal["codex", "claude", "gemini", "kilo", "ollama", "opencode"]
 TaskName = Literal[
+    "agent_management",
     "document_coverage",
     "document_test_alignment",
     "debug_smoke_commit",
@@ -153,7 +156,7 @@ class Orchestrator(BaseModel):
                 "task": task_obj.name,
                 "start_time": start_time.isoformat(),
                 "end_time": end_time.isoformat(),
-                "elapsed_seconds": elapsed,
+                "elapsed_seconds": elapsed.total_seconds() if elapsed else 0,
                 "exit_code": exit_code,
                 "token_count": token_count,
                 "last_message": last_message,
@@ -286,6 +289,12 @@ class Orchestrator(BaseModel):
 
 def _build_task(task_name: TaskName) -> AgentTask:
     match task_name:
+        case "agent_management":
+            return AgentManagementTask(
+                name="agent_management",
+                task_key="agent_management",
+                prompt_path=config.settings.task_prompts()["agent_management"],
+            )
         case "document_coverage":
             return DocumentCoverageTask(
                 name="document_coverage",
@@ -360,6 +369,14 @@ def _build_agent(agent_name: AgentName):
             return KiloAgent(
                 name="kilo",
                 binary=config.settings.kilo_bin,
+                subcommand=None,
+                base_args=[],
+                env=env,
+            )
+        case "opencode":
+            return OpencodeAgent(
+                name="opencode",
+                binary=config.settings.opencode_bin,
                 subcommand=None,
                 base_args=[],
                 env=env,

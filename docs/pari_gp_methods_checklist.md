@@ -5,11 +5,15 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ---
 
-## 1. Reduction and Isometry APIs
+## 1. Reduction, Decomposition, and Isometry APIs
 
 - [ ] `qflll(x, {flag = 0})`
 - [ ] `qflllgram(G, {flag = 0})`
   - Caveat: primary contract is positive-definite Gram reduction.
+- [ ] `qfcholesky(G)`
+  - Caveat: positive-definite requirement; returns `[]` if decomposition fails.
+- [ ] `qfjacobi(G)`
+  - Caveat: for symmetric real matrices only; preferred over `mateigen` for symmetric matrices.
 - [ ] `qfisom(G, H, {fl}, {grp})`
 - [ ] `qfisominit(G, {fl}, {m})`
 - [ ] `qfauto(G, {fl})`
@@ -26,6 +30,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `qfeval({q}, x, {y})`
 - [ ] `qfnorm(x, {q})`
   - Caveat: obsolete in upstream PARI docs; prefer `qfeval`.
+- [ ] `qfbil(x, y, {q})`
+  - Caveat: **OBSOLETE** in upstream PARI docs; superseded by `qfeval`.
 
 ## 3. Indefinite / Equation-Solving APIs
 

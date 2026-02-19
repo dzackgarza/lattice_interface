@@ -101,25 +101,20 @@ Precision/clarification refinement work, including:
 - Source-backed coverage of all in-scope bilinear-form lattice methods and contracts known in the active ecosystem.
 - Mathematically correct and explicit contracts, assumptions, domains, and caveats.
 - Clear organization and navigation across checklists and detailed references.
-- Durable continuity and handoffs for future workers.
-
-## Task Completion Criteria (MANDATORY)
-
-**An agent has NOT completed this task if ANY of the following are true:**
-
-1. **Local source docs are incomplete**: There exists an in-scope package without integrated local upstream docs under `docs/**/upstream/` that could be used to verify method signatures and contracts.
-
-2. **Reference docs are incomplete**: There exists an in-scope package whose reference document (`docs/*/lattice/*.md`) lacks full typed signatures for any method surface.
-
-3. **Entries lack source connection**: Any reference entry lacks a cited local doc source demonstrating the method exists with the documented signature and constraints.
-
-4. **Verification not asserted**: The agent has not explicitly asserted in its output that items 1-3 above are false.
 
 **CHECKLIST FILES (docs/*_methods_checklist.md) TRACK TEST COVERAGE - THAT IS A SEPARATE TASK. DO NOT MIX TEST COVERAGE WITH DOCUMENTATION COMPLETION.**
 
-**This is an ALL-OR-NOTHING criterion.** An agent demonstrating 10% completion has not "mostly" completed the task - it has failed to complete it. The existence of any gap, no matter how small, means the task is incomplete.
+## When The Task Is Incomplete (Always)
 
-**Do NOT attempt to verify all items** - that is not the criterion. The criterion is: state whether the above conditions hold. If they do not hold (which they will not for the foreseeable future), the task is incomplete. Move forward on actual work rather than pretending completion is near.
+**The task is incomplete if ANY of the following are true:**
+
+1. There exists an in-scope package without integrated local upstream docs under `docs/**/upstream/`.
+2. There exists an in-scope package whose reference doc lacks full typed signatures for any method.
+3. Any reference entry lacks a cited local doc source for its documented signature and constraints.
+
+**This is an ALL-OR-NOTHING criterion.** The existence of any gap, no matter how small, means the task is incomplete. Do not describe partial progress as completion.
+
+**Do NOT attempt to verify all items before working.** These conditions will not be false for the foreseeable future. The correct response to finding them is to pick a gap and fix it — not to assert whether the conditions hold.
 
 ## Quality Questions
 
@@ -146,14 +141,10 @@ Treat these as project-wide values to assess continuously:
 
 ## Process Guidelines
 
-- Serena is the primary continuity and handoff system:
-  - activate project,
-  - read relevant memories,
-  - write/update memories with decisions, remaining gaps, and follow-up tasks.
+- Serena memories are for actionable insight only — not summaries of completed work, changelogs, or handoff notes. Write a memory only if it contains something a future agent genuinely needs to act on (e.g. a source URL that is unreachable, a constraint that is non-obvious and would otherwise be wrong, an upstream discrepancy that needs resolution). Do not write memories that describe what you did.
 - `docs/TODO.md` is the outstanding work queue:
   - review it at the start of each assignment,
-  - execute relevant in-scope open items,
-  - mark completed items as checked (`- [x]`) in the same assignment.
+  - execute relevant in-scope open items.
 - Git is the change ledger:
   - commit documentation changes produced by the assignment.
   - push those commits after completion, using `GITHUB_TOKEN` from `.env`.
@@ -165,13 +156,9 @@ Treat these as project-wide values to assess continuously:
 ### Network Bailout Contingency (Mandatory)
 
 - If a known/canonical upstream URL is discovered via web results but direct shell retrieval fails (for example `curl` DNS/TLS/connectivity failure), do not keep looping broad web searches.
-- Retry the same URL a small fixed number of times (`<=2`) and record the exact failing command + error output in provenance/handoff notes.
+- Retry the same URL a small fixed number of times (`<=2`).
 - Treat this as an environment access failure, not proof that upstream docs do not exist.
-- Earmark the blocked source task for explicit future follow-up with:
-  - URL(s),
-  - UTC timestamp,
-  - observed error class (`dns`, `timeout`, `tls`, etc.),
-  - exact remaining method-surface gap.
+- If a source is genuinely unreachable and the gap is actionable for a future agent, write a Serena memory with the URL and the specific method-surface gap it would fill.
 - Then pivot the same run to substantial offline work (not meta-only churn), such as:
   - improving source-backed contracts from local snapshots under `docs/**/upstream/`,
   - correcting invalid/broken links and provenance mismatches,

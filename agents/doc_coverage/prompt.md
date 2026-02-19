@@ -71,14 +71,13 @@ Precision/clarity refinement work, including:
 
 ## Process Guidelines
 
-- Serena is the continuity system:
+- Serena memories are for actionable insight only:
   - activate the project,
   - read relevant memories,
-  - write/update continuity and handoff memories before finishing.
+  - write a memory only if it contains something a future agent needs to act on — never to summarize completed work.
 - `docs/TODO.md` is the execution queue for outstanding documentation work:
   - review it at the start of each run,
-  - complete relevant outstanding items within scope,
-  - check off completed items (`- [x]`) as part of the same change.
+  - complete relevant outstanding items within scope.
 - Git is the change ledger:
   - if documentation changes are made, commit them.
 - Dirty git states are normal:
