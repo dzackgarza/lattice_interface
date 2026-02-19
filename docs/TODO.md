@@ -32,7 +32,7 @@ This section tracks gaps in method documentation completeness (argument surfaces
 
 ### GAP Forms Package (`docs/forms/lattice/forms_lattice_reference.md`)
 
-- [ ] **Explicit Type Specifications:** Add explicit GAP type annotations or descriptions for all function arguments and return values. The current documentation lacks this detail, making it harder to use without consulting the original GAP manual.
+- [x] **Explicit Type Specifications:** Add explicit GAP type annotations or descriptions for all function arguments and return values. The current documentation lacks this detail, making it harder to use without consulting the original GAP manual.
 
 ### SageMath (`docs/sage_methods_checklist.md`)
 
