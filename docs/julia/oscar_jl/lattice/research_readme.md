@@ -10,6 +10,7 @@
 | `[PD]` | Requires or only meaningful for **positive definite** forms |
 | `[ND]` | Requires **non-degenerate** bilinear form |
 | `[INDEF]` | Works correctly for **indefinite** signatures |
+| `[DEFINITE]` | Requires **definite** form (positive-definite or negative-definite); indefinite forms raise error or return invalid results |
 | `[DEG]` | Works with **degenerate** forms |
 | `[EUCLID]` | Uses ambient Euclidean norm I_n; bilinear form not independently specified |
 | `[GAP]` | Delegates to **GAP** |
