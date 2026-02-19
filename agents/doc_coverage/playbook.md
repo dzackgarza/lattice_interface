@@ -116,30 +116,28 @@ Precision/clarification refinement work, including:
 
 **Do NOT attempt to verify all items before working.** These conditions will not be false for the foreseeable future. The correct response to finding them is to pick a gap and fix it — not to assert whether the conditions hold.
 
-## Quality Questions
-
-Treat these as project-wide values to assess continuously:
-
-- Are there online packages/docs with lattice algorithms not yet represented in the documentation surfaces?
-- Are candidate packages truly in scope, i.e. do they explicitly implement lattices as free modules with symmetric nondegenerate bilinear forms?
-- Do the docs clearly help a human understand what methods/tools are available and when to use them?
-- Is the current organization cohesive and easy to navigate across checklists and detailed references?
-- Do older docs need restructuring/reorganization to improve mathematical clarity or discoverability?
-- Did any edit remove mathematically relevant information?
-- Did the git diff actually improve quality against these questions?
-- Were edits grounded in real source documents/snapshots rather than assumptions or innate knowledge?
-- Were any mathematical assumptions introduced that are not clearly evidenced in source docs?
-- Were critical assumptions omitted (for example, positive-definite-only or ring/domain constraints)?
-- Were differing definitions/assumptions of lattices across sources reconciled where needed?
-- Were restrictions, assumptions, constraints, or authoritative statements introduced without clear source evidence?
-- Is language anywhere in the touched documentation surface vague or mathematically imprecise?
-- Are improvements grounded in checkable/provable statements?
-- Were vague claims introduced (`usually`, `typically`, `often`, `most of the time`) where exact truth values are available?
-- Were weak deferrals left in place (`unknown`, `unverified`, `needs testing`) where questions are reasonably answerable through docs/source/web research?
-- Did this assignment improve project-wide alignment to complete known-method coverage, rather than only local wording?
-- Did this assignment avoid expanding out-of-scope polyhedral/LP/toric/counting stacks that do not expose bilinear-form lattice APIs?
-
 ## Process Guidelines
+
+### Gap Identification (MANDATORY - BEFORE ANY EDITING)
+
+You may NOT make any edits until you have first completed gap identification. This is not optional. This is not verification. This is the work.
+
+**Required process for each run:**
+
+1. **Pick ONE package** from the in-scope registry
+2. **Read its upstream docs** under `docs/<package>/upstream/` 
+3. **Read its checklist** under `docs/<package>_methods_checklist.md`
+4. **Identify ONE specific method** present in upstream but absent from checklist
+5. **Record it** in `docs/TODO.md` with: package name, method name, upstream source location
+6. **Then** add that method to the checklist with proper source citations
+
+**Output requirement**: Before any edit, your scratchpad must contain:
+- The specific package you examined
+- The specific method you found missing
+- The specific upstream file and line where it exists
+- The specific checklist file where it should be added
+
+If you cannot produce these four specifics, you have not completed gap identification. Do not proceed to editing.
 
 ### State Anchoring (Anti-Drift)
 
@@ -168,16 +166,6 @@ See `example_tasks/` directory for detailed task workflows:
 - `cross_package_method_reconciliation.md` — Compare method implementations across packages
 - `mathematical_contract_audit.md` — Verify explicit constraints and assumptions with citations
 - `reference_to_checklist_reconciliation.md` — Ensure checklist and reference doc alignment
-
-### Task Selection and Pivot
-
-Pick one example task type at random to start. If that task reveals no gaps requiring fixes:
-
-1. **Do not declare "no gaps found" or "verification complete"**
-2. **Pivot to a different task type or different package**
-3. **Go deeper** — open a specific reference file and read it line by line
-
-A no-commit run is a failure. There are always gaps. The job is to find the next one, not to verify there are none.
 
 ### General Guidelines
 
