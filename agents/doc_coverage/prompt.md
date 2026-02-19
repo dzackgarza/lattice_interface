@@ -39,7 +39,7 @@ Completeness and provable correctness of all documented methods:
 
 If any of the above is missing or unsupported for any method, triage that gap immediately.
 
-**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. The correct response is to open the actual reference files, find a gap, and fix it. A run that declares completion without opening the reference files and verifying their content has failed.
+**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. There are always such gaps — the task is not to assess whether gaps exist but to pick a surface and fix the next one. A run that concludes "no gaps found" or "no gaps requiring immediate fixes" has not looked deeply enough. A no-commit run is a failure. Do not pivot to structural or management work when no documentation gap is obvious; go deeper into a specific reference file instead.
 
 Current-phase focus:
 
@@ -94,4 +94,4 @@ Precision/clarity refinement work, including:
 
 ## Output Format (Mandatory)
 
-Your final output must be 2-3 plain sentences. No headers, no bullets, no markdown. Answer only: what was wrong or missing, what is now correct or known, and why it matters for the project. Skip mechanical details (file names, checklist items, commit hashes). Example: "The `genus` discriminant constraint in OSCAR was previously undocumented; it only applies to even lattices and silently fails on odd ones. This is now recorded with the exact source reference."
+Your final output must be 2-3 plain sentences. No headers, no bullets, no markdown. Answer only: what specific gap you found, what is now correct or known, and why it matters for the project. Skip mechanical details (file names, checklist items, commit hashes). If you cannot name a specific contract gap that you found and fixed, your run has failed. Example: "The `genus` discriminant constraint in OSCAR was previously undocumented; it only applies to even lattices and silently fails on odd ones. This is now recorded with the exact source reference."
