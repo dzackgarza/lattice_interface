@@ -24,13 +24,9 @@ Out of scope:
 
 ## FIRST GOAL (MANDATORY)
 
-Perform a cursory maintenance check for missing in-scope package surfaces.
+Scan for missing in-scope package surfaces: check whether any relevant bilinear-form lattice-theoretic package is absent from the checklists, and open a new surface only when a clear, source-backed, in-scope gap is found.
 
-Current-phase interpretation:
-
-- green-fielding new package checklists is largely complete,
-- only check briefly whether any truly relevant bilinear-form lattice-theoretic package/algorithm is still missing,
-- open a new package surface only when a clear, source-backed, in-scope gap is found.
+Do not spend more than a brief scan on Goal 1 before proceeding to Goal 2. Declaring Goal 1 done without evidence, or treating its completion as license to stop, is a failure.
 
 ## SECOND GOAL (MANDATORY)
 
@@ -43,9 +39,11 @@ Completeness and provable correctness of all documented methods:
 
 If any of the above is missing or unsupported for any method, triage that gap immediately.
 
+**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. The correct response is to open the actual reference files, find a gap, and fix it. A run that declares completion without opening the reference files and verifying their content has failed.
+
 Current-phase focus:
 
-- Goal 2 and beyond are the active emphasis for this phase.
+- Goal 2 is the active emphasis for this phase.
 - Prioritize deepening correctness/completeness of existing in-scope surfaces over expanding package count.
 
 Scope gate for all edits:
