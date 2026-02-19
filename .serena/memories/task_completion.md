@@ -2,7 +2,7 @@
 - Determine assignment type first via `AGENTS.md`, then apply the corresponding playbook(s).
 - For documentation assignments:
   - follow `prompt.md` and `docs/documentation_coverage_audit_playbook.md`;
-  - review `docs/TODO.md` and update checkboxes for items completed in the same assignment;
+  - review `docs/TODO.md` and execute relevant outstanding items;
   - if documentation files changed, commit assignment-owned changes.
 - For code/test/runtime assignments:
   - follow `docs/test_coverage_playbook.md`;
@@ -13,5 +13,4 @@
 - Always:
   - keep changes source-backed and mathematically explicit;
   - do not revert/reset unrelated dirty files;
-  - record Serena continuity memory with: what changed, why, intentional non-edits, remaining gaps, follow-up tasks, commit hash(es).
-- If Serena is unavailable, write continuity directly to `docs/project/doc_coverage_audit_changelog.md` when that file is part of the active assignment workflow.
+  - do NOT write Serena memories that summarize what you did, what changed, or what remains — that is a changelog, not actionable insight; memories must contain only information a future agent needs to act on that it cannot discover from the files themselves.
