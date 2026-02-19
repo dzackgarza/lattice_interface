@@ -156,8 +156,9 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] ``automorphism_group_order(L::AbstractLat; depth::Int=-1, bacher_depth::Int=0)``
   - Caveat: upstream requires `is_definite(L)` — supports **both positive and negative definite** lattices; not restricted to positive definite only.
 - [ ] ``is_isometric(L1, L2)``
+  - Caveat: upstream requires `is_definite(L1)` and `is_definite(L2)` — supports **both positive and negative definite** lattices; uses LLL to rescale ND to PD before comparison.
 - [ ] ``is_isometric_with_isometry(L1, L2)``
-  - Caveat: upstream documents tuple return `(isometric::Bool, f)` with `(false, zero_matrix(QQ, 0, 0))` on failure, and kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true`.
+  - Caveat: upstream requires `is_definite(L1)` and `is_definite(L2)`; documents tuple return `(isometric::Bool, f)` with `(false, zero_matrix(QQ, 0, 0))` on failure, and kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true`.
 - [x] ``is_locally_isometric(L1, L2, p)`` [test: tests/julia_pytest/migrated_julia_doc/test_migrated_zzlat_automorphism.py::test_9_is_locally_isometric_same_lattice_at_prime_2]
 - [ ] ``is_rationally_isometric(L1, L2)``
 - [ ] ``hasse_invariant(L, p)``

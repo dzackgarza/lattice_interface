@@ -230,8 +230,8 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 |--------|-------------|------|
 | `automorphism_group_generators(L::AbstractLat; ambient_representation::Bool=true, depth::Int=-1, bacher_depth::Int=0)` | Generators of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite); `ambient_representation=true` returns matrices in ambient-space coordinates | `[DEFINITE, GAP]` |
 | `automorphism_group_order(L::AbstractLat; depth::Int=-1, bacher_depth::Int=0)` | Order of `Aut(L)`; upstream requires `is_definite(L)` (positive or negative definite) | `[DEFINITE]` |
-| `is_isometric(L1, L2)` | Isometry test | `[PD]` |
-| `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[PD]` |
+| `is_isometric(L1, L2)` | Isometry test; upstream requires `is_definite(L1)` and `is_definite(L2)` (positive or negative definite); uses LLL to rescale ND to PD before comparison | `[DEFINITE]` |
+| `is_isometric_with_isometry(L1, L2)` | Isometry test returning `(isometric::Bool, f)`; upstream requires `is_definite(L1)` and `is_definite(L2)`; docs specify `(false, zero_matrix(QQ, 0, 0))` on failure and expose kwargs `depth=3`, `bacher_depth=5`, `ambient_representation=true` | `[DEFINITE]` |
 | `is_locally_isometric(L1, L2, p)` | $p$-adic isometry test | |
 | `is_rationally_isometric(L1, L2)` | Rational (ℚ) isometry test | `[INDEF ok]` |
 | `hasse_invariant(L, p)` | Hasse invariant at prime $p$ | |

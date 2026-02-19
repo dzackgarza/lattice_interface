@@ -23,6 +23,8 @@ Real work needed.
 
 - [x] Fix `automorphism_group_generators` and `automorphism_group_order` definiteness constraint: tags were `[PD]` (positive definite only) but upstream OSCAR/Hecke docs explicitly state "Given a definite lattice `L`" — negative definite lattices are also supported; only indefinite lattices are excluded; corrected to `[DEFINITE]` across `julia_lattice_methods_reference.md`, `nemo_hecke_lattice_reference.md`, and `julia_methods_checklist.md`; also added `ambient_representation::Bool=true` kwarg to `automorphism_group_generators` signature. Sourced from `https://docs.oscar-system.org/stable/Hecke/manual/quad_forms/integer_lattices/`.
 
+- [x] Fix `is_isometric(L1, L2)` and `is_isometric_with_isometry(L1, L2)` definiteness constraint: tags were `[PD]` but upstream Hecke source code (Lattices.jl) shows the implementation uses LLL to rescale negative definite to positive definite before comparison, explicitly requiring `is_definite(L)` (both PD and ND supported); corrected to `[DEFINITE]` across `julia_lattice_methods_reference.md`, `nemo_hecke_lattice_reference.md`, and `julia_methods_checklist.md`. Sourced from Hecke.jl source `src/QuadForm/Lattices.jl` (2026-02-19).
+
 ## Goal 2 contract-fidelity verification (2026-02-18 follow-up)
 
 - [x] Verified `torquadmodwithisom.md` local snapshot already has `submodules(::TorQuadModuleWithIsom; quotype::Vector{Int}=Int[])` keyword contract — Julia references and checklist are consistent with local snapshot.
