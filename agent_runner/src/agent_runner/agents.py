@@ -70,9 +70,12 @@ class AgentInterface(BaseModel, ABC):
             prompt_path=config.settings.debug_prompts()["smoke"],
             requires_commit=False,
         )
-        result = self._run_with_prompt(
-            hello_task.prompt_text(), hello_task, run_ctx, timeout_seconds=30
-        )
+        try:
+            result = self._run_with_prompt(
+                hello_task.prompt_text(), hello_task, run_ctx, timeout_seconds=30
+            )
+        except AgentTimeoutError:
+            raise AgentConnectivityError(self.name, "preflight timed out after 30s")
         classified = classify_usage_limit(self.name, result.stdout)
         if classified:
             raise AgentConnectivityError(self.name, classified.message)
