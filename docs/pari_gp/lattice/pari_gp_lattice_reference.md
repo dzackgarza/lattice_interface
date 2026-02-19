@@ -8,10 +8,12 @@
 | Tag | Meaning |
 |-----|---------|
 | `[PD]` | Positive-definite assumptions |
+| `[PSD]` | Positive-semidefinite accepted (positive quadratic form, not necessarily definite) |
 | `[INDEF]` | Indefinite-form workflow |
 | `[ZZMOD]` | Integer/rational matrix basis setting |
 | `[NT]` | Number-theoretic quadratic form workflows |
 | `[RED]` | Basis reduction |
+| `[ND]` | Non-degenerate (non-zero determinant) required |
 
 ---
 
@@ -32,9 +34,9 @@ Representation model:
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
 | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
-| `qflllgram(G, {flag = 0})` | `G`: symmetric integer matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns reduced Gram matrix | `[PD, ZZMOD, RED]` |
+| `qflllgram(G, {flag = 0})` | `G`: symmetric real matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns transformation matrix `T` such that `x.T` is LLL-reduced. **Accepts positive quadratic forms (not necessarily definite)** — upstream states G must correspond to a positive quadratic form but x need not have maximal rank | `[PSD, ZZMOD, RED]` |
 | `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
-| `qfjacobi(G)` | `G`: symmetric real matrix | vector | Jacobi eigenvalue method for symmetric matrices; returns eigenvalues and eigenvectors | `[PD]` |
+| `qfjacobi(G)` | `G`: symmetric real matrix | vector `[L, V]` | Jacobi eigenvalue method for symmetric matrices; returns `L` (eigenvalues sorted increasingly) and `V` (orthogonal eigenvector matrix). **No positive-definite requirement** — upstream applies to any real symmetric matrix. Preferred over `mateigen` for symmetric matrices | `[RED]` |
 | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
 | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
 | `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
@@ -43,9 +45,11 @@ Representation model:
 
 Practical note:
 
-- `qflllgram` is primarily a positive-definite workflow; outside that regime results may be heuristic/non-canonical.
-- `qfminim` and `qfcvp` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
-- `qfauto`, `qfisom`, `qfisominit` require positive-definite forms (now tagged `[PD]` in method entries).
+- `qflllgram` accepts positive semidefinite forms (positive quadratic forms, not necessarily definite); the form need not have maximal rank.
+- `qfminim`, `qfcvp`, and `qfrep` behavior is undefined for non-positive-definite input; upstream notes a "precision too low" error is likely.
+- `qfauto`, `qfisom`, `qfisominit`, `qfperfection` require positive-definite forms (tagged `[PD]` in method entries).
+- `qfminimize` requires only non-degenerate forms (non-zero determinant), not positive-definite.
+- `qfjacobi`, `qfsign`, `qfsolve`, `qfgaussred` have no positive-definite requirement.
 
 ---
 
@@ -54,9 +58,9 @@ Practical note:
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
 | `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` |
-| `qfminimize(G)` | `G`: symmetric integer matrix | vector | Minimization helper workflow for forms | `[PD, NT]` |
+| `qfminimize(G)` | `G`: symmetric rational matrix with non-zero determinant | vector `[H, U, c]` | Minimization helper workflow for forms; returns `H = c*U~*G*U` with `H` integral and minimal determinant. **No positive-definite requirement** — upstream requires only rational coefficients and non-zero determinant | `[ND, NT]` |
 | `qfcvp(x, t, {B}, {m}, {flag = 0})` | `x`: integer matrix (basis); `t`: integer vector (target); `B`, `m`, `flag`: optional integers | integer vector | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
-| `qfrep(q, B, {flag = 0})` | `q`: integer; `B`: integer matrix; `flag`: integer (optional) | vector | Representation routines for quadratic forms | `[NT]` |
+| `qfrep(q, B, {flag = 0})` | `q`: symmetric integer matrix (positive-definite); `B`: integer (bound); `flag`: integer (optional) | vector | Count vectors representing successive integers; returns vector whose i-th entry is half the count of vectors v with q(v) = i. **Requires positive-definite form** — upstream explicitly states q must represent a positive definite quadratic form | `[PD, NT]` |
 | `qfeval({q}, x, {y})` | `q`: quadratic form (optional); `x`: integer vector/matrix; `y`: integer vector (optional) | integer | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
 | `qfnorm(x, {q})` | `x`: integer vector; `q`: quadratic form (optional) | integer | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
 | `qfbil(x, y, {q})` | `x`, `y`: vectors; `q`: quadratic form (optional) | integer | **OBSOLETE** - Bilinear form evaluation; superseded by `qfeval` | `[NT]` |
@@ -69,7 +73,7 @@ Practical note:
 |----------|----------------|-------------|-------------|------|
 | `qfsolve(G)` | `G`: symmetric integer matrix | integer vector or 0 | Solve isotropy/zero-representation equation for form `G`; returns vector or 0 | `[INDEF, NT]` |
 | `qfparam(G, sol, {flag = 0})` | `G`: symmetric integer matrix; `sol`: integer vector (isotropic); `flag`: integer (optional) | vector | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` |
-| `qfsign(G)` | `G`: symmetric integer matrix | vector (3 components) | Signature-related analysis of form; returns [p, n, nullity] | `[INDEF, NT]` |
+| `qfsign(G)` | `G`: symmetric matrix | vector `[p, m]` | Signature of quadratic form; returns `p` (positive eigenvalues) and `m` (negative eigenvalues). Computed via Gaussian reduction. **No positive-definite requirement** — works for any symmetric matrix | `[INDEF, NT]` |
 
 Use these for indefinite arithmetic problems where shortest-vector Euclidean workflows are not the right abstraction.
 
@@ -79,7 +83,7 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
-| `qfgaussred(q, {flag = 0})` | `q`: integer (binary form discriminant) or integer matrix; `flag`: integer (optional) | vector | Gauss reduction of binary quadratic forms | `[NT]` |
+| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U` | `[NT]` |
 | `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` |
 
 ---
@@ -99,7 +103,16 @@ For indefinite lattices/forms:
 
 - PARI function index (stable): https://pari.math.u-bordeaux.fr/dochtml/ref-stable/function_index.html
 - PARI vectors/matrices + qf APIs: https://pari.math.u-bordeaux.fr/dochtml/ref-stable/Vectors__matrices__linear_algebra_and_sets.html
-- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` (§qfcholesky: no explicit PD requirement unlike qfcvp/qfminim)
+- Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html`
+  - §qfcholesky (lines 1951-1956): no explicit PD requirement, returns `[]` if no solution
+  - §qfcvp (lines 1964-1975): requires positive definite; undefined behavior otherwise
+  - §qflllgram (lines 2357-2369): "positive quadratic form (not necessarily definite)" — accepts PSD
+  - §qfminim (lines 2396-2407): requires positive definite; undefined behavior otherwise
+  - §qfminimize (lines 2501-2504): requires non-zero determinant, not positive-definite
+  - §qfjacobi (lines 2238-2246): "real symmetric matrix" — no PD requirement
+  - §qfrep (lines 2614-2616): requires positive definite
+  - §qfsign (lines 2645-2648): returns [p, m] signature — no PD requirement
+  - §qfgaussred (lines 2133-2134): "Singular matrices are supported"
 - Local provenance capture: `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
 - PARI docs home: https://pari.math.u-bordeaux.fr/
 - Sage PARI bridge docs for `qfsolve`/`qfparam`: https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/qfsolve.html
