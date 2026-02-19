@@ -80,7 +80,7 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
 | `qfgaussred(q, {flag = 0})` | `q`: integer (binary form discriminant) or integer matrix; `flag`: integer (optional) | vector | Gauss reduction of binary quadratic forms | `[NT]` |
-| `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis (currently rank 8 only in upstream docs) | `[NT]` |
+| `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` |
 
 ---
 
