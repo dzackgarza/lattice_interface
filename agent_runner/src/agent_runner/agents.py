@@ -279,6 +279,8 @@ class QwenAgent(AgentInterface):
             "--yolo",
             "-m",
             model,
+            "--output-format",
+            "stream-json",
         ]
         return self._run_command(
             args=args,
