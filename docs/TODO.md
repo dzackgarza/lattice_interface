@@ -36,7 +36,7 @@ This section tracks gaps in method documentation completeness (argument surfaces
 
 ### SageMath (`docs/sage_methods_checklist.md`)
 
-- [x] **Explicit Type Specifications:** Added to IntegralLattice and IntegerLattice method tables in sagemath_lattice_reference.md (sections 3-4); remaining sections (QuadraticForm, BinaryQF, TernaryQF, TorsionQuadraticModule, Genus) pending
+- [x] **Explicit Type Specifications:** Added to IntegralLattice and IntegerLattice method tables in sagemath_lattice_reference.md (sections 3-4) and to BinaryQF (section 6), TernaryQF (section 7), TorsionQuadraticModule (section 8), and Genus (section 9); QuadraticForm (section 5) still pending
 
 ### Julia/Hecke.jl (`docs/julia_methods_checklist.md`)
 

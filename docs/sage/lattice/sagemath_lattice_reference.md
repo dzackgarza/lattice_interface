@@ -432,39 +432,39 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 ## 6. `BinaryQF` Methods
 `[INT]`; `[INDEF ok]` unless noted; discriminant D = b²−4ac.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `discriminant()` | D = b²−4ac | |
-| `determinant()` / `det()` | det of Gram matrix = −D/4; returned as rational even when D even | |
-| `content()` | gcd(a, b, c) | |
-| `polynomial()` | Polynomial representation ax²+bxy+cy² | |
-| `is_positive_definite()` / `is_posdef()` | D < 0, a > 0 | `[PD]` |
-| `is_negative_definite()` / `is_negdef()` | D < 0, a < 0 | |
-| `is_indefinite()` / `is_indef()` | D > 0 | `[INDEF]` |
-| `is_singular()` | D = 0 | `[DEG]` |
-| `is_nonsingular()` | D ≠ 0 | |
-| `is_zero()` | All coefficients zero | |
-| `is_primitive()` | gcd(a, b, c) = 1 | |
-| `has_fundamental_discriminant()` | D is a fundamental discriminant | |
-| `is_reduced()` | Reduced in classical sense (`\|b\| ≤ a ≤ c` for PD; between-roots criterion for INDEF) | `[PD standard; INDEF see docs]` |
-| `is_weakly_reduced()` | \|b\| ≤ a ≤ c | |
-| `is_reducible()` | Whether the indefinite form is reducible (has a square discriminant) | `[INDEF]` |
-| `is_equivalent(other, proper=True)` | Proper or improper equivalence; `proper=True` for proper, `proper=False` for improper (includes orientation-reversing isometries) | `[PARI]` |
-| `reduced_form(transformation=False, algorithm='default')` | Equivalent reduced form; `transformation=True` also returns the GL_2(ℤ) matrix M s.t. `self.matrix_action_right(M) == reduced_form`; `algorithm` can be `'pari'` or `'sage'` | `[PARI default]` |
-| `reduction_sequence()` | Sequence of Gauss reductions | |
-| `cycle(proper=False)` | For reduced indefinite forms: list of all forms in the cycle (or proper cycle if `proper=True`) | `[INDEF]` |
-| `represents(n)` | Q(x,y) = n solvable | |
-| `represented_primitively(n)` | Primitively represents n | |
-| `solve_integer(n)` | Find integers (x,y) with Q(x,y) = n, or raise ValueError | `[PARI]` |
-| `small_prime_value()` | A small prime represented by Q | `[PD]` |
-| `class_number()` | Class number of discriminant D | `[PD, PARI]` |
-| `form_class()` | Element of BQFClassGroup(D) representing the equivalence class of this form | |
-| `complex_point()` | Fixed point in upper half-plane; root of ax²+bx+c with positive imaginary part | `[PD, PARI]` |
-| `matrix_action_left(M)` | New form obtained by left action of matrix M | |
-| `matrix_action_right(M)` | New form obtained by right action of matrix M | |
-| `static from_polynomial(f)` | Constructor from bivariate polynomial | |
-| `static principal(D)` | Principal (identity) form of discriminant D | |
-| `BinaryQF_reduced_representatives(D, primitive_only, proper)` | All reduced representatives for classes of discriminant D; `primitive_only=True` omits imprimitive forms | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `discriminant()` | — | `Integer` | D = b²−4ac | |
+| `determinant()` / `det()` | — | `Rational` | det of Gram matrix = −D/4; returned as rational even when D even | |
+| `content()` | — | `Integer` | gcd(a, b, c) | |
+| `polynomial()` | — | `Polynomial` | Polynomial representation ax²+bxy+cy² | |
+| `is_positive_definite()` / `is_posdef()` | — | `bool` | D < 0, a > 0 | `[PD]` |
+| `is_negative_definite()` / `is_negdef()` | — | `bool` | D < 0, a < 0 | |
+| `is_indefinite()` / `is_indef()` | — | `bool` | D > 0 | `[INDEF]` |
+| `is_singular()` | — | `bool` | D = 0 | `[DEG]` |
+| `is_nonsingular()` | — | `bool` | D ≠ 0 | |
+| `is_zero()` | — | `bool` | All coefficients zero | |
+| `is_primitive()` | — | `bool` | gcd(a, b, c) = 1 | |
+| `has_fundamental_discriminant()` | — | `bool` | D is a fundamental discriminant | |
+| `is_reduced()` | — | `bool` | Reduced in classical sense (`\|b\| ≤ a ≤ c` for PD; between-roots criterion for INDEF) | `[PD standard; INDEF see docs]` |
+| `is_weakly_reduced()` | — | `bool` | \|b\| ≤ a ≤ c | |
+| `is_reducible()` | — | `bool` | Whether the indefinite form is reducible (has a square discriminant) | `[INDEF]` |
+| `is_equivalent(other, proper=True)` | `other`: `BinaryQF`, `proper`: `bool` (keyword, default `True`) | `bool` | Proper or improper equivalence; `proper=True` for proper, `proper=False` for improper (includes orientation-reversing isometries) | `[PARI]` |
+| `reduced_form(transformation=False, algorithm='default')` | `transformation`: `bool` (keyword), `algorithm`: `str` (keyword) | `BinaryQF` or `tuple<BinaryQF, Matrix>` | Equivalent reduced form; `transformation=True` also returns the GL_2(ℤ) matrix M s.t. `self.matrix_action_right(M) == reduced_form`; `algorithm` can be `'pari'` or `'sage'` | `[PARI default]` |
+| `reduction_sequence()` | — | `list<BinaryQF>` | Sequence of Gauss reductions | |
+| `cycle(proper=False)` | `proper`: `bool` (keyword, default `False`) | `list<BinaryQF>` | For reduced indefinite forms: list of all forms in the cycle (or proper cycle if `proper=True`) | `[INDEF]` |
+| `represents(n)` | `n`: `Integer` | `bool` | Q(x,y) = n solvable | |
+| `represented_primitively(n)` | `n`: `Integer` | `bool` | Primitively represents n | |
+| `solve_integer(n)` | `n`: `Integer` | `tuple<Integer, Integer>` | Find integers (x,y) with Q(x,y) = n, or raise ValueError | `[PARI]` |
+| `small_prime_value()` | — | `Integer` | A small prime represented by Q | `[PD]` |
+| `class_number()` | — | `Integer` | Class number of discriminant D | `[PD, PARI]` |
+| `form_class()` | — | `BinaryQFClassGroupElement` | Element of BQFClassGroup(D) representing the equivalence class of this form | |
+| `complex_point()` | — | `Complex` | Fixed point in upper half-plane; root of ax²+bx+c with positive imaginary part | `[PD, PARI]` |
+| `matrix_action_left(M)` | `M`: `Matrix<Integer>` (2×2) | `BinaryQF` | New form obtained by left action of matrix M | |
+| `matrix_action_right(M)` | `M`: `Matrix<Integer>` (2×2) | `BinaryQF` | New form obtained by right action of matrix M | |
+| `static from_polynomial(f)` | `f`: bivariate `Polynomial` | `BinaryQF` | Constructor from bivariate polynomial | |
+| `static principal(D)` | `D`: `Integer` (discriminant) | `BinaryQF` | Principal (identity) form of discriminant D | |
+| `BinaryQF_reduced_representatives(D, primitive_only, proper)` | `D`: `Integer`, `primitive_only`: `bool`, `proper`: `bool` | `list<BinaryQF>` | All reduced representatives for classes of discriminant D; `primitive_only=True` omits imprimitive forms | |
 
 ---
 
@@ -472,69 +472,69 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 `[INT]`; form stored as `(a,b,c,r,s,t)` representing ax²+by²+cz²+ryz+sxz+txy.
 
 ### Intrinsic data
-| Method | Description | Tags |
-|--------|-------------|------|
-| `coefficients()` | Returns the tuple `(a,b,c,r,s,t)` of all six coefficients | |
-| `coefficient(n)` | Returns the n-th coefficient (0-indexed, 0≤n≤5) | |
-| `polynomial(names='x,y,z')` | Polynomial ax²+by²+cz²+ryz+sxz+txy in given variable names | |
-| `matrix()` | Hessian matrix: 3×3 matrix with diagonal `2a,2b,2c` and off-diag `t,s,r`; Q(v) = (1/2)v·M·vᵀ | |
-| `disc()` | Discriminant = det(Hessian)/2 | |
-| `content()` | gcd(a,b,c,r,s,t) | |
-| `is_primitive()` | content = 1 | |
-| `primitive()` | Primitive version Q/content | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `coefficients()` | — | `tuple<Integer>` | Returns the tuple `(a,b,c,r,s,t)` of all six coefficients | |
+| `coefficient(n)` | `n`: `Integer` (0-indexed, 0≤n≤5) | `Integer` | Returns the n-th coefficient | |
+| `polynomial(names='x,y,z')` | `names`: `str` (keyword) | `Polynomial` | Polynomial ax²+by²+cz²+ryz+sxz+txy in given variable names | |
+| `matrix()` | — | `Matrix<Integer>` (3×3) | Hessian matrix: diagonal `2a,2b,2c` and off-diag `t,s,r`; Q(v) = (1/2)v·M·vᵀ | |
+| `disc()` | — | `Integer` | Discriminant = det(Hessian)/2 | |
+| `content()` | — | `Integer` | gcd(a,b,c,r,s,t) | |
+| `is_primitive()` | — | `bool` | content = 1 | |
+| `primitive()` | — | `TernaryQF` | Primitive version Q/content | |
 
 ### Invariants
-| Method | Description | Tags |
-|--------|-------------|------|
-| `divisor()` | Content of the adjoint form | |
-| `omega()` | Content of the adjoint of the primitive form; = Q.primitive().adjoint().content() | |
-| `delta()` | omega() of the adjoint; same as omega() of the reciprocal form | |
-| `level()` | 4·disc()/divisor() | |
-| `adjoint()` | Adjoint ternary form; Hessian = 2·classical adjoint of self.matrix() | |
-| `reciprocal()` | Reciprocal form; multiple of primitive adjoint with same content as self | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `divisor()` | — | `Integer` | Content of the adjoint form | |
+| `omega()` | — | `Integer` | Content of the adjoint of the primitive form; = Q.primitive().adjoint().content() | |
+| `delta()` | — | `Integer` | omega() of the adjoint; same as omega() of the reciprocal form | |
+| `level()` | — | `Integer` | 4·disc()/divisor() | |
+| `adjoint()` | — | `TernaryQF` | Adjoint ternary form; Hessian = 2·classical adjoint of self.matrix() | |
+| `reciprocal()` | — | `TernaryQF` | Reciprocal form; multiple of primitive adjoint with same content as self | |
 
 ### Definiteness
-| Method | Description | Tags |
-|--------|-------------|------|
-| `is_positive_definite()` | All eigenvalues > 0 | `[PD]` |
-| `is_negative_definite()` | All eigenvalues < 0 | |
-| `is_definite()` | Positive or negative definite | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `is_positive_definite()` | — | `bool` | All eigenvalues > 0 | `[PD]` |
+| `is_negative_definite()` | — | `bool` | All eigenvalues < 0 | |
+| `is_definite()` | — | `bool` | Positive or negative definite | |
 
 ### Reduction and equivalence
-| Method | Description | Tags |
-|--------|-------------|------|
-| `is_eisenstein_reduced()` | True if form satisfies all eight Eisenstein reduction conditions | |
-| `reduced_form_eisenstein()` | Returns `(Qr, M)` where Qr is the Eisenstein-reduced equivalent form and M is the transformation matrix; Q(M) == Qr | `[PD, PARI]` |
-| `is_equivalent(other)` | GL_3(ℤ)-equivalence check | `[PD, PARI]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `is_eisenstein_reduced()` | — | `bool` | True if form satisfies all eight Eisenstein reduction conditions | |
+| `reduced_form_eisenstein()` | — | `tuple<TernaryQF, Matrix<Integer>>` | Returns `(Qr, M)` where Qr is the Eisenstein-reduced equivalent form and M is the transformation matrix; Q(M) == Qr | `[PD, PARI]` |
+| `is_equivalent(other)` | `other`: `TernaryQF` | `bool` | GL_3(ℤ)-equivalence check | `[PD, PARI]` |
 
 ### Automorphisms
-| Method | Description | Tags |
-|--------|-------------|------|
-| `automorphisms(slow=True)` | List of all GL_3(ℤ) automorphism matrices; `slow=True` uses PARI, `slow=False` uses internal algorithm | `[PD, PARI]` |
-| `number_of_automorphisms(slow=True)` | \|Aut(Q)\| | `[PD, PARI]` |
-| `automorphism_spin_norm(A)` | Spinor norm of the automorphism A ∈ GL_3(ℤ); used in spinor genus computations | `[INT, ND]` |
-| `automorphism_symmetries(A)` | For automorphism A: if identity returns []; otherwise returns [v1,v2] such that symmetry(v1)·symmetry(v2) = A | |
-| `symmetry(v)` | Orthogonal reflection in the hyperplane perpendicular to vector v w.r.t. the quadratic form | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `automorphisms(slow=True)` | `slow`: `bool` (keyword, default `True`) | `list<Matrix<Integer>>` | List of all GL_3(ℤ) automorphism matrices; `slow=True` uses PARI, `slow=False` uses internal algorithm | `[PD, PARI]` |
+| `number_of_automorphisms(slow=True)` | `slow`: `bool` (keyword, default `True`) | `Integer` | \|Aut(Q)\| | `[PD, PARI]` |
+| `automorphism_spin_norm(A)` | `A`: `Matrix<Integer>` (3×3, automorphism) | `Integer` (±1) | Spinor norm of the automorphism A ∈ GL_3(ℤ); used in spinor genus computations | `[INT, ND]` |
+| `automorphism_symmetries(A)` | `A`: `Matrix<Integer>` (automorphism) | `list<Vector>` | For automorphism A: if identity returns []; otherwise returns [v1,v2] such that symmetry(v1)·symmetry(v2) = A | |
+| `symmetry(v)` | `v`: `Vector` | `Matrix<Integer>` | Orthogonal reflection in the hyperplane perpendicular to vector v w.r.t. the quadratic form | |
 
 ### Representation and genus
-| Method | Description | Tags |
-|--------|-------------|------|
-| `basic_lemma(p)` | Find a value represented by Q and coprime to prime p | |
-| `find_zeros_mod_p(p)` | All zeros of Q mod prime p (where p ∤ disc(Q)) | `[PD, PARI for p>2]` |
-| `pseudorandom_primitive_zero_mod_p(p)` | A random primitive zero v=(a,b,1) of Q mod odd prime p ∤ disc(Q) | `[PD, PARI]` |
-| `find_p_neighbor_from_vec(p, v, mat=False)` | p-neighbor of Q at vector v (Q(v)≡0 mod p, v non-singular mod p); returns the reduced equivalent, optionally with transformation matrix | `[PD, PARI]` |
-| `find_p_neighbors(p, mat=False)` | All p-neighbors (list); uses all zeros mod p from `find_zeros_mod_p` | `[PD, PARI]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `basic_lemma(p)` | `p`: prime `Integer` | `Integer` | Find a value represented by Q and coprime to prime p | |
+| `find_zeros_mod_p(p)` | `p`: prime `Integer` (p ∤ disc(Q)) | `list<Vector>` | All zeros of Q mod prime p | `[PD, PARI for p>2]` |
+| `pseudorandom_primitive_zero_mod_p(p)` | `p`: odd prime `Integer` (p ∤ disc(Q)) | `Vector` | A random primitive zero v=(a,b,1) of Q mod odd prime p | `[PD, PARI]` |
+| `find_p_neighbor_from_vec(p, v, mat=False)` | `p`: prime `Integer`, `v`: `Vector`, `mat`: `bool` (keyword) | `TernaryQF` or `tuple<TernaryQF, Matrix>` | p-neighbor of Q at vector v (Q(v)≡0 mod p, v non-singular mod p); returns the reduced equivalent, optionally with transformation matrix | `[PD, PARI]` |
+| `find_p_neighbors(p, mat=False)` | `p`: prime `Integer`, `mat`: `bool` (keyword) | `list<TernaryQF>` | All p-neighbors (list); uses all zeros mod p from `find_zeros_mod_p` | `[PD, PARI]` |
 
 ### Analytic
-| Method | Description | Tags |
-|--------|-------------|------|
-| `theta_series(prec)` | Formal theta series Σ r(n) q^n | `[PD]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `theta_series(prec)` | `prec`: `Integer` | `PowerSeries` | Formal theta series Σ r(n) q^n | `[PD]` |
 
 ### Conversion
-| Method | Description | Tags |
-|--------|-------------|------|
-| `quadratic_form()` | Returns equivalent `QuadraticForm(ZZ, 3, ...)` | |
-| `scale_by_factor(c)` | Multiply all coefficients by scalar c; returns new TernaryQF | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `quadratic_form()` | — | `QuadraticForm` | Returns equivalent `QuadraticForm(ZZ, 3, ...)` | |
+| `scale_by_factor(c)` | `c`: scalar | `TernaryQF` | Multiply all coefficients by scalar c; returns new TernaryQF | |
 
 ---
 
@@ -542,79 +542,79 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 `[INT]`; bilinear form is ND; quadratic form may be degenerate.
 
 ### Underlying data
-| Method | Description | Tags |
-|--------|-------------|------|
-| `V()` | Ambient free quadratic module V (the numerator) | |
-| `W()` | Submodule W (the denominator); T = V/W | |
-| `gens()` | Generators of T as a ℤ-module; no minimality guarantee | |
-| `order()` | Group order \|D\| = \|det(V)\|/\|det(W)\|; inherited from the abelian group parent | |
-| `invariants()` | Invariants of the underlying abelian group, e.g. `(2, 6)` for ℤ/2⊕ℤ/6 | |
-| `gram_matrix_bilinear()` | Gram matrix of the bilinear form w.r.t. `gens()`; entries in ℚ/mℤ where m = (V,W) | |
-| `gram_matrix_quadratic()` | Gram matrix of the quadratic form w.r.t. `gens()`; off-diag = bilinear, diag = quadratic values | |
-| `value_module()` | Codomain ℚ/mℤ of the bilinear form, where m = (V,W) | |
-| `value_module_qf()` | Codomain ℚ/nℤ of the quadratic form; n = 2m or smaller when all (w,w) ∈ 2ℤ | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `V()` | — | `FreeQuadraticModule` | Ambient free quadratic module V (the numerator) | |
+| `W()` | — | `FreeQuadraticModule` | Submodule W (the denominator); T = V/W | |
+| `gens()` | — | `tuple` | Generators of T as a ℤ-module; no minimality guarantee | |
+| `order()` | — | `Integer` | Group order \|D\| = \|det(V)\|/\|det(W)\|; inherited from the abelian group parent | |
+| `invariants()` | — | `tuple<Integer>` | Invariants of the underlying abelian group, e.g. `(2, 6)` for ℤ/2⊕ℤ/6 | |
+| `gram_matrix_bilinear()` | — | `Matrix<Rational>` | Gram matrix of the bilinear form w.r.t. `gens()`; entries in ℚ/mℤ where m = (V,W) | |
+| `gram_matrix_quadratic()` | — | `Matrix<Rational>` | Gram matrix of the quadratic form w.r.t. `gens()`; off-diag = bilinear, diag = quadratic values | |
+| `value_module()` | — | `QmodnZ` | Codomain ℚ/mℤ of the bilinear form, where m = (V,W) | |
+| `value_module_qf()` | — | `QmodnZ` | Codomain ℚ/nℤ of the quadratic form; n = 2m or smaller when all (w,w) ∈ 2ℤ | |
 
 ### Element methods
 Elements `x` of a `TorsionQuadraticModule` carry the induced forms directly:
 
-| Method on element x | Description |
-|---------------------|-------------|
-| `x.b(y)` / `x.inner_product(y)` | Bilinear form value b(x,y) ∈ ℚ/mℤ |
-| `x.q()` / `x.quadratic_product()` | Quadratic form value q(x) ∈ ℚ/nℤ |
+| Method on element x | Argument Types | Return Type | Description |
+|---------------------|----------------|-------------|-------------|
+| `x.b(y)` / `x.inner_product(y)` | `y`: element of T | `Rational (mod mℤ)` | Bilinear form value b(x,y) ∈ ℚ/mℤ |
+| `x.q()` / `x.quadratic_product()` | — | `Rational (mod nℤ)` | Quadratic form value q(x) ∈ ℚ/nℤ |
 
 ### Structural operations
-| Method | Description | Tags |
-|--------|-------------|------|
-| `direct_sum(other)` | Direct orthogonal sum of two TorsionQuadraticModules | |
-| `twist(c)` | Rescale both bilinear and quadratic form by integer c; value modules scale accordingly | |
-| `submodule(gens)` | Sub-TQM spanned by the given generators | |
-| `submodule_with_gens(gens)` | Sub-TQM with an explicitly supplied (possibly redundant) generator list; useful when you need a specific Gram matrix presentation | |
-| `orthogonal_submodule_to(S)` | Sub-TQM of all elements orthogonal to submodule S; satisfies `T.orthogonal_submodule_to(S).V() + S.V() == T.V()` | |
-| `quotient(W)` | Quotient torsion module T/W (inherited from FGP_Module) | |
-| `primary_part(s)` | s-primary submodule (elements annihilated by a power of s) | |
-| `all_submodules()` | List of all submodules; exponential in rank — use only for small groups | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `direct_sum(other)` | `other`: `TorsionQuadraticModule` | `TorsionQuadraticModule` | Direct orthogonal sum of two TorsionQuadraticModules | |
+| `twist(c)` | `c`: `Integer` | `TorsionQuadraticModule` | Rescale both bilinear and quadratic form by integer c; value modules scale accordingly | |
+| `submodule(gens)` | `gens`: list of elements | `TorsionQuadraticModule` | Sub-TQM spanned by the given generators | |
+| `submodule_with_gens(gens)` | `gens`: list of elements | `TorsionQuadraticModule` | Sub-TQM with an explicitly supplied (possibly redundant) generator list; useful when you need a specific Gram matrix presentation | |
+| `orthogonal_submodule_to(S)` | `S`: submodule or element list | `TorsionQuadraticModule` | Sub-TQM of all elements orthogonal to submodule S; satisfies `T.orthogonal_submodule_to(S).V() + S.V() == T.V()` | |
+| `quotient(W)` | `W`: submodule | `TorsionQuadraticModule` | Quotient torsion module T/W (inherited from FGP_Module) | |
+| `primary_part(s)` | `s`: `Integer` | `TorsionQuadraticModule` | s-primary submodule (elements annihilated by a power of s) | |
+| `all_submodules()` | — | `list<TorsionQuadraticModule>` | List of all submodules; exponential in rank — use only for small groups | |
 
 ### Classification and genus
-| Method | Description | Tags |
-|--------|-------------|------|
-| `normal_form(partial=False)` | Miranda-Morrison canonical normal form; `partial=True` returns a partial (non-unique) normal form that still exposes p-adic invariants | `[ND]` |
-| `is_genus(sig, even=True)` | Boolean existence test for a lattice with this discriminant form and signature pair `sig=(s_+, s_-)`; `even` is boolean (default `True`), and upstream marks the odd-lattice branch (`even=False`) as incomplete | |
-| `genus(sig)` | `Genus` object compatible with this discriminant form and signature `sig`; raises `ValueError` if none exists. Upstream examples include odd-lattice genus construction via this method | |
-| `brown_invariant()` | Brown invariant Br(D,q) ∈ ℤ/8ℤ; requires quadratic form valued in ℚ/2ℤ (even lattice case); additive over direct sums | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `normal_form(partial=False)` | `partial`: `bool` (keyword, default `False`) | `TorsionQuadraticModule` | Miranda-Morrison canonical normal form; `partial=True` returns a partial (non-unique) normal form that still exposes p-adic invariants | `[ND]` |
+| `is_genus(sig, even=True)` | `sig`: `tuple(Integer, Integer)`, `even`: `bool` (keyword, default `True`) | `bool` | Boolean existence test for a lattice with this discriminant form and signature pair `sig=(s_+, s_-)`; `even` is boolean (default `True`), and upstream marks the odd-lattice branch (`even=False`) as incomplete | |
+| `genus(sig)` | `sig`: `tuple(Integer, Integer)` | `Genus` | `Genus` object compatible with this discriminant form and signature `sig`; raises `ValueError` if none exists. Upstream examples include odd-lattice genus construction via this method | |
+| `brown_invariant()` | — | `IntegerMod(8)` | Brown invariant Br(D,q) ∈ ℤ/8ℤ; requires quadratic form valued in ℚ/2ℤ (even lattice case); additive over direct sums | |
 
 ### Symmetry
-| Method | Description | Tags |
-|--------|-------------|------|
-| `orthogonal_group(gens=None)` | Isometry group of T preserving both the bilinear and quadratic forms; if `gens` is given (e.g. from `IntegralLattice.orthogonal_group()`), restricts to those generators; used to compute the image of Aut(L) in Aut(discriminant group) | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `orthogonal_group(gens=None)` | `gens`: list of generator matrices (optional) | `MatrixGroup` | Isometry group of T preserving both the bilinear and quadratic forms; if `gens` is given (e.g. from `IntegralLattice.orthogonal_group()`), restricts to those generators; used to compute the image of Aut(L) in Aut(discriminant group) | |
 
 ---
 
 ## 9. `Genus` Methods
 `[INT, ND]`; allows `[INDEF]`.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `Genus(A)` | *(standalone constructor)* Create genus from symmetric integer Gram matrix A | |
-| `LocalGenusSymbol(A, p)` | *(standalone constructor)* Local genus symbol at prime p | |
-| `signature()` | p − n | |
-| `signature_pair()` | (p, n); aliases: `signature_pair_of_matrix()` | |
-| `dimension()` | Rank; aliases: `rank()`, `dim()` | |
-| `determinant()` | det(Gram) of any representative; docs mention "Hessian determinant" but example confirms it equals det(Gram) passed to constructor; aliases: `det()`; **no** `discriminant()` method on `Genus` | |
-| `discriminant_form()` | Discriminant form as `TorsionQuadraticModule` | |
-| `direct_sum(other)` | Genus of direct sum of representatives | |
-| `level()` | Level = denominator of inverse Gram matrix of a representative | |
-| `scale()` | Scale ideal = b(L,L) ⊆ ℤ (as integer) | |
-| `norm()` | Norm = gcd{(x,x) : x ∈ L} (as integer); for even lattice = scale | |
-| `is_even()` | All (x,x) ∈ 2ℤ | |
-| `is_unimodular()` | det(Gram) = ±1 | |
-| `local_symbol(p)` | `Genus_Symbol_p_adic_ring` object at prime p | |
-| `local_symbols()` | List of all local genus symbols (at all relevant primes) | |
-| `representative()` | Integer Gram matrix of a representative lattice; works for `[INDEF]` | |
-| `rational_representative()` | Rational diagonal Gram matrix of a rational representative | |
-| `representatives(backend, algorithm)` | All distinct lattices in genus (finite list); backend options include `'sage'`, `'magma'` | `[PD]` |
-| `mass(backend='sage')` | Mass = Σ 1/\|Aut(L)\| over genus; default backend is pure Sage (no PARI/Magma required) | `[PD]` |
-| `spinor_generators(proper)` | List of primes not dividing det(Gram) at which the spinor genus splits the genus; `proper=True` for proper spinor genera; used in genus traversal algorithms | |
-| `is_2_adic_genus(quintuple_list)` | Validity check for 2-adic local symbol | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `Genus(A)` | `A`: `Matrix<Integer>` (symmetric) | `Genus` | *(standalone constructor)* Create genus from symmetric integer Gram matrix A | |
+| `LocalGenusSymbol(A, p)` | `A`: `Matrix<Integer>`, `p`: prime `Integer` | `Genus_Symbol_p_adic_ring` | *(standalone constructor)* Local genus symbol at prime p | |
+| `signature()` | — | `Integer` | p − n | |
+| `signature_pair()` | — | `tuple<Integer, Integer>` | (p, n); aliases: `signature_pair_of_matrix()` | |
+| `dimension()` | — | `Integer` | Rank; aliases: `rank()`, `dim()` | |
+| `determinant()` | — | `Integer` | det(Gram) of any representative; docs mention "Hessian determinant" but example confirms it equals det(Gram) passed to constructor; aliases: `det()`; **no** `discriminant()` method on `Genus` | |
+| `discriminant_form()` | — | `TorsionQuadraticModule` | Discriminant form as `TorsionQuadraticModule` | |
+| `direct_sum(other)` | `other`: `Genus` | `Genus` | Genus of direct sum of representatives | |
+| `level()` | — | `Integer` | Level = denominator of inverse Gram matrix of a representative | |
+| `scale()` | — | `Integer` | Scale ideal = b(L,L) ⊆ ℤ (as integer) | |
+| `norm()` | — | `Integer` | Norm = gcd{(x,x) : x ∈ L} (as integer); for even lattice = scale | |
+| `is_even()` | — | `bool` | All (x,x) ∈ 2ℤ | |
+| `is_unimodular()` | — | `bool` | det(Gram) = ±1 | |
+| `local_symbol(p)` | `p`: prime `Integer` | `Genus_Symbol_p_adic_ring` | `Genus_Symbol_p_adic_ring` object at prime p | |
+| `local_symbols()` | — | `list<Genus_Symbol_p_adic_ring>` | List of all local genus symbols (at all relevant primes) | |
+| `representative()` | — | `Matrix<Integer>` | Integer Gram matrix of a representative lattice; works for `[INDEF]` | |
+| `rational_representative()` | — | `Matrix<Rational>` | Rational diagonal Gram matrix of a rational representative | |
+| `representatives(backend, algorithm)` | `backend`: `str`, `algorithm`: `str` | `list<IntegralLattice>` | All distinct lattices in genus (finite list); backend options include `'sage'`, `'magma'` | `[PD]` |
+| `mass(backend='sage')` | `backend`: `str` (keyword, default `'sage'`) | `Rational` | Mass = Σ 1/\|Aut(L)\| over genus; default backend is pure Sage (no PARI/Magma required) | `[PD]` |
+| `spinor_generators(proper)` | `proper`: `bool` | `list<Integer>` | List of primes not dividing det(Gram) at which the spinor genus splits the genus; `proper=True` for proper spinor genera; used in genus traversal algorithms | |
+| `is_2_adic_genus(quintuple_list)` | `quintuple_list`: list | `bool` | Validity check for 2-adic local symbol | |
 
 ---
 
