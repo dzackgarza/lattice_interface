@@ -34,21 +34,18 @@ This package is lattice-related via translation-group and point-group cell-compl
 
 ## 2. Core Constructor Signatures (manual-backed)
 
-| API | Description | Tags |
-|-----|-------------|------|
-| `TGCell(msnf[, simplifyMethod, simplifyInit])` | Construct a primitive TGCell from a modified Smith normal form object. | `[PKG, CELL]` |
-| `TGSuperCellModelGraph(cell, basis[, simplifyMethod, simplifyInit])` | Construct a supercell model graph from primitive cell + basis. | `[PKG, CELL, GRAPH]` |
-| `TGSuperCell(model, shift, pointGroupElement[, simplifyMethod, simplifyInit])` | Construct supercell from model graph plus shift/group element. | `[PKG, CELL]` |
-| `HyperCell(msnf[, simplifyMethod, simplifyInit])` | Construct a regular compact primitive TGCell in dimensions 2-4 from an MSNF encoding. | `[PKG, CELL, EUCLID, HYP]` |
-| `TGCellSymmetric(dimension, cocompact, matrix[, simplifyMethod, simplifyInit])` | Construct TGCell from symmetric matrix form. | `[PKG, CELL]` |
-| `TGCellSNF(dimension, cocompact, matrix[, simplifyMethod, simplifyInit])` | Construct TGCell from Smith normal form data. | `[PKG, CELL]` |
-| `TGCellMSNF(dimension, cocompact, matrix[, simplifyMethod, simplifyInit])` | Construct TGCell from modified Smith normal form data. | `[PKG, CELL]` |
-| `TGCellRat(dimension, cocompact, matrix[, simplifyMethod, simplifyInit])` | Construct TGCell from rational matrix input. | `[PKG, CELL]` |
-| `TGCellModelGraph(cell[, dimension])` | Construct quotient-sequence model graph of a TGCell. | `[PKG, GRAPH]` |
-| `TGCellGraph(cell[, dimension])` | Construct quotient-sequence graph (boundary graph in dimension 2). | `[PKG, GRAPH]` |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `TGCell(tg, quotient[, GAMgens[, TDGAM[, TGGw]]])` | `tg`: `ProperTriangleGroup` object; `quotient`: `TGQuotient` object; `GAMgens`: list (optional); `TDGAM`: (optional); `TGGw`: (optional) | `TGCell` object | Construct a primitive triangle-group cell from a proper triangle group and quotient. Optional arguments allow specifying generators, normal subgroup, and Wyckoff data. | `[PKG, CELL]` |
+| `TGCellSymmetric(tg, quotient, center)` | `tg`: `ProperTriangleGroup`; `quotient`: `TGQuotient`; `center`: integer (1, 2, or 3 for Schwarz triangle vertices x, y, z) | `TGCell` object | Construct a symmetric triangle-group cell centered at a given vertex type. | `[PKG, CELL]` |
+| `TGCellGraph(tg, quotient, center[, GAMgens[, TDGAM[, TGGw]]])` | `tg`: `ProperTriangleGroup`; `quotient`: `TGQuotient`; `center`: integer (1–3); `GAMgens`: list (optional); `TDGAM`: (optional); `TGGw`: (optional) | `TGCellGraph` object | Construct a cell graph (triangular tessellation of the translation unit cell) centered at a given vertex type. | `[PKG, CELL, GRAPH]` |
+| `TGCellModelGraph(cellgraph, vfs, efs, ffs)` | `cellgraph`: `TGCellGraph`; `vfs`: list of vertex type indices (sites); `efs`: list of edge type indices (hoppings); `ffs`: list of face type indices (plaquettes) | `TGCellModelGraph` object | Construct a tight-binding model graph from a cell graph and vertex/edge/face specifications. | `[PKG, GRAPH]` |
+| `TGSuperCellModelGraph(model, sc)` | `model`: `TGCellModelGraph`; `sc`: `TGCell` (supercell obtained from a quotient sequence) | `TGSuperCellModelGraph` object | Construct a symmetric, connected supercell model graph extending the primitive model to the supercell. | `[PKG, CELL, GRAPH]` |
 
-Constructor caveat from upstream docs:
-- when `simplifyMethod` is exposed, options are `MaximalTree` (default) and `KnuthBendix`; `KnuthBendix` requires optional package `kbmag`.
+Constructor notes from upstream docs (chap1, chap4):
+- `simplify` and `simplifyMethod` are GAP keyword options (passed after `:` in GAP syntax), not positional arguments; they apply to `TGCellGraph`, `TGCellModelGraph`, `TGSuperCellModelGraph` and related constructors.
+- `simplifyMethod` values: `"BruteForce"` (default) or `"KnuthBendix"` (requires optional package `kbmag`).
+- `simplify` (non-negative integer): controls word-rewriting length; defaults to twice the number of generators if smaller.
 
 ---
 
