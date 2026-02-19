@@ -36,12 +36,12 @@ These are matrix-algorithm APIs, not high-level indefinite-lattice classificatio
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `fmpz_lll_context_init_default(fl)` | Initialize default LLL context parameters (delta=0.99, eta=0.51, rt=Z_BASIS, gt=APPROX). | `[ZZMOD, RED, C]` |
-| `fmpz_lll_context_init(fl, delta, eta, rt, gt)` | Initialize context with explicit reduction parameters. `[delta in (0.25, 1), eta in (0.5, sqrt(delta))]` Both endpoints exclusive. | `[ZZMOD, RED, C]` |
-| `fmpz_lll(B, U, fl)` | Main LLL entry point over integer matrix basis, optionally tracking transform matrix `U`. `[INPLACE]` Reduces `B` in place. | `[ZZMOD, RED, C]` |
-| `fmpz_lll_with_removal(B, U, gs_B, fl)` | LLL-with-removal variant. `[INPLACE]` Reduces `B` in place and removes vectors whose **squared** Gram-Schmidt length exceeds `gs_B`. Returns new dimension of `B` after removal. | `[ZZMOD, RED, C]` |
-| `fmpz_lll_is_reduced(B, fl)` | Predicate checking whether basis meets LLL conditions for context `fl`. | `[ZZMOD, RED, C]` |
-| `fmpz_mat_is_reduced(A, fl)` | Matrix-level reducedness predicate under LLL context. | `[ZZMOD, RED, C]` |
+| `fmpz_lll_context_init_default(fl)` | Initialize default LLL context parameters (delta=0.99, eta=0.51, rt=Z_BASIS, gt=APPROX). Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_lll_context_init(fl, delta, eta, rt, gt)` | Initialize context with explicit reduction parameters. `[delta in (0.25, 1), eta in (0.5, sqrt(delta))]` Both endpoints exclusive. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_lll(B, U, fl)` | Main LLL entry point over integer matrix basis, optionally tracking transform matrix `U`. `[INPLACE]` Reduces `B` in place. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_lll_with_removal(B, U, gs_B, fl)` | LLL-with-removal variant. `[INPLACE]` Reduces `B` in place and removes vectors whose **squared** Gram-Schmidt length exceeds `gs_B`. Returns new dimension of `B` after removal. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_lll_is_reduced(B, fl)` | Predicate checking whether basis meets LLL conditions for context `fl`. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_mat_is_reduced(A, fl)` | Matrix-level reducedness predicate under LLL context. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
 
 Practical caveat from upstream docs:
 
@@ -54,15 +54,15 @@ Practical caveat from upstream docs:
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `fmpz_mat_hnf(H, A)` | Compute Hermite normal form. `[FULLRANK]` No rank restriction; algorithm auto-selects based on matrix characteristics. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_transform(H, U, A)` | HNF plus transformation matrix output; returns `U` such that `UA = H`. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_classical(H, A)` | Classical HNF algorithm (Cohen Algorithm 2.4.4). | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_xgcd(H, A)` | XGCD-accelerated HNF algorithm (Cohen Algorithm 2.4.5). | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_minors(H, A)` | HNF via Kannan-Bachem minors strategy. `[FULLCOLRANK]` Requires `A` to be full column rank. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_pernet_stein(H, A, state)` | Pernet-Stein randomized HNF variant; requires `flint_rand_t state` for internal randomization. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_modular(H, A, D)` | Modular HNF (Domich-Kannan-Trotter). `[FULLROWRANK]` Requires `A` to be full row rank and `D` to be a positive multiple of the determinant of the non-zero rows of the HNF. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_modular_eldiv(A, D)` | In-place modular HNF via elementary divisors. `[FULLCOLRANK, INPLACE]` Requires `A` to be full column rank and `D` to be a positive multiple of the largest elementary divisor of `A`. Transforms `A` directly. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_is_in_hnf(H)` | Predicate that matrix is in HNF shape; returns 1 if so, 0 otherwise. | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf(H, A)` | Compute Hermite normal form. `[FULLRANK]` No rank restriction; algorithm auto-selects based on matrix characteristics. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_transform(H, U, A)` | HNF plus transformation matrix output; returns `U` such that `UA = H`. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_classical(H, A)` | Classical HNF algorithm (Cohen Algorithm 2.4.4). Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_xgcd(H, A)` | XGCD-accelerated HNF algorithm (Cohen Algorithm 2.4.5). Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_minors(H, A)` | HNF via Kannan-Bachem minors strategy. `[FULLCOLRANK]` Requires `A` to be full column rank. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_pernet_stein(H, A, state)` | Pernet-Stein randomized HNF variant; requires `flint_rand_t state` for internal randomization. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_modular(H, A, D)` | Modular HNF (Domich-Kannan-Trotter). `[FULLROWRANK]` Requires `A` to be full row rank and `D` to be a positive multiple of the determinant of the non-zero rows of the HNF. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_modular_eldiv(A, D)` | In-place modular HNF via elementary divisors. `[FULLCOLRANK, INPLACE]` Requires `A` to be full column rank and `D` to be a positive multiple of the largest elementary divisor of `A`. Transforms `A` directly. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_is_in_hnf(H)` | Predicate that matrix is in HNF shape; returns 1 if so, 0 otherwise. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 
 ---
 
@@ -70,11 +70,11 @@ Practical caveat from upstream docs:
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `fmpz_mat_snf(S, A)` | Compute Smith normal form. `[FULLRANK]` No rank restriction; algorithm auto-selects based on matrix characteristics. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_snf_diagonal(S, A)` | Diagonalization-focused SNF helper; requires `A` to be diagonal. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_snf_kannan_bachem(S, A)` | Kannan-Bachem SNF algorithm variant. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_snf_iliopoulos(S, A, mod)` | Iliopoulos SNF algorithm variant. `[SQUARE, NONSING]` Requires `A` to be nonsingular `n×n`. Parameter `mod` is a modular bound for intermediate computations. | `[ZZMOD, NF, C]` |
-| `fmpz_mat_is_in_snf(S)` | Predicate that matrix is in SNF shape. | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf(S, A)` | Compute Smith normal form. `[FULLRANK]` No rank restriction; algorithm auto-selects based on matrix characteristics. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf_diagonal(S, A)` | Diagonalization-focused SNF helper; requires `A` to be diagonal. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf_kannan_bachem(S, A)` | Kannan-Bachem SNF algorithm variant. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_snf_iliopoulos(S, A, mod)` | Iliopoulos SNF algorithm variant. `[SQUARE, NONSING]` Requires `A` to be nonsingular `n×n`. Parameter `mod` is a modular bound for intermediate computations. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_is_in_snf(S)` | Predicate that matrix is in SNF shape. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 
 ---
 
