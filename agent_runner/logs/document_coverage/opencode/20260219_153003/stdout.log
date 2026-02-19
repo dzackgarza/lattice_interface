@@ -1,0 +1,17 @@
+1150 |     const info = provider.models[modelID]
+1151 |     if (!info) {
+1152 |       const availableModels = Object.keys(provider.models)
+1153 |       const matches = fuzzysort.go(modelID, availableModels, { limit: 3, threshold: -10000 })
+1154 |       const suggestions = matches.map((m) => m.target)
+1155 |       throw new ModelNotFoundError({ providerID, modelID, suggestions })
+                   ^
+ProviderModelNotFoundError: ProviderModelNotFoundError
+ data: {
+  providerID: "opencode",
+  modelID: "kimi-k2.5-free",
+  suggestions: [],
+},
+
+      at getModel (src/provider/provider.ts:1155:13)
+
+[91m[1mError: [0mModel not found: opencode/kimi-k2.5-free.

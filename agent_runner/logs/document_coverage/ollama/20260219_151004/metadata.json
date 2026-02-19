@@ -1,0 +1,9 @@
+{
+  "agent": "ollama",
+  "classified_error": "usage_limit",
+  "error": "Usage limit for ollama: Ollama usage limit",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_151004",
+  "task": "document_coverage"
+}

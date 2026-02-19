@@ -4,7 +4,7 @@ import warnings
 import pytest
 
 from agent_runner import config
-from agent_runner.agents import ClaudeAgent, CodexAgent, GeminiAgent, OllamaAgent
+from agent_runner.agents import ClaudeAgent, CodexAgent, GeminiAgent, OllamaAgent, QwenAgent
 from agent_runner.errors import RateLimitUsageError
 from agent_runner.logging import build_run_context
 from agent_runner.tasks import DebugSmokeCommitTask
@@ -72,6 +72,17 @@ def test_claude_direct():
     agent = ClaudeAgent(
         name="claude",
         binary=config.settings.claude_bin,
+        subcommand=None,
+        base_args=[],
+        env={"PATH": config.settings.path_prefix},
+    )
+    _assert_agent(agent)
+
+
+def test_qwen_direct():
+    agent = QwenAgent(
+        name="qwen",
+        binary=config.settings.qwen_bin,
         subcommand=None,
         base_args=[],
         env={"PATH": config.settings.path_prefix},

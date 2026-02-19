@@ -96,13 +96,46 @@ A playbook or prompt that enumerates specific things to check creates a meta-cli
 
 ---
 
+## Research-Backed Failure Modes (Diagnostic Patterns)
+
+Use these patterns when auditing transcripts to identify structural defects:
+
+| Failure Mode | Transcript Symptoms | Structural Cause | Fix Pattern |
+|-------------|---------------------|-----------------|-------------|
+| **State Drift** | Contradicts prior decisions; loses goal mid-run; edits that undo earlier work | No goal re-statement; commits without "why" rationale | Add: "Re-state current goal at start of each major step"; require intent-revealing commits with Why/Source/Next |
+| **Goal Drift** | Scope expands beyond original task; does worker tasks instead of structural fixes | No scope boundary check; missing "what kind of changes" constraint | Add explicit scope verification; verify each edit targets prompts/playbooks/memories |
+| **Reasoning Drift** | Locks into flawed pattern (re-checking same files, re-declaring task done) | No contrastive examples of correct vs. flawed patterns | Add explicit "do not repeat X" with correct alternative |
+| **Context Accumulation** | Re-reads same files repeatedly; circular verification loops | No instruction to use git history for prior-session context | Add: "For prior-session context, use `git log --oneline` and `git diff HEAD~N`. Do not use memories for task history." |
+| **Drift Detection Gap** | Worker continues down wrong path without self-correcting | No self-verification instruction in prompt | Add: "Periodically verify output aligns with original task intent — if diverging, re-read playbook" |
+| **Completion Cliff** | Declares task done after superficial check; no commits or trivial commits | Checked items in TODO; memories claiming "work is complete" | Remove checkmarks; delete completion-summary memories |
+| **Memory Poisoning** | Cites memory as authority instead of inspecting files | Memories contain task state or completion claims | Delete memories that let agents conclude "done" without file inspection |
+| **Missing Internal Tools** | Drift persists across runs; agent loses track mid-session | No instruction to use harness-provided tools | Add: "Use harness todo list if available for multi-step tracking"; "Activate planning mode if available for complex tasks" |
+
+---
+
 ## Fixing Problems
 
-### Memories
+### Memories: Design for Misuse-Resistance
 
-Delete memories that function as closure mechanisms. Keep memories that contain genuinely actionable insight a future agent needs — something that is not derivable from inspecting current files (e.g. a known-unreachable upstream source, a non-obvious constraint with no local evidence).
+**The root problem:** Using memories as a performative ledger — recording what was done, what remains, or task state. This is git's job, not memory's job.
 
-Do not archive. Delete.
+**Don't just delete bad memories — fix the structure that produces them:**
+
+| If agents write... | The structural defect is... | Fix the prompt/playbook to... |
+|-------------------|---------------------------|-------------------------------|
+| Changelogs ("Prior agents did X, Y, Z") | No explicit "memories are not for task state"禁令 | Add: "Memories are not for recording what was done. Git history is the ledger." |
+| TODO lists ("Remaining work: A, B, C") | TODO.md not positioned as authoritative work queue | Add: "docs/TODO.md is the work queue. Do not duplicate in memories." |
+| Completion claims ("Task is complete") | No explicit "task is perpetually incomplete" statement | Add: "This task has no terminal state. Do not claim completion." |
+| Handoff notes ("Next agent should...") | No "each run is Markov" principle | Add: "Each run derives task state from files, not prior session records." |
+
+**The goal:** Agents should not write ledger memories because the prompt/playbook makes it structurally obvious that this is wrong — not because a manager deleted them.
+
+**Keep memories that contain genuinely actionable insight** — something not derivable from inspecting current files:
+- A known-unreachable upstream source (URL + what method surface it would fill)
+- A non-obvious constraint with no local evidence (e.g., "Package X requires odd characteristic, documented only in upstream README line N")
+- An upstream discrepancy needing resolution (e.g., "Docs say A, source shows B — unresolved")
+
+**Test:** If a memory lets an agent conclude "work is done" or "here's what prior agents did" without opening files, the prompt/playbook failed to forbid it. Fix the prompt/playbook.
 
 ### Prompts and Playbooks
 
@@ -112,7 +145,23 @@ When removing a closure mechanism, do not replace it with a more specific descri
 
 ### TODOs
 
-Prerequisite items with a binary completion state (either a file exists or it doesn't) are appropriate to check off. Open-ended quality goals are not — checked-off quality items are closure mechanisms.
+`docs/TODO.md` is the outstanding work queue — completed items are removed.
+
+### State Anchoring (Anti-Drift)
+
+Management runs are vulnerable to **goal drift** — gradually expanding scope beyond auditing/fixing prompts into doing worker tasks. Prevent this:
+
+- **Re-state current goal at each major step** — "Current task: audit _what_, fix _which structural cause_, to enable _what worker behavior_"
+- **Verify scope boundary** — after each edit, confirm: "This changes prompts/playbooks/memories, not documentation content"
+- **Commit with intent-revealing messages** — each commit message should capture:
+  ```
+  agent_management: <what structural fix>
+  
+  Root cause: <which prompt/playbook/memory defect>
+  Behavior enabled: <what agents can now do correctly>
+  Research: <citation if research-backed>
+  ```
+- **Use git history as state ledger** — `git log --oneline` and `git diff HEAD~N` are the authoritative record; do not duplicate in separate checkpoint files
 
 ---
 

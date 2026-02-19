@@ -23,3 +23,13 @@ last_message: [0m
 2026-02-19 06:20:03 UTC [kilo/document_coverage] elapsed=5m29s tokens=n/a files=1 loc=+124/-124
 last_message: The documentation worker should continue adding type specifications to remaining reference sections until Goal 2 is complete for all in-scope packages.
 
+
+=== 2026-02-19 16:20:04 UTC [kilo/document_coverage] ===
+2026-02-19 16:20:04 UTC [kilo/document_coverage] elapsed=5m16s tokens=n/a files=3 loc=+55/-17
+last_message: The two reference files previously lacked Sources sections, making it impossible to verify their documented signatures against canonical upstream docs. I've added section 19 to the SageMath lattice reference (citing doc.sagemath.org for IntegralLattice, QuadraticForm, TorsionQuadraticModule, Genus, etc.) and section 5 to the GAP lattice reference (citing gap-system.org for core matrix operations and gap-packages.github.io for Cryst, CARATInterface, Forms, HyperCells). Both now also reference the local upstream snapshots under `docs/**/upstream/`. The TODO.md has been updated to reflect completion of these items.
+
+
+=== 2026-02-19 17:20:03 UTC [kilo/document_coverage] ===
+2026-02-19 17:20:03 UTC [kilo/document_coverage] elapsed=8m39s tokens=n/a files=2 loc=+16/-2
+last_message: The "missing Sources sections" items in the TODO were marked as complete but the underlying issue was a false positive - both `docs/sage/lattice/sagemath_lattice_reference.md` (section 19) and `docs/gap/lattice/gap_lattice_methods_reference.md` (section 5) already had Sources sections. The actual gap was in the crystallographic_stack reference, which lacked a Sources section entirely - I added one with proper source references. Goal 2 is now verified as complete for all in-scope bilinear-form lattice reference docs.
+

@@ -1,0 +1,9 @@
+{
+  "agent": "claude",
+  "classified_error": "usage_limit",
+  "error": "Usage limit for claude: Claude usage limit",
+  "exit_code": null,
+  "requires_commit": true,
+  "run_id": "20260219_164002",
+  "task": "agent_management"
+}

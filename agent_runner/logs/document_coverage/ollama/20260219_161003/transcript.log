@@ -1,0 +1,4 @@
+
+Launching Claude Code with minimax-m2.5:cloud...
+API Error: 429 {"type":"error","error":{"type":"rate_limit_error","message":"you (dzackgarza) have reached your weekly usage limit, please wait or upgrade to continue"},"request_id":"req_a0e39852ff5a7cb3dbf46753"}
+Error: exit status 1

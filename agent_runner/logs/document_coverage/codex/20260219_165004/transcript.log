@@ -1,0 +1,113 @@
+OpenAI Codex v0.104.0 (research preview)
+--------
+workdir: /home/dzack/lattice_interface
+model: gpt-5.3-codex
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR] (network access enabled)
+reasoning effort: high
+reasoning summaries: auto
+session id: 019c76cf-0e46-7122-89f3-46caabd87971
+--------
+user
+# Documentation Coverage Worker Prompt
+
+## Role
+
+You are a documentation worker for this repository.
+
+## Job
+
+Bring project documentation into alignment with what this project’s documentation is supposed to be.
+The core task is complete documentation coverage of lattice-theory methods in the strict sense used by this project.
+
+## Scope Definition (Mandatory)
+
+In this project, "lattice theory" means:
+
+- free `R`-modules of finite rank,
+- equipped with a symmetric nondegenerate bilinear form,
+- with methods that explicitly operate on that bilinear-form lattice structure (for example: Gram matrices/forms, discriminant groups/forms, genus/spinor genus, isometry/equivalence, local-global invariants, signatures, integral quadratic form workflows).
+
+Out of scope:
+
+- polyhedral, cone, toric, or (semi)linear programming tooling that does not explicitly address lattices as free modules with symmetric nondegenerate bilinear forms.
+- documentation surfaces centered on H/V representations, convex hull/cone conversion, Ehrhart counting, generic LP/MIP, or triangulation/enumeration unless they include explicit bilinear-form lattice APIs matching the in-scope definition.
+
+## FIRST GOAL (MANDATORY)
+
+Scan for missing in-scope package surfaces: check whether any relevant bilinear-form lattice-theoretic package is absent from the checklists, and open a new surface only when a clear, source-backed, in-scope gap is found.
+
+Do not spend more than a brief scan on Goal 1 before proceeding to Goal 2. Declaring Goal 1 done without evidence, or treating its completion as license to stop, is a failure.
+
+## SECOND GOAL (MANDATORY)
+
+Completeness and provable correctness of all documented methods:
+
+- method coverage,
+- argument surfaces,
+- types,
+- assumptions and constraints.
+
+If any of the above is missing or unsupported for any method, triage that gap immediately.
+
+**Do not declare Goal 2 complete based on a scan, memory, or TODO status.** The task is incomplete if any reference entry lacks full typed signatures or cited source for its documented signature and constraints. The correct response is to open the actual reference files, find a gap, and fix it. A run that declares completion without opening the reference files and verifying their content has failed.
+
+Current-phase focus:
+
+- Goal 2 is the active emphasis for this phase.
+- Prioritize deepening correctness/completeness of existing in-scope surfaces over expanding package count.
+
+Scope gate for all edits:
+
+- before adding or expanding a package surface, verify the package actually provides APIs for lattices as free modules with symmetric nondegenerate bilinear forms.
+- if a package does not satisfy that criterion, do not add/expand it as a lattice-theory target.
+
+## MINOR GOAL (ONLY AFTER FIRST AND SECOND GOALS ARE CLEARLY SATISFIED)
+
+Precision/clarity refinement work, including:
+
+- fine-tuning wording,
+- disambiguation,
+- structural polish.
+
+## What The Docs Are Supposed To Be
+
+- Coverage of all in-scope bilinear-form lattice methods and contracts known in the active ecosystem.
+- Mathematically precise statements, assumptions, domains, and caveats.
+- Source-backed claims tied to canonical upstream docs and local snapshots.
+- Cohesive, navigable structure across checklists and detailed references.
+- Reliable continuity for future workers.
+
+## Process Guidelines
+
+- Serena memories are for actionable insight only:
+  - activate the project,
+  - read relevant memories,
+  - write a memory only if it contains something a future agent needs to act on — never to summarize completed work.
+- `docs/TODO.md` is the execution queue for outstanding documentation work:
+  - review it at the start of each run,
+  - complete relevant outstanding items within scope.
+- Git is the change ledger:
+  - if documentation changes are made, commit them.
+- Dirty git states are normal:
+  - never discard/reset/revert/checkout unrelated existing changes,
+  - stage and commit only files changed by your assignment.
+
+## References
+
+- `docs/documentation_coverage_audit_playbook.md`
+- `AGENTS.md`
+- `TEST_QUALITY.md`
+- repository docs and local snapshots under `docs/**/upstream/`
+- relevant upstream docs/repositories discovered via internet survey
+
+## Output Format (Mandatory)
+
+Your final output must be 2-3 plain sentences. No headers, no bullets, no markdown. Answer only: what was wrong or missing, what is now correct or known, and why it matters for the project. Skip mechanical details (file names, checklist items, commit hashes). Example: "The `genus` discriminant constraint in OSCAR was previously undocumented; it only applies to even lattices and silently fails on odd ones. This is now recorded with the exact source reference."
+
+mcp: serena starting
+mcp: serena ready
+mcp startup: ready: serena
+ERROR: You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Feb 24th, 2026 12:41 PM.
+Warning: no last agent message; wrote empty content to /home/dzack/lattice_interface/agent_runner/logs/document_coverage/codex/20260219_165004/last_message.txt

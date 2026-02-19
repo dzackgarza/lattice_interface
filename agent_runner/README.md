@@ -2,6 +2,62 @@
 
 Centralized Python app for running agents with consistent logging and notifications.
 
+## Quick Start
+
+```bash
+# Run any agent with any task
+uv run python -m agent_runner run --agent <agent> --task <task>
+
+# Example: kilo with trivial debug task
+uv run python -m agent_runner run --agent kilo --task debug_hello_simple
+```
+
+### Available Agents
+
+| Agent | Binary | Model |
+|-------|--------|-------|
+| `codex` | `codex` | Configurable via `--config model_reasoning_effort` |
+| `claude` | `claude` | `sonnet` |
+| `gemini` | `gemini` | `auto` (configurable via `AGENT_RUNNER_GEMINI_MODEL`) |
+| `kilo` | `kilo` | `kilo/minimax/minimax-m2.5:free` |
+| `ollama` | `ollama` | Configurable via `OLLAMA_MODEL` env var |
+| `opencode` | `opencode` | `opencode/kimi-k2.5-free` (via `OPENCODE_MODEL`) |
+| `qwen` | `qwen` | `coder-model` (via `QWEN_MODEL`) |
+
+### Available Tasks
+
+| Task | Description | Requires Commit |
+|------|-------------|-----------------|
+| `debug_hello_simple` | Say hello and exit | No |
+| `debug_hello_world` | Hello world test | Yes |
+| `debug_smoke_commit` | Exercise git commits | Yes |
+| `document_coverage` | Run doc coverage agent | Yes |
+| `document_test_alignment` | Run test coverage agent | Yes |
+| `agent_management` | Run agent management tasks | Yes |
+
+### Run Output
+
+Logs are written to `logs/<task>/<agent>/<run_id>/`:
+
+```
+logs/
+└── debug_hello_simple/
+    └── kilo/
+        └── 20260219_175043/
+            ├── metadata.json    # Full run metadata (tokens, elapsed, etc.)
+            ├── summary.txt      # Human-readable summary
+            ├── transcript.log   # Raw agent output
+            └── stdout.log       # Stdout capture
+```
+
+## Architecture
+
+Key source files:
+- `src/agent_runner/orchestrator.py` - Main entry point, CLI, run logic
+- `src/agent_runner/agents.py` - Agent definitions (KiloAgent, ClaudeAgent, etc.)
+- `src/agent_runner/tasks.py` - Task definitions
+- `src/agent_runner/config.py` - Paths, binaries, settings
+
 ## Timeout
 
 Agent runs timeout after 15 minutes by default. This triggers an `AgentTimeoutError` and sends a failure notification via ntfy.

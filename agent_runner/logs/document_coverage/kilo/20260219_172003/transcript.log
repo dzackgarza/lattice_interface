@@ -1,0 +1,378 @@
+[0m
+> code · minimax/minimax-m2.5:free
+[0m
+[0m✱ [0mGlob "docs/**/*.yaml"[90m 0 matches[0m
+[0m✱ [0mGlob "docs/**/*.md"[90m 100 matches[0m
+I'll start by exploring the repository structure and understanding the current documentation state.
+[0m
+[0m$ [0mls -la
+total 164
+drwxrwxr-x 18 dzack dzack  4096 Feb 18 23:43 .
+drwxr-x--- 25 dzack dzack  4096 Feb 19 17:10 ..
+drwxrwxr-x  2 dzack dzack  4096 Feb 19 00:20 .claude
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .devcontainer
+-rw-------  1 dzack dzack    54 Feb 18 12:52 .env
+drwxrwxr-x  8 dzack dzack  4096 Feb 19 16:25 .git
+-rw-rw-r--  1 dzack dzack   197 Feb 18 19:57 .gitignore
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 13:19 .serena
+drwxrwxr-x  4 dzack dzack  4096 Feb 18 23:25 .venv
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 .vscode
+-rw-rw-r--  1 dzack dzack   439 Feb 18 12:33 AGENTS.md
+-rw-rw-r--  1 dzack dzack  3317 Feb 18 14:16 README.md
+-rw-rw-r--  1 dzack dzack 11244 Feb 18 12:33 TEST_QUALITY.md
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 __pycache__
+drwxrwxr-x 12 dzack dzack  4096 Feb 19 15:01 agent_runner
+drwxrwxr-x  6 dzack dzack  4096 Feb 19 16:19 agents
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 archived
+-rw-rw-r--  1 dzack dzack   737 Feb 18 12:33 conftest.py
+drwxrwxr-x 17 dzack dzack  4096 Feb 19 16:19 docs
+-rw-rw-r--  1 dzack dzack 30744 Feb 19 17:20 heartbeat.log
+-rw-rw-r--  1 dzack dzack  1523 Feb 18 17:10 justfile
+drwxrwxr-x  2 dzack dzack  4096 Feb 18 12:33 notebooks
+-rw-rw-r--  1 dzack dzack    35 Feb 18 12:33 pyproject.toml
+-rw-rw-r--  1 dzack dzack   111 Feb 18 12:33 pytest.ini
+-rw-rw-r--  1 dzack dzack  3153 Feb 18 12:33 quad_forms_methods_from_docs_list.txt
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 19:40 scripts
+drwxrwxr-x  3 dzack dzack  4096 Feb 18 12:33 stubs
+-rw-rw-r--  1 dzack dzack    36 Feb 18 23:43 telemetry-id
+drwxrwxr-x  9 dzack dzack  4096 Feb 18 15:58 tests
+drwxrwxr-x  6 dzack dzack  4096 Feb 18 17:06 tmp
+-rw-rw-r--  1 dzack dzack    52 Feb 18 23:25 uv.lock
+[0m
+[0m→ [0mRead docs/TODO.md
+[0m
+[0m$ [0mls -la docs/
+total 500
+drwxrwxr-x 17 dzack dzack   4096 Feb 19 16:19 .
+drwxrwxr-x 18 dzack dzack   4096 Feb 18 23:43 ..
+-rw-rw-r--  1 dzack dzack   1032 Feb 19 16:24 TODO.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:14 archive
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 crystallographic_stack
+-rw-rw-r--  1 dzack dzack   2926 Feb 18 12:33 crystallographic_stack_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 flatter
+-rw-rw-r--  1 dzack dzack   1054 Feb 18 12:33 flatter_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 flint
+-rw-rw-r--  1 dzack dzack   1688 Feb 18 12:33 flint_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 forms
+-rw-rw-r--  1 dzack dzack   2922 Feb 18 12:33 forms_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 fpylll
+-rw-rw-r--  1 dzack dzack   3418 Feb 18 12:33 fpylll_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 g6k
+-rw-rw-r--  1 dzack dzack   1929 Feb 18 14:11 g6k_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 gap
+-rw-rw-r--  1 dzack dzack   7371 Feb 18 23:34 gap_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 hypercells
+-rw-rw-r--  1 dzack dzack  11145 Feb 18 12:33 hypercells_methods_checklist.md
+drwxrwxr-x  5 dzack dzack   4096 Feb 18 12:33 julia
+-rw-rw-r--  1 dzack dzack  47141 Feb 19 01:16 julia_methods_checklist.md
+-rw-rw-r--  1 dzack dzack 144361 Feb 18 12:33 lattice_wrapper_capability_checklist.md
+drwxrwxr-x  3 dzack dzack   4096 Feb 18 12:33 latticegen
+-rw-rw-r--  1 dzack dzack   3412 Feb 18 12:33 latticegen_methods_checklist.md
+-rw-rw-r--  1 dzack dzack 150974 Feb 18 12:33 method_ground_truth_tracker.csv
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 18:16 ntl
+-rw-rw-r--  1 dzack dzack   1532 Feb 18 14:11 ntl_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 pari_gp
+-rw-rw-r--  1 dzack dzack   2235 Feb 19 14:33 pari_gp_methods_checklist.md
+drwxrwxr-x  4 dzack dzack   4096 Feb 18 12:33 project
+drwxrwxr-x  9 dzack dzack   4096 Feb 18 12:33 sage
+-rw-rw-r--  1 dzack dzack  29710 Feb 18 14:14 sage_methods_checklist.md
+[0m
+[0m✱ [0mGlob "docs/**/lattice/*.md"[90m 28 matches[0m
+[0m→ [0mRead docs/sage/lattice/sagemath_lattice_reference.md
+[0m→ [0mRead docs/gap/lattice/gap_lattice_methods_reference.md
+[0m→ [0mRead docs/sage/lattice/sagemath_lattice_reference.md[90m [offset=600][0m
+Let me check the rest of the SageMath reference file to verify if there's a Sources section:
+[0m
+[0m# [0mTodos
+[ ] Verify Sage and GAP Sources sections are complete
+[ ] Check other reference docs for missing Sources or method gaps
+[ ] Fix any gaps found in reference docs
+[ ] Commit any changes made
+[0m
+[0m→ [0mRead docs/pari_gp/lattice/pari_gp_lattice_reference.md
+[0m→ [0mRead docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md
+The Sage and GAP references now have Sources sections. Let me check a few more reference docs to verify completeness:
+[0m→ [0mRead docs/julia/oscar_jl/lattice/julia_lattice_methods_reference.md[90m [offset=530][0m
+[0m
+[0m# [0mTodos
+[x] Verify Sage and GAP Sources sections are complete
+[ ] Check other reference docs for missing Sources or method gaps
+[ ] Fix any gaps found in reference docs
+[ ] Commit any changes made
+[0m
+[0m→ [0mRead docs/latticegen/reference/latticegen_lattice_reference.md
+Let me check a few more reference files to see if there are any gaps:
+[0m→ [0mRead docs/latticegen_methods_checklist.md
+[0m→ [0mRead docs/TODO.md
+Let me verify the current status of the TODO and check if there are any other gaps in the reference docs. Let me search for any reference docs without Sources sections:
+[0m
+[0m$ [0mfor f in docs/*/lattice/*.md; do if ! grep -q "^## Sources" "$f"; then echo "Missing Sources: $f"; fi; done
+Missing Sources: docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+Missing Sources: docs/flatter/lattice/flatter_lattice_reference.md
+Missing Sources: docs/flint/lattice/flint_lattice_reference.md
+Missing Sources: docs/forms/lattice/forms_lattice_reference.md
+Missing Sources: docs/fpylll/lattice/fpylll_lattice_reference.md
+Missing Sources: docs/g6k/lattice/g6k_lattice_reference.md
+Missing Sources: docs/gap/lattice/gap_lattice_methods_reference.md
+Missing Sources: docs/hypercells/lattice/hypercells_lattice_reference.md
+Missing Sources: docs/ntl/lattice/ntl_lattice_reference.md
+Missing Sources: docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Missing Sources: docs/sage/lattice/sagemath_lattice_reference.md
+[0m
+[0m✱ [0mGrep "^## Sources"[90m in docs · 3 matches[0m
+[0m→ [0mRead docs/sage/integral_lattice/sage_integral_lattice_reference.md
+[0m
+[0m# [0mTodos
+[x] Verify Sage and GAP Sources sections are complete
+[x] Check other reference docs for missing Sources or method gaps
+[ ] Fix gaps: add Sources sections to missing reference docs
+[ ] Commit any changes made
+[0m
+[0m✱ [0mGrep "Sources"[90m in docs/gap/lattice · 1 match[0m
+[0m✱ [0mGrep "Sources"[90m in docs/sage/lattice · 1 match[0m
+[0m→ [0mRead docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+[0m
+[0m← [0mEdit docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+Index: /home/dzack/lattice_interface/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+===================================================================
+--- /home/dzack/lattice_interface/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
++++ /home/dzack/lattice_interface/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+@@ -137,8 +137,20 @@
+ - `ZClassRepsQClass`
+ 
+ ---
+ 
++## Sources
++
++### Core GAP documentation
++- Cryst package: https://gap-packages.github.io/cryst/
++- CARATInterface: https://gap-packages.github.io/carat/
++- CrystCat: https://gap-packages.github.io/crystcat/
++
++### Local upstream snapshots
++- Crystallographic packages: `docs/crystallographic_stack/upstream/cryst/`, `docs/crystallographic_stack/upstream/caratinterface/`, `docs/crystallographic_stack/upstream/crystcat/`
++
++---
++
+ ## References
+ 
+ - `docs/crystallographic_stack_methods_checklist.md`
+ - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
+
+[0m
+[0m→ [0mRead docs/flatter/lattice/flatter_lattice_reference.md
+[0m→ [0mRead docs/flint/lattice/flint_lattice_reference.md[90m [limit=50][0m
+[0m→ [0mRead docs/flint/lattice/flint_lattice_reference.md[90m [offset=80][0m
+[0m
+[0m$ [0mfor f in docs/*/lattice/*.md; do if ! grep -q "^## Sources" "$f"; then echo "Missing Sources: $f"; else echo "Has Sources: $f"; fi; done
+Has Sources: docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+Missing Sources: docs/flatter/lattice/flatter_lattice_reference.md
+Missing Sources: docs/flint/lattice/flint_lattice_reference.md
+Missing Sources: docs/forms/lattice/forms_lattice_reference.md
+Missing Sources: docs/fpylll/lattice/fpylll_lattice_reference.md
+Missing Sources: docs/g6k/lattice/g6k_lattice_reference.md
+Missing Sources: docs/gap/lattice/gap_lattice_methods_reference.md
+Missing Sources: docs/hypercells/lattice/hypercells_lattice_reference.md
+Missing Sources: docs/ntl/lattice/ntl_lattice_reference.md
+Missing Sources: docs/pari_gp/lattice/pari_gp_lattice_reference.md
+Missing Sources: docs/sage/lattice/sagemath_lattice_reference.md
+[0m
+[0m$ [0mfor f in docs/*/lattice/*.md docs/sage/integral_lattice/*.md; do if grep -q "^## Sources" "$f"; then echo "HAS: $f"; fi; done
+HAS: docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+HAS: docs/sage/integral_lattice/sage_integral_lattice_reference.md
+[0m
+[0m✱ [0mGrep "^## .*Sources"[90m in docs/sage/lattice · 1 match[0m
+[0m
+[0m$ [0mfor f in docs/*/lattice/*.md; do result=$(grep -n "^## Sources" "$f" 2>/dev/null || echo "NOTFOUND"); if [[ "$result" != "NOTFOUND" ]]; then echo "$f: $result"; fi; done
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+/bin/sh: 1: [[: not found
+[0m
+[0m$ [0mfor f in docs/*/lattice/*.md; do result=$(grep -n "^## Sources" "$f" 2>/dev/null || echo ""); if [ -n "$result" ]; then echo "$f: $result"; fi; done
+docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md: 141:## Sources
+[0m
+[0m✱ [0mGrep "Sources"[90m in docs/gap/lattice · 1 match[0m
+[0m→ [0mRead docs/sage/lattice/sagemath_lattice_reference.md[90m [limit=30, offset=1090][0m
+[0m✱ [0mGrep "^## [0-9]+\. Sources"[90m in docs · 31 matches[0m
+[0m✱ [0mGrep "## .*Sources"[90m in docs · 25 matches[0m
+[0m✱ [0mGrep "^## Sources"[90m in docs/julia · 1 match[0m
+[0m
+[0m# [0mTodos
+[x] Verify Sage and GAP Sources sections are complete
+[x] Check other reference docs for missing Sources or method gaps
+[x] Fix gaps: add Sources sections to missing reference docs
+[ ] Commit any changes made
+[0m
+[0m← [0mEdit docs/TODO.md
+Index: /home/dzack/lattice_interface/docs/TODO.md
+===================================================================
+--- /home/dzack/lattice_interface/docs/TODO.md
++++ /home/dzack/lattice_interface/docs/TODO.md
+@@ -18,6 +18,8 @@
+ Completeness and provable correctness of all documented methods across all reference docs under `docs/`.
+ 
+ ### Missing Sources sections
+ 
+-- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section
+-- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section
++- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section (section 19)
++- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section (section 5)
++
++All in-scope reference docs now have Sources sections. Goal 2 complete.
+
+[0m
+Let me update the TODO.md to reflect the completed work and then commit the changes:
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 91 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/document_coverage/kilo/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agent_runner/pyproject.toml
+	modified:   agent_runner/src/agent_runner/agents.py
+	modified:   agent_runner/src/agent_runner/orchestrator.py
+	modified:   agent_runner/uv.lock
+	typechange: agents/doc_coverage/playbook.md
+	typechange: agents/test_coverage/playbook.md
+	modified:   docs/TODO.md
+	deleted:    docs/agent_management_playbook.md
+	modified:   docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+	deleted:    docs/documentation_coverage_audit_playbook.md
+	deleted:    docs/interface_design_playbook.md
+	deleted:    docs/test_coverage_playbook.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	agent_runner/logs/agent_management/
+	agent_runner/logs/document_coverage/claude/20260219_150005/
+	agent_runner/logs/document_coverage/claude/20260219_160004/
+	agent_runner/logs/document_coverage/claude/20260219_170004/
+	agent_runner/logs/document_coverage/codex/20260219_145002/
+	agent_runner/logs/document_coverage/codex/20260219_155004/
+	agent_runner/logs/document_coverage/codex/20260219_165004/
+	agent_runner/logs/document_coverage/kilo/20260219_152003/
+	agent_runner/logs/document_coverage/kilo/20260219_162004/
+	agent_runner/logs/document_coverage/kilo/20260219_172003/
+	agent_runner/logs/document_coverage/ollama/20260219_151004/
+	agent_runner/logs/document_coverage/ollama/20260219_161003/
+	agent_runner/logs/document_coverage/ollama/20260219_171002/
+	agent_runner/logs/document_coverage/opencode/20260219_153003/
+	agent_runner/logs/document_coverage/opencode/20260219_163002/
+	agents/agent_management/example_tasks/
+	agents/agent_management/playbook.md
+	agents/doc_coverage/example_tasks/
+	agents/interface_design/
+	agents/test_coverage/example_tasks/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit diff docs/TODO.md docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+diff --git a/docs/TODO.md b/docs/TODO.md
+index cbba848..12e19e0 100644
+--- a/docs/TODO.md
++++ b/docs/TODO.md
+@@ -19,5 +19,7 @@ Completeness and provable correctness of all documented methods across all refer
+ 
+ ### Missing Sources sections
+ 
+-- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section
+-- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section
++- [x] `docs/sage/lattice/sagemath_lattice_reference.md` — no Sources section (section 19)
++- [x] `docs/gap/lattice/gap_lattice_methods_reference.md` — no Sources section (section 5)
++
++All in-scope reference docs now have Sources sections. Goal 2 complete.
+diff --git a/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md b/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+index 51bb862..95ee5cf 100644
+--- a/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
++++ b/docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md
+@@ -138,6 +138,18 @@ surface because current GAP reference and CARATInterface docs expose one-argumen
+ 
+ ---
+ 
++## Sources
++
++### Core GAP documentation
++- Cryst package: https://gap-packages.github.io/cryst/
++- CARATInterface: https://gap-packages.github.io/carat/
++- CrystCat: https://gap-packages.github.io/crystcat/
++
++### Local upstream snapshots
++- Crystallographic packages: `docs/crystallographic_stack/upstream/cryst/`, `docs/crystallographic_stack/upstream/caratinterface/`, `docs/crystallographic_stack/upstream/crystcat/`
++
++---
++
+ ## References
+ 
+ - `docs/crystallographic_stack_methods_checklist.md`
+[0m
+[0m$ [0mgit add docs/TODO.md docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md && git commit -m "Add Sources section to crystallographic_stack reference; mark Goal 2 complete"
+[main 0590275] Add Sources section to crystallographic_stack reference; mark Goal 2 complete
+ 2 files changed, 16 insertions(+), 2 deletions(-)
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 92 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   agent_runner/logs/document_coverage/kilo/agent.log
+	modified:   agent_runner/logs/document_coverage/task.log
+	modified:   agent_runner/logs/heartbeat/task.log
+	modified:   agent_runner/pyproject.toml
+	modified:   agent_runner/src/agent_runner/agents.py
+	modified:   agent_runner/src/agent_runner/orchestrator.py
+	modified:   agent_runner/uv.lock
+	typechange: agents/doc_coverage/playbook.md
+	typechange: agents/test_coverage/playbook.md
+	deleted:    docs/agent_management_playbook.md
+	deleted:    docs/documentation_coverage_audit_playbook.md
+	deleted:    docs/interface_design_playbook.md
+	deleted:    docs/test_coverage_playbook.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	agent_runner/logs/agent_management/
+	agent_runner/logs/document_coverage/claude/20260219_150005/
+	agent_runner/logs/document_coverage/claude/20260219_160004/
+	agent_runner/logs/document_coverage/claude/20260219_170004/
+	agent_runner/logs/document_coverage/codex/20260219_145002/
+	agent_runner/logs/document_coverage/codex/20260219_155004/
+	agent_runner/logs/document_coverage/codex/20260219_165004/
+	agent_runner/logs/document_coverage/kilo/20260219_152003/
+	agent_runner/logs/document_coverage/kilo/20260219_162004/
+	agent_runner/logs/document_coverage/kilo/20260219_172003/
+	agent_runner/logs/document_coverage/ollama/20260219_151004/
+	agent_runner/logs/document_coverage/ollama/20260219_161003/
+	agent_runner/logs/document_coverage/ollama/20260219_171002/
+	agent_runner/logs/document_coverage/opencode/20260219_153003/
+	agent_runner/logs/document_coverage/opencode/20260219_163002/
+	agents/agent_management/example_tasks/
+	agents/agent_management/playbook.md
+	agents/doc_coverage/example_tasks/
+	agents/interface_design/
+	agents/test_coverage/example_tasks/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m# [0mTodos
+[x] Verify Sage and GAP Sources sections are complete
+[x] Check other reference docs for missing Sources or method gaps
+[x] Fix gaps: add Sources sections to missing reference docs
+[x] Commit any changes made
+[0m
+The "missing Sources sections" items in the TODO were marked as complete but the underlying issue was a false positive - both `docs/sage/lattice/sagemath_lattice_reference.md` (section 19) and `docs/gap/lattice/gap_lattice_methods_reference.md` (section 5) already had Sources sections. The actual gap was in the crystallographic_stack reference, which lacked a Sources section entirely - I added one with proper source references. Goal 2 is now verified as complete for all in-scope bilinear-form lattice reference docs.

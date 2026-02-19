@@ -1,0 +1,30 @@
+{
+  "agent": "kilo",
+  "classified_error": null,
+  "commits": [
+    {
+      "author": "Codex",
+      "commit": "9fd9aa691db62e3b438f32dd143b14c006c10840",
+      "date": "2026-02-19T16:25:13+00:00",
+      "subject": "Add Sources sections to sage and gap lattice references"
+    }
+  ],
+  "debug_prompt": null,
+  "deletions": 17,
+  "dry_run": false,
+  "elapsed_seconds": 316.541483,
+  "end_time": "2026-02-19T16:25:20.773689+00:00",
+  "exit_code": 0,
+  "files_changed": [
+    "docs/TODO.md",
+    "docs/gap/lattice/gap_lattice_methods_reference.md",
+    "docs/sage/lattice/sagemath_lattice_reference.md"
+  ],
+  "insertions": 55,
+  "last_message": "The two reference files previously lacked Sources sections, making it impossible to verify their documented signatures against canonical upstream docs. I've added section 19 to the SageMath lattice reference (citing doc.sagemath.org for IntegralLattice, QuadraticForm, TorsionQuadraticModule, Genus, etc.) and section 5 to the GAP lattice reference (citing gap-system.org for core matrix operations and gap-packages.github.io for Cryst, CARATInterface, Forms, HyperCells). Both now also reference the local upstream snapshots under `docs/**/upstream/`. The TODO.md has been updated to reflect completion of these items.",
+  "requires_commit": true,
+  "run_id": "20260219_162004",
+  "start_time": "2026-02-19T16:20:04.232206+00:00",
+  "task": "document_coverage",
+  "token_count": null
+}
