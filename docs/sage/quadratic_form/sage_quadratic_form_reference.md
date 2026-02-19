@@ -273,7 +273,7 @@ Q.jordan_blocks_by_scale_and_unimodular(5)
 | `global_genus_symbol()` | — | `GenusSymbol_global_ring` | Complete genus symbol over ℤ. |
 | `local_genus_symbol(p)` | `p`: `Integer` or `Prime` | `Genus_Symbol_p_adic_ring` | Local genus symbol at prime p. |
 | `CS_genus_symbol_list()` | — | `list` | Conway–Sloane genus symbol list. |
-| `genera(sig_pair, det, ...)` | `sig_pair`: `tuple`, `det`: `RingElement`, ... | `list` | (Static/module-level) Enumerate all genera with given signature pair and determinant. |
+| `genera(sig_pair, determinant, max_scale=None, even=False)` | `sig_pair`: `tuple[int, int]`, `determinant`: `Integer` (sign ignored), `max_scale`: `Integer` or `None` (default `None`), `even`: `bool` (default `False`) | `list[GenusSymbol_global_ring]` | (Static method) Enumerate all non-empty global genera with given signature pair and determinant; `max_scale` bounds the Jordan block scale; `even` restricts to even lattices. |
 | `mass__by_Siegel_densities()` | — | `Rational` | Mass of the genus computed via Siegel's density formula. |
 | `conway_mass()` | — | `Rational` | Mass via Conway–Sloane tables. |
 | `conway_standard_mass()` | — | `Rational` | Conway–Sloane "standard" mass. |
@@ -338,8 +338,8 @@ Q.solve(14)                              # e.g., (1, 2, 3)
 
 | Method | Argument Types | Return Type | Description |
 |--------|----------------|-------------|-------------|
-| `find_p_neighbor_from_vec(p, v)` | `p`: `Integer` or `Prime`, `v`: `Vector` | `QuadraticForm` | Compute the p-neighbor of Q determined by isotropic vector v mod p. |
-| `neighbor_iteration(p, ...)` | `p`: `Integer` or `Prime`, ... | `list[QuadraticForm]` | Iterate over all p-neighbors; used to enumerate genus representatives. |
+| `find_p_neighbor_from_vec(p, y, odd=False, return_matrix=False)` | `p`: prime `Integer`, `y`: `Vector` (must satisfy `q(y) ∈ pℤ`), `odd`: `bool` (default `False`; if `p=2`, also include odd neighbors), `return_matrix`: `bool` (default `False`) | `QuadraticForm` (or `Matrix` if `return_matrix=True`) | Compute the p-neighbor of Q at vector y; returns the transformed quadratic form or the transformation matrix. |
+| `neighbor_iteration(seeds, p, mass=None, max_classes=None, algorithm=None, max_neighbors=1000, verbose=False)` | `seeds`: `list[QuadraticForm]`, `p`: prime `Integer`, `mass`: `Rational` or `None`, `max_classes`: `Integer` or `None` (default `None`, breaks at 1000), `algorithm`: `str` or `None` (`'orbits'`, `'random'`, `'exhaustion'`), `max_neighbors`: `Integer` (default `1000`), `verbose`: `bool` | `list[QuadraticForm]` | Starting from seeds, successively compute p-neighbors until no new isometry class is found; used to enumerate all isometry classes in a genus. |
 
 ```python
 Q = DiagonalQuadraticForm(ZZ, [1, 1, 1, 1])
