@@ -29,15 +29,15 @@ Representation model:
 
 ## 2. Core Reduction and Isometry APIs
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `qflll(x, {flag = 0})` | LLL reduction from basis-style matrix input | `[ZZMOD, RED]` |
-| `qflllgram(G, {flag = 0})` | LLL-style reduction from Gram matrix input | `[PD, ZZMOD, RED]` |
-| `qfisom(G, H, {fl}, {grp})` | Isometry/equivalence test between quadratic forms | `[NT]` |
-| `qfisominit(G, {fl}, {m})` | Precomputation structure for repeated `qfisom` calls | `[NT]` |
-| `qfauto(G, {fl})` | Automorphism group computations for forms | `[NT]` |
-| `qfautoexport(qfa, {flag})` | Export/format automorphism data | `[NT]` |
-| `qforbits(G, V)` | Orbit decomposition for action of a finite matrix group `G` on vectors `V` | `[NT]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
+| `qflllgram(G, {flag = 0})` | `G`: symmetric integer matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns reduced Gram matrix | `[PD, ZZMOD, RED]` |
+| `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise | `[NT]` |
+| `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls | `[NT]` |
+| `qfauto(G, {fl})` | `G`: symmetric integer matrix; `flag`: integer (optional) | vector | Automorphism group computations for forms; returns generating matrices | `[NT]` |
+| `qfautoexport(qfa, {flag})` | `qfa`: vector (automorphism data); `flag`: integer (optional) | vector | Export/format automorphism data | `[NT]` |
+| `qforbits(G, V)` | `G`: matrix group (generators); `V`: vector of vectors | vector | Orbit decomposition for action of a finite matrix group `G` on vectors `V` | `[NT]` |
 
 Practical note:
 
@@ -49,24 +49,24 @@ Practical note:
 
 ## 3. Vector Search and Optimization APIs
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `qfminim(x, {B}, {m}, {flag = 0})` | Enumerate vectors with bounded quadratic value (or default minimal vectors) | `[PD, NT]` |
-| `qfminimize(G)` | Minimization helper workflow for forms | `[PD, NT]` |
-| `qfcvp(x, t, {B}, {m}, {flag = 0})` | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
-| `qfrep(q, B, {flag = 0})` | Representation routines for quadratic forms | `[NT]` |
-| `qfeval({q}, x, {y})` | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
-| `qfnorm(x, {q})` | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` |
+| `qfminimize(G)` | `G`: symmetric integer matrix | vector | Minimization helper workflow for forms | `[PD, NT]` |
+| `qfcvp(x, t, {B}, {m}, {flag = 0})` | `x`: integer matrix (basis); `t`: integer vector (target); `B`, `m`, `flag`: optional integers | integer vector | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
+| `qfrep(q, B, {flag = 0})` | `q`: integer; `B`: integer matrix; `flag`: integer (optional) | vector | Representation routines for quadratic forms | `[NT]` |
+| `qfeval({q}, x, {y})` | `q`: quadratic form (optional); `x`: integer vector/matrix; `y`: integer vector (optional) | integer | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
+| `qfnorm(x, {q})` | `x`: integer vector; `q`: quadratic form (optional) | integer | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
 
 ---
 
 ## 4. Indefinite/Equation-Solving APIs
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `qfsolve(G)` | Solve isotropy/zero-representation equation for form `G` | `[INDEF, NT]` |
-| `qfparam(G, sol, {flag = 0})` | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` |
-| `qfsign(G)` | Signature-related analysis of form | `[INDEF, NT]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `qfsolve(G)` | `G`: symmetric integer matrix | integer vector or 0 | Solve isotropy/zero-representation equation for form `G`; returns vector or 0 | `[INDEF, NT]` |
+| `qfparam(G, sol, {flag = 0})` | `G`: symmetric integer matrix; `sol`: integer vector (isotropic); `flag`: integer (optional) | vector | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` |
+| `qfsign(G)` | `G`: symmetric integer matrix | vector (3 components) | Signature-related analysis of form; returns [p, n, nullity] | `[INDEF, NT]` |
 
 Use these for indefinite arithmetic problems where shortest-vector Euclidean workflows are not the right abstraction.
 
@@ -74,10 +74,10 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 ## 5. Binary/Low-Dimensional and Structural APIs
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `qfgaussred(q, {flag = 0})` | Gauss reduction of binary quadratic forms | `[NT]` |
-| `qfperfection(G)` | Perfection/perfect-form style analysis (currently rank 8 only in upstream docs) | `[NT]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `qfgaussred(q, {flag = 0})` | `q`: integer (binary form discriminant) or integer matrix; `flag`: integer (optional) | vector | Gauss reduction of binary quadratic forms | `[NT]` |
+| `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis (currently rank 8 only in upstream docs) | `[NT]` |
 
 ---
 

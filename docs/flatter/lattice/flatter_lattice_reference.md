@@ -33,17 +33,17 @@ Not in scope:
 
 Upstream README documents the main command and options:
 
-| Command / option | Description | Tags |
-|------------------|-------------|------|
-| `flatter [OPTION] [INPUT_FILE [OUTPUT_FILE]]` | Main reduction command. | `[CLI, EUCLID, RED]` |
-| `-a ALPHA` | Reduction parameter (`0.5 < ALPHA <= 1`). | `[CLI, EUCLID, RED]` |
-| `-rhf R` | Alternate reduction parameter based on root-Hermite factor (`R > 1`). | `[CLI, EUCLID, RED]` |
-| `-logcond C` | Reduction parameter based on log-condition number (`C >= 0`). | `[CLI, EUCLID, RED]` |
-| `-p PREC` | Precision in bits (`PREC >= 1`; default `0` uses auto mode). | `[CLI, EUCLID, RED]` |
-| `-t THRS` | Number of threads (`THRS >= 1`; default `1`). | `[CLI, EUCLID, RED]` |
-| `-v` | Verbose mode. | `[CLI, EUCLID]` |
-| `-q` | Quiet mode. | `[CLI, EUCLID]` |
-| `-h` | Help output. | `[CLI]` |
+| Command / option | Argument Types | Return Type | Description | Tags |
+|------------------|----------------|-------------|-------------|------|
+| `flatter [OPTION] [INPUT_FILE [OUTPUT_FILE]]` | `OPTION`: flags, `INPUT_FILE`: str (optional), `OUTPUT_FILE`: str (optional) | integer matrix (stdout) | Main reduction command. | `[CLI, EUCLID, RED]` |
+| `-a ALPHA` | `ALPHA`: float | CLI flag | Reduction parameter (`0.5 < ALPHA <= 1`). | `[CLI, EUCLID, RED]` |
+| `-rhf R` | `R`: float | CLI flag | Alternate reduction parameter based on root-Hermite factor (`R > 1`). | `[CLI, EUCLID, RED]` |
+| `-logcond C` | `C`: float | CLI flag | Reduction parameter based on log-condition number (`C >= 0`). | `[CLI, EUCLID, RED]` |
+| `-p PREC` | `PREC`: int | CLI flag | Precision in bits (`PREC >= 1`; default `0` uses auto mode). | `[CLI, EUCLID, RED]` |
+| `-t THRS` | `THRS`: int | CLI flag | Number of threads (`THRS >= 1`; default `1`). | `[CLI, EUCLID, RED]` |
+| `-v` | — | CLI flag | Verbose mode. | `[CLI, EUCLID]` |
+| `-q` | — | CLI flag | Quiet mode. | `[CLI, EUCLID]` |
+| `-h` | — | CLI flag | Help output. | `[CLI]` |
 
 Input/output contract documented by README:
 
@@ -54,11 +54,11 @@ Input/output contract documented by README:
 
 ## 3. Utility Scripts
 
-| Script / command | Description | Tags |
-|------------------|-------------|------|
-| `./test.sh` | Repository test helper script. | `[UTIL]` |
-| `./test_perf.py [NTRIALS] [NROWS] [START_R] [STEP_R]` | Performance benchmark helper with optional dimensional controls. | `[UTIL, EUCLID, RED]` |
-| `make test` | Build-system test target. | `[UTIL]` |
+| Script / command | Argument Types | Return Type | Description | Tags |
+|------------------|----------------|-------------|-------------|------|
+| `./test.sh` | — | None | Repository test helper script. | `[UTIL]` |
+| `./test_perf.py [NTRIALS] [NROWS] [START_R] [STEP_R]` | `NTRIALS`: int (optional), `NROWS`: int (optional), `START_R`: int (optional), `STEP_R`: int (optional) | benchmark output | Performance benchmark helper with optional dimensional controls. | `[UTIL, EUCLID, RED]` |
+| `make test` | — | None | Build-system test target. | `[UTIL]` |
 
 ---
 
