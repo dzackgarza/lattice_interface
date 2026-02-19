@@ -56,10 +56,10 @@ Definiteness note:
 
 ### 1.2 LLL reduction
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `LLLReducedBasis(...)` | LLL-reduced basis computation | `[CORE, EUCLID]` |
-| `LLLReducedGramMat(G[, y])` | LLL-style reduction on Gram matrix, returning reduction record (remainder/relations/transformation, etc.) | `[CORE, EUCLID]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `LLLReducedBasis([L, ]vectors[, y][, "linearcomb"][, lllout])` | `L` (optional): lattice with `ScalarProduct`; `vectors`: list of vectors; `y` (optional): rational in `(1/4,1]`, default `3/4`; `"linearcomb"` (optional): string flag; `lllout` (optional): record with `.mue`, `.B` for incremental calls | record: `.basis` (LLL-reduced basis list), `.mue`, `.B`; if `"linearcomb"`: also `.relations`, `.transformation` | LLL-reduced basis spanning the same lattice as `vectors`; if `L` given, uses `ScalarProduct(L,v,w)`; otherwise uses `ScalarProduct(v,w)` | `[CORE, EUCLID]` |
+| `LLLReducedGramMat(G[, y])` | `G`: square symmetric integer matrix (Gram matrix); `y` (optional): rational in `(1/4,1]`, default `3/4` | record: `.remainder` (reduced Gram matrix; lower-triangular if `G` is), `.mue`, `.B`, `.relations`, `.transformation` (unimodular matrix `U` s.t. `U * G * TransposedMat(U) = .remainder`) | LLL reduction on Gram matrix, following Cohen §3.5; `.remainder` is the Gram matrix of the LLL-reduced basis | `[CORE, EUCLID]` |
 
 Definiteness note:
 - LLL is an algorithmic Euclidean reduction procedure.
@@ -67,10 +67,10 @@ Definiteness note:
 
 ### 1.3 Short vectors and embedding routines
 
-| Function | Description | Tags |
-|----------|-------------|------|
-| `ShortestVectors(G, m[, "positive"])` | Enumerates `x` with `x * G * x^tr <= m` for regular symmetric `G` | `[CORE, EUCLID, PD]` |
-| `OrthogonalEmbeddings(gram[, "positive"][, maxdim])` | Solves `X^tr * X = gram` and returns encoded solution data | `[CORE, EUCLID, PD]` |
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `ShortestVectors(G, m[, "positive"])` | `G`: regular symmetric integer matrix of bilinear form; `m`: nonneg integer (norm bound); `"positive"` (optional): string flag to restrict to vectors with nonneg entries | record: `.vectors` (list of vectors `x` with `x*G*x^tr ≤ m`, one per `{x,-x}` pair), `.norms` (corresponding norm values) | Enumerate integer vectors `x` satisfying `x * G * x^tr ≤ m`; upstream requires `G` regular (nondegenerate); finite only for PD constraints | `[CORE, EUCLID, PD]` |
+| `OrthogonalEmbeddings(gram[, "positive"][, maxdim])` | `gram`: symmetric PD integer matrix; `"positive"` (optional): restrict rows to nonneg entries (useful for character-table contexts); `maxdim` (optional): positive integer, maximum solution dimension to compute | record: `.vectors` (list of possible row vectors up to sign, characterized by `v * gram^{-1} * v^tr ≤ 1`), `.norms`, `.solutions` (list of index-set encodings of valid row selections) | Solve `X^tr * X = gram` over integers and encode all solutions; solutions are encoded as index lists into `.vectors` | `[CORE, EUCLID, PD]` |
 
 Definiteness note:
 - `ShortestVectors` is mathematically finite in the standard setting only for positive-definite quadratic constraints (up to sign convention).
