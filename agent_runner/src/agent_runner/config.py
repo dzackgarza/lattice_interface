@@ -17,9 +17,7 @@ class Settings(BaseSettings):
     ntfy_topic: str = "dzg-lattice-doc-updates"
     ntfy_server: str = "https://ntfy.sh"
 
-    path_prefix: str = (
-        "/home/dzack/.nvm/versions/node/v25.6.1/bin:/home/dzack/.local/bin"
-    )
+    path_prefix: str = "/home/dzack/.nvm/versions/node/v25.6.1/bin:/home/dzack/.local/bin"
 
     codex_bin: str = "/home/dzack/.nvm/versions/node/v25.6.1/bin/codex"
     claude_bin: str = "/home/dzack/.local/bin/claude"

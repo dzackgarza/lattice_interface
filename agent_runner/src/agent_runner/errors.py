@@ -6,13 +6,9 @@ class AgentRunnerError(Exception):
 
 
 class AgentProcessError(AgentRunnerError):
-    def __init__(
-        self, agent: str, task: str, exit_code: int, detail: str | None = None
-    ) -> None:
+    def __init__(self, agent: str, task: str, exit_code: int, detail: str | None = None) -> None:
         detail_msg = f" ({detail})" if detail else ""
-        super().__init__(
-            f"Agent {agent} failed for task {task} (exit={exit_code}){detail_msg}"
-        )
+        super().__init__(f"Agent {agent} failed for task {task} (exit={exit_code}){detail_msg}")
         self.agent = agent
         self.task = task
         self.exit_code = exit_code
@@ -21,9 +17,7 @@ class AgentProcessError(AgentRunnerError):
 
 class AgentCommitMissingError(AgentRunnerError):
     def __init__(self, agent: str, task: str) -> None:
-        super().__init__(
-            f"No git commits detected during agent run for {agent}/{task}."
-        )
+        super().__init__(f"No git commits detected during agent run for {agent}/{task}.")
         self.agent = agent
         self.task = task
 
@@ -42,9 +36,7 @@ class AgentMetadataError(AgentRunnerError):
 
 class AgentTimeoutError(AgentRunnerError):
     def __init__(self, agent: str, task: str, timeout_seconds: int) -> None:
-        super().__init__(
-            f"Agent {agent} timed out after {timeout_seconds}s for task {task}"
-        )
+        super().__init__(f"Agent {agent} timed out after {timeout_seconds}s for task {task}")
         self.agent = agent
         self.task = task
         self.timeout_seconds = timeout_seconds
