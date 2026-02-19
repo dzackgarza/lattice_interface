@@ -117,7 +117,7 @@ Indefinite caveats:
 |--------|-------------|------|
 | `genus(L::ZZLat)` / `genus(A::MatElem)` | Global genus from lattice or Gram | `[INDEF, NT]` |
 | `genus(L, p)` | Local genus at prime `p` | `[NT]` |
-| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; even::Bool=true, kwargs...)` / `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; even::Bool=true, max_scale::Int=Int(det), rank::Int=sum(sig), kwargs...)` | Enumerate genera by signature and determinant; upstream requires determinant sign `(-1)^{s_-}` for `sig=(s_+, s_-)`, and parity compatibility (`det ∈ 2ZZ` for `even=true`, `det ∈ ZZ` for `even=false`) | `[NT]` |
+| `integer_genera(sig_pair::Vector{Int}, det::RationalUnion; min_scale=min(1,abs(det)), max_scale=max(1,abs(det)), even::Bool=false)` | Enumerate genera by signature and determinant; `even=false` (default) allows both even and odd lattices; `min_scale`/`max_scale` bound Jordan-block scales; upstream docs do not expose a `rank` keyword argument | `[NT]` |
 | `representative(gen)` / `representatives(gen)` | Class representatives in genus | `[NT]` |
 | `mass(gen)` | Genus mass | `[NT]` |
 | `primes(gen)` / `local_symbol(gen, p)` | Local symbol access | `[NT]` |
