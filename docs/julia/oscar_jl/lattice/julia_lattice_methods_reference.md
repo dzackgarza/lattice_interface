@@ -150,9 +150,9 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 
 | Method | Argument Types | Return Type | Description | Tags |
 |--------|----------------|-------------|-------------|------|
-| `short_vectors(L, lb, ub)` | `L`: `ZZLat`, `lb`: `Integer`, `ub`: `Integer` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Nonzero vectors with $lb \le \|v\|^2 \le ub$ (up to sign) | `[PD]` |
+| `short_vectors(L, [lb=0,] ub, [elem_type=ZZRingElem]; check=true)` | `L`: `ZZLat`, `lb`: `Integer` (optional, default 0), `ub`: `Integer`, `elem_type`: type (optional, default `ZZRingElem`), `check`: `Bool` (keyword, default `true`) | `Vector{Tuple{Vector{elem_type}, QQFieldElem}}` | Nonzero vectors with $lb \le \|v\|^2 \le ub$ (up to sign); requires `L` definite; `check=true` validates definiteness before enumeration | `[PD]` |
 | `short_vectors_iterator(L, lb, ub)` | `L`: `ZZLat`, `lb`: `Integer`, `ub`: `Integer` | Iterator | Lazy iterator version of `short_vectors` | `[PD]` |
-| `shortest_vectors(L)` | `L`: `ZZLat` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Shortest vectors and their squared norm | `[PD]` |
+| `shortest_vectors(L, [elem_type=ZZRingElem]; check=true)` | `L`: `ZZLat`, `elem_type`: type (optional, default `ZZRingElem`), `check`: `Bool` (keyword, default `true`) | `Vector{Tuple{Vector{elem_type}, QQFieldElem}}` | Shortest vectors and their squared norm; requires `L` definite | `[PD]` |
 | `close_vectors(L::ZZLat, v::Vector, [lb,] ub; check::Bool=false)` | `L`: `ZZLat`, `v`: `Vector`, `lb`: `Integer` (optional), `ub`: `Integer`, `check`: `Bool` | `Vector{Tuple{Vector{Int}, QQFieldElem}}` | Returns lattice points $x$ with $b(v-x, v-x) \le ub$; Fincke–Pohst enumeration; **`check` defaults to `false`** (not `true`) | `[PD]` |
 | `short_vectors_affine(S, v, α, d)` | `S`: `ZZLat`, `v`: `Vector`, `α`: `RingElement`, `d`: `RingElement` | `Vector` | Vectors $x \in S$ with $x^2 = d$ and $x \cdot v = \alpha$ (Vinberg) | `[INDEF]` |
 | `vectors_of_square_and_divisibility(L, n, d)` | `L`: `ZZLat`, `n`: `Integer`, `d`: `Integer` | `Vector{Vector{Int}}` | Vectors $v$ with $v^2 = n$ and divisibility $d$ in $L$ | `[PD]` |
@@ -173,8 +173,7 @@ Comprehensive number theory package (part of OSCAR). Builds on Nemo/FLINT and GA
 | `genus(L::ZZLat)` | `L`: `ZZLat` | `ZZGenus` | Genus symbol (local invariants at all primes) | `[INDEF ok]` |
 | `genus(A::MatElem)` | `A`: `MatElem` | `ZZGenus` | Genus from Gram matrix | `[INDEF ok]` |
 | `genus(L, p)` | `L`: `ZZLat`, `p`: `Int` | `ZZLocalGenus` | Local genus at prime $p$ | |
-| `integer_genera(sig::Tuple{Int, Int}, det::RationalUnion; ...)` | `sig`: `Tuple{Int, Int}`, `det`: `RationalUnion`, `...` | `Vector{ZZGenus}` | Enumerate all genus symbols with signature and determinant | |
-| `integer_genera(sig::Tuple{Int, Int}, det::QQFieldElem; ...)` | `sig`: `Tuple{Int, Int}`, `det`: `QQFieldElem`, `...` | `Vector{ZZGenus}` | Enumerate all genus symbols (alternate signature) | |
+| `integer_genera(sig_pair::Vector{Int}, det::RationalUnion; min_scale=min(1,abs(det)), max_scale=max(1,abs(det)), even::Bool=false)` | `sig_pair`: `Vector{Int}` (also accepts `Tuple{Int,Int}`), `det`: `RationalUnion`, `min_scale`: `RationalUnion` (keyword), `max_scale`: `RationalUnion` (keyword), `even`: `Bool` (keyword, default **`false`**) | `Vector{ZZGenus}` | Enumerate all genera with given signature and determinant; `even=false` allows both even and odd lattices (default); `min_scale`/`max_scale` bound Jordan-block scales | |
 | `direct_sum(G1::ZZGenus, G2::ZZGenus)` | `G1`: `ZZGenus`, `G2`: `ZZGenus` | `ZZGenus` | Genus of the orthogonal direct sum | |
 | `representative(gen)` | `gen`: `ZZGenus` | `ZZLat` | Concrete lattice for a genus class | |
 | `representatives(gen)` | `gen`: `ZZGenus` | `Vector{ZZLat}` | All classes in genus | |
