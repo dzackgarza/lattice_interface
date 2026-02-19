@@ -103,6 +103,22 @@ Precision/clarification refinement work, including:
 - Clear organization and navigation across checklists and detailed references.
 - Durable continuity and handoffs for future workers.
 
+## Task Completion Criteria (MANDATORY)
+
+**An agent has NOT completed this task if ANY of the following are true:**
+
+1. **Local source docs are incomplete**: There exists an in-scope package without integrated local upstream docs under `docs/**/upstream/` that could be used to verify method signatures and contracts.
+
+2. **Checklists are incomplete**: There exists an in-scope package whose checklist in this repository has any unchecked method entry. (Test coverage is a SEPARATE task - do not mix it in.)
+
+3. **Entries lack source connection**: Any checklist entry lacks a cited local doc source demonstrating the method exists with the documented signature and constraints.
+
+4. **Verification not asserted**: The agent has not explicitly asserted in its output that items 1-3 above are false (i.e., that ALL local docs exist, ALL checklists are complete, ALL entries are source-backed).
+
+**This is an ALL-OR-NOTHING criterion.** An agent demonstrating 10% completion has not "mostly" completed the task - it has failed to complete it. The existence of any gap, no matter how small, means the task is incomplete.
+
+**Do NOT attempt to verify all items** - that is not the criterion. The criterion is: state whether the above conditions hold. If they do not hold (which they will not for the foreseeable future), the task is incomplete. Move forward on actual work rather than pretending completion is near.
+
 ## Quality Questions
 
 Treat these as project-wide values to assess continuously:
