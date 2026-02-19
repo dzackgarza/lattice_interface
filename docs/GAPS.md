@@ -6,24 +6,7 @@ Gaps between upstream doc snapshots and checklist entries. Only upstream docs an
 
 Methods present in local upstream snapshots but absent from the corresponding checklist.
 
-### NTL
-
-3 functions in `upstream/LLL.txt` not in `ntl_methods_checklist.md`:
-
-- `ComputeGS(B, mu, c)` — Gram–Schmidt computation - FIXED: added with exact signature
-- `NearVector(w, B, a)` — nearest vector (CVP-like) - FIXED: added with exact signature
-- `LLL(det2, B, a, b, ...)` — LLL with explicit rational δ = a/b (overload variants) - FIXED: added with exact signatures
-
-### PARI/GP
-
-6 functions in `upstream/vectors_matrices_linear_algebra.html` not in `pari_gp_methods_checklist.md`:
-
-- `mathnf` — Hermite normal form - FIXED: added with flags documentation
-- `mathnfmod` — HNF with modular algorithm - FIXED: added
-- `mathnfmodid` — HNF mod ideal - FIXED: added
-- `matsnf` — Smith normal form - FIXED: added with flags documentation
-- `qfgaussred_positive` — Gaussian reduction (positive definite variant) - REMOVED: appears to be internal library function, not documented as user-facing GP function
-- `qfvec` — vector of short vectors - REMOVED: appears to be "forqfvec" iterator, not a direct function
+**All Gap 1 entries for FLINT, NTL, and PARI/GP have been fixed in this session.**
 
 ## Gap 2: Upstream docs referenced in readmes but not locally copied
 
