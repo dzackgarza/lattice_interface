@@ -332,7 +332,7 @@ Concrete sublattice of **(ℝ^n, I_n)**. Gram matrix = B·Bᵀ (always PSD). Bil
 | `rational_diagonal_form(return_matrix)` | `return_matrix`: `bool` | `QuadraticForm` or `tuple` | Diagonalize over ℚ | `[FIELD]` |
 | `is_rationally_isometric(other)` | `other`: `QuadraticForm` | `bool` | ℚ-isometry | `[FIELD]` |
 | `genus()` | — | `Genus` | Genus object | `[INT, ND]` |
-| `genera(sig, det, even)` | `sig`: `tuple`, `det`: `Integer`, `even`: `bool` | `list` | All genera with given signature and discriminant `[static]` | `[INT]` |
+| `genera(sig_pair, determinant, max_scale=None, even=False)` | `sig_pair`: `tuple[int, int]`, `determinant`: `Integer` (sign ignored), `max_scale`: `Integer` or `None`, `even`: `bool` (default `False`) | `list[GenusSymbol_global_ring]` | All non-empty global genera with given signature pair and determinant `[static]` | `[INT]` |
 | `is_in_genus(G)` | `G`: `Genus` | `bool` | Membership in genus G | `[INT]` |
 
 ### Local/Global invariants
