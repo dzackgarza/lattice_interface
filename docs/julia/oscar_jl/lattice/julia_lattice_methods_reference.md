@@ -395,67 +395,67 @@ Pairs an integer lattice with a finite- or infinite-order isometry. Used for equ
 
 #### Construction
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `integer_lattice_with_isometry(L, f; check, ambient_representation)` | Pair lattice $L$ with isometry matrix $f$; `ambient_representation` selects whether `f` is interpreted in the ambient-space basis (`true`) or in the fixed basis of `L` (`false`) | |
-| `integer_lattice_with_isometry(L; neg=false)` | Pair with identity (or negation if `neg=true`) | |
-| `lattice(Vf::QuadSpaceWithIsom)` | Extract lattice from space-with-isometry | |
-| `lattice(Vf::QuadSpaceWithIsom, B)` | Construct an integral lattice in ambient `Vf` from basis/generator matrix `B`; induced isometry is defined when the lattice is stable under ambient action | |
-| `lattice_in_same_ambient_space(Lf, B)` | Sublattice preserving ambient isometry | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `integer_lattice_with_isometry(L, f; check, ambient_representation)` | `L`: `ZZLat`, `f`: `QQMatrix`, `check`: `Bool`, `ambient_representation`: `Bool` | `ZZLatWithIsom` | Pair lattice $L$ with isometry matrix $f$; `ambient_representation` selects whether `f` is interpreted in the ambient-space basis (`true`) or in the fixed basis of `L` (`false`) | |
+| `integer_lattice_with_isometry(L; neg=false)` | `L`: `ZZLat`, `neg`: `Bool` | `ZZLatWithIsom` | Pair with identity (or negation if `neg=true`) | |
+| `lattice(Vf::QuadSpaceWithIsom)` | `Vf`: `QuadSpaceWithIsom` | `ZZLatWithIsom` | Extract lattice from space-with-isometry | |
+| `lattice(Vf::QuadSpaceWithIsom, B)` | `Vf`: `QuadSpaceWithIsom`, `B`: `Matrix` | `ZZLatWithIsom` | Construct an integral lattice in ambient `Vf` from basis/generator matrix `B`; induced isometry is defined when the lattice is stable under ambient action | |
+| `lattice_in_same_ambient_space(Lf, B)` | `Lf`: `ZZLatWithIsom`, `B`: `Matrix` | `ZZLatWithIsom` | Sublattice preserving ambient isometry | |
 
 #### Accessors
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `isometry(Lf)` | Isometry matrix | |
-| `ambient_isometry(Lf)` | Isometry on ambient space | |
-| `ambient_space(Lf)` | Ambient quadratic space carrying the isometry | |
-| `lattice(Lf)` | Underlying `ZZLat` | |
-| `basis_matrix(Lf)` | Basis matrix of underlying lattice | |
-| `order_of_isometry(Lf)` | Order of lattice isometry `f`; upstream defines it as a divisor of the ambient isometry order and documents support for both finite- and infinite-order isometries | |
-| `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | Polynomials of the isometry | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `isometry(Lf)` | `Lf`: `ZZLatWithIsom` | `QQMatrix` | Isometry matrix | |
+| `ambient_isometry(Lf)` | `Lf`: `ZZLatWithIsom` | `QQMatrix` | Isometry on ambient space | |
+| `ambient_space(Lf)` | `Lf`: `ZZLatWithIsom` | `QuadSpaceWithIsom` | Ambient quadratic space carrying the isometry | |
+| `lattice(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZLat` | Underlying `ZZLat` | |
+| `basis_matrix(Lf)` | `Lf`: `ZZLatWithIsom` | `QQMatrix` | Basis matrix of underlying lattice | |
+| `order_of_isometry(Lf)` | `Lf`: `ZZLatWithIsom` | `Union{Int, PosInf}` | Order of lattice isometry `f`; upstream defines it as a divisor of the ambient isometry order and documents support for both finite- and infinite-order isometries | |
+| `characteristic_polynomial(Lf)` / `minimal_polynomial(Lf)` | `Lf`: `ZZLatWithIsom` | `QQPolyRingElem` | Polynomials of the isometry | |
 
 #### Attributes
 
 Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; these methods report invariants of the underlying lattice `L` in the pair `(L, f)` unless stated otherwise.
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `rank(Lf)` / `degree(Lf)` | Rank and ambient degree inherited from the underlying lattice | |
-| `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` | Gram/determinant/discriminant invariants forwarded from `L` | |
-| `signature_tuple(Lf)` | Lattice signature tuple `(n_{+}, n_{0}, n_{-})`; distinct from eigenspace signatures returned by `signatures(Lf)` | `[INDEF]` |
-| `rational_span(Lf::ZZLatWithIsom)` | Returns `QuadSpaceWithIsom` — the rational span of the underlying lattice, carrying the induced isometry | `[INDEF]` |
-| `genus(Lf)` | Genus of the underlying lattice `L` | `[INDEF]` |
-| `minimum(Lf)` | Minimum of the underlying lattice; same positive-definite precondition as `minimum(L)` | `[PD]` |
-| `scale(Lf)` / `norm(Lf)` | Scale and norm ideals forwarded from `L` | |
-| `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` | Arithmetic predicates of the underlying lattice | |
-| `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` | `p`-primary discriminant-group predicates forwarded from `L` | |
-| `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` | Elementary discriminant-group predicates forwarded from `L` | |
-| `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | Definiteness predicates inherited from `L` | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `rank(Lf)` / `degree(Lf)` | `Lf`: `ZZLatWithIsom` | `Int` | Rank and ambient degree inherited from the underlying lattice | |
+| `gram_matrix(Lf)` / `det(Lf)` / `discriminant(Lf)` | `Lf`: `ZZLatWithIsom` | `QQMatrix` / `QQFieldElem` / `ZZRingElem` | Gram/determinant/discriminant invariants forwarded from `L` | |
+| `signature_tuple(Lf)` | `Lf`: `ZZLatWithIsom` | `Tuple{Int, Int, Int}` | Lattice signature tuple `(n_{+}, n_{0}, n_{-})`; distinct from eigenspace signatures returned by `signatures(Lf)` | `[INDEF]` |
+| `rational_span(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `QuadSpaceWithIsom` | Returns `QuadSpaceWithIsom` — the rational span of the underlying lattice, carrying the induced isometry | `[INDEF]` |
+| `genus(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZGenus` | Genus of the underlying lattice `L` | `[INDEF]` |
+| `minimum(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZRingElem` | Minimum of the underlying lattice; same positive-definite precondition as `minimum(L)` | `[PD]` |
+| `scale(Lf)` / `norm(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZIdeal` | Scale and norm ideals forwarded from `L` | |
+| `is_even(Lf)` / `is_integral(Lf)` / `is_unimodular(Lf)` | `Lf`: `ZZLatWithIsom` | `Bool` | Arithmetic predicates of the underlying lattice | |
+| `is_primary(Lf, p)` / `is_primary_with_prime(Lf)` | `Lf`: `ZZLatWithIsom`, `p`: `Int` (first form only) | `Bool` / `Tuple{Bool, Int}` | `p`-primary discriminant-group predicates forwarded from `L` | |
+| `is_elementary(Lf, p)` / `is_elementary_with_prime(Lf)` | `Lf`: `ZZLatWithIsom`, `p`: `Int` (first form only) | `Bool` / `Tuple{Bool, Int}` | Elementary discriminant-group predicates forwarded from `L` | |
+| `is_positive_definite(Lf)` / `is_negative_definite(Lf)` / `is_definite(Lf)` | `Lf`: `ZZLatWithIsom` | `Bool` | Definiteness predicates inherited from `L` | |
 
 #### Type classification
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `type(Lf)` | Type of lattice-with-isometry (dictionary of invariants) | |
-| `is_of_type(Lf, t)` | Test against a type | |
-| `is_of_same_type(Lf, Mg)` | Whether two lattices-with-isometry share the same type | |
-| `is_of_hermitian_type(Lf)` | Whether the isometry gives a hermitian structure | |
-| `hermitian_structure(Lf)` | Extract hermitian lattice from hermitian-type isometry | |
-| `trace_lattice_with_isometry(H)` | Recover `ZZLatWithIsom` from hermitian lattice via trace form | |
-| `trace_lattice_with_isometry(H, res)` | Recover `ZZLatWithIsom` from hermitian lattice with an explicit residue-field embedding choice used in trace-equivalence setup | |
-| `is_hermitian(t::Dict)` | Whether a type dictionary corresponds to hermitian type | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `type(Lf)` | `Lf`: `ZZLatWithIsom` | `Dict` | Type of lattice-with-isometry (dictionary of invariants) | |
+| `is_of_type(Lf, t)` | `Lf`: `ZZLatWithIsom`, `t`: `Dict` | `Bool` | Test against a type | |
+| `is_of_same_type(Lf, Mg)` | `Lf`: `ZZLatWithIsom`, `Mg`: `ZZLatWithIsom` | `Bool` | Whether two lattices-with-isometry share the same type | |
+| `is_of_hermitian_type(Lf)` | `Lf`: `ZZLatWithIsom` | `Bool` | Whether the isometry gives a hermitian structure | |
+| `hermitian_structure(Lf)` | `Lf`: `ZZLatWithIsom` | `HermLat` | Extract hermitian lattice from hermitian-type isometry | |
+| `trace_lattice_with_isometry(H)` | `H`: `HermLat` | `ZZLatWithIsom` | Recover `ZZLatWithIsom` from hermitian lattice via trace form | |
+| `trace_lattice_with_isometry(H, res)` | `H`: `HermLat`, `res`: embedding | `ZZLatWithIsom` | Recover `ZZLatWithIsom` from hermitian lattice with an explicit residue-field embedding choice used in trace-equivalence setup | |
+| `is_hermitian(t::Dict)` | `t`: `Dict` | `Bool` | Whether a type dictionary corresponds to hermitian type | |
 
 #### Operations
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `^(Lf, n)` | Raise isometry to power $n$ | |
-| `direct_sum(Lf::Union{ZZLatWithIsom, Vector{ZZLatWithIsom}}...)` | Equivariant direct sum of lattices with isometry; current upstream signatures accept varargs and vector input, with binary form returning `(Lf, emb1, emb2)` | |
-| `dual(Lf)` | Dual with induced isometry | |
-| `lll(Lf)` | LLL with isometry carried along | |
-| `rescale(Lf, a)` | Rescale with isometry preserved | |
-| `orthogonal_submodule(Lf, B)` | Orthogonal complement with induced isometry | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `^(Lf, n)` | `Lf`: `ZZLatWithIsom`, `n`: `Int` | `ZZLatWithIsom` | Raise isometry to power $n$ | |
+| `direct_sum(Lf::Union{ZZLatWithIsom, Vector{ZZLatWithIsom}}...)` | `Lf`: `ZZLatWithIsom` (varargs or `Vector`) | `Tuple{ZZLatWithIsom, ...}` | Equivariant direct sum of lattices with isometry; current upstream signatures accept varargs and vector input, with binary form returning `(Lf, emb1, emb2)` | |
+| `dual(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZLatWithIsom` | Dual with induced isometry | |
+| `lll(Lf)` | `Lf`: `ZZLatWithIsom` | `ZZLatWithIsom` | LLL with isometry carried along | |
+| `rescale(Lf, a)` | `Lf`: `ZZLatWithIsom`, `a`: `RingElement` | `ZZLatWithIsom` | Rescale with isometry preserved | |
+| `orthogonal_submodule(Lf, B)` | `Lf`: `ZZLatWithIsom`, `B`: `QQMatrix` | `ZZLatWithIsom` | Orthogonal complement with induced isometry | |
 
 #### Kernel sublattices
 
@@ -469,35 +469,35 @@ Upstream docs explicitly expose many `ZZLat` attributes on `ZZLatWithIsom`; thes
 
 #### Discriminant groups
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `discriminant_group(Lf::ZZLatWithIsom)` | Returns `(TorQuadModule, AutomorphismGroupElem)` — discriminant module plus the element of `O(D_L)` induced by `f` | |
-| `discriminant_group(::Type{TorQuadModuleWithIsom}, Lf::ZZLatWithIsom; ambient_representation::Bool=true)` | Returns a `TorQuadModuleWithIsom` wrapping the discriminant module with induced isometry action; `ambient_representation` selects basis for representing the action | |
-| `image_centralizer_in_Oq(Lf::ZZLatWithIsom)` | Returns `(AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism)` — image $G_{L,f}$ of the centralizer map $O(L,f) \to O(D_L, D_f)$; computable directly for definite lattices, ±identity isometries, and Euler-totient-rank cases; general case uses hermitian Miranda-Morrison theory, which **requires $L$ even** (local snapshot `latwithisom.md`) | |
-| `image_in_Oq(Lf)` | Computes image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for both definite and indefinite lattices; distinct from `image_centralizer_in_Oq`) | |
-| `discriminant_representation(L::ZZLat, G::MatGroup; ambient_representation::Bool=true, full::Bool=true, check::Bool=true)` | Returns `GAPGroupHomomorphism` — action of matrix group `G` on the discriminant group; `ambient_representation` selects coordinate system; `full` controls whether full discriminant group representation is computed; `check=true` validates input | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `discriminant_group(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `Tuple{TorQuadModule, AutomorphismGroupElem}` | Discriminant module plus the element of `O(D_L)` induced by `f` | |
+| `discriminant_group(::Type{TorQuadModuleWithIsom}, Lf::ZZLatWithIsom; ambient_representation::Bool=true)` | `Lf`: `ZZLatWithIsom`, `ambient_representation`: `Bool` | `TorQuadModuleWithIsom` | Wraps the discriminant module with induced isometry action; `ambient_representation` selects basis for representing the action | |
+| `image_centralizer_in_Oq(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `Tuple{AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism}` | Image $G_{L,f}$ of the centralizer map $O(L,f) \to O(D_L, D_f)$; computable directly for definite lattices, ±identity isometries, and Euler-totient-rank cases; general case uses hermitian Miranda-Morrison theory, which **requires $L$ even** (local snapshot `latwithisom.md`) | |
+| `image_in_Oq(Lf)` | `Lf`: `ZZLatWithIsom` | `Tuple{AutomorphismGroup{TorQuadModule}, GAPGroupHomomorphism}` | Image of $\pi:O(L)\to O(D_L)$ (Miranda-Morrison setting; documented for both definite and indefinite lattices; distinct from `image_centralizer_in_Oq`) | |
+| `discriminant_representation(L::ZZLat, G::MatGroup; ambient_representation::Bool=true, full::Bool=true, check::Bool=true)` | `L`: `ZZLat`, `G`: `MatGroup`, `ambient_representation`: `Bool`, `full`: `Bool`, `check`: `Bool` | `GAPGroupHomomorphism` | Action of matrix group `G` on the discriminant group; `ambient_representation` selects coordinate system; `full` controls whether full discriminant group representation is computed; `check=true` validates input | |
 
 #### Spinor norm
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `signatures(Lf::ZZLatWithIsom)` | Returns `Dict{Int, Tuple{Int, Int}}` — signatures of the hermitian-type eigenspace decomposition; upstream constrains this to hermitian-type lattices with isometry whose minimal polynomial is irreducible and cyclotomic | |
-| `rational_spinor_norm(Lf::ZZLatWithIsom; b::Int=-1)` | Returns `QQFieldElem` — rational spinor norm of the isometry with respect to the form `b·Φ`; default `b=-1` | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `signatures(Lf::ZZLatWithIsom)` | `Lf`: `ZZLatWithIsom` | `Dict{Int, Tuple{Int, Int}}` | Signatures of the hermitian-type eigenspace decomposition; upstream constrains this to hermitian-type lattices with isometry whose minimal polynomial is irreducible and cyclotomic | |
+| `rational_spinor_norm(Lf::ZZLatWithIsom; b::Int=-1)` | `Lf`: `ZZLatWithIsom`, `b`: `Int` | `QQFieldElem` | Rational spinor norm of the isometry with respect to the form `b·Φ`; default `b=-1` | |
 
 #### Enumeration
 
-| Method | Description | Tags |
-|--------|-------------|------|
-| `enumerate_classes_of_lattices_with_isometry(::Union{ZZGenus, ZZLat}, ::Int)` | Enumerate isomorphism-class representatives for even lattices with finite-order isometry in a fixed genus/lattice context | |
-| `representatives_of_hermitian_type(::Union{ZZLat, ZZGenus}, ::Union{ZZPolyRingElem, QQPolyRingElem}, ::Int)` | Hermitian-type representatives for irreducible reciprocal polynomial input | |
-| `representatives_of_hermitian_type(::Union{ZZGenus, ZZLat}, ::Int, ::Int)` | Cyclotomic finite-order shortcut for hermitian-type representatives | |
-| `admissible_triples(::ZZGenus, ::Int)` | Tuples of genera satisfying $p$-admissibility constraints | |
-| `is_admissible_triple(::ZZGenus, ::ZZGenus, ::ZZGenus, ::Int)` | Validate $p$-admissibility for a genus triple | |
-| `splitting(::ZZLatWithIsom, ::Int, ::Int)` | Generic splitting routine in the finite-order enumeration machinery | |
-| `splitting_of_hermitian_type(::ZZLatWithIsom, ::Int, ::Int)` | Split hermitian-type lattice-with-isometry into hermitian sublattices | |
-| `splitting_of_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | Split lattice-with-isometry at a prime-power stage | |
-| `splitting_of_pure_mixed_prime_power(::ZZLatWithIsom, ::Int)` | Split pure/mixed part at fixed prime | |
-| `splitting_of_mixed_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | Split mixed part at prime-power stage | |
+| Method | Argument Types | Return Type | Description | Tags |
+|--------|----------------|-------------|-------------|------|
+| `enumerate_classes_of_lattices_with_isometry(::Union{ZZGenus, ZZLat}, ::Int)` | `Union{ZZGenus, ZZLat}`, `Int` | `Vector{ZZLatWithIsom}` | Enumerate isomorphism-class representatives for even lattices with finite-order isometry in a fixed genus/lattice context | |
+| `representatives_of_hermitian_type(::Union{ZZLat, ZZGenus}, ::Union{ZZPolyRingElem, QQPolyRingElem}, ::Int)` | `Union{ZZLat, ZZGenus}`, `Union{ZZPolyRingElem, QQPolyRingElem}`, `Int` | `Vector{ZZLatWithIsom}` | Hermitian-type representatives for irreducible reciprocal polynomial input | |
+| `representatives_of_hermitian_type(::Union{ZZGenus, ZZLat}, ::Int, ::Int)` | `Union{ZZGenus, ZZLat}`, `Int`, `Int` | `Vector{ZZLatWithIsom}` | Cyclotomic finite-order shortcut for hermitian-type representatives | |
+| `admissible_triples(::ZZGenus, ::Int)` | `ZZGenus`, `Int` | `Vector{Tuple{ZZGenus, ZZGenus, ZZGenus}}` | Tuples of genera satisfying $p$-admissibility constraints | |
+| `is_admissible_triple(::ZZGenus, ::ZZGenus, ::ZZGenus, ::Int)` | `ZZGenus`, `ZZGenus`, `ZZGenus`, `Int` | `Bool` | Validate $p$-admissibility for a genus triple | |
+| `splitting(::ZZLatWithIsom, ::Int, ::Int)` | `ZZLatWithIsom`, `Int`, `Int` | `Vector{ZZLatWithIsom}` | Generic splitting routine in the finite-order enumeration machinery | |
+| `splitting_of_hermitian_type(::ZZLatWithIsom, ::Int, ::Int)` | `ZZLatWithIsom`, `Int`, `Int` | `Vector{ZZLatWithIsom}` | Split hermitian-type lattice-with-isometry into hermitian sublattices | |
+| `splitting_of_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | `ZZLatWithIsom`, `Int`, `Int` | `Vector{ZZLatWithIsom}` | Split lattice-with-isometry at a prime-power stage | |
+| `splitting_of_pure_mixed_prime_power(::ZZLatWithIsom, ::Int)` | `ZZLatWithIsom`, `Int` | `Vector{ZZLatWithIsom}` | Split pure/mixed part at fixed prime | |
+| `splitting_of_mixed_prime_power(::ZZLatWithIsom, ::Int, ::Int)` | `ZZLatWithIsom`, `Int`, `Int` | `Vector{ZZLatWithIsom}` | Split mixed part at prime-power stage | |
 
 ### 2.15 Primitive embeddings
 
