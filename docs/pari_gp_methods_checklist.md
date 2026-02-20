@@ -8,18 +8,27 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ## 1. Reduction, Decomposition, and Isometry APIs
 
 - [ ] `qflll(x, {flag = 0})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qflll
 - [ ] `qflllgram(G, {flag = 0})`
-  - Caveat: accepts positive semidefinite forms (positive quadratic form, not necessarily definite); form need not have maximal rank.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qflllgram
+      Caveat: accepts positive semidefinite forms (positive quadratic form, not necessarily definite); form need not have maximal rank.
 - [ ] `qfcholesky(G)`
-  - Caveat: no explicit positive-definite requirement in upstream; returns `[]` if decomposition fails (when G is not positive semidefinite).
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfcholesky
+      Caveat: no explicit positive-definite requirement in upstream; returns `[]` if decomposition fails (when G is not positive semidefinite).
 - [ ] `qfjacobi(G)`
-  - Caveat: no positive-definite requirement; applies to any real symmetric matrix. Returns `[L, V]` with eigenvalues and eigenvectors.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfjacobi
+      Caveat: no positive-definite requirement; applies to any real symmetric matrix. Returns `[L, V]` with eigenvalues and eigenvectors.
 - [ ] `qfisom(G, H, {fl}, {grp})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfisom
 - [ ] `qfisominit(G, {fl}, {m})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfisominit
 - [ ] `qfauto(G, {fl})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfauto
 - [ ] `qfautoexport(qfa, {flag})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfautoexport
 - [ ] `qforbits(G, V)`
-  - Caveat: expects `G` to contain `-I` and `V` to contain one representative per pair `{v, -v}`.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qforbits
+      Caveat: expects `G` to contain `-I` and `V` to contain one representative per pair `{v, -v}`.
 
 ## 2. Vector Search and Optimization
 
@@ -27,29 +36,44 @@ Check a box when there is at least one `method:` tagged test covering that metho
       Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §forqfvec
       Caveat: requires positive-definite form; iterates over antipodal pairs {v, -v}.
 - [ ] `qfminim(x, {B}, {m}, {flag = 0})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfminim
 - [ ] `qfminimize(G)`
-  - Caveat: requires non-degenerate form (non-zero determinant), not positive-definite. Returns `[H, U, c]` with minimized integral form.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfminimize
+      Caveat: requires non-degenerate form (non-zero determinant), not positive-definite. Returns `[H, U, c]` with minimized integral form.
 - [ ] `qfcvp(x, t, {B}, {m}, {flag = 0})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfcvp
 - [ ] `qfrep(q, B, {flag = 0})`
-  - Caveat: requires positive-definite form per upstream.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfrep
+      Caveat: requires positive-definite form per upstream.
 - [ ] `qfeval({q}, x, {y})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfeval
 - [ ] `qfnorm(x, {q})`
-  - Caveat: obsolete in upstream PARI docs; prefer `qfeval`.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfeval (marked obsolete)
+      Caveat: obsolete in upstream PARI docs; prefer `qfeval`.
 - [ ] `qfbil(x, y, {q})`
-  - Caveat: **OBSOLETE** in upstream PARI docs; superseded by `qfeval`.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfbil
+      Caveat: **OBSOLETE** in upstream PARI docs; superseded by `qfeval`.
 
 ## 3. Indefinite / Equation-Solving APIs
 
 - [ ] `qfsolve(G)`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfsolve
 - [ ] `qfparam(G, sol, {flag = 0})`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfparam
 - [ ] `qfsign(G)`
-  - Caveat: returns `[p, m]` (positive and negative eigenvalues); no positive-definite requirement.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfsign
+      Caveat: returns `[p, m]` (positive and negative eigenvalues); no positive-definite requirement.
 
 ## 4. Low-Dimensional and Structural APIs
 
 - [ ] `qfgaussred(q, {flag = 0})`
-  - Caveat: singular matrices supported; no positive-definite requirement.
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred
+      Caveat: singular matrices supported; no positive-definite requirement.
+- [ ] `qfgaussred_positive(q)`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred (lines 2169-2172)
+      Caveat: **requires positive-definite** input; returns NULL if negative norm occurs; faster than generic `qfgaussred`.
 - [ ] `qfperfection(G)`
+      Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfperfection
 
 ---
 
@@ -60,6 +84,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - `qfauto`, `qfisom`, `qfisominit`, and `qfperfection` require positive-definite forms.
 - `qfminimize` requires non-degenerate form (non-zero determinant), not positive-definite.
 - `qfjacobi`, `qfsign`, `qfsolve`, and `qfgaussred` have no positive-definite requirement.
+- `qfgaussred_positive` requires positive-definite input (faster variant).
 - Indefinite arithmetic workflows should prioritize `qfsolve`/`qfparam`/`qfsign` and isometry tools (`qfisom`, `qfauto`).
 
 ---
