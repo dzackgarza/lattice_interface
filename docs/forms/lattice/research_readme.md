@@ -38,6 +38,12 @@ This surface is lattice-relevant in the finite-field and group-action sense:
 | `QuadraticFormByMatrix(matrix[, field])` | `matrix`: square matrix over finite field, `field`: finite field (optional) | `IsQuadraticForm` | Build a quadratic form from matrix data. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"QuadraticFormByMatrix" |
 | `BilinearFormByMatrix(matrix[, field])` | `matrix`: symmetric or skew-symmetric square matrix, `field`: finite field (optional) | `IsBilinearForm` | Construct bilinear form from symmetric/skew-symmetric matrix. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BilinearFormByMatrix" |
 | `HermitianFormByMatrix(matrix[, field])` | `matrix`: matrix over extension field, `field`: finite field (optional) | `IsHermitianForm` | Construct hermitian form from matrix data. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"HermitianFormByMatrix" |
+| `BilinearFormByPolynomial(poly, r[, n])` | `poly`: polynomial, `r`: ring, `n`: integer (optional) | `IsBilinearForm` | Construct bilinear form from polynomial representation. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BilinearFormByPolynomial" |
+| `QuadraticFormByPolynomial(poly, r[, n])` | `poly`: polynomial, `r`: ring, `n`: integer (optional) | `IsQuadraticForm` | Construct quadratic form from polynomial representation. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"QuadraticFormByPolynomial" |
+| `HermitianFormByPolynomial(poly, r[, n])` | `poly`: polynomial, `r`: ring, `n`: integer (optional) | `IsHermitianForm` | Construct hermitian form from polynomial representation. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"HermitianFormByPolynomial" |
+| `QuadraticFormByBilinearForm(form)` | `form`: `IsBilinearForm` | `IsQuadraticForm` | Convert bilinear form to associated quadratic form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"QuadraticFormByBilinearForm" |
+| `BilinearFormByQuadraticForm(Q)` | `Q`: `IsQuadraticForm` | `IsBilinearForm` | Extract bilinear form from quadratic form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BilinearFormByQuadraticForm" |
+| `AssociatedBilinearForm(Q)` | `Q`: `IsQuadraticForm` | `IsBilinearForm` | Return the bilinear form associated to a quadratic form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"AssociatedBilinearForm" |
 
 ---
 
@@ -50,16 +56,28 @@ This surface is lattice-relevant in the finite-field and group-action sense:
 | `IsBilinearForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for bilinear forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsBilinearForm" |
 | `IsHermitianForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for hermitian forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsHermitianForm" |
 | `IsForm(obj)` | `obj`: any object | `true`/`false` | General form category predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsForm" |
+| `IsTrivialForm(obj)` | `obj`: any object | `true`/`false` | Predicate for trivial/zero form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsTrivialForm" |
+| `IsReflexiveForm(form)` | `form`: `IsForm` | `true`/`false` | Reflexivity predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsReflexiveForm" |
+| `IsSymmetricForm(form)` | `form`: `IsForm` | `true`/`false` | Symmetry predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSymmetricForm" |
+| `IsAlternatingForm(form)` | `form`: `IsForm` | `true`/`false` | Alternation predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsAlternatingForm" |
+| `IsDegenerateForm(form)` | `form`: `IsForm` | `true`/`false` | Degeneracy predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsDegenerateForm" |
+| `IsSingularForm(form)` | `form`: `IsQuadraticForm` | `true`/`false` | Singularity predicate for quadratic forms (even characteristic distinction). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSingularForm" |
+| `IsOrthogonalForm(form)` | `form`: `IsForm` | `true`/`false` | Orthogonal form predicate (symmetric bilinear in odd characteristic). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsOrthogonalForm" |
+| `IsPseudoForm(form)` | `form`: `IsForm` | `true`/`false` | Pseudo-form predicate (symmetric in even characteristic). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsPseudoForm" |
+| `IsSymplecticForm(form)` | `form`: `IsForm` | `true`/`false` | Symplectic form predicate (equivalent to alternating). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSymplecticForm" |
 | `UnderlyingVectorSpace(form)` | `form`: `IsForm` | `GF` vector space | Return underlying vector space of form domain. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"UnderlyingVectorSpace" |
 | `MatrixOfSesquilinearForm(form)` | `form`: `IsSesquilinearForm` | matrix | Matrix representation associated to a sesquilinear form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"MatrixOfSesquilinearForm" |
 | `MatrixOfQuadraticForm(form)` | `form`: `IsQuadraticForm` | matrix | Matrix representation for quadratic form (documented for odd characteristic). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"MatrixOfQuadraticForm" |
 | `GramMatrix(form)` | `form`: `IsForm` | matrix | Gram matrix of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"GramMatrix" |
 | `RankOfForm(form)` | `form`: `IsForm` | integer | Rank invariant of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"RankOfForm" |
 | `BaseField(form)` | `form`: `IsForm` | field | Base field of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BaseField" |
-| `IsReflexiveForm(form)` | `form`: `IsForm` | `true`/`false` | Reflexivity predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsReflexiveForm" |
-| `IsSymmetricForm(form)` | `form`: `IsForm` | `true`/`false` | Symmetry predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSymmetricForm" |
-| `IsAlternatingForm(form)` | `form`: `IsForm` | `true`/`false` | Alternation predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsAlternatingForm" |
-| `IsDegenerateForm(form)` | `form`: `IsForm` | `true`/`false` | Degeneracy predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsDegenerateForm" |
+| `EvaluateForm(f, u[, v])` | `f`: `IsForm`, `u`: vector, `v`: vector (optional) | field element | Evaluate form on vector(s); if two arguments, returns associated bilinear form value B(u,v); if one argument, returns Q(u). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"EvaluateForm" |
+| `OrthogonalSubspaceMat(form, v)` | `form`: `IsForm`, `v`: vector or matrix | matrix | Returns matrix whose rows are a basis of the orthogonal complement of the subspace spanned by v. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"OrthogonalSubspaceMat" |
+| `IsIsotropicVector(form, v)` | `form`: `IsForm`, `v`: vector | `true`/`false` | Test if vector v is isotropic (Q(v)=0 for quadratic, B(v,v)=0 for bilinear). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsIsotropicVector" |
+| `IsSingularVector(form, v)` | `form`: `IsQuadraticForm`, `v`: vector | `true`/`false` | Test if vector v is singular with respect to quadratic form (even characteristic distinction). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSingularVector" |
+| `IsTotallyIsotropicSubspace(form, sub)` | `form`: `IsForm`, `sub`: vector space | `true`/`false` | Test if subspace is totally isotropic (all vectors isotropic). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsTotallyIsotropicSubspace" |
+| `IsTotallySingularSubspace(form, sub)` | `form`: `IsQuadraticForm`, `sub`: vector space | `true`/`false` | Test if subspace is totally singular (all vectors singular). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsTotallySingularSubspace" |
+| `PolynomialOfForm(form)` | `form`: `IsForm` | polynomial | Return polynomial representation of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"PolynomialOfForm" |
 | `RadicalOfForm(form)` | `form`: `IsForm` | vector space | Radical subspace of the form. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap4_mj.html` §"RadicalOfForm" |
 | `DiscriminantOfForm(form)` | `form`: `IsForm` | field element | Discriminant of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"DiscriminantOfForm" |
 
