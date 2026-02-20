@@ -27,10 +27,10 @@ Local upstream sources:
 - **Description**: Construct from matrix-like object with element access `A[i,j]` or `A[i][j]`.
 - **Source**: `integer_matrix.pyx:363-373`
 
-**`IntegerMatrix.from_iterable(nrows, nrows, iterable)`**
-- **Signature**: `classmethod IntegerMatrix.from_iterable(nrows, ncols, iterable)`
-- **Description**: Construct from iterable of integers.
-- **Source**: `integer_matrix.pyx:375-395`
+**`IntegerMatrix.from_iterable(nrows, ncols, it, **kwds)`**
+- **Signature**: `classmethod IntegerMatrix.from_iterable(nrows, ncols, it, **kwds)`
+- **Description**: Construct from iterable `it` of integers. Requires `it` to have length at least `nrows * ncols`. Accepts same `**kwds` as the constructor (e.g. `int_type`).
+- **Source**: `integer_matrix.pyx:414-429`
 
 **`IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`**
 - **Signature**: `IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`
@@ -119,9 +119,11 @@ Local upstream sources:
 
 **`BKZ.reduction(B, param, U=None, float_type=None, precision=0)`**
 - **Signature**: `BKZ.reduction(B, param, U=None, float_type=None, precision=0)`
-- **Description**: Run BKZ reduction on integer matrix B. `param` must be a `BKZ.Param` object.
-- **Constraints**: Euclidean lattice reduction workflow; not an indefinite genus/isometry classifier.
-- **Source**: `bkz.pyx` (main reduction function)
+- **Description**: Run BKZ reduction on integer matrix `B` in-place. `param` must be a `BKZ.Param` object. Returns modified matrix `B`.
+- **Constraints**:
+  - `B` must be an `IntegerMatrix` with `int_type='mpz'` (GMP integers); raises `NotImplementedError` for `int_type='long'`: "C++ BKZ is not implemented over longs, try the Python version."
+  - Euclidean lattice reduction workflow; not an indefinite genus/isometry classifier.
+- **Source**: `bkz.pyx:1109-1187`
 
 **`BKZ.Reduction(M, lll_obj, param)`**
 - **Signature**: `BKZ.Reduction(M, lll_obj, param)`
@@ -135,9 +137,12 @@ Local upstream sources:
 
 **`BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)`**
 - **Signature**: `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)`
-- **Description**: BKZ parameter object. `block_size` is the required parameter (2 ≤ block_size ≤ 500).
-- **Constraints**: `delta` must satisfy `0.25 < delta ≤ 1`.
-- **Source**: `bkz_param.pyx`
+- **Description**: BKZ parameter object. `block_size` is the required parameter.
+- **Constraints**:
+  - `block_size` must satisfy `block_size >= 1` (raises `ValueError: "block size must be > 0"` otherwise). Upstream docstring states range as "1 to nrows". The "500" upper bound cited elsewhere is not enforced in source; the practical limit is the number of matrix rows.
+  - `delta` must satisfy `0.25 < delta < 1.0` (upstream docstring: "`0.25 < δ < 1.0`"; upper endpoint is exclusive unlike the LLL.reduction convention of `≤ 1`).
+  - `max_loops` must be `>= 0`; raises `ValueError` otherwise.
+- **Source**: `bkz_param.pyx:314-388`
 
 ---
 
@@ -164,17 +169,25 @@ Local upstream sources:
 
 **`SVP.shortest_vector(B, method='fast', flags=SVP_DEFAULT, pruning=True, preprocess=True, max_aux_solutions=0)`**
 - **Signature**: `SVP.shortest_vector(B, method='fast', flags=SVP_DEFAULT, pruning=True, preprocess=True, max_aux_solutions=0)`
-- **Description**: Find shortest non-zero vector in lattice.
-- **Caveat**: `method='fast'` is heuristic; `method='proved'` is proof-oriented mode.
-- **Source**: `svpcvp.pyx`
+- **Description**: Find shortest non-zero vector in lattice. Returns a tuple of coordinates for the solution vector (in the ambient space, not lattice coordinates). If `max_aux_solutions > 0`, returns `(tuple, tuple_of_aux_solutions)`.
+- **Constraints**:
+  - `B` must be an `IntegerMatrix` with `int_type='mpz'` (GMP integers); raises `NotImplementedError` for `int_type='long'`.
+  - `B.nrows` must not exceed `FPLLL_MAX_ENUM_DIM` (build-time constant, typically 256); raises `NotImplementedError` otherwise.
+  - `method='proved'` is **incompatible with providing pruning parameters** (`pruning` must be `None` or `False` when `method='proved'`); raises `ValueError` otherwise.
+  - When `pruning=True` and `B.nrows <= 20`, pruning is silently disabled (upstream hack for small dimensions).
+- **Caveat**: `method='fast'` is heuristic; result is guaranteed only for `method='proved'`.
+- **Source**: `svpcvp.pyx:41-157`
 
 ### CVP
 
 **`CVP.closest_vector(B, t, method='fast', flags=CVP_DEFAULT)`**
 - **Signature**: `CVP.closest_vector(B, t, method='fast', flags=CVP_DEFAULT)`
-- **Description**: Find closest vector to target t in lattice.
-- **Caveat**: Practical CVP workflows assume LLL-preconditioned basis input.
-- **Source**: `svpcvp.pyx`
+- **Description**: Find closest vector to target `t` (∈ ZZ^n) in lattice. Returns a tuple of coordinates in the ambient space.
+- **Constraints**:
+  - **B must be LLL-reduced** with `delta=LLL.DEFAULT_DELTA` and `eta=LLL.DEFAULT_ETA` — upstream states this explicitly: "The basis must be LLL-reduced with delta=LLL.DEFAULT_DELTA and eta=LLL.DEFAULT_ETA." Result is guaranteed only for `method='proved'`.
+  - `B` must be an `IntegerMatrix` with `int_type='mpz'` (GMP integers); raises `NotImplementedError` for `int_type='long'`.
+  - `B.nrows` must not exceed `FPLLL_MAX_ENUM_DIM`; raises `NotImplementedError` otherwise.
+- **Source**: `svpcvp.pyx:165-242`
 
 **`CVP.babai(B, t, *args, **kwargs)`**
 - **Signature**: `CVP.babai(B, t, *args, **kwargs)`
