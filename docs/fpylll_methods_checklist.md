@@ -7,26 +7,55 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## 1. Core Data Structures
 
+### IntegerMatrix
+
 - [ ] `IntegerMatrix(arg0, arg1=None, int_type='mpz')`
+- [ ] `IntegerMatrix.from_matrix(A, nrows=None, ncols=None, **kwds)`
+- [ ] `IntegerMatrix.from_iterable(nrows, ncols, it, **kwds)`
+- [ ] `IntegerMatrix.identity(nrows, int_type='mpz')`
+- [ ] `IntegerMatrix.random(d, algorithm, int_type='mpz', **kwds)`
+- [ ] `IntegerMatrix.randomize(algorithm, **kwds)`
+
+### MatGSO
+
 - [ ] `GSO.Mat(B, U=None, UinvT=None, flags=GSO_DEFAULT, float_type='double', gram=False, update=False)`
 - [ ] `MatGSO(B, U=None, UinvT=None, flags=GSO_DEFAULT, float_type='double', gram=False, update=False)`
-- [ ] `LLL.Reduction(M, delta=LLL_DEF_DELTA, eta=LLL_DEF_ETA, flags=LLL_DEFAULT)`
+- [ ] `MatGSO.update_gso()`
+- [ ] `MatGSO.get_gram(i, j)`
+- [ ] `MatGSO.get_int_gram(i, j)`
+- [ ] `MatGSO.get_mu(i, j)`
+- [ ] `MatGSO.get_r(i, j)`
+- [ ] `MatGSO.get_current_slope(start_row, stop_row)`
+- [ ] `MatGSO.get_root_det(start_row, stop_row)`
+- [ ] `MatGSO.get_log_det(start_row, stop_row)`
+- [ ] `MatGSO.from_canonical(w, start=0, dimension=-1)`
+- [ ] `MatGSO.to_canonical(v, start=0)`
+- [ ] `MatGSO.babai(v, start=0, dimension=-1, gso=False)`
+
+### BKZ Parameters
+
 - [ ] `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)`
-- [ ] `BKZ.Reduction(M, lll_obj, param)`
 
 ## 2. LLL Surface
 
+- [ ] `LLL.Wrapper(B, delta=LLL_DEF_DELTA, eta=LLL_DEF_ETA, flags=LLL_DEFAULT)`
+  - Constraint: `B` must have `int_type='mpz'`; callable only once.
 - [ ] `LLL.reduction(B, U=None, delta=0.99, eta=0.51, method=None, float_type=None, precision=0, flags=LLL_DEFAULT)`
 - [ ] `lll_reduction(B, U=None, delta=0.99, eta=0.51, method=None, float_type=None, precision=0, flags=LLL_DEFAULT)`
 - [ ] `LLL.is_reduced(M, delta=0.99, eta=0.51)`
+- [ ] `LLL.Reduction(M, delta=LLL_DEF_DELTA, eta=LLL_DEF_ETA, flags=LLL_DEFAULT)`
+- [ ] `LLL.Reduction.__call__(kappa_min=0, kappa_start=0, kappa_end=-1, size_reduction_start=0)`
+- [ ] `LLL.Reduction.size_reduction(kappa_min=0, kappa_end=-1, size_reduction_start=0)`
+- [ ] `LLL.Reduction.final_kappa` (property)
+- [ ] `LLL.Reduction.zeros` (property)
+- [ ] `LLL.Reduction.nswaps` (property)
 
 ## 3. BKZ Surface
 
 - [ ] `BKZ.reduction(B, param, U=None, float_type=None, precision=0)`
+  - Contract note: `param` in `BKZ.reduction` is a `BKZ.Param` object; `B` must have `int_type='mpz'`.
 - [ ] `BKZ.Reduction(M, lll_obj, param)`
-- [ ] `BKZ.Param(block_size, strategies=BKZ_DEFAULT_STRATEGY, delta=LLL_DEF_DELTA, flags=BKZ_DEFAULT, max_loops=0, max_time=0, auto_abort=None, gh_factor=None, min_success_probability=BKZ_DEF_MIN_SUCCESS_PROBABILITY, rerandomization_density=BKZ_DEF_RERANDOMIZATION_DENSITY, dump_gso_filename=None, **kwds)`
-  - Caveat: current modules page shows BKZ section headers without full member signatures; this checklist keeps BKZ signatures source-anchored to `bkz.pyx` / `bkz_param.pyx`.
-  - Contract note: `param` in `BKZ.reduction` is a `BKZ.Param` object.
+- [ ] `BKZ.AutoAbort(M, num_rows, start_row=0)`
 
 ## 4. Enumeration / SVP / CVP
 
@@ -36,6 +65,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `SVP.shortest_vector(B, method='fast', flags=SVP_DEFAULT, pruning=True, preprocess=True, max_aux_solutions=0)`
   - Caveat: `method='fast'` is heuristic; `method='proved'` is the proof-oriented mode.
 - [ ] `CVP.closest_vector(B, t, method='fast', flags=CVP_DEFAULT)`
+  - Constraint: `B` must be LLL-reduced with `delta=LLL.DEFAULT_DELTA` and `eta=LLL.DEFAULT_ETA`.
 - [ ] `CVP.babai(B, t, *args, **kwargs)`
   - Caveat: practical CVP workflows assume LLL-preconditioned basis input.
 

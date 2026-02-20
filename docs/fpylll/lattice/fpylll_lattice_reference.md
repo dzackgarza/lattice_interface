@@ -32,39 +32,123 @@ Local upstream sources:
 - **Description**: Construct from iterable `it` of integers. Requires `it` to have length at least `nrows * ncols`. Accepts same `**kwds` as the constructor (e.g. `int_type`).
 - **Source**: `integer_matrix.pyx:414-429`
 
+**`IntegerMatrix.identity(cls, nrows, int_type='mpz')`**
+- **Signature**: `classmethod IntegerMatrix.identity(nrows, int_type='mpz')`
+- **Description**: Construct a new `nrows × nrows` identity matrix.
+- **Source**: `integer_matrix.pyx:432-447`
+
+**`IntegerMatrix.random(cls, d, algorithm, int_type='mpz', **kwds)`**
+- **Signature**: `classmethod IntegerMatrix.random(d, algorithm, int_type='mpz', **kwds)`
+- **Description**: Construct a random lattice basis matrix. The shape depends on the algorithm:
+  - `'intrel'` (kwarg: `bits=b`): produces `d × (d+1)` knapsack-like matrix; i-th row = random `b`-bit integer followed by i-th canonical unit vector.
+  - `'simdioph'` (kwargs: `bits=b1`, `bits2=b2`): produces `d × d` simultaneous Diophantine approximation matrix.
+  - `'uniform'` (kwarg: `bits=b`): produces `d × d` matrix with independent random `b`-bit entries.
+  - `'ntrulike'` (kwarg: `bits=b` OR `q`): produces `2d × 2d` NTRU-like matrix `[[I, rot(h)], [0, qI]]`; note: does NOT produce genuine NTRU lattices.
+  - `'ntrulike2'` (kwarg: `bits=b` OR `q`): produces `2d × 2d` matrix `[[qI, 0], [rot(h), I]]`.
+  - `'qary'` (kwarg: `bits=b` OR `q`, and `k`): produces `d × d` q-ary matrix with determinant `q^k`, shape `[[qI_{k×k}, 0], [H, I_{(d-k)×(d-k)}]]`. Corresponds to SIS/LWE lattices.
+  - `'trg'` (kwarg: `alpha`): produces `d × d` lower-triangular matrix with `B_{ii} = 2^{(d-i+1)^alpha}`.
+- **Constraints**: Unknown algorithm raises `ValueError: "Algorithm '%s' unknown."`.
+- **Source**: `integer_matrix.pyx:449-628`
+
 **`IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`**
 - **Signature**: `IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`
-- **Description**: Randomize matrix entries.
+- **Description**: Randomize matrix entries in-place.
 - **Source**: `integer_matrix.pyx:590-680`
 
 ### MatGSO (Gram-Schmidt Orthogonalization)
 
 **`MatGSO(B, U=None, UinvT=None, flags=GSO_DEFAULT, float_type='double', gram=False, update=False)`**
 - **Signature**: `MatGSO(B, U=None, UinvT=None, flags=GSO_DEFAULT, float_type='double', gram=False, update=False)`
-- **Description**: Provides interface for elementary basis operations, Gram matrix, and Gram-Schmidt orthogonalization. Stores integral basis `B`, μ-coefficients, and r-coefficients.
-- **Constraints**: `float_type` must be one of: `'double'`, `'long_double'`, `'dpe'`, `'mpfr'`, `'dd'`, `'qd'` (the latter two require QD library).
-- **Source**: `gso.pyx:98-99`
+- **Description**: Provides interface for elementary basis operations, Gram matrix, and Gram-Schmidt orthogonalization. Stores integral basis `B`, μ-coefficients, and r-coefficients. When `gram=True`, the input `B` is interpreted as the Gram matrix of the lattice (not a basis), and `GSO_INT_GRAM` is added to flags automatically.
+- **Constraints**:
+  - `float_type` must be one of: `'double'`, `'long_double'`, `'dpe'`, `'mpfr'`, `'dd'`, `'qd'` (the latter two require the QD library to be compiled in).
+  - `GSO.INT_GRAM` flag (`GSO_INT_GRAM`): **cannot** be combined with `GSO.ROW_EXPO` (`GSO_ROW_EXPO`); they are mutually exclusive.
+  - `GSO.ROW_EXPO` flag: **only** compatible with `float_type='double'` and `float_type='long_double'`; **must not** be used with `'dpe'`, `'dd'`, `'qd'`, or `'mpfr'`.
+  - When `gram=True`: diagonal entries of `B` must be `>= 0`; raises `ValueError: "Diagonal of input matrix has negative entries."` otherwise.
+  - `U` and `UinvT`, if provided, must have the same `int_type` as `B` (raises `TypeError: "U.int_type != B.int_type"` otherwise) and the same number of rows (raises `ValueError: "U.nrows != B.nrows"` otherwise).
+  - `UinvT` requires `U` to be non-None (raises `ValueError: "Uinvt != None but U == None."` otherwise).
+- **Source**: `gso.pyx:98-313`
 
 **`MatGSO.update_gso()`**
 - **Signature**: `MatGSO.update_gso()`
 - **Description**: Compute/update Gram-Schmidt orthogonalization.
 - **Source**: `gso.pyx:140-165`
 
+**`MatGSO.get_gram(i, j)`**
+- **Signature**: `MatGSO.get_gram(int i, int j)`
+- **Description**: Return floating-point Gram matrix coefficient. If `GSO.ROW_EXPO` is disabled, returns `⟨b_i, b_j⟩`; if enabled, returns `⟨b_i, b_j⟩ / 2^{r_i + r_j}` where `r_i`, `r_j` are row exponents.
+- **Constraints**: `0 ≤ i < d` and `0 ≤ j ≤ i`. Valid only within `n_known_rows`.
+- **Source**: `gso.pyx:996-1042`
+
+**`MatGSO.get_int_gram(i, j)`**
+- **Signature**: `MatGSO.get_int_gram(int i, int j)`
+- **Description**: Return exact integer Gram matrix coefficient `⟨b_i, b_j⟩`. Unlike `get_gram`, this returns an exact Python integer regardless of `float_type`.
+- **Constraints**: `0 ≤ i < d` and `0 ≤ j ≤ i`. Valid only within `n_known_rows`. `GSO.ROW_EXPO` must be disabled (docstring states "If `enable_row_expo` is false, returns the dot product").
+- **Source**: `gso.pyx:1044-1093`
+
 **`MatGSO.get_mu(i, j)`**
-- **Signature**: `MatGSO.get_mu(i, j)`
-- **Description**: Get Gram-Schmidt coefficient μ_{i,j} = ⟨b_i, b^*_j⟩ / ||b^*_j||^2 for i > j.
-- **Source**: `gso.pyx:220-240`
+- **Signature**: `MatGSO.get_mu(int i, int j)`
+- **Description**: Get Gram-Schmidt coefficient μ_{i,j} = ⟨b_i, b^*_j⟩ / ‖b^*_j‖^2 for i > j.
+- **Source**: `gso.pyx:1210-1253`
 
 **`MatGSO.get_r(i, j)`**
-- **Signature**: `MatGSO.get_r(i, j)`
+- **Signature**: `MatGSO.get_r(int i, int j)`
 - **Description**: Get coefficient r_{i,j} = ⟨b_i, b^*_j⟩ for i ≥ j.
-- **Source**: `gso.pyx:260-290`
+- **Source**: `gso.pyx:1095-1147`
+
+**`MatGSO.get_current_slope(start_row, stop_row)`**
+- **Signature**: `MatGSO.get_current_slope(int start_row, int stop_row)`
+- **Description**: Compute the slope of the least-squares line fitted to the log-lengths of GSO vectors from `start_row` to `stop_row` (exclusive). Negative slope indicates a good (short) basis; used as a quality indicator for LLL/BKZ outputs.
+- **Constraints**: `0 ≤ start_row < stop_row ≤ d`. Calls the C++ `get_current_slope` from `bkz.h`.
+- **Source**: `gso.pyx:1717-1796`
+
+**`MatGSO.get_root_det(start_row, stop_row)`**
+- **Signature**: `MatGSO.get_root_det(int start_row, int stop_row)`
+- **Description**: Return `(vol(L_{[start_row, stop_row)}))^{1/(stop_row - start_row)}` — the `(stop_row - start_row)`-th root of the determinant of the projected sublattice. Returns a float (converted via `.get_d()`).
+- **Constraints**: `0 ≤ start_row < stop_row ≤ d`.
+- **Source**: `gso.pyx:1798-1876`
+
+**`MatGSO.get_log_det(start_row, stop_row)`**
+- **Signature**: `MatGSO.get_log_det(int start_row, int stop_row)`
+- **Description**: Return log of the determinant of the projected sublattice spanned by rows `start_row..stop_row-1`.
+- **Constraints**: `0 ≤ start_row < stop_row ≤ d`.
+- **Source**: `gso.pyx:1877-1955`
+
+**`MatGSO.from_canonical(w, start=0, dimension=-1)`**
+- **Signature**: `MatGSO.from_canonical(w, int start=0, int dimension=-1)`
+- **Description**: Convert vector `w` in the canonical basis ℤ^n to a coordinate vector in the Gram-Schmidt basis `B^*`. This is the inverse of `to_canonical`. Only defined for GSO objects over a basis (raises `TypeError` for Gram-matrix mode objects).
+- **Parameters**:
+  - `w`: tuple-like of dimension `M.B.ncols`
+  - `start`: consider only subbasis starting at this row index
+  - `dimension`: number of vectors to consider (`-1` = all)
+- **Returns**: tuple of floats of dimension `dimension` (or `M.d` if `dimension=-1`)
+- **Constraints**: Only for `mat_gso_gso_t` objects (not `gram=True` mode); raises `TypeError: "This function is only defined for GSO objects over a basis"` otherwise. The `dpe`, `long_dpe`, and `long_mpfr` float types are not yet implemented (commented out upstream).
+- **Source**: `gso.pyx:2037-2175`
+
+**`MatGSO.to_canonical(v, start=0)`**
+- **Signature**: `MatGSO.to_canonical(v, int start=0)`
+- **Description**: Convert coordinate vector `v` wrt the Gram-Schmidt basis `B^*` back to the canonical basis ℤ^n. Inverse of `from_canonical`.
+- **Source**: `gso.pyx:2177-2305`
+
+**`MatGSO.babai(v, start=0, dimension=-1, gso=False)`**
+- **Signature**: `MatGSO.babai(v, int start=0, int dimension=-1, gso=False)`
+- **Description**: Return integer coefficient vector `w` such that `‖w⋅B - v‖` is small, using Babai's nearest plane algorithm. Returns coordinates wrt `B` (not the ambient vector). When `gso=True`, `v` is treated as a coordinate vector wrt the Gram-Schmidt basis `B^*`; when `gso=False` (default), `v` is in the canonical basis. Numerically less stable than `CVP.babai()` but supports floating-point target vectors and non-canonical input.
+- **Constraints**: When `gso=False`, only defined for GSO objects over a basis (raises `TypeError` for Gram-matrix mode).
+- **Source**: `gso.pyx:2306-2556`
 
 ---
 
 ## 2. LLL Surface
 
 ### LLL Reduction
+
+**`LLL.Wrapper(B, delta=LLL_DEF_DELTA, eta=LLL_DEF_ETA, flags=LLL_DEFAULT)`**
+- **Signature**: `LLL.Wrapper(B, double delta=LLL_DEF_DELTA, double eta=LLL_DEF_ETA, int flags=LLL_DEFAULT)`
+- **Description**: Low-level LLL wrapper that operates directly on an `IntegerMatrix`. Call the object (via `W()`) to run LLL. Lighter-weight than `LLL.Reduction` because it does not require a pre-built `MatGSO` object.
+- **Constraints**:
+  - `B` must have `int_type='mpz'` (GMP integers); raises `NotImplementedError: "Only integer matrices over GMP integers (mpz_t) are supported."` for `int_type='long'`.
+  - `__call__()` (i.e. `W()`) may only be invoked **once**; a second call raises `ValueError: "lll() may only be called once."`.
+- **Source**: `wrapper.pyx:13-78`
 
 **`LLL.reduction(B, U=None, delta=0.99, eta=0.51, method=None, float_type=None, precision=0, flags=LLL_DEFAULT)`**
 - **Signature**: `LLL.reduction(B, U=None, delta=0.99, eta=0.51, method=None, float_type=None, precision=0, flags=LLL_DEFAULT)`
