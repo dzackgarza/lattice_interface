@@ -1,6 +1,6 @@
 # PARI/GP Method Test Gap Checklist
 
-Tracks PARI/GP-relevant methods documented in `docs/pari_gp/lattice/pari_gp_lattice_reference.md`.
+Tracks PARI/GP-relevant methods documented in `docs/pari_gp/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -74,7 +74,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/pari_gp/lattice/pari_gp_lattice_reference.md`
+- `docs/pari_gp/lattice/research_readme.md`
 - `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
 - PARI vectors/matrices reference: `https://pari.math.u-bordeaux.fr/dochtml/html-stable/Vectors__matrices__linear_algebra_and_sets.html`
 - PARI function index: `https://pari.math.u-bordeaux.fr/dochtml/html-stable/`

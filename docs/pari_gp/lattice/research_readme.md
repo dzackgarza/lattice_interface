@@ -79,7 +79,18 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 ---
 
-## 5. Binary/Low-Dimensional and Structural APIs
+## 5. Matrix Normal Forms (HNF/SNF)
+
+| Function | Argument Types | Return Type | Description | Tags |
+|----------|----------------|-------------|-------------|------|
+| `mathnf(M, {flag = 0})` | `M`: integer matrix; `flag`: integer (optional, default 0) | matrix or vector `[H, U]` | Hermite normal form; returns upper triangular H with H = U*M. Flags 0, 1, 4, 5 control algorithm and output format. Base ring assumed to be ℤ | `[ZZMOD, NT]` |
+| `mathnfmod(x, d)` | `x`: integer matrix; `d`: integer (determinant multiple) | matrix | Modular HNF algorithm; computes HNF using determinant multiple `d`. Less memory than `mathnf` but requires choosing `d` | `[ZZMOD, NT]` |
+| `mathnfmodid(x, d)` | `x`: integer matrix; `d`: integer (ideal/modulus) | matrix | HNF modulo ideal `d`; returns unimodular matrix U such that U*x ≡ HNF(x) (mod d) | `[ZZMOD, NT]` |
+| `matsnf(X, {flag = 0})` | `X`: integer matrix; `flag`: integer (optional, default 0) | vector | Smith normal form; returns vector of elementary divisors. Flags control complete output and cleanup. Base ring assumed to be ℤ | `[ZZMOD, NT]` |
+
+---
+
+## 6. Binary/Low-Dimensional and Structural APIs
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
@@ -88,7 +99,7 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 ---
 
-## 6. Indefinite-First Usage Guidance
+## 7. Indefinite-First Usage Guidance
 
 For indefinite lattices/forms:
 
@@ -99,7 +110,7 @@ For indefinite lattices/forms:
 
 ---
 
-## 7. Sources
+## 8. Sources
 
 - PARI function index (stable): https://pari.math.u-bordeaux.fr/dochtml/ref-stable/function_index.html
 - PARI vectors/matrices + qf APIs: https://pari.math.u-bordeaux.fr/dochtml/ref-stable/Vectors__matrices__linear_algebra_and_sets.html
@@ -113,6 +124,10 @@ For indefinite lattices/forms:
   - §qfrep (lines 2614-2616): requires positive definite
   - §qfsign (lines 2645-2648): returns [p, m] signature — no PD requirement
   - §qfgaussred (lines 2133-2134): "Singular matrices are supported"
+  - §mathnf (lines 785-899): Hermite normal form; assumes ℤ base ring
+  - §mathnfmod (lines 909-927): modular HNF; less memory than mathnf
+  - §mathnfmodid (lines 928-955): HNF modulo ideal; returns unimodular matrix
+  - §matsnf: Smith normal form; returns elementary divisors
 - Local provenance capture: `docs/pari_gp/upstream/pari_gp_online_provenance_2026-02-17.md`
 - PARI docs home: https://pari.math.u-bordeaux.fr/
 - Sage PARI bridge docs for `qfsolve`/`qfparam`: https://doc.sagemath.org/html/en/reference/quadratic_forms/sage/quadratic_forms/qfsolve.html
