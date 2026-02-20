@@ -1,6 +1,6 @@
 # HyperCells Method Test Gap Checklist
 
-Tracks HyperCells package methods documented in `docs/hypercells/lattice/hypercells_lattice_reference.md`.
+Tracks HyperCells package methods documented in `docs/hypercells/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -336,7 +336,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/hypercells/lattice/hypercells_lattice_reference.md`
+- `docs/hypercells/lattice/research_readme.md`
 - `docs/hypercells/upstream/hypercells_online_provenance_2026-02-17.md`
 - HyperCells package page: `https://gap-packages.github.io/HyperCells/`
 - HyperCells package manual contents: `https://www.hypercells.net/chap0_mj.html`

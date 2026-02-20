@@ -193,7 +193,7 @@ Representative methods:
 | `TGCellMSNFsByType*`, `TGCellModelGraphsByType*`, `TGCellGraphsByType*` | Database extraction methods by type/species/genus/length | `[PKG, HYP, EUCLID]` |
 | `TGCellPointGroup*` family | Point-group representation, class, family, and genus workflows | `[PKG, HYP, EUCLID]` |
 
-Detailed method-level inventory is maintained in `docs/hypercells_methods_checklist.md` and `docs/hypercells/lattice/hypercells_lattice_reference.md`.
+Detailed method-level inventory is maintained in `docs/hypercells_methods_checklist.md` and `docs/hypercells/lattice/research_readme.md`.
 
 Definiteness note:
 - HyperCells focuses on periodic cell-complex geometry over translation/point-group actions (Euclidean and hyperbolic regimes), not arithmetic PD-vs-INDEF genus classification contracts.
