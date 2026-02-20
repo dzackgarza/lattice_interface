@@ -17,11 +17,37 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `fmpz_lll_with_removal(B, U, gs_B, fl)`
       Source: `docs/flint/upstream/fmpz_lll.rst` §"Main LLL functions"
       Returns: new dimension of `B` after removal.
-- [ ] `fmpz_lll_is_reduced(B, fl)`
+- [ ] `fmpz_lll_is_reduced(B, fl, prec)`
       Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
-- [ ] `fmpz_mat_is_reduced(A, fl)`
+      Note: `prec` is `flint_bitcnt_t` bit precision for the internal float check; return value is always conclusive.
+- [ ] `fmpz_lll_is_reduced_with_removal(B, fl, gs_B, newd, prec)`
+      Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
+      Note: Conclusive reducedness check with removal; `prec` is `flint_bitcnt_t`.
+- [ ] `fmpz_lll_is_reduced_d(B, fl)`
+      Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
+      Caveat: Heuristic - zero return is inconclusive.
+- [ ] `fmpz_lll_is_reduced_mpfr(B, fl, prec)`
+      Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
+      Caveat: Heuristic - zero return is inconclusive.
+- [ ] `fmpz_lll_is_reduced_d_with_removal(B, fl, gs_B, newd)`
+      Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
+      Caveat: Heuristic - zero return is inconclusive.
+- [ ] `fmpz_lll_is_reduced_mpfr_with_removal(B, fl, gs_B, newd, prec)`
+      Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
+      Caveat: Heuristic - zero return is inconclusive.
+- [ ] `fmpz_mat_is_reduced(A, delta, eta)`
       Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction"
       Caveat: low-level floating variants (`fmpz_lll_d`, `fmpz_lll_mpf`) are documented as potentially returning non-reduced output in some cases.
+      Note: `delta` and `eta` are `double` LLL parameters.
+- [ ] `fmpz_mat_is_reduced_gram(A, delta, eta)`
+      Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction"
+      Note: Assumes `A` is the Gram matrix of the basis.
+- [ ] `fmpz_mat_is_reduced_with_removal(A, delta, eta, gs_B, newd)`
+      Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction"
+      Note: Low-level with-removal predicate.
+- [ ] `fmpz_mat_is_reduced_gram_with_removal(A, delta, eta, gs_B, newd)`
+      Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction"
+      Note: Gram matrix version with removal.
 
 ## 2. Hermite Normal Form
 
