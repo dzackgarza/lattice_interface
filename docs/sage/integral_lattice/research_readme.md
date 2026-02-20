@@ -101,12 +101,12 @@ G = IntegralLatticeGluing([L1, L2], [[g1, g2]])
 | `degree()` | Dimension of the ambient space | inherited |
 | `determinant()` | $\det(\text{gram\_matrix}())$; equivalently $\det(B M B^T)$ | inherited |
 | `discriminant()` | Alias for `determinant()`; returns $\det(\text{gram\_matrix}())$ with no sign correction. Differs from `FreeQuadraticModule_generic.discriminant()` which applies $(−1)^r$ sign factor where $r = \lfloor\text{rank}/2\rfloor$ | inherited |
-| `signature()` | Signature $p - n$ where $(p, n)$ = `signature_pair()` | `[INDEF ok]` |
-| `signature_pair()` | Signature pair $(p, n)$: counts of positive / negative eigenvalues of the Gram matrix | `[INDEF ok]` |
-| `is_even()` | Whether all diagonal entries of the Gram matrix are even, i.e. $(x,x) \in 2\mathbb{Z}$ for all basis vectors | |
-| `is_positive_definite()` | Whether the form is positive definite | |
-| `is_negative_definite()` | Whether the form is negative definite | |
-| `is_definite()` | Positive or negative definite | |
+| `signature()` | Signature $p - n$ where $(p, n)$ = `signature_pair()`. Source: upstream `signature` method docs | `[INDEF ok]` |
+| `signature_pair()` | Signature pair $(p, n)$: counts of positive / negative eigenvalues of the Gram matrix. Source: upstream `signature_pair` method docs (lines 1405-1422) | `[INDEF ok]` |
+| `is_even()` | Whether all diagonal entries of the Gram matrix are even, i.e. $(x,x) \in 2\mathbb{Z}$ for all basis vectors. Source: upstream `is_even` method docs (line 792) | |
+| `is_positive_definite()` | Whether the form is positive definite. Inherited from parent class | |
+| `is_negative_definite()` | Whether the form is negative definite. Inherited from parent class | |
+| `is_definite()` | Positive or negative definite. Inherited from parent class | |
 
 ---
 
@@ -114,7 +114,7 @@ G = IntegralLatticeGluing([L1, L2], [[g1, g2]])
 
 | Method | Description | Tags |
 |--------|-------------|------|
-| `dual_lattice()` | Dual lattice $L^\vee = \{x \in L \otimes \mathbb{Q} : (x, \ell) \in \mathbb{Z}\ \forall \ell \in L\}$; returned as a `FreeQuadraticModule_integer_symmetric` in the same ambient space | |
+| `dual_lattice()` | Dual lattice $L^\vee = \{x \in L \otimes \mathbb{Q} : (x, \ell) \in \mathbb{Z}\ \forall \ell \in L\}$; returned as a `FreeQuadraticModule_integer_symmetric` in the same ambient space. Source: upstream `dual_lattice` method docs (line 601) | |
 | `discriminant_group(s=0)` | Discriminant group $L^\vee / L$ as a `TorsionQuadraticModule` with the induced $\mathbb{Q}/\mathbb{Z}$-valued bilinear form and $\mathbb{Q}/2\mathbb{Z}$-valued quadratic form. If $s \neq 0$, returns the $s$-primary part (the subgroup of elements whose order is a power of $s$). Source: upstream `discriminant_group` method docs (lines 546-595) | |
 
 ```python
