@@ -64,6 +64,7 @@ Practical note:
 | `qfeval({q}, x, {y})` | `q`: quadratic form (optional); `x`: integer vector/matrix; `y`: integer vector (optional) | integer | Evaluate quadratic form (or associated bilinear form when `y` is supplied) | `[NT]` |
 | `qfnorm(x, {q})` | `x`: integer vector; `q`: quadratic form (optional) | integer | Obsolete norm helper retained for compatibility; use `qfeval` | `[NT]` |
 | `qfbil(x, y, {q})` | `x`, `y`: vectors; `q`: quadratic form (optional) | integer | **OBSOLETE** - Bilinear form evaluation; superseded by `qfeval` | `[NT]` |
+| `forqfvec(v, q, b, expr)` | `v`: loop variable; `q`: symmetric **integral** matrix (positive-definite); `b`: bound; `expr`: expression | none (loop construct) | Enumerate all pairs of nonzero vectors `(-v, v)` with `q(v) ≤ b`. Loop variable `v` runs through representatives of each pair. **Requires positive-definite integral matrix** — upstream explicitly states q must represent a positive definite quadratic form with integral entries. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §forqfvec (lines 338-370) | `[PD, ZZMOD, NT]` |
 
 ---
 
@@ -71,7 +72,7 @@ Practical note:
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
-| `qfsolve(G)` | `G`: symmetric integer matrix | integer vector or 0 | Solve isotropy/zero-representation equation for form `G`; returns vector or 0 | `[INDEF, NT]` |
+| `qfsolve(G)` | `G`: symmetric matrix with **rational coefficients**; `n ≥ 1` | integer vector, matrix, or integer | Solve quadratic equation `^tX G X = 0` over ℚ. Returns: (1) vector `v` (a solution), (2) matrix (columns generate totally isotropic subspace), or (3) integer: prime `p` (no local solution at `p`), `-1` (no real solution), `-2` (n=2 and -det G not a square, implying real solution exists but no local solution at some p dividing det G). **No positive-definite requirement**. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfsolve (lines 2656-2680) | `[INDEF, NT]` |
 | `qfparam(G, sol, {flag = 0})` | `G`: symmetric integer matrix; `sol`: integer vector (isotropic); `flag`: integer (optional) | vector | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` |
 | `qfsign(G)` | `G`: symmetric matrix | vector `[p, m]` | Signature of quadratic form; returns `p` (positive eigenvalues) and `m` (negative eigenvalues). Computed via Gaussian reduction. **No positive-definite requirement** — works for any symmetric matrix | `[INDEF, NT]` |
 
@@ -94,7 +95,7 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
-| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U` | `[NT]` |
+| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U`. Library also provides `qfgaussred_positive` which assumes positive-definite input for faster computation, returning `NULL` if a vector with negative norm occurs. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred (lines 2117-2174) | `[NT]` |
 | `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` |
 
 ---
@@ -122,6 +123,8 @@ For indefinite lattices/forms:
   - §qfminimize (lines 2501-2504): requires non-zero determinant, not positive-definite
   - §qfjacobi (lines 2238-2246): "real symmetric matrix" — no PD requirement
   - §qfrep (lines 2614-2616): requires positive definite
+  - §forqfvec (lines 338-370): loop over vectors with bounded norm; requires positive-definite integral matrix
+  - §qfsolve (lines 2656-2680): returns vector/matrix/integer; requires rational coefficients; no PD requirement
   - §qfsign (lines 2645-2648): returns [p, m] signature — no PD requirement
   - §qfgaussred (lines 2133-2134): "Singular matrices are supported"
   - §mathnf (lines 785-899): Hermite normal form; assumes ℤ base ring

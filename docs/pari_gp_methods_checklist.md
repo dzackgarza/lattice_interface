@@ -34,10 +34,13 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Caveat: obsolete in upstream PARI docs; prefer `qfeval`.
 - [ ] `qfbil(x, y, {q})`
   - Caveat: **OBSOLETE** in upstream PARI docs; superseded by `qfeval`.
+- [ ] `forqfvec(v, q, b, expr)`
+  - Caveat: requires positive-definite integral matrix; loop construct for enumerating bounded-norm vectors.
 
 ## 3. Indefinite / Equation-Solving APIs
 
 - [ ] `qfsolve(G)`
+  - Caveat: requires rational coefficients; returns vector, matrix (isotropic subspace), or integer (prime p/-1/-2 for no solution cases); no positive-definite requirement.
 - [ ] `qfparam(G, sol, {flag = 0})`
 - [ ] `qfsign(G)`
   - Caveat: returns `[p, m]` (positive and negative eigenvalues); no positive-definite requirement.
@@ -64,7 +67,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 ## Definiteness and Domain Caveats
 
 - `qflllgram` accepts positive semidefinite forms (positive quadratic form, not necessarily definite).
-- `qfminim`, `qfcvp`, and `qfrep` require positive-definite forms; behavior undefined otherwise.
+- `qfminim`, `qfcvp`, `qfrep`, and `forqfvec` require positive-definite forms; behavior undefined otherwise.
 - `qfauto`, `qfisom`, `qfisominit`, and `qfperfection` require positive-definite forms.
 - `qfminimize` requires non-degenerate form (non-zero determinant), not positive-definite.
 - `qfjacobi`, `qfsign`, `qfsolve`, and `qfgaussred` have no positive-definite requirement.
