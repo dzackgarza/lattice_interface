@@ -8,6 +8,8 @@ Methods present in local upstream snapshots but absent from the corresponding ch
 
 **All Gap 1 entries for FLINT, NTL, and PARI/GP have been fixed in this session.**
 
+**FLINT gap (2026-02-20):** The `docs/flint/lattice/flint_lattice_reference.md` reference doc was missing entirely. Created it with full method signatures, argument types, return values, constraints (e.g., `delta in (0.25, 1)`, aliasing rules), and source citations from local upstream snapshots. Also expanded the checklist from ~25 entries to ~50 entries to match upstream coverage.
+
 ## Gap 2: Upstream docs referenced in readmes but not locally copied
 
 ### NTL
