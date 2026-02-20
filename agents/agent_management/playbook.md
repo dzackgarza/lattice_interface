@@ -147,6 +147,16 @@ Make targeted edits. Do not rewrite. The goal is to remove closure mechanisms an
 
 When removing a closure mechanism, do not replace it with a more specific description of what remains. That creates a new closure mechanism at a finer granularity. Remove the signal that work is bounded; do not substitute a different bound.
 
+### Behavioral Auditing
+
+Use `example_tasks/behavioural_audit_trivial_work_detection.md` to audit worker agents for trivial work patterns. This task teaches:
+- Scale calibration: what substantive work looks like vs trivial cosmetic fixes
+- How to identify reward-hacking: agents doing nonzero work that's underwhelming
+- Transcript analysis: finding shallow reading, easy pivots, verification theater
+- Root cause mapping: structural defects in prompts that enable trivial work
+
+The key insight: an agent making a commit is NOT proof of substantive work. Many commits are trivial (1-2 min fixes) that pale in comparison to the actual scope (thousands of methods to document). The manager must be ruthless in evaluating whether commits represent real progress toward documenting all lattice methods.
+
 ### TODOs
 
 `docs/TODO.md` is the outstanding work queue — completed items are removed.
