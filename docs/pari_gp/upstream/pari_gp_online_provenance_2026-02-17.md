@@ -50,6 +50,27 @@ Scope: tighten PARI quadratic-form (`qf*`) method signatures and caveats in
 - `docs/pari_gp_methods_checklist.md`
 - `docs/pari_gp/lattice/pari_gp_lattice_reference.md`
 
+## 2026-02-20: Fixed `fl`, `m`, `grp` parameter types for `qfauto`/`qfisominit`/`qfisom`
+
+Corrected three contract gaps in `docs/pari_gp/lattice/pari_gp_lattice_reference.md`:
+
+- `fl` parameter for `qfauto`, `qfisominit`, `qfisom`: was documented as `integer (optional)`;
+  upstream (§qfisominit) states it must be a `t_VEC` with two components:
+  `fl[1]` = depth of scalar product combinations, `fl[2]` = maximum level of Bacher polynomials.
+- `m` parameter for `qfisominit`: was documented as `integer (optional)`;
+  upstream states it must be a matrix or `qfminim` output — the set of vectors with squared norm
+  ≤ max diagonal entry of `G`; if absent, computed internally (expensive for large dimension).
+- `grp` parameter for `qfisom`: was documented only as `vector (optional)`;
+  upstream states it is the automorphism group of `H`, used to speed up computation
+  (obtainable from `qfauto(H)`).
+- `qfauto` return type: was `vector`; upstream documents it as `[o, g]` where `o` is the
+  group order and `g` is the list of generator matrices.
+- `qfisominit` note: interface is experimental and may change in future releases.
+- `qfauto` note: interface is experimental and may change in future releases.
+- Fixed typo: `flag` → `fl` in `qfauto` argument description.
+
+Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfauto, §qfisominit, §qfisom
+
 ## 2026-02-19: Added missing PARI `qf*` functions
 
 Added to reference documentation:
