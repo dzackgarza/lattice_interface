@@ -15,6 +15,20 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `IntegerMatrix.identity(nrows, int_type='mpz')`
 - [ ] `IntegerMatrix.random(d, algorithm, int_type='mpz', **kwds)`
 - [ ] `IntegerMatrix.randomize(algorithm, **kwds)`
+- [ ] `IntegerMatrix.gen_identity(nrows=-1)`
+- [ ] `IntegerMatrix.clear()`
+- [ ] `IntegerMatrix.is_empty()`
+- [ ] `IntegerMatrix.resize(rows, cols)`
+- [ ] `IntegerMatrix.swap_rows(r1, r2)`
+- [ ] `IntegerMatrix.rotate_left(first, last)`
+- [ ] `IntegerMatrix.rotate_right(first, last)`
+- [ ] `IntegerMatrix.rotate(first, middle, last)`
+- [ ] `IntegerMatrix.rotate_gram_left(first, last, n_valid_rows)`
+- [ ] `IntegerMatrix.rotate_gram_right(first, last, n_valid_rows)`
+- [ ] `IntegerMatrix.transpose()`
+- [ ] `IntegerMatrix.int_type` (property)
+- [ ] `IntegerMatrix.nrows` (property)
+- [ ] `IntegerMatrix.ncols` (property)
 
 ### MatGSO
 
@@ -31,6 +45,12 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `MatGSO.from_canonical(w, start=0, dimension=-1)`
 - [ ] `MatGSO.to_canonical(v, start=0)`
 - [ ] `MatGSO.babai(v, start=0, dimension=-1, gso=False)`
+- [ ] `MatGSO.G` (property)
+- [ ] `MatGSO.float_type` (property)
+- [ ] `MatGSO.int_type` (property)
+- [ ] `MatGSO.d` (property)
+- [ ] `MatGSO.n_known_rows` (property)
+- [ ] `MatGSO.swap_rows(i, j)`
 
 ### BKZ Parameters
 
@@ -47,6 +67,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `LLL.Reduction.__call__(kappa_min=0, kappa_start=0, kappa_end=-1, size_reduction_start=0)`
 - [ ] `LLL.Reduction.size_reduction(kappa_min=0, kappa_end=-1, size_reduction_start=0)`
 - [ ] `LLL.Reduction.final_kappa` (property)
+- [ ] `LLL.Reduction.last_early_red` (property)
 - [ ] `LLL.Reduction.zeros` (property)
 - [ ] `LLL.Reduction.nswaps` (property)
 
@@ -56,6 +77,13 @@ Check a box when there is at least one `method:` tagged test covering that metho
   - Contract note: `param` in `BKZ.reduction` is a `BKZ.Param` object; `B` must have `int_type='mpz'`.
 - [ ] `BKZ.Reduction(M, lll_obj, param)`
 - [ ] `BKZ.AutoAbort(M, num_rows, start_row=0)`
+- [ ] `BKZ.AutoAbort.test_abort(scale=1.0, max_no_dec=5)`
+- [ ] `BKZ.Reduction.__call__()`
+- [ ] `BKZ.Reduction.svp_preprocessing(kappa, block_size, param)`
+- [ ] `BKZ.Reduction.svp_postprocessing(kappa, block_size, solution)`
+- [ ] `BKZ.Reduction.svp_reduction(kappa, block_size, param, dual=False)`
+- [ ] `BKZ.Reduction.status` (property)
+- [ ] `BKZ.Reduction.lll_status` (property)
 
 ## 4. Enumeration / SVP / CVP
 
