@@ -30,38 +30,38 @@ This surface is lattice-relevant in the finite-field and group-action sense:
 
 ## 2. Constructors and Coercions
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
-| `AsSesquilinearForm(obj[, field][, antiautomorphism])` | `obj`: matrix or form object, `field`: finite field (optional), `antiautomorphism`: involution (optional) | `IsSesquilinearForm` | Construct/coerce sesquilinear form from matrix/form object with optional field and involution control. | `[PKG, FFORM]` |
-| `AsQuadraticForm(obj[, field])` | `obj`: matrix or form object, `field`: finite field (optional) | `IsQuadraticForm` | Construct/coerce quadratic form from matrix/form object with optional field override. | `[PKG, FFORM]` |
-| `SesquilinearFormByMatrix(matrix[, field][, antiautomorphism])` | `matrix`: square matrix over finite field, `field`: finite field (optional), `antiautomorphism`: involution (optional) | `IsSesquilinearForm` | Build a sesquilinear form from matrix data. | `[PKG, FFORM]` |
-| `QuadraticFormByMatrix(matrix[, field])` | `matrix`: square matrix over finite field, `field`: finite field (optional) | `IsQuadraticForm` | Build a quadratic form from matrix data. | `[PKG, FFORM]` |
-| `BilinearFormByMatrix(matrix[, field])` | `matrix`: symmetric or skew-symmetric square matrix, `field`: finite field (optional) | `IsBilinearForm` | Construct bilinear form from symmetric/skew-symmetric matrix. | `[PKG, FFORM]` |
-| `HermitianFormByMatrix(matrix[, field])` | `matrix`: matrix over extension field, `field`: finite field (optional) | `IsHermitianForm` | Construct hermitian form from matrix data. | `[PKG, FFORM]` |
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
+| `AsSesquilinearForm(obj[, field][, antiautomorphism])` | `obj`: matrix or form object, `field`: finite field (optional), `antiautomorphism`: involution (optional) | `IsSesquilinearForm` | Construct/coerce sesquilinear form from matrix/form object with optional field and involution control. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"ReflexiveSesquilinearForm" |
+| `AsQuadraticForm(obj[, field])` | `obj`: matrix or form object, `field`: finite field (optional) | `IsQuadraticForm` | Construct/coerce quadratic form from matrix/form object with optional field override. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"QuadraticFormByMatrix" |
+| `SesquilinearFormByMatrix(matrix[, field][, antiautomorphism])` | `matrix`: square matrix over finite field, `field`: finite field (optional), `antiautomorphism`: involution (optional) | `IsSesquilinearForm` | Build a sesquilinear form from matrix data. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"SesquilinearFormByMatrix" |
+| `QuadraticFormByMatrix(matrix[, field])` | `matrix`: square matrix over finite field, `field`: finite field (optional) | `IsQuadraticForm` | Build a quadratic form from matrix data. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"QuadraticFormByMatrix" |
+| `BilinearFormByMatrix(matrix[, field])` | `matrix`: symmetric or skew-symmetric square matrix, `field`: finite field (optional) | `IsBilinearForm` | Construct bilinear form from symmetric/skew-symmetric matrix. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BilinearFormByMatrix" |
+| `HermitianFormByMatrix(matrix[, field])` | `matrix`: matrix over extension field, `field`: finite field (optional) | `IsHermitianForm` | Construct hermitian form from matrix data. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"HermitianFormByMatrix" |
 
 ---
 
 ## 3. Categories, Attributes, and Predicates
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
-| `IsSesquilinearForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for sesquilinear forms. | `[PKG, FFORM]` |
-| `IsQuadraticForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for quadratic forms. | `[PKG, FFORM]` |
-| `IsBilinearForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for bilinear forms. | `[PKG, FFORM]` |
-| `IsHermitianForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for hermitian forms. | `[PKG, FFORM]` |
-| `IsForm(obj)` | `obj`: any object | `true`/`false` | General form category predicate. | `[PKG, FFORM]` |
-| `UnderlyingVectorSpace(form)` | `form`: `IsForm` | `GF` vector space | Return underlying vector space of form domain. | `[PKG, FFORM]` |
-| `MatrixOfSesquilinearForm(form)` | `form`: `IsSesquilinearForm` | matrix | Matrix representation associated to a sesquilinear form. | `[PKG, FFORM]` |
-| `MatrixOfQuadraticForm(form)` | `form`: `IsQuadraticForm` | matrix | Matrix representation for quadratic form (documented for odd characteristic). | `[PKG, FFORM]` |
-| `GramMatrix(form)` | `form`: `IsForm` | matrix | Gram matrix of the form. | `[PKG, FFORM]` |
-| `RankOfForm(form)` | `form`: `IsForm` | integer | Rank invariant of the form. | `[PKG, FFORM]` |
-| `BaseField(form)` | `form`: `IsForm` | field | Base field of the form. | `[PKG, FFORM]` |
-| `IsReflexiveForm(form)` | `form`: `IsForm` | `true`/`false` | Reflexivity predicate. | `[PKG, FFORM]` |
-| `IsSymmetricForm(form)` | `form`: `IsForm` | `true`/`false` | Symmetry predicate. | `[PKG, FFORM]` |
-| `IsAlternatingForm(form)` | `form`: `IsForm` | `true`/`false` | Alternation predicate. | `[PKG, FFORM]` |
-| `IsDegenerateForm(form)` | `form`: `IsForm` | `true`/`false` | Degeneracy predicate. | `[PKG, FFORM]` |
-| `RadicalOfForm(form)` | `form`: `IsForm` | vector space | Radical subspace of the form. | `[PKG, FFORM, DECOMP]` |
-| `DiscriminantOfForm(form)` | `form`: `IsForm` | field element | Discriminant of the form. | `[PKG, FFORM]` |
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
+| `IsSesquilinearForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for sesquilinear forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSesquilinearForm" |
+| `IsQuadraticForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for quadratic forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsQuadraticForm" |
+| `IsBilinearForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for bilinear forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsBilinearForm" |
+| `IsHermitianForm(obj)` | `obj`: any object | `true`/`false` | Category predicate for hermitian forms. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsHermitianForm" |
+| `IsForm(obj)` | `obj`: any object | `true`/`false` | General form category predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsForm" |
+| `UnderlyingVectorSpace(form)` | `form`: `IsForm` | `GF` vector space | Return underlying vector space of form domain. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"UnderlyingVectorSpace" |
+| `MatrixOfSesquilinearForm(form)` | `form`: `IsSesquilinearForm` | matrix | Matrix representation associated to a sesquilinear form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"MatrixOfSesquilinearForm" |
+| `MatrixOfQuadraticForm(form)` | `form`: `IsQuadraticForm` | matrix | Matrix representation for quadratic form (documented for odd characteristic). | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"MatrixOfQuadraticForm" |
+| `GramMatrix(form)` | `form`: `IsForm` | matrix | Gram matrix of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"GramMatrix" |
+| `RankOfForm(form)` | `form`: `IsForm` | integer | Rank invariant of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"RankOfForm" |
+| `BaseField(form)` | `form`: `IsForm` | field | Base field of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"BaseField" |
+| `IsReflexiveForm(form)` | `form`: `IsForm` | `true`/`false` | Reflexivity predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsReflexiveForm" |
+| `IsSymmetricForm(form)` | `form`: `IsForm` | `true`/`false` | Symmetry predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsSymmetricForm" |
+| `IsAlternatingForm(form)` | `form`: `IsForm` | `true`/`false` | Alternation predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsAlternatingForm" |
+| `IsDegenerateForm(form)` | `form`: `IsForm` | `true`/`false` | Degeneracy predicate. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"IsDegenerateForm" |
+| `RadicalOfForm(form)` | `form`: `IsForm` | vector space | Radical subspace of the form. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap4_mj.html` §"RadicalOfForm" |
+| `DiscriminantOfForm(form)` | `form`: `IsForm` | field element | Discriminant of the form. | `[PKG, FFORM]` | `docs/forms/upstream/chap4_mj.html` §"DiscriminantOfForm" |
 
 Characteristic caveat:
 - Manual chapter 4 documents `MatrixOfQuadraticForm` for odd characteristic and notes matrix reconstruction differences in characteristic `2`.
@@ -70,28 +70,28 @@ Characteristic caveat:
 
 ## 4. Equivalence and Symmetry Groups
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
-| `IsometricForms(form1, form2)` | `form1`, `form2`: `IsForm` | `true`/`false` | Isometry test between forms. | `[PKG, FFORM, EQUIV]` |
-| `SimilarityForms(form1, form2)` | `form1`, `form2`: `IsForm` | `true`/`false` | Similarity test between forms. | `[PKG, FFORM, EQUIV]` |
-| `IsometryGroup(form)` | `form`: `IsForm` | matrix group | Group preserving the form exactly. | `[PKG, FFORM, EQUIV, GRP]` |
-| `SimilarityGroup(form)` | `form`: `IsForm` | matrix group | Group preserving the form up to scalar factor. | `[PKG, FFORM, EQUIV, GRP]` |
-| `BaseChangeToCanonical(f)` | `f`: `IsForm` | matrix | Returns transition matrix to canonical form representative. | `[PKG, FFORM, EQUIV]` |
-| `BaseChangeHomomorphism(f1, f2)` | `f1`, `f2`: `IsForm` | matrix or `fail` | Returns matrix mapping form1's basis to form2's basis if isometric. | `[PKG, FFORM, EQUIV]` |
-| `IsometricCanonicalForm(f)` | `f`: `IsForm` | form | Returns canonical representative of isometry class. | `[PKG, FFORM, EQUIV]` |
-| `ScalarOfSimilarity(f1, f2)` | `f1`, `f2`: `IsForm` | field element or `fail` | Returns scalar λ such that f1 is similar to λ·f2. | `[PKG, FFORM, EQUIV]` |
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
+| `IsometricForms(form1, form2)` | `form1`, `form2`: `IsForm` | `true`/`false` | Isometry test between forms. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"IsometricForms" |
+| `SimilarityForms(form1, form2)` | `form1`, `form2`: `IsForm` | `true`/`false` | Similarity test between forms. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"SimilarityForms" |
+| `IsometryGroup(form)` | `form`: `IsForm` | matrix group | Group preserving the form exactly. | `[PKG, FFORM, EQUIV, GRP]` | `docs/forms/upstream/chap4_mj.html` §"IsometryGroup" |
+| `SimilarityGroup(form)` | `form`: `IsForm` | matrix group | Group preserving the form up to scalar factor. | `[PKG, FFORM, EQUIV, GRP]` | `docs/forms/upstream/chap4_mj.html` §"SimilarityGroup" |
+| `BaseChangeToCanonical(f)` | `f`: `IsForm` | matrix | Returns transition matrix to canonical form representative. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"BaseChangeToCanonical" |
+| `BaseChangeHomomorphism(f1, f2)` | `f1`, `f2`: `IsForm` | matrix or `fail` | Returns matrix mapping form1's basis to form2's basis if isometric. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"BaseChangeHomomorphism" |
+| `IsometricCanonicalForm(f)` | `f`: `IsForm` | form | Returns canonical representative of isometry class. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"IsometricCanonicalForm" |
+| `ScalarOfSimilarity(f1, f2)` | `f1`, `f2`: `IsForm` | field element or `fail` | Returns scalar λ such that f1 is similar to λ·f2. | `[PKG, FFORM, EQUIV]` | `docs/forms/upstream/chap4_mj.html` §"ScalarOfSimilarity" |
 
 ---
 
 ## 5. Invariant and Preserved Forms of Matrix Groups
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
-| `InvariantBilinearForm(G[, involution][, isom])` | `G`: matrix group, `involution`: involution (optional), `isom`: isomorphism (optional) | bilinear form | Construct bilinear form invariant under matrix-group action. | `[PKG, FFORM, GRP]` |
-| `InvariantQuadraticForm(G[, involution][, isom])` | `G`: matrix group, `involution`: involution (optional), `isom`: isomorphism (optional) | quadratic form | Construct quadratic form invariant under matrix-group action. | `[PKG, FFORM, GRP]` |
-| `PreservedSesquilinearForms(G)` | `G`: matrix group (absolutely irreducible) | list of forms | Return preserved sesquilinear forms for `G`; documented for absolutely irreducible groups. | `[PKG, FFORM, GRP]` |
-| `PreservedQuadraticForms(G)` | `G`: matrix group (absolutely irreducible) | list of forms | Return preserved quadratic forms for absolutely irreducible groups over finite fields of odd characteristic. | `[PKG, FFORM, GRP]` |
-| `PreservedForms(G)` | `G`: matrix group | list of forms | Return all preserved forms (sesquilinear and quadratic) for a matrix group. | `[PKG, FFORM, GRP]` |
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
+| `InvariantBilinearForm(G[, involution][, isom])` | `G`: matrix group, `involution`: involution (optional), `isom`: isomorphism (optional) | bilinear form | Construct bilinear form invariant under matrix-group action. | `[PKG, FFORM, GRP]` | `docs/forms/upstream/chap5_mj.html` §"InvariantBilinearForm" |
+| `InvariantQuadraticForm(G[, involution][, isom])` | `G`: matrix group, `involution`: involution (optional), `isom`: isomorphism (optional) | quadratic form | Construct quadratic form invariant under matrix-group action. | `[PKG, FFORM, GRP]` | `docs/forms/upstream/chap5_mj.html` §"InvariantQuadraticForm" |
+| `PreservedSesquilinearForms(G)` | `G`: matrix group (absolutely irreducible) | list of forms | Return preserved sesquilinear forms for `G`; documented for absolutely irreducible groups. | `[PKG, FFORM, GRP]` | `docs/forms/upstream/chap5_mj.html` §"PreservedSesquilinearForms" |
+| `PreservedQuadraticForms(G)` | `G`: matrix group (absolutely irreducible) | list of forms | Return preserved quadratic forms for absolutely irreducible groups over finite fields of odd characteristic. | `[PKG, FFORM, GRP]` | `docs/forms/upstream/chap5_mj.html` §"PreservedQuadraticForms" |
+| `PreservedForms(G)` | `G`: matrix group | list of forms | Return all preserved forms (sesquilinear and quadratic) for a matrix group. | `[PKG, FFORM, GRP]` | `docs/forms/upstream/chap5_mj.html` §"PreservedForms" |
 
 Workflow caveat:
 - Chapter 5 states `PreservedSesquilinearForms`/`PreservedQuadraticForms` in an absolutely irreducible matrix-group regime; quadratic case is odd-characteristic only.
@@ -100,17 +100,17 @@ Workflow caveat:
 
 ## 6. Orthogonal Decomposition and Witt Index
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
-| `OrthogonalSubgroups(G, n[, s])` | `G`: matrix group, `n`: form, `s`: integer (optional) | record | Orthogonal decomposition helper returning subgroup data for form model `n`. | `[PKG, FFORM, DECOMP]` |
-| `OrthogonalSubgroupsAsList(G, n[, s])` | `G`: matrix group, `n`: form, `s`: integer (optional) | list | List-form output variant of orthogonal subgroup decomposition. | `[PKG, FFORM, DECOMP]` |
-| `OrthogonalComponents(G, n)` | `G`: matrix group, `n`: form | list of forms | Orthogonal components of module/group with respect to form `n`. | `[PKG, FFORM, DECOMP]` |
-| `OrthogonalComponentsOfSubgroup(U, n)` | `U`: subgroup, `n`: form | list of forms | Orthogonal components restricted to subgroup `U` of ambient row-space carrying form `n`. | `[PKG, FFORM, DECOMP]` |
-| `WittIndex(form)` | `form`: `IsForm` | integer | Witt-index computation for finite-field forms; characteristic `2` requires non-singular form. | `[PKG, FFORM, DECOMP]` |
-| `TypeOfForm(form)` | `form`: `IsForm` | string | Returns type classification: "hyperbolic", "elliptic", or "parabolic". | `[PKG, FFORM, DECOMP]` |
-| `IsHyperbolicForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for hyperbolic forms. | `[PKG, FFORM, DECOMP]` |
-| `IsEllipticForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for elliptic forms. | `[PKG, FFORM, DECOMP]` |
-| `IsParabolicForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for parabolic forms. | `[PKG, FFORM, DECOMP]` |
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
+| `OrthogonalSubgroups(G, n[, s])` | `G`: matrix group, `n`: form, `s`: integer (optional) | record | Orthogonal decomposition helper returning subgroup data for form model `n`. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"OrthogonalSubgroups" |
+| `OrthogonalSubgroupsAsList(G, n[, s])` | `G`: matrix group, `n`: form, `s`: integer (optional) | list | List-form output variant of orthogonal subgroup decomposition. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"OrthogonalSubgroupsAsList" |
+| `OrthogonalComponents(G, n)` | `G`: matrix group, `n`: form | list of forms | Orthogonal components of module/group with respect to form `n`. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"OrthogonalComponents" |
+| `OrthogonalComponentsOfSubgroup(U, n)` | `U`: subgroup, `n`: form | list of forms | Orthogonal components restricted to subgroup `U` of ambient row-space carrying form `n`. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"OrthogonalComponentsOfSubgroup" |
+| `WittIndex(form)` | `form`: `IsForm` | integer | Witt-index computation for finite-field forms; characteristic `2` requires non-singular form. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"WittIndex" |
+| `TypeOfForm(form)` | `form`: `IsForm` | string | Returns type classification: "hyperbolic", "elliptic", or "parabolic". | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"TypeOfForm" |
+| `IsHyperbolicForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for hyperbolic forms. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"IsHyperbolicForm" |
+| `IsEllipticForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for elliptic forms. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"IsEllipticForm" |
+| `IsParabolicForm(form)` | `form`: `IsForm` | `true`/`false` | Predicate for parabolic forms. | `[PKG, FFORM, DECOMP]` | `docs/forms/upstream/chap5_mj.html` §"IsParabolicForm" |
 
 ---
 
