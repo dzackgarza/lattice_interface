@@ -35,8 +35,10 @@ Representation convention in these APIs: lattice/module bases are given by matri
 | `long LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Exact LLL with unimodular transform `U` s.t. `U * old_B = new_B`; first `m-r` rows of `U` span the kernel of `old_B`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LLL(ZZ& det2, mat_ZZ& B, long a, long b, long verbose=0)` | Exact LLL with rational reduction parameter `delta = a/b`; requires `1/4 < a/b <= 1`, `a,b` positive integers. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LLL(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | Exact LLL with rational `delta = a/b` plus unimodular transform output `U`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
-| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long verbose=0)` | LLL variant returning Gram-Schmidt squared-length vector `D`: `D[0]=1`, and for `i=1..r`, `D[i]/D[i-1]` is the squared length of the i-th Gram-Schmidt basis vector; `D[r]` equals `det2` from plain LLL. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
-| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform output `U`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long verbose=0)` | LLL variant returning Gram-Schmidt squared-length vector `D`: `D[0]=1`, and for `i=1..r`, `D[i]/D[i-1]` is the squared length of the i-th Gram-Schmidt basis vector; `D[r]` equals `det2` from plain LLL. Returns rank `r`. Default `delta=3/4`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Same as above with unimodular transform output `U`. Default `delta=3/4`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, long a, long b, long verbose=0)` | Same Gram-Schmidt vector output as above with explicit rational reduction parameter `delta = a/b`; requires `1/4 < a/b <= 1`, `a,b` positive integers. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long LLL_plus(vec_ZZ& D, mat_ZZ& B, mat_ZZ& U, long a, long b, long verbose=0)` | Same as above with unimodular transform output `U` and explicit `delta = a/b`; requires `1/4 < a/b <= 1`. Returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long image(ZZ& det2, mat_ZZ& B, mat_ZZ& U, long verbose=0)` | Computes image/lattice basis data from integer matrix input using LLL-driven workflow; returns rank `r`. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
 | `long LatticeSolve(vec_ZZ& x, const mat_ZZ& A, const vec_ZZ& y, long reduce=0)` | Solves `x*A = y` over integers when possible; sets `x` to a solution and returns `1` if solvable, leaves `x` unchanged and returns `0` if no integer solution exists. Optional `reduce` (0/1/2) controls quality of solution when the solution is not unique: 0=no effort, 1=size reduction on kernel, 2=LLL on kernel (provably near-optimal). Source: `LLL.cpp` | `[ZZMOD, SOLVE, CPP]` |
 
@@ -51,8 +53,10 @@ Representation convention in these APIs: lattice/module bases are given by matri
 
 Important caveats from upstream docs:
 
-- `deep` is documented as deprecated in modern NTL usage.
-- `BlockSize` and `prune` materially affect BKZ quality/runtime tradeoffs.
+- `delta` for floating-point LLL/BKZ variants must satisfy `0.50 <= delta < 1` (upstream explicitly states this range for FP variants); this is distinct from the exact LLL/LLL_plus constraint `1/4 < delta <= 1` where delta is expressed as rational `a/b`. Source: `LLL.cpp` ("may be set so that 0.50 <= delta < 1").
+- `deep` is documented as deprecated in modern NTL usage; Givens-based variants (`G_LLL_*`) do not support `deep != 0` and will raise an error.
+- `BlockSize` and `prune` materially affect BKZ quality/runtime tradeoffs; upstream notes `BlockSize` should be between 2 and the number of rows of `B`.
+- `LLLCheckFct check` is a callback `typedef long (*LLLCheckFct)(const vec_ZZ&)` invoked after each size reduction; if it returns non-zero, the routine terminates immediately and the reported rank may be too large.
 - APIs operate on row-basis matrices over `ZZ`; these are Euclidean reduction routines, not indefinite genus/isometry classification APIs.
 
 ---
@@ -91,6 +95,7 @@ NTL's lattice-reduction APIs here are integer-matrix and Euclidean-reduction ori
 - NTL LLL/BKZ and solve API docs: `https://libntl.org/doc/LLL.cpp.html`
 - NTL HNF API docs: `https://libntl.org/doc/HNF.cpp.html`
 - NTL lattice-reduction tutorial examples: `https://libntl.org/doc/tour-ex4.html`
-- Local upstream snapshot: `docs/ntl/upstream/LLL.cpp.html` (exact LLL, LLL_plus, image, LatticeSolve, ComputeGS, NearVector signatures verified from this file)
+- Local upstream snapshot: `docs/ntl/upstream/LLL.txt` (exact LLL, all four LLL_plus overloads including a/b delta variants, image, LatticeSolve, ComputeGS, NearVector signatures and FP delta constraint `0.50 <= delta < 1` verified from this file)
+- Local upstream snapshot: `docs/ntl/upstream/LLL.cpp.html` (HTML-rendered version of same LLL surface)
 - Local upstream snapshot: `docs/ntl/upstream/mat_ZZ.cpp.html` (mat_ZZ type definitions)
 
