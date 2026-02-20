@@ -40,13 +40,15 @@ These are matrix-algorithm APIs, not high-level indefinite-lattice classificatio
 | `fmpz_lll_context_init(fl, delta, eta, rt, gt)` | Initialize context with explicit reduction parameters. `[delta in (0.25, 1), eta in (0.5, sqrt(delta))]` Both endpoints exclusive. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
 | `fmpz_lll(B, U, fl)` | Main LLL entry point over integer matrix basis, optionally tracking transform matrix `U`. `[INPLACE]` Reduces `B` in place. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
 | `fmpz_lll_with_removal(B, U, gs_B, fl)` | LLL-with-removal variant. `[INPLACE]` Reduces `B` in place and removes vectors whose **squared** Gram-Schmidt length exceeds `gs_B`. Returns new dimension of `B` after removal. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
-| `fmpz_lll_is_reduced(B, fl)` | Predicate checking whether basis meets LLL conditions for context `fl`. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
-| `fmpz_mat_is_reduced(A, fl)` | Matrix-level reducedness predicate under LLL context. Source: `fmpz_lll.h` | `[ZZMOD, RED, C]` |
+| `fmpz_lll_is_reduced(B, fl, prec)` | **Conclusive** reducedness check. `prec`: `flint_bitcnt_t` bit precision for the internal float check. Return value is always conclusive: non-zero means definitively reduced, zero means definitively not reduced. Calls heuristic `_d` or `_mpfr` variants first and returns early if they yield a conclusive answer. Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness" | `[ZZMOD, RED, C]` |
+| `fmpz_lll_is_reduced_d(B, fl)` | **Heuristic** (inconclusive) reducedness check at machine (double) precision. Non-zero return means definitely reduced; **zero return is inconclusive** — does not prove unreduced. Delegates to `fmpz_mat_is_reduced` or `fmpz_mat_is_reduced_gram`. Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness" | `[ZZMOD, RED, C]` |
+| `fmpz_mat_is_reduced(A, delta, eta)` | Low-level basis reducedness predicate. `delta`, `eta`: `double` — explicit LLL parameters (not a context object). Returns non-zero if `A` is LLL-reduced with the given `(delta, eta)`. Companion: `fmpz_mat_is_reduced_gram(A, delta, eta)` for Gram-matrix input. Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction" | `[ZZMOD, RED, C]` |
 
 Practical caveat from upstream docs:
 
 - The low-level floating variants (`fmpz_lll_d`, `fmpz_lll_mpf`) can return successfully without guaranteeing reduced output in all cases.
 - The `fmpz_lll` function is the main user entry point; it currently calls ULLL internally.
+- `fmpz_lll_is_reduced(B, fl, prec)` is conclusive; `fmpz_lll_is_reduced_d(B, fl)` is heuristic (zero return does not prove the basis is unreduced).
 
 ---
 
