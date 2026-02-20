@@ -6,9 +6,7 @@ Gaps between upstream doc snapshots and checklist entries. Only upstream docs an
 
 Methods present in local upstream snapshots but absent from the corresponding checklist.
 
-**All Gap 1 entries for FLINT, NTL, and PARI/GP have been fixed in this session.**
-
-**FLINT gap (2026-02-20):** The `docs/flint/lattice/flint_lattice_reference.md` reference doc was missing entirely. Created it with full method signatures, argument types, return values, constraints (e.g., `delta in (0.25, 1)`, aliasing rules), and source citations from local upstream snapshots. Also expanded the checklist from ~25 entries to ~50 entries to match upstream coverage.
+Initial spot-checks for FLINT, NTL, and PARI/GP have been performed. These packages have received attention but are not exhaustively verified — the same method-by-method comparison as noted in Gap 3 applies to them as well.
 
 ## Gap 2: Upstream docs referenced in readmes but not locally copied
 
