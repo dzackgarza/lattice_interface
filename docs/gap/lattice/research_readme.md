@@ -170,7 +170,7 @@ Representative `Forms` methods:
 | `OrthogonalSubgroups(G, n[, s])` / `OrthogonalSubgroupsAsList(G, n[, s])` | Orthogonal subgroup decomposition helpers | `[PKG, FFORM, DECOMP]` |
 | `OrthogonalComponents(G, n)` / `OrthogonalComponentsOfSubgroup(U, n)` / `WittIndex(form)` | Orthogonal component and Witt-index workflows | `[PKG, FFORM, DECOMP]` |
 
-Detailed method inventory is maintained in `docs/forms_methods_checklist.md` and `docs/forms/lattice/forms_lattice_reference.md`.
+Detailed method inventory is maintained in `docs/forms_methods_checklist.md` and `docs/forms/lattice/research_readme.md`.
 
 Definiteness note:
 - Real-signature PD/INDEF language is not applicable in the finite-field setting.
@@ -372,4 +372,4 @@ GAP also uses “lattice” to mean subgroup lattice (poset), which is unrelated
 - GAP manual chapters 24-26: `docs/gap/upstream/chap24.html`, `docs/gap/upstream/chap25.html`, `docs/gap/upstream/chap26.html`
 - Crystallographic packages: `docs/crystallographic_stack/upstream/cryst/`, `docs/crystallographic_stack/upstream/caratinterface/`, `docs/crystallographic_stack/upstream/crystcat/`
 - HyperCells: `docs/hypercells/upstream/`
-- Forms: `docs/forms/lattice/forms_lattice_reference.md`
+- Forms: `docs/forms/lattice/research_readme.md`
