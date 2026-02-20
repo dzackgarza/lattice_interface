@@ -136,7 +136,7 @@ Workflow caveat:
 
 - `Forms` is finite-field linear/form algebra and does not provide real-signature (`PD`/`INDEF`) contracts.
 - Orthogonal and Witt-index methods here should not be conflated with integer-lattice genus/signature classification over `ZZ`/`QQ`.
-- For integer-matrix normal forms and Euclidean reduction in GAP, use core integer-matrix and `LLLReduced*` APIs (documented in `docs/gap/lattice/gap_lattice_methods_reference.md`).
+- For integer-matrix normal forms and Euclidean reduction in GAP, use core integer-matrix and `LLLReduced*` APIs (documented in `docs/gap/lattice/research_readme.md`).
 
 ---
 

@@ -80,7 +80,7 @@ current canonical docs; they are not counted as active canonical checklist targe
 - `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
 - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
 - Existing GAP umbrella reference:
-  `docs/gap/lattice/gap_lattice_methods_reference.md`
+  `docs/gap/lattice/research_readme.md`
 - Cryst package page: `https://gap-packages.github.io/cryst/`
 - GAP Cryst package manual: `https://docs.gap-system.org/pkg/cryst/htm/CHAP002.htm`
 - GAP Reference Manual (CARAT methods): `https://docs.gap-system.org/doc/ref/chap44.html`

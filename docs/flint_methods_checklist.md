@@ -1,6 +1,6 @@
 # FLINT Method Test Gap Checklist
 
-Tracks FLINT-relevant methods documented in `docs/flint/lattice/flint_lattice_reference.md`.
+Tracks FLINT-relevant methods documented in `docs/flint/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -68,7 +68,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/flint/lattice/flint_lattice_reference.md`
+- `docs/flint/lattice/research_readme.md`
 - FLINT `fmpz_lll` docs: `https://flintlib.org/doc/fmpz_lll.html`
 - FLINT `fmpz_mat` docs: `https://flintlib.org/doc/fmpz_mat.html`
 - FLINT docs index: `https://flintlib.org/doc/`

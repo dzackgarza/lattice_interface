@@ -155,7 +155,7 @@ surface because current GAP reference and CARATInterface docs expose one-argumen
 - `docs/crystallographic_stack_methods_checklist.md`
 - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
 - Existing umbrella mapping:
-  `docs/gap/lattice/gap_lattice_methods_reference.md`
+  `docs/gap/lattice/research_readme.md`
 - Cryst package page: `https://gap-packages.github.io/cryst/`
 - GAP package install index (Cryst/CARATInterface/CrystCat):
   `https://www.math.rwth-aachen.de/~Greg.Gamble/gap4r3/pkg/inst.htm`

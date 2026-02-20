@@ -1,6 +1,6 @@
 # GAP Method Test Gap Checklist
 
-Tracks GAP-relevant lattice methods documented in `docs/gap/lattice/gap_lattice_methods_reference.md`.
+Tracks GAP-relevant lattice methods documented in `docs/gap/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -117,7 +117,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/gap/lattice/gap_lattice_methods_reference.md`
+- `docs/gap/lattice/research_readme.md`
 - `docs/crystallographic_stack_methods_checklist.md`
 - `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
 - `docs/archive/scope_violations/gap_methods_checklist_polyhedral_sections_2026-02-18.md`
