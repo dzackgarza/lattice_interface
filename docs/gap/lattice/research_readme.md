@@ -133,7 +133,7 @@ Definiteness note:
 - Legacy alias names `CrystCatZClass(...)`, `CrystCatQClass(...)`, and `CrystCatQClasses(...)` are triaged
   out of the active canonical method surface.
 - Canonical signature anchors are maintained in:
-  `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md` and
+  `docs/crystallographic_stack/lattice/research_readme.md` and
   `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`.
 
 ### 2.2 Archived out-of-scope polyhedral/toric surfaces

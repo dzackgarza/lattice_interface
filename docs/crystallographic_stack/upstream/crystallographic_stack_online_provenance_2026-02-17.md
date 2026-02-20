@@ -68,4 +68,4 @@ Current-phase cursory package-surface check:
 ## Local docs linked
 
 - `docs/crystallographic_stack_methods_checklist.md`
-- `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
+- `docs/crystallographic_stack/lattice/research_readme.md`

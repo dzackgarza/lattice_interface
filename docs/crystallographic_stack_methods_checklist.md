@@ -1,7 +1,7 @@
 # GAP Crystallographic Stack Method Test Gap Checklist
 
 Tracks GAP crystallographic package surfaces documented in
-`docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`.
+`docs/crystallographic_stack/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -77,7 +77,7 @@ current canonical docs; they are not counted as active canonical checklist targe
 
 ## References
 
-- `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
+- `docs/crystallographic_stack/lattice/research_readme.md`
 - `docs/crystallographic_stack/upstream/crystallographic_stack_online_provenance_2026-02-17.md`
 - Existing GAP umbrella reference:
   `docs/gap/lattice/research_readme.md`

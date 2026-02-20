@@ -119,7 +119,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 - `docs/gap/lattice/research_readme.md`
 - `docs/crystallographic_stack_methods_checklist.md`
-- `docs/crystallographic_stack/lattice/crystallographic_stack_lattice_reference.md`
+- `docs/crystallographic_stack/lattice/research_readme.md`
 - `docs/archive/scope_violations/gap_methods_checklist_polyhedral_sections_2026-02-18.md`
 - `docs/archive/scope_violations/cddinterface_methods_checklist.md`
 - `docs/forms_methods_checklist.md`
