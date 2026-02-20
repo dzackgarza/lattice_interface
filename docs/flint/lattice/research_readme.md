@@ -69,7 +69,7 @@ Practical caveat from upstream docs:
 | `fmpz_mat_hnf_xgcd(H, A)` | XGCD-accelerated HNF algorithm (Cohen Algorithm 2.4.5). Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 | `fmpz_mat_hnf_minors(H, A)` | HNF via Kannan-Bachem minors strategy. `[FULLCOLRANK]` Requires `A` to be full column rank. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 | `fmpz_mat_hnf_pernet_stein(H, A, state)` | Pernet-Stein randomized HNF variant; requires `flint_rand_t state` for internal randomization. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
-| `fmpz_mat_hnf_modular(H, A, D)` | Modular HNF (Domich-Kannan-Trotter). `[FULLROWRANK]` Requires `A` to be full row rank and `D` to be a positive multiple of the determinant of the non-zero rows of the HNF. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
+| `fmpz_mat_hnf_modular(H, A, D)` | Modular HNF (Domich-Kannan-Trotter). `[FULLCOLRANK]` For an `m×n` matrix `A`, requires `A` to be of rank `n` (full column rank). `D` must be a positive multiple of the determinant of the non-zero rows of `H`. Source: `docs/flint/upstream/fmpz_mat.rst` §"Hermite normal form" | `[ZZMOD, NF, C]` |
 | `fmpz_mat_hnf_modular_eldiv(A, D)` | In-place modular HNF via elementary divisors. `[FULLCOLRANK, INPLACE]` Requires `A` to be full column rank and `D` to be a positive multiple of the largest elementary divisor of `A`. Transforms `A` directly. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 | `fmpz_mat_is_in_hnf(H)` | Predicate that matrix is in HNF shape; returns 1 if so, 0 otherwise. Source: `fmpz_mat.h` | `[ZZMOD, NF, C]` |
 
