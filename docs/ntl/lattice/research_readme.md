@@ -49,8 +49,8 @@ Representation convention in these APIs: lattice/module bases are given by matri
 
 | API family | Description | Tags |
 |------------|-------------|------|
-| `long [G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants); returns rank. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
-| `long [G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model, with configurable block size and pruning; returns rank. Source: `LLL.cpp` | `[ZZMOD, RED, CPP]` |
+| `long [G_]LLL_{FP,QP,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long deep=0, LLLCheckFct check=0, long verbose=0)` | Floating-point LLL family over integer-basis input (`FP/QP/XD/RR` variants); returns rank. Source: `docs/ntl/upstream/LLL.cpp.html` | `[ZZMOD, RED, CPP]` |
+| `long [G_]BKZ_{FP,QP,QP1,XD,RR}(mat_ZZ& B[, mat_ZZ& U], double delta=0.99, long BlockSize=10, long prune=0, LLLCheckFct check=0, long verbose=0)` | BKZ family over the same integer-basis model, with configurable block size and pruning; returns rank. Source: `docs/ntl/upstream/LLL.cpp.html` | `[ZZMOD, RED, CPP]` |
 
 Important caveats from upstream docs:
 
@@ -66,7 +66,7 @@ Important caveats from upstream docs:
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `HNF(mat_ZZ& W, const mat_ZZ& A, const ZZ& D)` | Computes Hermite normal form for full-column-rank integer matrix input under documented determinant multiple precondition. Source: `HNF.cpp` | `[ZZMOD, NF, CPP]` |
+| `HNF(mat_ZZ& W, const mat_ZZ& A, const ZZ& D)` | Computes Hermite normal form for full-column-rank integer matrix input under documented determinant multiple precondition. Source: `docs/ntl/upstream/LLL.cpp.html` (section "HNF") | `[ZZMOD, NF, CPP]` |
 
 Upstream preconditions summarized:
 
@@ -85,8 +85,8 @@ NTL's lattice-reduction APIs here are integer-matrix and Euclidean-reduction ori
 
 | API | Description | Tags |
 |-----|-------------|------|
-| `void ComputeGS(const mat_ZZ& B, mat_RR& mu, vec_RR& c)` | Computes Gramm-Schmidt data for B. Assumes B is an m x n matrix of rank m. Let {B^*(i)} be the orthogonal basis, then c(i) = |B^*(i)|^2, and B^*(i) = B(i) - sum_{j=1}^{i-1} mu(i,j) B^*(j). Uses classical Gramm-Schmidt orthogonalization. Source: `LLL.cpp` | `[ZZMOD, CPP]` |
-| `void NearVector(vec_ZZ& w, const mat_ZZ& B, const vec_ZZ& a)` | Computes a vector w that is an approximation to the closest vector in the lattice spanned by B to a, using the "closest plane" algorithm from Babai (Combinatorica 6:1-13, 1986). B must be a square matrix, and it is assumed that B is already LLL or BKZ reduced (the better the reduction the better the approximation). Uses RR arithmetic with current precision. Source: `LLL.cpp` | `[ZZMOD, CPP]` |
+| `void ComputeGS(const mat_ZZ& B, mat_RR& mu, vec_RR& c)` | Computes Gramm-Schmidt data for B. Assumes B is an m x n matrix of rank m. Let {B^*(i)} be the orthogonal basis, then c(i) = |B^*(i)|^2, and B^*(i) = B(i) - sum_{j=1}^{i-1} mu(i,j) B^*(j). Uses classical Gramm-Schmidt orthogonalization. Source: `docs/ntl/upstream/LLL.cpp.html` | `[ZZMOD, CPP]` |
+| `void NearVector(vec_ZZ& w, const mat_ZZ& B, const vec_ZZ& a)` | Computes a vector w that is an approximation to the closest vector in the lattice spanned by B to a, using the "closest plane" algorithm from Babai (Combinatorica 6:1-13, 1986). B must be a square matrix, and it is assumed that B is already LLL or BKZ reduced (the better the reduction the better the approximation). Uses RR arithmetic with current precision. Source: `docs/ntl/upstream/LLL.cpp.html` | `[ZZMOD, CPP]` |
 
 ---
 
