@@ -50,10 +50,11 @@ Local upstream sources:
 - **Constraints**: Unknown algorithm raises `ValueError: "Algorithm '%s' unknown."`.
 - **Source**: `integer_matrix.pyx:449-628`
 
-**`IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`**
-- **Signature**: `IntegerMatrix.randomize(density=1.0, bits=30, distribution='uniform')`
-- **Description**: Randomize matrix entries in-place.
-- **Source**: `integer_matrix.pyx:590-680`
+**`IntegerMatrix.randomize(algorithm, **kwds)`**
+- **Signature**: `IntegerMatrix.randomize(algorithm, **kwds)`
+- **Description**: Randomize matrix entries in-place. The `algorithm` and `**kwds` arguments are identical to `IntegerMatrix.random()`. Supported algorithms: `'intrel'`, `'simdioph'`, `'uniform'`, `'ntrulike'`, `'ntrulike2'`, `'qary'`, `'trg'`.
+- **Constraints**: Requires `algorithm` to be one of the valid random generation algorithms. Raises `ValueError: "Algorithm '%s' unknown."` for invalid algorithm.
+- **Source**: `integer_matrix.pyx:974-1110`
 
 ### MatGSO (Gram-Schmidt Orthogonalization)
 
