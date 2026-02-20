@@ -57,6 +57,7 @@ Practical note:
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
+| `forqfvec(v, q, b, expr)` | `v`: formal variable (identifier); `q`: square symmetric integer matrix (positive definite quadratic form); `b`: integer (bound on q(v)); `expr`: GP expression | void (iterator) | Iterate over all pairs (-v, v) of nonzero vectors such that q(v) ≤ b, evaluating `expr` for each representative v. **Requires positive-definite integer form** — upstream explicitly states q must be a square symmetric integral matrix representing a positive definite quadratic form. Outputs exactly one representative per antipodal pair. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §forqfvec | `[PD, NT]` |
 | `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` |
 | `qfminimize(G)` | `G`: symmetric rational matrix with non-zero determinant | vector `[H, U, c]` | Minimization helper workflow for forms; returns `H = c*U~*G*U` with `H` integral and minimal determinant. **No positive-definite requirement** — upstream requires only rational coefficients and non-zero determinant | `[ND, NT]` |
 | `qfcvp(x, t, {B}, {m}, {flag = 0})` | `x`: integer matrix (basis); `t`: integer vector (target); `B`, `m`, `flag`: optional integers | integer vector | Closest-vector routine in quadratic-form setting | `[PD, NT]` |
@@ -106,6 +107,7 @@ For indefinite lattices/forms:
 - Local upstream snapshot: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html`
   - §qfcholesky (lines 1951-1956): no explicit PD requirement, returns `[]` if no solution
   - §qfcvp (lines 1964-1975): requires positive definite; undefined behavior otherwise
+  - §forqfvec (lines 336-366): "square and symmetric integral matrix representing a positive definite quadratic form"; iterates over all antipodal pairs with q(v) ≤ b
   - §qflllgram (lines 2357-2369): "positive quadratic form (not necessarily definite)" — accepts PSD
   - §qfminim (lines 2396-2407): requires positive definite; undefined behavior otherwise
   - §qfminimize (lines 2501-2504): requires non-zero determinant, not positive-definite
