@@ -19,13 +19,7 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_claude_direct():
-    agent = ClaudeAgent(
-        name="claude",
-        binary=config.settings.claude_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
+    agent = ClaudeAgent()
     run_ctx = build_run_context(agent_name=agent.name, task_name="debug_hello_simple", run_id="test")
     try:
         result = agent.run_task(_task(), run_ctx)

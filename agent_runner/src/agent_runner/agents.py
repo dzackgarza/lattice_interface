@@ -7,6 +7,7 @@ import threading
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path
 
 from plumbum import local
@@ -23,6 +24,17 @@ from .errors import (
 from .tasks import AgentTask
 
 TIMEOUT_SECONDS = int(os.environ.get("AGENT_RUNNER_TIMEOUT_SECONDS", "900"))  # 15 minutes default
+
+
+class AgentName(StrEnum):
+    codex = "codex"
+    claude = "claude"
+    gemini = "gemini"
+    kilo = "kilo"
+    ollama = "ollama"
+    opencode = "opencode"
+    qwen = "qwen"
+    auto = "auto"
 
 
 @dataclass(frozen=True)
@@ -44,20 +56,34 @@ class ProcessResult:
     last_message_path: Path | None = None
 
 
+class SessionResume(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    id: str
+    dir: Path
+
+
 class AgentInterface(BaseModel, ABC):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    name: str
-    binary: str
-    subcommand: str | None
-    base_args: list[str]
-    env: Mapping[str, str]
+    name: AgentName
     quality: int
+    session: SessionResume | None = None
+
+    @property
+    @abstractmethod
+    def binary(self) -> str:
+        raise NotImplementedError
+
+    @property
+    def env(self) -> Mapping[str, str]:
+        return {"PATH": f"{config.settings.path_prefix}:{os.environ.get('PATH', '')}"}
 
     def run_task(
         self, task: AgentTask, run_ctx: RunContext, timeout_seconds: int = TIMEOUT_SECONDS
     ) -> ProcessResult:
-        result = self._run_with_prompt(task.prompt_text(), task, run_ctx, timeout_seconds)
+        prompt = task.continuation_text() if self.session is not None else task.prompt_text()
+        result = self._run_with_prompt(prompt, task, run_ctx, timeout_seconds)
         classified = classify_usage_limit(self.name, result.stdout)
         if classified:
             raise RateLimitUsageError(self.name, classified.message)
@@ -95,6 +121,9 @@ class AgentInterface(BaseModel, ABC):
     def _build_env(self) -> dict[str, str]:
         return {"PATH": self.env.get("PATH", "")}
 
+    def _env_unset(self) -> set[str]:
+        return set()
+
     def _run_command(
         self,
         args: list[str],
@@ -103,7 +132,8 @@ class AgentInterface(BaseModel, ABC):
         cwd: Path | None = None,
         timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
-        env = {**os.environ, **self._build_env()}
+        base = {k: v for k, v in os.environ.items() if k not in self._env_unset()}
+        env = {**base, **self._build_env()}
         final_args = [self.binary, *args, prompt_string]
         chunks: list[bytes] = []
         timed_out = False
@@ -158,7 +188,12 @@ class AgentInterface(BaseModel, ABC):
 
 
 class CodexAgent(AgentInterface):
+    name: AgentName = AgentName.codex
     quality: int = 90
+
+    @property
+    def binary(self) -> str:
+        return config.settings.codex_bin
 
     def _run_with_prompt(
         self,
@@ -172,7 +207,7 @@ class CodexAgent(AgentInterface):
             "--config",
             'model_reasoning_effort="high"',
             "--search",
-            self.subcommand or "exec",
+            "exec",
             "-C",
             str(config.settings.repo_root),
             "--sandbox",
@@ -199,12 +234,20 @@ class CodexAgent(AgentInterface):
 
 
 class ClaudeAgent(AgentInterface):
+    name: AgentName = AgentName.claude
     quality: int = 80
+
+    @property
+    def binary(self) -> str:
+        return config.settings.claude_bin
+
+    def _env_unset(self) -> set[str]:
+        return {"CLAUDECODE"}
 
     def _run_with_prompt(
         self,
         prompt_string: str,
-        task: AgentTask,  # noqa: ARG002
+        task: AgentTask,
         run_ctx: RunContext,
         timeout_seconds: int = TIMEOUT_SECONDS,
     ) -> ProcessResult:
@@ -217,17 +260,25 @@ class ClaudeAgent(AgentInterface):
             "--dangerously-skip-permissions",
             "--no-session-persistence",
         ]
+        if self.session is not None and task.name != "preflight_hello":
+            args.extend(["--resume", self.session.id])
+        cwd = self.session.dir if self.session is not None and task.name != "preflight_hello" else config.settings.repo_root
         return self._run_command(
             args=args,
             prompt_string=prompt_string,
             run_ctx=run_ctx,
-            cwd=config.settings.repo_root,
+            cwd=cwd,
             timeout_seconds=timeout_seconds,
         )
 
 
 class GeminiAgent(AgentInterface):
+    name: AgentName = AgentName.gemini
     quality: int = 40
+
+    @property
+    def binary(self) -> str:
+        return config.settings.gemini_bin
 
     def _run_with_prompt(
         self,
@@ -249,7 +300,12 @@ class GeminiAgent(AgentInterface):
 
 
 class OllamaAgent(AgentInterface):
+    name: AgentName = AgentName.ollama
     quality: int = 50
+
+    @property
+    def binary(self) -> str:
+        return config.settings.ollama_bin
 
     def _run_with_prompt(
         self,
@@ -279,7 +335,12 @@ class OllamaAgent(AgentInterface):
 
 
 class KiloAgent(AgentInterface):
+    name: AgentName = AgentName.kilo
     quality: int = 70
+
+    @property
+    def binary(self) -> str:
+        return config.settings.kilo_bin
 
     def _run_with_prompt(
         self,
@@ -304,7 +365,12 @@ class KiloAgent(AgentInterface):
 
 
 class OpencodeAgent(AgentInterface):
+    name: AgentName = AgentName.opencode
     quality: int = 60
+
+    @property
+    def binary(self) -> str:
+        return config.settings.opencode_bin
 
     def _run_with_prompt(
         self,
@@ -329,7 +395,12 @@ class OpencodeAgent(AgentInterface):
 
 
 class QwenAgent(AgentInterface):
+    name: AgentName = AgentName.qwen
     quality: int = 20
+
+    @property
+    def binary(self) -> str:
+        return config.settings.qwen_bin
 
     def _run_with_prompt(
         self,

@@ -42,6 +42,7 @@ class Settings(BaseSettings):
         return {
             "ping": self.debug_prompts_dir / "ping.md",
             "smoke": self.debug_prompts_dir / "smoke.md",
+            "session_recall": self.debug_prompts_dir / "session_recall.md",
         }
 
 

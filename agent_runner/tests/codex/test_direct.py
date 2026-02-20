@@ -19,13 +19,7 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_codex_direct():
-    agent = CodexAgent(
-        name="codex",
-        binary=config.settings.codex_bin,
-        subcommand="exec",
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
+    agent = CodexAgent()
     run_ctx = build_run_context(agent_name=agent.name, task_name="debug_hello_simple", run_id="test")
     try:
         result = agent.run_task(_task(), run_ctx)

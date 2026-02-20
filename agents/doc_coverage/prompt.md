@@ -13,6 +13,8 @@ Read the playbook and example tasks before doing anything else:
 ## Job
 
 Pick one of the example task types at random and execute it. If the selected task reveals no gaps requiring fixes, **pivot to a different task type or package** — do not verify completeness and declare success. The job is to find and fix gaps, not to verify there are none.
+Any gaps you discover should be recorded in `docs/GAPS.md`, and the task is not complete until all gaps are addressed.
+If you see any gaps to be addressed, do so, and then delete them from the `GAPS.md` file entirely.
 
 Bring project documentation into alignment with what this project's documentation is supposed to be.
 

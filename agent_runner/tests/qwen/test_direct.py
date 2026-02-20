@@ -19,13 +19,7 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_qwen_direct():
-    agent = QwenAgent(
-        name="qwen",
-        binary=config.settings.qwen_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
+    agent = QwenAgent()
     run_ctx = build_run_context(
         agent_name=agent.name, task_name="debug_hello_simple", run_id="test"
     )

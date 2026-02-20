@@ -22,13 +22,7 @@ def _task() -> DebugSmokeCommitTask:
 def test_gemini_direct():
     if os.getenv("GEMINI_KNOWN_DOWN") == "1":
         pytest.skip("Gemini CLI known down")
-    agent = GeminiAgent(
-        name="gemini",
-        binary=config.settings.gemini_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
+    agent = GeminiAgent()
     run_ctx = build_run_context(agent_name=agent.name, task_name="debug_hello_simple", run_id="test")
     try:
         result = agent.run_task(_task(), run_ctx)

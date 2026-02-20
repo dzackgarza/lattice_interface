@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import os
 import warnings
 from datetime import datetime, timedelta, timezone
-from enum import StrEnum
+from pathlib import Path
 from typing import Literal, assert_never
 
 import typer
@@ -12,7 +11,9 @@ from pydantic import BaseModel
 from . import config, git, transcript
 from .agents import (
     AgentInterface,
+    AgentName,
     ClaudeAgent,
+    SessionResume,
     CodexAgent,
     GeminiAgent,
     KiloAgent,
@@ -51,17 +52,6 @@ from .tasks import (
 app = typer.Typer(add_completion=False)
 
 
-class AgentName(StrEnum):
-    codex = "codex"
-    claude = "claude"
-    gemini = "gemini"
-    kilo = "kilo"
-    ollama = "ollama"
-    opencode = "opencode"
-    qwen = "qwen"
-    auto = "auto"
-
-
 _CONCRETE_AGENT_NAMES = tuple(m for m in AgentName if m is not AgentName.auto)
 TaskName = Literal[
     "agent_management",
@@ -79,6 +69,7 @@ class OrchestratorArgs(BaseModel):
     debug: bool = False
     debug_prompt: str | None = None
     dry_run: bool = False
+    session: SessionResume | None = None
 
 
 class Orchestrator(BaseModel):
@@ -93,6 +84,9 @@ class Orchestrator(BaseModel):
 
         connectivity_verified = False
         if self.args.agent is AgentName.auto:
+            if self.args.session is not None:
+                typer.echo("--continue requires an explicit --agent; session IDs are model-specific", err=True)
+                return 1
             try:
                 agent_obj, run_ctx = _select_auto_agent(task_obj, run_id)
             except AgentSelectionError as exc:
@@ -100,7 +94,7 @@ class Orchestrator(BaseModel):
                 return 13
             connectivity_verified = True
         else:
-            agent_obj = _build_agent(self.args.agent)
+            agent_obj = _build_agent(self.args.agent, self.args.session)
             run_ctx = build_run_context(
                 agent_name=agent_obj.name, task_name=task_obj.name, run_id=run_id
             )
@@ -394,66 +388,23 @@ def _select_auto_agent(task_obj: AgentTask, run_id: str) -> tuple[AgentInterface
     raise AgentSelectionError(str(last_exc) if last_exc else "no agents available")
 
 
-def _build_agent(agent_name: AgentName) -> AgentInterface:
+def _build_agent(agent_name: AgentName, session: SessionResume | None = None) -> AgentInterface:
     assert agent_name is not AgentName.auto
-    env = {"PATH": f"{config.settings.path_prefix}:{os.environ.get('PATH', '')}"}
     match agent_name:
         case AgentName.codex:
-            return CodexAgent(
-                name=agent_name,
-                binary=config.settings.codex_bin,
-                subcommand="exec",
-                base_args=[],
-                env=env,
-            )
+            return CodexAgent(session=session)
         case AgentName.claude:
-            return ClaudeAgent(
-                name=agent_name,
-                binary=config.settings.claude_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return ClaudeAgent(session=session)
         case AgentName.gemini:
-            return GeminiAgent(
-                name=agent_name,
-                binary=config.settings.gemini_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return GeminiAgent(session=session)
         case AgentName.kilo:
-            return KiloAgent(
-                name=agent_name,
-                binary=config.settings.kilo_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return KiloAgent(session=session)
         case AgentName.ollama:
-            return OllamaAgent(
-                name=agent_name,
-                binary=config.settings.ollama_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return OllamaAgent(session=session)
         case AgentName.opencode:
-            return OpencodeAgent(
-                name=agent_name,
-                binary=config.settings.opencode_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return OpencodeAgent(session=session)
         case AgentName.qwen:
-            return QwenAgent(
-                name=agent_name,
-                binary=config.settings.qwen_bin,
-                subcommand=None,
-                base_args=[],
-                env=env,
-            )
+            return QwenAgent(session=session)
         case _:
             assert_never(agent_name)
 
@@ -535,13 +486,22 @@ def run(
     debug: bool = typer.Option(False, "--debug"),
     debug_prompt: str | None = typer.Option(None, "--debug-prompt"),
     dry_run: bool = typer.Option(False, "--dry-run"),
+    session_id: str | None = typer.Option(None, "--continue"),
+    session_dir: Path | None = typer.Option(None, "--continue-dir"),
 ) -> int:
+    session: SessionResume | None = None
+    if session_id is not None or session_dir is not None:
+        if session_id is None or session_dir is None:
+            typer.echo("--continue and --continue-dir must be provided together", err=True)
+            raise typer.Exit(1)
+        session = SessionResume(id=session_id, dir=session_dir)
     args = OrchestratorArgs(
         agent=agent,
         task=task,
         debug=debug,
         debug_prompt=debug_prompt,
         dry_run=dry_run,
+        session=session,
     )
     return Orchestrator(args=args).run()
 

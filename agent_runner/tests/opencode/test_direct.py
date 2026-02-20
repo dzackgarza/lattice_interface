@@ -19,13 +19,7 @@ def _task() -> DebugSmokeCommitTask:
 
 
 def test_opencode_direct():
-    agent = OpencodeAgent(
-        name="opencode",
-        binary=config.settings.opencode_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
+    agent = OpencodeAgent()
     run_ctx = build_run_context(
         agent_name=agent.name, task_name="debug_hello_simple", run_id="test"
     )

@@ -34,57 +34,22 @@ def _assert_agent(agent):
 
 
 def test_codex_direct():
-    agent = CodexAgent(
-        name="codex",
-        binary=config.settings.codex_bin,
-        subcommand="exec",
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
-    _assert_agent(agent)
+    _assert_agent(CodexAgent())
 
 
 def test_gemini_direct():
     if os.getenv("GEMINI_KNOWN_DOWN") == "1":
         pytest.skip("Gemini CLI known down")
-    agent = GeminiAgent(
-        name="gemini",
-        binary=config.settings.gemini_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
-    _assert_agent(agent)
+    _assert_agent(GeminiAgent())
 
 
 def test_ollama_direct():
-    agent = OllamaAgent(
-        name="ollama",
-        binary=config.settings.ollama_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
-    _assert_agent(agent)
+    _assert_agent(OllamaAgent())
 
 
 def test_claude_direct():
-    agent = ClaudeAgent(
-        name="claude",
-        binary=config.settings.claude_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
-    _assert_agent(agent)
+    _assert_agent(ClaudeAgent())
 
 
 def test_qwen_direct():
-    agent = QwenAgent(
-        name="qwen",
-        binary=config.settings.qwen_bin,
-        subcommand=None,
-        base_args=[],
-        env={"PATH": config.settings.path_prefix},
-    )
-    _assert_agent(agent)
+    _assert_agent(QwenAgent())
