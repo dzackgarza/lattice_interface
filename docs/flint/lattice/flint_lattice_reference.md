@@ -171,9 +171,9 @@ Local upstream sources:
 - **Aliasing**: Allowed
 - **Source**: `fmpz_mat.rst:1230-1238`
 
-**`fmpz_mat_hnf_transform(H, T, A)`**
+**`fmpz_mat_hnf_transform(H, U, A)`**
 - **Signature**: `void fmpz_mat_hnf_transform(fmpz_mat_t H, fmpz_mat_t U, const fmpz_mat_t A)`
-- **Description**: Returns `H` and transformation matrix `U` where `UA = H`
+- **Description**: Returns `H` and transformation matrix `U` where `U*A = H`
 - **Source**: `fmpz_mat.rst:1240-1249`
 
 **`fmpz_mat_hnf_classical(H, A)`**
