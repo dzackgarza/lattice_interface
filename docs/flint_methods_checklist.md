@@ -35,6 +35,12 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `fmpz_lll_is_reduced_mpfr_with_removal(B, fl, gs_B, newd, prec)`
       Source: `docs/flint/upstream/fmpz_lll.rst` §"LLL-reducedness"
       Caveat: Heuristic - zero return is inconclusive.
+- [ ] `fmpz_mat_lll_original(A, delta, eta)`
+      Source: `docs/flint/upstream/fmpz_mat.rst` §"Classical LLL"
+      Note: Classical LLL; `delta`, `eta` are `fmpq_t` rationals.
+- [ ] `fmpz_mat_lll_storjohann(A, delta, eta)`
+      Source: `docs/flint/upstream/fmpz_mat.rst` §"Modified LLL"
+      Note: Storjohann variant with improved dimension complexity; `delta`, `eta` are `fmpq_t`.
 - [ ] `fmpz_mat_is_reduced(A, delta, eta)`
       Source: `docs/flint/upstream/fmpz_mat.rst` §"LLL reduction"
       Caveat: low-level floating variants (`fmpz_lll_d`, `fmpz_lll_mpf`) are documented as potentially returning non-reduced output in some cases.
