@@ -37,7 +37,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/ntl/lattice/ntl_lattice_reference.md`
+- `docs/ntl/lattice/research_readme.md`
 - NTL module map: `https://libntl.org/doc/tour-modules.html`
 - NTL LLL/BKZ API docs: `https://libntl.org/doc/LLL.cpp.html`
 - NTL HNF API docs: `https://libntl.org/doc/HNF.cpp.html`

@@ -46,7 +46,68 @@ Out of scope:
 
 ---
 
-## 3. LLL Surface
+## 3. MatGSO Instance Methods
+
+The following methods are available on a `MatGSO` object (returned by `GSO.Mat(...)`). All indices are 0-based. GSO coefficients must be computed (via `update_gso()` or `update=True` at construction) before coefficient-access methods are called; calling them on a stale object yields undefined values.
+
+### 3a. GSO Coefficient Access
+
+| API | Argument Types | Return Type | Description | Tags |
+|-----|----------------|-------------|-------------|------|
+| `MatGSO.get_gram(i, j)` | `i`: int; `j`: int; requires `0 ≤ j ≤ i < d` | `float` | Returns Gram coefficient: if `row_expo_enabled=False`, returns `⟨b_i, b_j⟩`; if `row_expo_enabled=True`, returns `⟨b_i, b_j⟩ / 2^{r_i + r_j}` where `r_i`, `r_j` are row exponents. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_int_gram(i, j)` | `i`: int; `j`: int; requires `0 ≤ j ≤ i < d` | `int` | Returns exact integer Gram coefficient `⟨b_i, b_j⟩`; valid only when `row_expo_enabled=False`. Source: `gso.pyx` | `[ZZMOD, EUCLID, SRC]` |
+| `MatGSO.get_r(i, j)` | `i`: int; `j`: int | `float` | Returns `⟨b_i, b*_j⟩` (the r-coefficient of the GSO decomposition). GSO must have been computed. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_r_exp(i, j)` | `i`: int; `j`: int | `tuple` `(float, int)` | Returns `(f, x)` such that `⟨b_i, b*_j⟩ = f · 2^x`. If `row_expo_enabled=False`, `x = 0`; if `row_expo_enabled=True`, `x = r_i + r_j`. Assumes `r(i, j)` is valid. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_mu(i, j)` | `i`: int; `j`: int | `float` | Returns μ_{i,j} = `⟨b_i, b*_j⟩ / ‖b*_j‖²`. GSO must have been computed. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_mu_exp(i, j)` | `i`: int; `j`: int | `tuple` `(float, int)` | Returns `(f, x)` such that `f · 2^x = ⟨b_i, b*_j⟩ / ‖b*_j‖²`. If `row_expo_enabled=False`, `x = 0`; if `row_expo_enabled=True`, `x = r_i - r_j`. Assumes `μ(i, j)` is valid. Source: `gso.pyx` | `[EUCLID, SRC]` |
+
+### 3b. GSO Update Methods
+
+| API | Argument Types | Return Type | Description | Tags |
+|-----|----------------|-------------|-------------|------|
+| `MatGSO.update_gso()` | (none) | `bool` | Recomputes all GSO coefficients (μ and r) from scratch. Returns `True` on success. Must be called before any coefficient-access method if `update=False` was used at construction. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.update_gso_row(i, last_j)` | `i`: int; `last_j`: int | `bool` | Updates `r_{i,j}` and `μ_{i,j}` for all `j ∈ [0, last_j]`. Requires that coefficients above row `i` in columns `[0, min(last_j, i-1)]` are already valid. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.discover_all_rows()` | (none) | `None` | Enables `row_addmul` for all rows even if GSO has never been computed; used to seed row operations before an initial GSO computation. Source: `gso.pyx` | `[EUCLID, SRC]` |
+
+### 3c. Lattice Geometry Methods
+
+| API | Argument Types | Return Type | Description | Tags |
+|-----|----------------|-------------|-------------|------|
+| `MatGSO.get_current_slope(start_row, stop_row)` | `start_row`: int; `stop_row`: int (exclusive) | `float` | Returns slope of the least-squares line fitted to log-lengths of GSO vectors in the index range `[start_row, stop_row)`. A more negative slope indicates better LLL quality. Declared in `bkz.h`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_root_det(start_row, stop_row)` | `start_row`: int; `stop_row`: int (exclusive) | `float` | Returns the (squared) root determinant `(∏_{i=start_row}^{stop_row-1} r_{i,i})^{1/(stop_row - start_row)}` of the sub-basis `[start_row, stop_row)`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_log_det(start_row, stop_row)` | `start_row`: int; `stop_row`: int (exclusive) | `float` | Returns the natural log of the (squared) determinant `∑_{i=start_row}^{stop_row-1} log(r_{i,i})` of the sub-basis `[start_row, stop_row)`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.get_slide_potential(start_row, stop_row, block_size)` | `start_row`: int; `stop_row`: int (exclusive); `block_size`: int | `float` | Returns the slide potential of the sub-basis, used as a quality measure for slide reduction. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.r(start=0, end=-1)` | `start`: int (optional, default `0`); `end`: int (optional, default `-1` → `d`) | `tuple` of `float` | Returns the diagonal r-vector `(r_{i,i})` for `i ∈ [start, end)`. Convenience wrapper around `get_r(i, i)`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+
+### 3d. Basis Conversion Methods
+
+These methods require the `MatGSO` object to have been constructed over a **basis** (not a Gram matrix); if `gram=True` was passed at construction, they raise `TypeError`.
+
+| API | Argument Types | Return Type | Description | Tags |
+|-----|----------------|-------------|-------------|------|
+| `MatGSO.from_canonical(w, start=0, dimension=-1)` | `w`: tuple-like of length `B.ncols`; `start`: int (optional, default `0`); `dimension`: int (optional, default `-1` → `d - start`) | `tuple` of `float` | Converts vector `w` from the canonical basis `ℤ^n` to the GSO basis `B^*`, returning coordinates wrt `B^*`. Raises `TypeError` if used on a Gram-mode object. **Float-type caveat**: `dpe` float_type raises `NotImplementedError`. Inverse of `to_canonical`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.to_canonical(v, start=0)` | `v`: tuple-like of length `d`; `start`: int (optional, default `0`) | `tuple` of `float` | Converts vector `v` in GSO coordinates to the canonical basis, returning a vector in `ℝ^n`. Raises `TypeError` if used on a Gram-mode object. **Float-type caveat**: `dpe`, `qd`, and some `long_*` combinations raise `NotImplementedError`. Inverse of `from_canonical`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.babai(v, start=0, dimension=-1, gso=False)` | `v`: tuple-like; `start`: int (optional, default `0`); `dimension`: int (optional, default `-1` → `d - start`); `gso`: bool (optional, default `False`) | `tuple` of `int` | Babai nearest-plane algorithm. If `gso=False`, `v` is a canonical-basis vector and `from_canonical` is applied internally (requires basis object); if `gso=True`, `v` is already in GSO coordinates and a Gram-mode object is acceptable. Returns coefficient vector wrt `B`. **Stability note**: `CVP.babai()` is more numerically stable (repeated nearest-plane at variable precision) but does not support float target vectors; `MatGSO.babai` accepts float targets. Some float_type/int_type combinations raise `NotImplementedError`. Source: `gso.pyx` | `[ENUM, EUCLID, SRC]` |
+
+### 3e. Row Operation Methods
+
+`row_addmul` must be bracketed by `row_op_begin` / `row_op_end` (or use the `row_ops` context manager). Calling `row_op_end` invalidates GSO coefficients for the modified rows, requiring a fresh `update_gso()` or `update_gso_row()`.
+
+| API | Argument Types | Return Type | Description | Tags |
+|-----|----------------|-------------|-------------|------|
+| `MatGSO.row_op_begin(first, last)` | `first`: int; `last`: int (exclusive) | `None` | Must be called before a sequence of `row_addmul` calls. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.row_op_end(first, last)` | `first`: int; `last`: int (exclusive) | `None` | Must be called after `row_addmul` sequence; invalidates GSO for rows `[first, last)`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.row_ops(first, last)` | `first`: int; `last`: int (exclusive) | context manager | Returns a `MatGSORowOpContext` that calls `row_op_begin`/`row_op_end` on enter/exit. Preferred over manual `row_op_begin`/`row_op_end` pairing. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.row_addmul(i, j, x)` | `i`: int (target); `j`: int (source); `x`: float | `None` | Sets `b_i ← b_i + x · b_j`. Must be bracketed by `row_op_begin`/`row_op_end`. If `row_op_force_long=True`, `x` is converted via `(2^expo · long)` rather than `(2^expo · ZT)`, which is faster for `mpz_t` but may lose precision. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.move_row(old_r, new_r)` | `old_r`: int; `new_r`: int | `None` | Row `old_r` becomes row `new_r`; intermediate rows are shifted. **Constraint**: if `new_r < old_r`, then `old_r` must be `< n_known_rows`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.swap_rows(i, j)` | `i`: int; `j`: int | `None` | Swaps rows `i` and `j` in the basis matrix. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.negate_row(i)` | `i`: int | `None` | Sets `b_i ← −b_i`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.create_row()` | (none) | `None` | Appends a zero row to `B` (and to `U` if `transform_enabled`). **Constraint**: raises `ValueError` if `inverse_transform_enabled=True`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+| `MatGSO.remove_last_row()` | (none) | `None` | Removes the last row of `B` (and `U` if `transform_enabled`). **Constraint**: raises `ValueError` if `inverse_transform_enabled=True`. Source: `gso.pyx` | `[EUCLID, SRC]` |
+
+---
+
+## 4. LLL Surface
 
 | API | Argument Types | Return Type | Description | Tags |
 |-----|----------------|-------------|-------------|------|
