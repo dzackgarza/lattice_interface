@@ -53,7 +53,6 @@ The above spot-checks cover FLINT, NTL, and PARI/GP. The same upstream-vs-checkl
 - Forms (46 checklist entries)
 - HyperCells (241 checklist entries)
 - Crystallographic stack (31 checklist entries)
-- fpylll (21 checklist entries)
 - g6k (30 checklist entries)
 - flatter (12 checklist entries)
 
