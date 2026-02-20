@@ -31,8 +31,8 @@ Representation model:
 
 ## 2. Core Reduction and Isometry APIs
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
 | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qflll |
 | `qflllgram(G, {flag = 0})` | `G`: symmetric real matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns transformation matrix `T` such that `x.T` is LLL-reduced. **Accepts positive quadratic forms (not necessarily definite)** — upstream states G must correspond to a positive quadratic form but x need not have maximal rank | `[PSD, ZZMOD, RED]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qflllgram |
 | `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfcholesky |
@@ -55,8 +55,8 @@ Practical note:
 
 ## 3. Vector Search and Optimization APIs
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
 | `forqfvec(v, q, b, expr)` | `v`: formal variable (identifier); `q`: square symmetric integer matrix (positive definite quadratic form); `b`: integer (bound on q(v)); `expr`: GP expression | void (iterator) | Iterate over all pairs (-v, v) of nonzero vectors such that q(v) ≤ b, evaluating `expr` for each representative v. **Requires positive-definite integer form** — upstream explicitly states q must be a square symmetric integral matrix representing a positive definite quadratic form. Outputs exactly one representative per antipodal pair. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §forqfvec | `[PD, NT]` |
 | `qfminim(x, {B}, {m}, {flag = 0})` | `x`: integer matrix; `B`: integer (optional, bound); `m`: integer (optional, limit); `flag`: integer (optional) | vector | Enumerate vectors with bounded quadratic value (or default minimal vectors); returns vector of vectors | `[PD, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfminim |
 | `qfminimize(G)` | `G`: symmetric rational matrix with non-zero determinant | vector `[H, U, c]` | Minimization helper workflow for forms; returns `H = c*U~*G*U` with `H` integral and minimal determinant. **No positive-definite requirement** — upstream requires only rational coefficients and non-zero determinant | `[ND, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfminimize |
@@ -70,8 +70,8 @@ Practical note:
 
 ## 4. Indefinite/Equation-Solving APIs
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
 | `qfsolve(G)` | `G`: symmetric integer matrix | integer vector or 0 | Solve isotropy/zero-representation equation for form `G`; returns vector or 0 | `[INDEF, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfsolve |
 | `qfparam(G, sol, {flag = 0})` | `G`: symmetric integer matrix; `sol`: integer vector (isotropic); `flag`: integer (optional) | vector | Parametrize conic solutions from known isotropic vector `sol` for ternary forms | `[INDEF, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfparam |
 | `qfsign(G)` | `G`: symmetric matrix | vector `[p, m]` | Signature of quadratic form; returns `p` (positive eigenvalues) and `m` (negative eigenvalues). Computed via Gaussian reduction. **No positive-definite requirement** — works for any symmetric matrix | `[INDEF, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfsign |
@@ -82,8 +82,8 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 ## 5. Binary/Low-Dimensional and Structural APIs
 
-| Function | Argument Types | Return Type | Description | Tags |
-|----------|----------------|-------------|-------------|------|
+| Function | Argument Types | Return Type | Description | Tags | Source |
+|----------|----------------|-------------|-------------|------|--------|
 | `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix (flag=0) or vector `[U, V]` (flag=1) | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients (flag=0), or `[U, V]` where `q = ^tU * diag(V) * U` (flag=1). **Singular matrices supported** — upstream explicitly handles degenerate forms. | `[NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred |
 | `qfgaussred_positive(q)` | `q`: symmetric matrix | matrix or NULL | Faster variant of `qfgaussred` that **assumes positive-definite input**; returns `NULL` if a vector with negative norm occurs (non-positive matrix or rounding errors) | `[PD, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred (lines 2169-2172) |
 | `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` | `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfperfection |
