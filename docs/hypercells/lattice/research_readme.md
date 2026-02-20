@@ -128,7 +128,7 @@ Representative method families:
 
 ## 5. Constraints and Assumptions
 
-- `simplifyMethod` option values in constructors/workflows are documented as `MaximalTree` (default) and `KnuthBendix`; `KnuthBendix` requires optional package `kbmag`.
+- `simplifyMethod` option values in constructors/workflows are documented as `"BruteForce"` (default) and `"KnuthBendix"`; `"KnuthBendix"` requires optional package `kbmag`. Source: `docs/hypercells/upstream/TGCellGraph.gd` lines 66-69, `docs/hypercells/upstream/chap3_mj.html` line 443.
 - Homepage limitations documented upstream:
   - complete support for compact hyperbolic 3D orbifolds is not yet complete,
   - `TGCellGraph` support for chiral/non-orientable orbifolds in dimensions greater than 3 is not complete,
