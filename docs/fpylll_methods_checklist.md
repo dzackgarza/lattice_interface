@@ -1,6 +1,6 @@
 # fpylll Method Test Gap Checklist
 
-Tracks fpylll-relevant methods documented in `docs/fpylll/lattice/fpylll_lattice_reference.md`.
+Tracks fpylll-relevant methods documented in `docs/fpylll/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -55,7 +55,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/fpylll/lattice/fpylll_lattice_reference.md`
+- `docs/fpylll/lattice/research_readme.md`
 - `docs/fpylll/upstream/fpylll_online_provenance_2026-02-18.md`
 - fpylll module docs: `https://fpylll.readthedocs.io/en/latest/modules.html`
 - fpylll package docs home: `https://fpylll.readthedocs.io/`

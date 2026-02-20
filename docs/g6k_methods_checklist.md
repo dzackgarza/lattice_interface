@@ -1,6 +1,6 @@
 # g6k Method Test Gap Checklist
 
-Tracks g6k-relevant methods documented in `docs/g6k/lattice/g6k_lattice_reference.md`.
+Tracks g6k-relevant methods documented in `docs/g6k/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -55,7 +55,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/g6k/lattice/g6k_lattice_reference.md`
+- `docs/g6k/lattice/research_readme.md`
 - `docs/g6k/upstream/g6k_online_provenance_2026-02-17.md`
 - g6k repository: `https://github.com/fplll/g6k`
 - g6k siever API source: `https://raw.githubusercontent.com/fplll/g6k/master/g6k/siever.pyx`
