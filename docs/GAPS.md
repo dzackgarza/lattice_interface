@@ -50,7 +50,6 @@ The above spot-checks cover FLINT, NTL, and PARI/GP. The same upstream-vs-checkl
 - SageMath (283 checklist entries across many upstream files)
 - Julia / Oscar.jl / Hecke.jl (357 checklist entries)
 - GAP core (69 checklist entries)
-- Forms (46 checklist entries)
 - HyperCells (241 checklist entries)
 - Crystallographic stack (31 checklist entries)
 - g6k (30 checklist entries)

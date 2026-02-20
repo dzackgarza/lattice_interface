@@ -13,6 +13,8 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## 2. Constructors and Coercions
 
+### 2a. Matrix-based constructors
+
 - [ ] `AsSesquilinearForm(obj[, field][, antiautomorphism])`
 - [ ] `AsQuadraticForm(obj[, field])`
 - [ ] `SesquilinearFormByMatrix(matrix[, field][, antiautomorphism])`
@@ -20,15 +22,47 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `BilinearFormByMatrix(matrix[, field])`
 - [ ] `HermitianFormByMatrix(matrix[, field])`
 
+### 2b. Polynomial-based constructors
+
+- [ ] `BilinearFormByPolynomial(poly, r[, n])`
+- [ ] `QuadraticFormByPolynomial(poly, r[, n])`
+- [ ] `HermitianFormByPolynomial(poly, r[, n])`
+
+### 2c. Bilinear-quadratic conversions
+
+- [ ] `QuadraticFormByBilinearForm(form)`
+- [ ] `BilinearFormByQuadraticForm(Q)`
+- [ ] `AssociatedBilinearForm(Q)`
+
 ---
 
 ## 3. Categories, Attributes, and Predicates
+
+### 3a. Category predicates
 
 - [ ] `IsSesquilinearForm(obj)`
 - [ ] `IsQuadraticForm(obj)`
 - [ ] `IsBilinearForm(obj)`
 - [ ] `IsHermitianForm(obj)`
 - [ ] `IsForm(obj)`
+- [ ] `IsTrivialForm(obj)`
+
+### 3b. Form properties (reflexivity/symmetry/alternation)
+
+- [ ] `IsReflexiveForm(form)`
+- [ ] `IsSymmetricForm(form)`
+- [ ] `IsAlternatingForm(form)`
+- [ ] `IsOrthogonalForm(form)` — symmetric bilinear in odd characteristic
+- [ ] `IsPseudoForm(form)` — symmetric in even characteristic
+- [ ] `IsSymplecticForm(form)` — equivalent to alternating
+
+### 3c. Degeneracy and singularity
+
+- [ ] `IsDegenerateForm(form)`
+- [ ] `IsSingularForm(form)` — quadratic forms only, even characteristic distinction
+
+### 3d. Vector space and matrix access
+
 - [ ] `UnderlyingVectorSpace(form)`
 - [ ] `MatrixOfSesquilinearForm(form)`
 - [ ] `MatrixOfQuadraticForm(form)`
@@ -36,25 +70,45 @@ Check a box when there is at least one `method:` tagged test covering that metho
 - [ ] `GramMatrix(form)`
 - [ ] `RankOfForm(form)`
 - [ ] `BaseField(form)`
-- [ ] `IsReflexiveForm(form)`
-- [ ] `IsSymmetricForm(form)`
-- [ ] `IsAlternatingForm(form)`
-- [ ] `IsDegenerateForm(form)`
+
+### 3e. Subspace invariants
+
 - [ ] `RadicalOfForm(form)`
-- [ ] `DiscriminantOfForm(form)`
+- [ ] `DiscriminantOfForm(form)` — even dimension only, not defined for hermitian
+
+### 3f. Form evaluation and subspace tests
+
+- [ ] `EvaluateForm(f, u[, v])`
+- [ ] `OrthogonalSubspaceMat(form, v|mat)`
+- [ ] `IsIsotropicVector(form, v)`
+- [ ] `IsSingularVector(form, v)`
+- [ ] `IsTotallyIsotropicSubspace(form, sub)`
+- [ ] `IsTotallySingularSubspace(form, sub)`
+
+### 3g. Polynomial representation
+
+- [ ] `PolynomialOfForm(form)`
 
 ---
 
 ## 4. Equivalence and Group Actions
 
+### 4a. Isometry and similarity tests
+
 - [ ] `IsometricForms(form1, form2)`
 - [ ] `SimilarityForms(form1, form2)`
+
+### 4b. Groups preserving forms
+
 - [ ] `IsometryGroup(form)`
 - [ ] `SimilarityGroup(form)`
+
+### 4c. Basis change and canonical forms
+
 - [ ] `BaseChangeToCanonical(f)`
-- [ ] `BaseChangeHomomorphism(f1, f2)`
+- [ ] `BaseChangeHomomorphism(b, gf)`
 - [ ] `IsometricCanonicalForm(f)`
-- [ ] `ScalarOfSimilarity(f1, f2)`
+- [ ] `ScalarOfSimilarity(M, form)`
 
 ---
 
