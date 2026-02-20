@@ -1,6 +1,6 @@
 # GAP Forms Package Method Test Gap Checklist
 
-Tracks GAP `Forms` package methods documented in `docs/forms/lattice/forms_lattice_reference.md`.
+Tracks GAP `Forms` package methods documented in `docs/forms/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
@@ -96,7 +96,7 @@ Check a box when there is at least one `method:` tagged test covering that metho
 
 ## References
 
-- `docs/forms/lattice/forms_lattice_reference.md`
+- `docs/forms/lattice/research_readme.md`
 - GAP package page: `https://gap-packages.github.io/forms/`
 - Forms manual table of contents: `https://gap-packages.github.io/forms/doc/chap0_mj.html`
 - Forms manual chapter 4 (constructors/attributes/operations): `https://gap-packages.github.io/forms/doc/chap4_mj.html`
