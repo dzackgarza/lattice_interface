@@ -9,6 +9,7 @@
 |-----|---------|
 | `[PD]` | Positive-definite assumptions |
 | `[PSD]` | Positive-semidefinite accepted (positive quadratic form, not necessarily definite) |
+| `[DEG]` | Supports degenerate (singular) forms |
 | `[INDEF]` | Indefinite-form workflow |
 | `[ZZMOD]` | Integer/rational matrix basis setting |
 | `[NT]` | Number-theoretic quadratic form workflows |
@@ -35,7 +36,7 @@ Representation model:
 |----------|----------------|-------------|-------------|------|
 | `qflll(x, {flag = 0})` | `x`: integer matrix; `flag`: integer (optional, default 0) | integer matrix | LLL reduction from basis-style matrix input; returns reduced basis matrix | `[ZZMOD, RED]` |
 | `qflllgram(G, {flag = 0})` | `G`: symmetric real matrix (Gram); `flag`: integer (optional, default 0) | integer matrix | LLL-style reduction from Gram matrix input; returns transformation matrix `T` such that `x.T` is LLL-reduced. **Accepts positive quadratic forms (not necessarily definite)** — upstream states G must correspond to a positive quadratic form but x need not have maximal rank | `[PSD, ZZMOD, RED]` |
-| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[RED]` |
+| `qfcholesky(G)` | `G`: symmetric matrix | matrix or empty vector | Cholesky decomposition; returns `R` such that `^tR * R = G`, or empty `[]` if no solution exists. Unlike `qfcvp`/`qfminim`, upstream docs do not explicitly require positive-definite input; decomposition succeeds only when `G` is positive (semi)definite | `[PSD, RED]` |
 | `qfjacobi(G)` | `G`: symmetric real matrix | vector `[L, V]` | Jacobi eigenvalue method for symmetric matrices; returns `L` (eigenvalues sorted increasingly) and `V` (orthogonal eigenvector matrix). **No positive-definite requirement** — upstream applies to any real symmetric matrix. Preferred over `mateigen` for symmetric matrices | `[RED]` |
 | `qfisom(G, H, {fl}, {grp})` | `G`, `H`: symmetric integer matrices; `fl`: integer (optional); `grp`: vector (optional) | integer matrix or 0 | Isometry/equivalence test between quadratic forms; returns transformation matrix if equivalent, 0 otherwise. **Requires positive-definite forms** — upstream explicitly states G, H must represent positive definite quadratic forms | `[PD, NT]` |
 | `qfisominit(G, {fl}, {m})` | `G`: symmetric integer matrix; `fl`: integer (optional); `m`: integer (optional) | vector | Precomputation structure for repeated `qfisom` calls. **Requires positive-definite form** — upstream explicitly states G must represent a positive definite quadratic form | `[PD, NT]` |
@@ -95,7 +96,7 @@ Use these for indefinite arithmetic problems where shortest-vector Euclidean wor
 
 | Function | Argument Types | Return Type | Description | Tags |
 |----------|----------------|-------------|-------------|------|
-| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U`. Library also provides `qfgaussred_positive` which assumes positive-definite input for faster computation, returning `NULL` if a vector with negative norm occurs. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred (lines 2117-2174) | `[NT]` |
+| `qfgaussred(q, {flag = 0})` | `q`: symmetric matrix; `flag`: integer (optional, default 0) | matrix or vector `[U, V]` | Decomposition into squares of quadratic form; returns matrix M with diagonal entries as square coefficients. **Singular matrices supported** — upstream explicitly handles degenerate forms. If `flag = 1`, returns `[U, V]` with `q = ^tU * diag(V) * U`. Library also provides `qfgaussred_positive` which assumes positive-definite input for faster computation, returning `NULL` if a vector with negative norm occurs. Source: `docs/pari_gp/upstream/vectors_matrices_linear_algebra.html` §qfgaussred (lines 2117-2174) | `[NT, DEG]` |
 | `qfperfection(G)` | `G`: symmetric integer matrix | vector | Perfection/perfect-form style analysis; **requires positive-definite form** per upstream docs; currently rank 8 only | `[PD, NT]` |
 
 ---
