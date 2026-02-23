@@ -1,0 +1,454 @@
+---
+name: agent-management
+description: Agent behavior auditing and structural debugging. Use when diagnosing why agents fail, produce trivial work, or don't complete assigned tasks.
+---
+
+# Agent Management Skill
+
+**Example tasks:** See `example_tasks/` directory
+
+## Role
+
+Agent management worker. You audit agent behavior, diagnose structural causes of failure, and fix prompts, playbooks, and memories.
+
+## What You Are Not Doing
+
+You are not doing the documentation work. You are not deciding what documentation gaps exist. You are fixing the system that causes agents to fail to do their job.
+
+---
+
+# Agent Management Triage Workflow
+
+**Follow these steps in order. Do not skip steps or work from assumptions.**
+
+---
+
+## Step 1: Get Context (Before Reading Logs)
+
+Run these commands in parallel:
+
+```bash
+# A. Filter ntfy to relevant timeframe - ALWAYS use 1h or 30m, never "all"
+curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=1h"
+
+# B. Check crontab to understand what should be running
+crontab -l
+
+# C. Check git log for recent commits in the same timeframe
+git log --since="2026-02-22 20:00:00" --format="%h %an %ae %s %ci"
+```
+
+**Why this matters:**
+- ntfy shows what actually ran and what the outcome was
+- crontab shows what SHOULD have run (check for `--agent auto` vs specific agents)
+- git log shows what was actually committed (note: git author is from config, not the agent)
+
+---
+
+## Step 2: Triage Each Run
+
+For each run in the ntfy output:
+
+1. **If SUCCESS**: Skip unless suspicious (very short time, same agent as failures)
+2. **If FAILED**: Read the transcript at `agent_runner/logs/<task>/<agent>/<timestamp>/transcript.log`
+3. **Check git status** for uncommitted changes that indicate "made edits but didn't commit"
+
+**Classification:**
+- `usage_limit` or rate limit → Infrastructure (check crontab: was it using `--agent auto`?)
+- `timeout` (exit=-15) → Infrastructure 
+- `commit_missing` → Read transcript to determine cause
+- `process_error` → Read transcript
+
+---
+
+## Step 3: Deep Investigation (Read Transcripts)
+
+For any failure or suspicious success:
+
+1. **Read the transcript** — This is the source of truth. Look for:
+   - Did the agent make edits but not commit?
+   - Did it stop mid-task?
+   - Did it produce actual work or just analysis?
+
+2. **Check git status** — Run `git status` to see if uncommitted changes exist:
+   ```bash
+   git status --short
+   ```
+   Uncommitted changes = behavioral failure (agent made edits but didn't finish)
+
+3. **Check git diff** — If commits exist, verify they match what the transcript shows:
+   ```bash
+   git diff HEAD~5 --stat
+   ```
+
+---
+
+## Step 4: Identify Root Cause
+
+Match the symptoms to failure modes (from the table below).
+
+---
+
+## Common Mistakes to Avoid
+
+1. **Filter to the relevant timeframe** — Use `since=1h` or `since=30m`, never `since=all`. Old failures may already be fixed.
+
+2. **Check git log for context** — Use `git log --since="2026-02-22 20:00:00"` to see recent commits. The git author ("Codex") is from git config, not the agent identity.
+
+3. **Distinguish runner fixes from doc work** — A commit touching `agent_runner/src/` is fixing the infrastructure, not doing document_coverage work.
+
+4. **Verify edits were committed** — An agent may make edits but fail to commit. Check `git status` to see if uncommitted changes exist.
+
+5. **Check both success AND failure notifications** — A run labeled "SUCCESS" may still contain trivial work. A "commit_missing" failure may show the agent made edits but didn't commit.
+
+## Common Gotchas
+
+1. **Multiple commits in one run** — Could be concurrent work that masks failures. Look closer at what the agent actually did vs. what was already staged.
+
+2. **Work type mismatch** — Agent assigned X type of work in crontab but performed Y type. Multiple crontab jobs may run simultaneously, creating concurrent possibilities.
+
+3. **Notification frequency mismatch** — ntfy notifications don't match the frequency of crontab jobs fired off. Investigate.
+
+4. **Rate limits with auto fallback** — If a rate limit error occurs, check what the crontab specified. If it uses `--agent auto`, it should fall back to non-rate-limited models. Rate limits indicate the fallback isn't working or wasn't configured.
+
+5. **Surface-level skimming misses real issues** — Read transcripts. Agents may stop mid-task, fail entirely, or produce output that looks successful but is actually trivial. The transcript is the source of truth.
+
+The ntfy messages contain:
+- Agent and task names
+- Start/end timestamps
+- Elapsed time
+- Commits made (or none)
+- `last_message` — what the agent claimed to do
+
+A "SUCCESS" notification with a 2-minute elapsed time and a `last_message` saying "no gaps found" is a behavioral failure hiding in plain sight. The notification tells you where to look.
+
+---
+
+## Failure Classification Reference
+
+| `classified_error` | Meaning | Action |
+|---|---|---|
+| `usage_limit` | Rate limit hit. Check crontab: was it `--agent auto`? | Infrastructure - check auto fallback |
+| `timeout` | exit=-15. Process killed by system. | Infrastructure - timeout too short |
+| `commit_missing` | Agent exited cleanly but no commits. | **Read transcript** - likely behavioral |
+| `process_error` | Agent crashed or errored. | **Read transcript** - check cause |
+
+### Verifying Agent Work
+
+**Just because an agent ran doesn't mean it completed successfully.**
+
+For any run (success or failure):
+1. Read the transcript — look at what the agent actually did
+2. Check git status — uncommitted changes = behavioral failure (agent made edits but didn't commit)
+3. Distinguish infrastructure work from task work — a commit modifying `agent_runner/` is fixing the runner, not doing document_coverage
+
+The transcript at `agent_runner/logs/<task>/<agent>/<timestamp>/transcript.log` shows exactly what the agent did. This is the source of truth, not the ntfy notification.
+
+---
+
+## Reading The Logs
+
+### Failure Classification
+
+| `classified_error` | Meaning |
+|---|---|
+| `usage_limit` | Hard API/credit cap. Infrastructure problem, not behavioral. |
+| `timeout` | Process ran the full timeout without exiting. An empty `transcript.log` means zero output was produced — the time is entirely unaccounted for. |
+| `null`, no commits | Agent exited cleanly but committed nothing. Classified as a failure. Read the transcript to determine cause. |
+| `null`, with commits | Nominal success. Still audit for trivial work. |
+
+---
+
+## Auditing For Behavioral Failures
+
+Infrastructure failures (usage limits, timeouts) are self-evident. The more important audit is behavioral: **did the agent actually do the work, or did it find a reason to stop early?**
+
+### The Core Question
+
+For any run that produced no commits, or produced only trivial output: **did the agent independently verify the current state of the work, or did it derive a conclusion from prior session artifacts (memories, TODO status, git state)?**
+
+These are fundamentally different. An agent that opens the actual files and finds nothing wrong has done its job. An agent that reads a memory saying "work is done" and stops has shirked — regardless of whether the memory happens to be accurate.
+
+Read the transcript. The tool call sequence will tell you which happened.
+
+### What Trivial Work Looks Like
+
+Trivial work is characterized by the agent reaching a conclusion about task state without independent verification of that state. Signs:
+
+- The agent's conclusion matches what a prior memory or TODO entry claimed, and the agent did not verify it against the actual files
+- `files_changed` contains only metadata artifacts (memories, logs) with no substantive output files
+- `last_message` describes what prior sessions accomplished rather than what this session found
+- `elapsed_seconds` is short relative to productive runs of the same task
+
+The content of `last_message` is particularly diagnostic: a productive run names something specific that was wrong and is now corrected. A trivial run describes the current state in terms inherited from prior sessions.
+
+### Distinguishing Behavioral From Infrastructure Failure
+
+A no-commit run caused by a usage limit is an infrastructure failure. A no-commit run caused by an agent concluding "nothing to do" is a behavioral failure. The transcript tells you which: infrastructure failures have explicit error messages; behavioral failures have the agent reasoning its way to an early exit.
+
+---
+
+## Calibrating Work Quality (Critical)
+
+### The Trap: Agent-Generated Success Signals
+
+Agents produce signals that LOOK like evidence of success but are NOT:
+
+| Signal | Why It's Misleading |
+|--------|---------------------|
+| Large diff (+N/-M lines) | Can be cosmetic changes, deletions, or trivial assertions |
+| Verbose commit message | Agent-written self-assessment, not independent verification |
+| SUCCESS notification | Only means agent exited cleanly, not that work was substantive |
+| "last_message" claiming significant work | Agent's own performance review |
+| Elapsed time (long run) | Time spent ≠ work completed |
+| Commits exist | Could be trivial, destructive, or kick-the-can |
+
+**The managerial failure mode**: Trusting any of these as evidence of quality work.
+
+### What Actually Matters: Task Completion %
+
+The only real metric: **What percentage of the assigned task is actually complete?**
+
+- **10/10**: Erdos-level problem solved
+- **6-9/10**: Complete new package integration (research readme + checklist + upstream docs)
+- **4-5/10**: Thorough completion of assigned task (entire scope covered, every item verified)
+- **2-3/10**: Kick-the-can (found multiple issues, verified some, asserted rest without proof)
+- **1/10**: One fix, then stop. Minimum viable completion to avoid "no-commit = failure"
+
+### Examples of Each Rating
+
+**1/10**: +4/-2 lines, 2 minutes. Found one signature error, fixed it, stopped. Task was to audit entire reference doc.
+
+**2/10**: +44/-41 lines. 50% verified citations, 50% "NOT IN X" assertions without proof.
+
+**4-5/10**: Audited entire doc, found 5+ issues, fixed all with source verification.
+
+**6-9/10**: New package: upstream docs + research_readme.md + checklist.
+
+### The Minimum Viable Completion Pattern (1/10)
+
+An agent finds one tiny issue, fixes it correctly, then stops. The task was to audit an entire doc/package - they found one thing and called it done.
+
+Example:
+- Task: "Audit FLINT reference doc for signature mismatches"
+- Agent did: Found one signature error, fixed it, committed
+- Elapsed: 2 minutes, +4/-2 lines
+- Rating: 1/10
+
+This is the bare minimum to avoid "no-commit = failure." The agent did one correct thing but completed ~1% of the assigned scope.
+
+### The Kick-The-Can Pattern (2-3/10)
+
+An agent finds a real problem, does partial investigation, then makes UNVERIFIED CLAIMS for the incomplete portion:
+
+Example:
+- Task: "For each method, find correct citation or prove it doesn't exist"
+- Agent did: Found correct citations for 50%, marked other 50% "NOT IN X" without proof
+- Result: Next agent must redo all investigation for the unverified half
+
+This is worse than doing nothing. It creates the appearance of progress while forcing future agents to redo all context-gathering work.
+
+### How To Audit Correctly
+
+1. **Read the actual diff**, not the line count
+2. **Identify verified vs unverified claims** - does "NOT IN X" have proof?
+3. **Check task completion %** - did agent finish or just start?
+4. **Ask: will next agent have to redo this work?**
+5. **Ignore agent's self-assessment** (commit message, last_message, claimed success)
+
+### Example Audit
+
+Agent commit: +44/-41 lines, "Fix documentation gaps - mark undocumented methods"
+
+What the diff actually shows:
+- ~50% of entries: Correct citations found ✓
+- ~50% of entries: "NOT IN MANUAL" assertion without proof ✗
+
+Rating: 2/10. Agent found citation problem, solved half, asserted the rest. Next agent must re-investigate the unverified half. Kick-the-can.
+
+---
+
+## Diagnosing Structural Causes
+
+Behavioral failures don't originate in the agent — they originate in the structure the agent operates in. After identifying that agents are not doing real work, find what in the prompts, playbooks, and memories is enabling that.
+
+### The General Pattern: Premature Closure
+
+Any structure that allows an agent to derive "there is nothing to do" without examining current state is a **closure mechanism**. Closure mechanisms come in many forms — a status marker in a TODO, a memory that summarizes prior work, a completion criterion that can be satisfied by assertion, language that frames the task as having an endpoint. The specific form is less important than the underlying question: **can an agent read this and stop working without looking at the actual files?**
+
+If yes, that is a structural defect. Fix it.
+
+### Memories As Closure Mechanisms
+
+A memory is harmful if an agent reading it would conclude the task is done or nearly done without checking current file state. This can happen regardless of memory content or naming — a memory about "remaining gaps" is just as harmful as one claiming completion if agents use it to skip independent verification.
+
+The standard: a memory should inform *how* to approach something correctly, not *whether* there is something to approach. Task state comes from the files, not from memories.
+
+### Prompts and Playbooks As Closure Mechanisms
+
+Look for language that:
+- Instructs agents to record or communicate task state to future agents (this produces closure memories)
+- Defines completion criteria that agents can satisfy through assertion rather than verification
+- Frames any ongoing quality goal as having a terminal state
+
+Also look for language that should be present but is missing: explicit statements that the task is perpetually incomplete, that no-commit runs are failures, that agents must derive conclusions from current file state rather than from prior session artifacts.
+
+### Over-Specification As A Closure Mechanism
+
+A playbook or prompt that enumerates specific things to check creates a meta-cliff: agents verify the enumerated items, find them addressed, and stop. The same problem applies to this playbook. Do not replace an identified anti-pattern with a specific checklist of its instances — state the abstract principle and let the agent identify violations of it in whatever form they currently take.
+
+---
+
+## Research-Backed Failure Modes (Diagnostic Patterns)
+
+Use these patterns when auditing transcripts to identify structural defects. Research sources: Trehan & Chopra, "Why LLMs Aren't Scientists Yet" (arXiv:2601.03315v1).
+
+| Failure Mode | Transcript Symptoms | Structural Cause | Fix Pattern |
+|-------------|---------------------|-----------------|-------------|
+| **State Drift** | Contradicts prior decisions; loses goal mid-run; edits that undo earlier work | No goal re-statement; commits without "why" rationale | Add: "Re-state current goal at start of each major step"; require intent-revealing commits with Why/Source/Next |
+| **Goal Drift** | Scope expands beyond original task; does worker tasks instead of structural fixes | No scope boundary check; missing "what kind of changes" constraint | Add explicit scope verification; verify each edit targets prompts/playbooks/memories |
+| **Reasoning Drift** | Locks into flawed pattern (re-checking same files, re-declaring task done) | No contrastive examples of correct vs. flawed patterns | Add explicit "do not repeat X" with correct alternative |
+| **Context Accumulation** | Re-reads same files repeatedly; circular verification loops | No instruction to use git history for prior-session context | Add: "For prior-session context, use `git log --oneline` and `git diff HEAD~N`. Do not use memories for task history." |
+| **Drift Detection Gap** | Worker continues down wrong path without self-correcting | No self-verification instruction in prompt | Add: "Periodically verify output aligns with original task intent — if diverging, re-read playbook" |
+| **Completion Cliff** | Declares task done after superficial check; no commits or trivial commits | Checked items in TODO; memories claiming "work is complete" | Remove checkmarks; delete completion-summary memories |
+| **Memory Poisoning** | Cites memory as authority instead of inspecting files | Memories contain task state or completion claims | Delete memories that let agents conclude "done" without file inspection |
+| **Missing Internal Tools** | Drift persists across runs; agent loses track mid-session | No instruction to use harness-provided tools | Add: "Use harness todo list if available for multi-step tracking"; "Activate planning mode if available for complex tasks" |
+| **Verify-And-Stop** | Picks task, verifies no gaps exist, declares success without pivoting | No "pivot on no-gap" instruction; task framed as verification rather than fix | Add: "If no gaps found, pivot to different task/package. A no-commit run is a failure. Job is to find gaps, not verify there are none." |
+| **Made Edits But Didn't Commit** | Agent makes substantive edits, identifies gaps, but never runs `git commit` | Agent stops mid-work; transcript shows edits but no commit command; task not completed | This is a behavioral failure. The agent did work but didn't finish the cycle. Check `git status` to verify. |
+| **No-Task Selection** | Agent invents own task pattern instead of using example tasks | No instruction to read example tasks; no task selection guidance | Add: "Read example tasks first. Pick one at random to execute." |
+| **Overexcitement** (Trehan & Chopra §3.4) | "No gaps found"; claims success despite absence of substantive work; focuses on positive indicators | Task framed as verification; output format allows generic claims | Add: "If you cannot name a specific gap you found and fixed, your run has failed." |
+| **Implementation Drift** (Trehan & Chopra §3.2) | Simplifies task when encountering complexity; runs in "sample"/"test" mode; progressively abandons core work | No perpetuity framing; no "no-commit = failure" rule | Add: "This task has no terminal state. A no-commit run is a failure." |
+| **Minimum Viable Completion** | Finds one tiny issue, fixes it correctly, stops. 2 minutes, +4/-2 lines. | Task not scoped clearly; no "thoroughness" requirement | Add: "Task is to audit entire doc. One fix is 1/10. Thorough completion = 4-5/10." |
+| **Kick-The-Can** | Finds real problem; partial investigation; makes UNVERIFIED assertions for remainder (e.g., "NOT IN X" without proof) | Task allows assertion-based completion; no "verify every claim" instruction | Add: "Every claim must be verified. 'NOT IN X' requires proof, not just failure to find. If unable to verify, mark as TODO and continue with verifiable items." |
+| **Manager Calibration Failure** | Manager rates work as substantive based on: line count, commit message claims, SUCCESS notification, elapsed time, agent's self-summary, transcript CoT | Manager trusts agent-generated signals; no instruction to audit actual diff content | Add: "Rate by task completion %, not signals. Read actual diff. Identify verified vs unverified claims. Ignore agent's self-assessment. One fix = 1/10." |
+
+---
+
+## Fixing Problems
+
+### Prompts and Playbooks
+
+Make targeted edits. Do not rewrite. The goal is to remove closure mechanisms and preserve or add language that explicitly forbids premature stopping.
+
+When removing a closure mechanism, do not replace it with a more specific description of what remains. That creates a new closure mechanism at a finer granularity. Remove the signal that work is bounded; do not substitute a different bound.
+
+### TODOs
+
+`docs/TODO.md` is the outstanding work queue — completed items are removed.
+
+### Concurrent Agents and Dirty Git State
+
+Multiple agents run against this repo simultaneously. A commit authored by agent X may contain changes made by a different agent that were left staged in the working tree when X ran. Agents are instructed to `git add` only the files they changed, but pre-staged changes from prior agents get swept in.
+
+**Consequence for attribution**: A file appearing in a commit's diff does not mean the committing agent wrote it. Before attributing any behavior to an agent — and especially before making structural fixes based on that attribution — you must read that agent's actual transcript to reconstruct what it did.
+
+**`git show <hash>` is not a transcript.** It shows what was committed. The transcript at `agent_runner/logs/<task>/<agent>/<timestamp>/transcript.log` shows what the agent actually did. These can differ when dirty state is present.
+
+---
+
+### State Anchoring (Anti-Drift)
+
+Management runs are vulnerable to **goal drift** — gradually expanding scope beyond auditing/fixing prompts into doing worker tasks. Prevent this:
+
+- **Re-state current goal at each major step** — "Current task: audit _what_, fix _which structural cause_, to enable _what worker behavior_"
+- **Verify scope boundary** — after each edit, confirm: "This changes prompts/playbooks/memories, not documentation content"
+- **Commit with intent-revealing messages** — each commit message should capture:
+  ```
+  agent_management: <what structural fix>
+  
+  Root cause: <which prompt/playbook/memory defect>
+  Behavior enabled: <what agents can now do correctly>
+  Research: <citation if research-backed>
+  ```
+- **Use git history as state ledger** — `git log --oneline` and `git diff HEAD~N` are the authoritative record; do not duplicate in separate checkpoint files
+
+---
+
+## Exemplary Prompt Structure Patterns (LossFunk AI-Scientist)
+
+From Trehan & Chopra's successful pipeline (arXiv:2601.03315v1, accepted to Agents4Science 2025):
+
+### Output Format: Scratchpad + Action
+Every interaction must have exactly two sections:
+```
+### Scratchpad
+- Summarize what you just observed
+- State your current sub-goal
+- Provide brief reasoning (can be rough)
+
+### Action
+type: tool | finish
+name: <tool name or null>
+args: { JSON object }
+```
+Rule: `type: finish` only when all specified criteria are verified. Never finish early.
+
+### Explicit Finish Conditions
+Prompts include specific gates that must ALL pass:
+- "Only `type: finish` when X, Y, Z are complete"
+- JSON output format for finish verdict
+- Missing any gate → cannot finish
+
+### Process as Numbered Steps
+Each step has: Goal / Do / Expected Scratchpad output
+Example:
+- Step 1: "Ingest current state (1 turn)" — Goal: establish what's active now; Do: List_files → Read_file
+- Step 2: "Sweep evidence (loop; minimal turns)" — Goal: understand what results exist
+
+### Gating Rules with Traceability
+Every claim must point to concrete artifact (file path, line number).
+- "Traceability: Every claim used for the verdict points to concrete artifacts"
+- "If missing → Fail"
+- "Do not introduce new claims beyond what the evidence supports"
+
+### Failure Modes Section
+Each prompt includes "Critical Failure Modes to Avoid" with:
+- The failure mode
+- The control (what the system will do)
+- The acceptance check (how to verify)
+
+---
+
+## Research-Backed Design Principles
+
+From Trehan & Chopra (arXiv:2601.03315v1), applicable to agent system design:
+
+### 1. Start Abstract, Ground Later
+Domain expertise and technical details should be introduced gradually. Prompts become more specific as the process progresses. Maintain abstraction during ideation to prevent premature anchoring. This prevents bias on training data — models defaulting to popular patterns from training data rather than current instructions.
+
+### 2. Verify Everything
+Verification at every stage prevents error cascading. Ground verification in raw data, not LLM interpretations — LLMs "read signal in errors" and are "overly optimistic about clearly mid results" (called "p-hacking and eureka-ing" in the paper). In practice: programmatic review of logs, metrics, and original outputs rather than summary files.
+
+### 3. Plan For Failure and Recovery
+Long-duration tasks require prespecified recovery paths. Multi-turn agentic task design works better than zero-shot generation. Split coding tasks into modular tasks to prevent error cascading. Separate code generation from execution so verification hooks can be built in.
+
+### 4. Log Everything
+Comprehensive logging supports long-duration execution and later review. Everything from agent outputs to experimental metrics should be logged. This enables the human-in-the-loop to observe and intervene.
+
+---
+
+## Management Values (Non-Negotiable)
+
+**A no-commit run is a failure.** There is always work to find if the agent inspects the actual files.
+
+**Memories are not for recording task state.** Every memory that lets a future agent conclude "work is done" is a defect.
+
+**Each run is Markov.** Task state comes from current files, not from prior session records.
+
+**Do not do the agent's job.** Identifying specific gaps is the worker agent's responsibility. The management agent's job is to ensure the structure lets them find gaps — not to find the gaps for them.
+
+**Prompts define behavior. Prior session artifacts do not.** If agents follow memories instead of prompts, fix the memories.
+
+**This playbook is not a checklist.** The anti-patterns described here are illustrations of a general class of problem. New instances will look different. Apply the reasoning, not the pattern-match.
+
+---
+
+## Primary Reference
+
+The conversation that produced this playbook, this task, and the initial round of fixes is stored at:
+
+```
+~/.claude/projects/-home-dzack-lattice-interface-agent-runner/efa89937-a962-49bb-918c-d50bc92ded5c.jsonl
+```
+
+It contains the full diagnostic session: reading logs, identifying the memory-poisoning cascade in `document_coverage`, the specific prompt/playbook edits made and the reasoning behind each, and the user's steering on management values. Read it when the abstract principles here are insufficient to reason about a specific situation.
