@@ -2,21 +2,13 @@
 
 ## Scenario
 
-This task audits the management task itself. Previous managerial agents may have failed to properly address worker agent issues, allowing problems to persist across multiple runs. The goal is to identify why previous managers shirked or failed, and fix the management prompt/skill to prevent recurrence.
+This task audits the management task itself. Previous managerial agents may have failed to properly address worker agent issues, allowing problems to persist across multiple runs. The goal is to identify why previous managers shirked or failed, and fix the management prompt/playbook to prevent recurrence.
 
 ## Scope Warning
 
 This task does NOT fix worker agent issues directly. The scope is specifically: **why did the previous managerial agent fail to fix observed problems?** Fixing the actual worker issues is a separate task.
 
 ## Investigation Protocol
-
-### 0. CHECK NTFY FIRST (ALWAYS)
-
-```bash
-curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
-```
-
-**Do not skip this step.** Ntfy tells you what runs occurred, which agents ran, and their outcomes. You cannot audit without knowing the timeline of events.
 
 ### 1. Baseline: When Should Managers Have Run?
 
@@ -84,7 +76,7 @@ Determine what kind of reasoning failure occurred:
 - Did not follow through on observed problems
 
 ### Trivial / Superficial Changes
-- Made cosmetic edits to prompts/skills
+- Made cosmetic edits to prompts/playbooks
 - Added negations or warnings without addressing root cause
 - Changes too small to affect the observed failure mode
 
@@ -117,7 +109,7 @@ Determine what kind of reasoning failure occurred:
 
 ## Research Phase
 
-Before fixing the management prompt/skill, research:
+Before fixing the management prompt/playbook, research:
 
 - LLM agent metacognitive failures
 - Manager/oversight agent architectures in frontier systems
@@ -133,11 +125,11 @@ Ground proposed fixes in this research.
 
 ### Git History Check
 
-Before editing management prompt/skill:
+Before editing management prompt/playbook:
 
 ```bash
 git log --oneline --follow -- agents/agent_management/prompt.md
-git log --oneline --follow -- .agents/skills/agent-management/SKILL.md
+git log --oneline --follow -- agents/agent_management/playbook.md
 ```
 
 Look for:
@@ -181,7 +173,7 @@ After making changes:
 
 - Each historical management failure has root metacognitive cause identified
 - Fixes are grounded in transcript evidence and research
-- Management prompt/skill addresses the specific failure pattern
+- Management prompt/playbook addresses the specific failure pattern
 - Git history shows improvements, not churn
 - Meta-commentary about management is appropriate (this task only)
 

@@ -6,14 +6,6 @@ The system needs to create new agents or extend existing ones to handle new task
 
 This task adapts the battle-tested OpenClaw agent-orchestration framework to this workflow.
 
-## FIRST: Check Ntfy (Context Gathering)
-
-```bash
-curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
-```
-
-Before creating or modifying agents, understand what agents are currently running and their outcomes. This informs what new agents or modifications are needed.
-
 ---
 
 ## Ralph Mode: Two Loops
@@ -366,7 +358,7 @@ Before finalizing new agent prompts:
 
 1. Review existing agent prompts for patterns
 2. Check `agent_runner/logs/` for common failure modes
-3. Review skill failure mode tables
+3. Review playbook failure mode tables
 4. Cross-reference with OpenClaw agent-orchestration source
 
 ---

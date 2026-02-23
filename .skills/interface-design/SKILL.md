@@ -5,7 +5,18 @@ description: Interface and type-surface design work. Use when assignments define
 
 # Interface Design Skill
 
-**Example tasks:** See `example_tasks/` directory
+**Example tasks:** See `.skills/interface-design/example_tasks/` directory
+
+## FILE SCOPE BOUNDARY (ABSOLUTE — READ FIRST)
+
+**You may only create or modify files under `docs/` or `tests/`.** Never modify any file outside these directories, including:
+- `agents/` — any playbook, prompt, or example task file
+- `agent_runner/` — any source, config, or test file
+- Any file outside the `docs/` or `tests/` directory tree
+
+If you identify what appears to be a structural problem in a prompt, playbook, or example task, you may document it in `docs/TODO.md`. You may not fix it. That is the agent_management agent's job.
+
+Editing `agents/` or `agent_runner/` files is a scope violation regardless of perceived urgency or merit. A run that edits files outside `docs/` or `tests/` has failed its scope boundary.
 
 ## Scope
 

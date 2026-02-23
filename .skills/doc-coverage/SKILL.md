@@ -5,7 +5,18 @@ description: Documentation coverage work for lattice theory methods. Use when do
 
 # Documentation Coverage Skill
 
-**Example tasks:** See `example_tasks/` directory
+**Example tasks:** See `.skills/doc-coverage/example_tasks/` directory
+
+## FILE SCOPE BOUNDARY (ABSOLUTE — READ FIRST)
+
+**You may only create or modify files under `docs/`.** Never modify any file outside `docs/`, including:
+- `agents/` — any playbook, prompt, or example task file
+- `agent_runner/` — any source, config, or test file
+- Any file outside the `docs/` directory tree
+
+If you identify what appears to be a structural problem in a prompt, playbook, or example task, you may document it in `docs/TODO.md`. You may not fix it. That is the agent_management agent's job.
+
+Editing `agents/` or `agent_runner/` files is a scope violation regardless of perceived urgency or merit. A run that edits files outside `docs/` has failed its scope boundary.
 
 ## Role
 
@@ -136,7 +147,7 @@ Treat these as project-wide values to assess continuously:
 - Did the git diff actually improve quality against these questions?
 - Were edits grounded in real source documents/snapshots rather than assumptions or innate knowledge?
 - Were any mathematical assumptions introduced that are not clearly evidenced in source docs?
-- Were critical assumptions omitted (for example, positive-definite-only or ring/domain constraints)?
+- Were critical assumptions omitted (for example, positive-definite-only or ring constraints)?
 - Were differing definitions/assumptions of lattices across sources reconciled where needed?
 - Were restrictions, assumptions, constraints, or authoritative statements introduced without clear source evidence?
 - Is language anywhere in the touched documentation surface vague or mathematically imprecise?
@@ -147,6 +158,26 @@ Treat these as project-wide values to assess continuously:
 - Did this assignment avoid expanding out-of-scope polyhedral/LP/toric/counting stacks that do not expose bilinear-form lattice APIs?
 
 ## Process Guidelines
+
+### You Must Execute Concrete Tasks
+
+The only acceptable work is completing one of the example tasks in `.skills/doc-coverage/example_tasks/`. Read the full task file, follow its workflow exactly, and complete it before your run ends.
+
+**Available tasks** (pick ONE and do it fully):
+- `deep_package_audit.md` — Compare upstream docs against checklist, find missing entries
+- `checklist_annotation.md` — Add source citations to checklist entries  
+- `upstream_discovery_and_integration.md` — Find and integrate missing upstream docs
+- `cross_package_method_reconciliation.md` — Compare method implementations across packages
+- `mathematical_contract_audit.md` — Verify explicit constraints with citations
+- `reference_to_checklist_reconciliation.md` — Ensure checklist and reference alignment
+
+**Do NOT do anything else.** Do not:
+- Add undefined tags to legends
+- Fix formatting or column widths
+- Reorganize sections
+- "Check for gaps" in vague ways
+
+If your edit is not directly advancing one of these concrete tasks, it is wrong. A no-commit run is a failure.
 
 ### State Anchoring (Anti-Drift)
 
@@ -167,7 +198,7 @@ Long-horizon documentation work is vulnerable to **state drift** — gradually c
 
 ### Example Tasks
 
-See `example_tasks/` directory for detailed task workflows:
+See `.skills/doc-coverage/example_tasks/` directory for detailed task workflows:
 
 - `deep_package_audit.md` — Read all upstream docs for one package, verify reference and checklist
 - `checklist_annotation.md` — Add source citations to every checklist entry

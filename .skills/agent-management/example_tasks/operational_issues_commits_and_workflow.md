@@ -4,19 +4,14 @@
 
 Agents are failing operational requirements: not creating commits, mismanaging git state, or polluting docs with changelog data that belongs in commit messages. A successful run requires: startup → read task → nontrivial work → cohesive commit → success notification with meaningful progress summary.
 
-## Prerequisites: Check Ntfy First
+## Prerequisites: Triage First
 
-**ALWAYS check ntfy before doing anything else:**
-
-```bash
-curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
-```
-
-Then check crontab:
+Before investigating commit failures, check for more urgent issues:
 
 ```bash
 date
 crontab -l
+# Check recent ntfy notifications
 ```
 
 If there are timeouts or usage limit failures, triage those separately. Commit investigation applies only to runs that had opportunity to commit but didn't.
@@ -36,7 +31,7 @@ If there are timeouts or usage limit failures, triage those separately. Commit i
 **Partial work / early quit**:
 - Transcript shows agent reasoning that "enough" was done
 - CoT reveals false completion signals or underestimated scope
-- Fix: Prompt/skill updates for stricter task adherence
+- Fix: Prompt/playbook updates for stricter task adherence
 
 **Real work, forgot commit**:
 - Transcript shows substantive tool calls and file edits
@@ -51,7 +46,7 @@ If there are timeouts or usage limit failures, triage those separately. Commit i
 
 ## Fix Strategies
 
-### Prompt/Skill Updates
+### Prompt/Playbook Updates
 
 When agents consistently fail to commit or quit early:
 
@@ -83,6 +78,70 @@ If a specific model consistently fails task adherence despite prompt fixes:
    Suggest replacing with more capable agent for this task.
    ```
 3. This is a last resort—prompt fixes should be attempted first
+
+## Secondary Failure Mode: Git State Confusion
+
+Agents may get confused by complicated git status (uncommitted changes, merge conflicts, detached HEAD).
+
+### Resolution Protocol
+
+1. **Never throw away uncommitted work**
+2. **Never use destructive operations** (reset --hard, checkout --force, clean -fd)
+3. **Treat git as time-indexed checkpoints**:
+   ```bash
+   # Check current state
+   git status
+   git log --oneline -5
+   
+   # Commit any uncommitted work to preserve it
+   git add -A
+   git commit -m "WIP: preserving state before cleanup"
+   
+   # Only after preserving, clean up to stable state
+   ```
+
+4. Goal is to prevent future agent confusion, not to achieve "clean" state at the cost of lost work
+
+### Prompt/Playbook Guidance
+
+Add language that:
+- Requires agents to commit before major operations
+- Explains git as checkpoint system, not pristine state machine
+- Discourages destructive git commands
+- Provides fallback behaviors for confusing states
+
+## Tertiary Failure Mode: Changelog Pollution
+
+Agents recording history/progress in wrong places:
+
+- TODO docs with "completed" sections
+- Memories that summarize what was done
+- Documentation files with changelog sections
+- Any artifact that duplicates git history
+
+### Why This Is Harmful
+
+1. Creates false completion signals for future agents
+2. Duplicates information that git already tracks
+3. Pollutes agent-facing docs with non-actionable historical data
+4. Biases toward early completion when changelogs show "progress"
+
+### Fix Strategy
+
+1. **Ban changelog-style content** in docs and memories:
+   - Prompts should explicitly forbid "recording what was done"
+   - Memories should only contain actionable insight for future work
+   - Docs should describe current state, not history of changes
+
+2. **Redirect to commit messages**:
+   - Extensive commit messages are the correct place for history
+   - Agents should write detailed commits explaining what and why
+   - Git is the authoritative changelog
+
+3. **Clean up existing pollution**:
+   - Remove changelog sections from docs
+   - Delete memories that are pure history
+   - Do NOT add "this was removed" notes—just remove
 
 ## Research Requirements
 

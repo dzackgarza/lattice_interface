@@ -2,50 +2,11 @@
 
 ## Scenario
 
-Agents are not consistently following project-wide guidelines. Every agent should execute a predictable workflow: read prompt/skill → perform nontrivial work → collect into git commit → provide value-explaining summary. Deviations from this pattern indicate structural problems in the prompting system.
+Agents are not consistently following project-wide guidelines. Every agent should execute a predictable workflow: read prompt/playbook → perform nontrivial work → collect into git commit → provide value-explaining summary. Deviations from this pattern indicate structural problems in the prompting system.
 
-## FIRST: Check Ntfy
+## Baseline Expectations
 
-```bash
-curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
-```
-
-The ntfy feed tells you which agents ran, their elapsed time, and their claimed output. A 2-minute run with "no gaps found" in last_message is a behavioral failure you can immediately identify.
-
-## ⚠️ CRITICAL: Do Not Trust Agent-Generated Signals
-
-The ntfy feed shows agent self-summaries. Commit messages are agent-written. Line counts in diffs can be misleading. **You will be fooled if you trust these.**
-
-**You MUST read the actual git diffs:**
-
-```bash
-git show <commit_hash>
-```
-
-Rate work against this scale:
-- **10/10**: Erdos-level problem solved
-- **6-9/10**: Complete new package integration (research readme + checklist + upstream docs)
-- **4-5/10**: Thorough completion of assigned task (entire scope covered, every item verified)
-- **2-3/10**: Kick-the-can (found multiple issues, verified some, asserted rest without proof)
-- **1/10**: One fix, then stop. Minimum viable completion to avoid "no-commit = failure"
-
-### Examples of Misrating
-
-**1/10 rated as 4-5/10:**
-ntfy shows: "SUCCESS, +4/-2 lines, 2m08s, Fix signature mismatch in fmpz_mat_hnf_modular_eldiv"
-
-Manager reads transcript, sees agent "found real gap, fixed it properly," rates 4-5/10.
-
-**Actual rating: 1/10.** One tiny fix in 2 minutes. Task was to audit entire reference doc. Agent found one thing, fixed it, stopped. Minimum viable completion.
-
-**2/10 work:**
-+44/-41 lines. 50% verified citations, 50% "NOT IN MANUAL" assertions without proof. Kick-the-can - verified some, asserted rest.
-
-**4-5/10 work:**
-Audited entire FLINT reference doc. Found 5+ signature mismatches. Fixed all with source verification. Thorough completion of assigned scope.
-
-**6-9/10 work:**
-Found undocumented package. Fetched upstream docs. Created new research_readme.md with all methods. Created checklist. Full package integration.
+For substantial tasks, agents should spend 7-14 minutes of productive work. Tasks under this range with full "completion" claims are suspect. The system has no time limits—only quality goals. Reward-hacking behaviors that sacrifice quality for speed are failures.
 
 ## Failure Mode Detection
 
@@ -111,19 +72,14 @@ For each identified failure, read the full CoT (Chain of Thought) to understand:
 - What artifact or signal triggered the "done" conclusion?
 - Where did the reasoning diverge from productive work?
 
-### 2. Git Diff Assessment (MANDATORY)
+### 2. Git Diff Assessment
 
-**Do not rate work without reading the actual diff.** Run `git show <hash>` for every commit.
+Review actual changes:
+- Line count relative to task scope
+- Semantic content: additions vs. rewordings
+- Whether changes advance project goals or just modify surface features
 
-Check:
-- **Verified vs unverified claims**: If diff says "NOT IN X", is there proof (grep showing no matches, web confirmation)? Or just assertion?
-- **Kick-the-can ratio**: What % of claims are verified vs asserted without proof?
-- **Semantic content**: Additions vs rewordings vs deletions
-- **Task completion %**: Did agent finish the task, or just start it and assert the rest?
-
-A diff with 50% verified claims and 50% unverified assertions is 1-3/10 work, regardless of line count.
-
-### 3. Prompt/Skill/Doc Inspection
+### 3. Prompt/Playbook/Doc Inspection
 
 Identify what in the structure creates gradients toward shirking:
 
@@ -168,11 +124,11 @@ Use sources with empirical backing and citations.
 
 ### Git History Analysis
 
-Before editing, review git history of the target prompt/skill:
+Before editing, review git history of the target prompt/playbook:
 
 ```bash
 git log --oneline --follow -- agents/*/prompt.md
-git log --oneline --follow -- .agents/skills/*/SKILL.md
+git log --oneline --follow -- docs/*_playbook.md
 ```
 
 Look for:
@@ -205,7 +161,7 @@ After making changes:
 
 - All identified failure modes have root causes documented
 - Changes are traceable from transcript evidence through research to edit
-- No oscillating patterns in prompt/skill history
+- No oscillating patterns in prompt/playbook history
 - Worker prompts contain no managerial meta-commentary
 - Changes are grounded in empirical research, not intuition
 

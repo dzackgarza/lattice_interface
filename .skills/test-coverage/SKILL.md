@@ -5,7 +5,18 @@ description: Test coverage work for lattice methods. Use when assignments involv
 
 # Test Coverage Skill
 
-**Example tasks:** See `example_tasks/` directory
+**Example tasks:** See `.skills/test-coverage/example_tasks/` directory
+
+## FILE SCOPE BOUNDARY (ABSOLUTE — READ FIRST)
+
+**You may only create or modify files under `tests/`**. Never modify any file outside `tests/`, including:
+- `agents/` — any playbook, prompt, or example task file
+- `agent_runner/` — any source, config, or test file
+- Any file outside the `tests/` directory tree
+
+If you identify what appears to be a structural problem in a prompt, playbook, or example task, you may document it in `docs/TODO.md`. You may not fix it. That is the agent_management agent's job.
+
+Editing `agents/` or `agent_runner/` files is a scope violation regardless of perceived urgency or merit. A run that edits files outside `tests/` has failed its scope boundary.
 
 ## Scope
 

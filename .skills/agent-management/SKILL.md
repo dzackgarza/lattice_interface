@@ -5,7 +5,7 @@ description: Agent behavior auditing and structural debugging. Use when diagnosi
 
 # Agent Management Skill
 
-**Example tasks:** See `example_tasks/` directory
+**Example tasks:** See `.skills/agent-management/example_tasks/` directory
 
 ## Role
 
@@ -124,29 +124,20 @@ A "SUCCESS" notification with a 2-minute elapsed time and a `last_message` sayin
 
 ---
 
-## Failure Classification Reference
-
-| `classified_error` | Meaning | Action |
-|---|---|---|
-| `usage_limit` | Rate limit hit. Check crontab: was it `--agent auto`? | Infrastructure - check auto fallback |
-| `timeout` | exit=-15. Process killed by system. | Infrastructure - timeout too short |
-| `commit_missing` | Agent exited cleanly but no commits. | **Read transcript** - likely behavioral |
-| `process_error` | Agent crashed or errored. | **Read transcript** - check cause |
-
-### Verifying Agent Work
-
-**Just because an agent ran doesn't mean it completed successfully.**
-
-For any run (success or failure):
-1. Read the transcript — look at what the agent actually did
-2. Check git status — uncommitted changes = behavioral failure (agent made edits but didn't commit)
-3. Distinguish infrastructure work from task work — a commit modifying `agent_runner/` is fixing the runner, not doing document_coverage
-
-The transcript at `agent_runner/logs/<task>/<agent>/<timestamp>/transcript.log` shows exactly what the agent did. This is the source of truth, not the ntfy notification.
-
----
-
 ## Reading The Logs
+
+### Where Logs Live
+
+```
+agent_runner/logs/<task>/<agent>/           # per-agent aggregate log
+agent_runner/logs/<task>/<agent>/<run_id>/  # per-run directory
+agent_runner/logs/<task>/task.log           # cross-agent task summary
+```
+
+Each run directory contains:
+- `metadata.json` — structured outcome: `classified_error`, `exit_code`, `commits`, `elapsed_seconds`, `last_message`, `files_changed`
+- `transcript.log` — full agent stdout
+- `runner.log` — orchestrator-level output
 
 ### Failure Classification
 
@@ -314,23 +305,51 @@ Use these patterns when auditing transcripts to identify structural defects. Res
 | **Memory Poisoning** | Cites memory as authority instead of inspecting files | Memories contain task state or completion claims | Delete memories that let agents conclude "done" without file inspection |
 | **Missing Internal Tools** | Drift persists across runs; agent loses track mid-session | No instruction to use harness-provided tools | Add: "Use harness todo list if available for multi-step tracking"; "Activate planning mode if available for complex tasks" |
 | **Verify-And-Stop** | Picks task, verifies no gaps exist, declares success without pivoting | No "pivot on no-gap" instruction; task framed as verification rather than fix | Add: "If no gaps found, pivot to different task/package. A no-commit run is a failure. Job is to find gaps, not verify there are none." |
-| **Made Edits But Didn't Commit** | Agent makes substantive edits, identifies gaps, but never runs `git commit` | Agent stops mid-work; transcript shows edits but no commit command; task not completed | This is a behavioral failure. The agent did work but didn't finish the cycle. Check `git status` to verify. |
 | **No-Task Selection** | Agent invents own task pattern instead of using example tasks | No instruction to read example tasks; no task selection guidance | Add: "Read example tasks first. Pick one at random to execute." |
 | **Overexcitement** (Trehan & Chopra §3.4) | "No gaps found"; claims success despite absence of substantive work; focuses on positive indicators | Task framed as verification; output format allows generic claims | Add: "If you cannot name a specific gap you found and fixed, your run has failed." |
 | **Implementation Drift** (Trehan & Chopra §3.2) | Simplifies task when encountering complexity; runs in "sample"/"test" mode; progressively abandons core work | No perpetuity framing; no "no-commit = failure" rule | Add: "This task has no terminal state. A no-commit run is a failure." |
-| **Minimum Viable Completion** | Finds one tiny issue, fixes it correctly, stops. 2 minutes, +4/-2 lines. | Task not scoped clearly; no "thoroughness" requirement | Add: "Task is to audit entire doc. One fix is 1/10. Thorough completion = 4-5/10." |
-| **Kick-The-Can** | Finds real problem; partial investigation; makes UNVERIFIED assertions for remainder (e.g., "NOT IN X" without proof) | Task allows assertion-based completion; no "verify every claim" instruction | Add: "Every claim must be verified. 'NOT IN X' requires proof, not just failure to find. If unable to verify, mark as TODO and continue with verifiable items." |
-| **Manager Calibration Failure** | Manager rates work as substantive based on: line count, commit message claims, SUCCESS notification, elapsed time, agent's self-summary, transcript CoT | Manager trusts agent-generated signals; no instruction to audit actual diff content | Add: "Rate by task completion %, not signals. Read actual diff. Identify verified vs unverified claims. Ignore agent's self-assessment. One fix = 1/10." |
 
 ---
 
 ## Fixing Problems
+
+### Memories: Design for Misuse-Resistance
+
+**The root problem:** Using memories as a performative ledger — recording what was done, what remains, or task state. This is git's job, not memory's job.
+
+**Don't just delete bad memories — fix the structure that produces them:**
+
+| If agents write... | The structural defect is... | Fix the prompt/playbook to... |
+|-------------------|---------------------------|-------------------------------|
+| Changelogs ("Prior agents did X, Y, Z") | No explicit "memories are not for task state"禁令 | Add: "Memories are not for recording what was done. Git history is the ledger." |
+| TODO lists ("Remaining work: A, B, C") | TODO.md not positioned as authoritative work queue | Add: "docs/TODO.md is the work queue. Do not duplicate in memories." |
+| Completion claims ("Task is complete") | No explicit "task is perpetually incomplete" statement | Add: "This task has no terminal state. Do not claim completion." |
+| Handoff notes ("Next agent should...") | No "each run is Markov" principle | Add: "Each run derives task state from files, not prior session records." |
+
+**The goal:** Agents should not write ledger memories because the prompt/playbook makes it structurally obvious that this is wrong — not because a manager deleted them.
+
+**Keep memories that contain genuinely actionable insight** — something not derivable from inspecting current files:
+- A known-unreachable upstream source (URL + what method surface it would fill)
+- A non-obvious constraint with no local evidence (e.g., "Package X requires odd characteristic, documented only in upstream README line N")
+- An upstream discrepancy needing resolution (e.g., "Docs say A, source shows B — unresolved")
+
+**Test:** If a memory lets an agent conclude "work is done" or "here's what prior agents did" without opening files, the prompt/playbook failed to forbid it. Fix the prompt/playbook.
 
 ### Prompts and Playbooks
 
 Make targeted edits. Do not rewrite. The goal is to remove closure mechanisms and preserve or add language that explicitly forbids premature stopping.
 
 When removing a closure mechanism, do not replace it with a more specific description of what remains. That creates a new closure mechanism at a finer granularity. Remove the signal that work is bounded; do not substitute a different bound.
+
+### Behavioral Auditing
+
+Use `example_tasks/behavioural_audit_trivial_work_detection.md` to audit worker agents for trivial work patterns. This task teaches:
+- Scale calibration: what substantive work looks like vs trivial cosmetic fixes
+- How to identify reward-hacking: agents doing nonzero work that's underwhelming
+- Transcript analysis: finding shallow reading, easy pivots, verification theater
+- Root cause mapping: structural defects in prompts that enable trivial work
+
+The key insight: an agent making a commit is NOT proof of substantive work. Many commits are trivial (1-2 min fixes) that pale in comparison to the actual scope (thousands of methods to document). The manager must be ruthless in evaluating whether commits represent real progress toward documenting all lattice methods.
 
 ### TODOs
 
@@ -343,8 +362,6 @@ Multiple agents run against this repo simultaneously. A commit authored by agent
 **Consequence for attribution**: A file appearing in a commit's diff does not mean the committing agent wrote it. Before attributing any behavior to an agent — and especially before making structural fixes based on that attribution — you must read that agent's actual transcript to reconstruct what it did.
 
 **`git show <hash>` is not a transcript.** It shows what was committed. The transcript at `agent_runner/logs/<task>/<agent>/<timestamp>/transcript.log` shows what the agent actually did. These can differ when dirty state is present.
-
----
 
 ### State Anchoring (Anti-Drift)
 

@@ -6,14 +6,6 @@ Notifications from cron-triggered agent runs are not appearing. Every cron job s
 
 ## Investigation Steps
 
-### 0. CHECK NTFY FIRST (ALWAYS)
-
-```bash
-curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=all" | jq -c '{time: .time, title: .title, message: .message}'
-```
-
-This tells you what notifications exist. Compare against expected frequency.
-
 ### 1. Baseline Check
 
 Determine current time and inspect the crontab to identify what jobs should have run recently:
@@ -23,9 +15,14 @@ date
 crontab -l
 ```
 
-### 2. Cross-Reference With Notifications
+### 2. Check Notification Records
 
-Review published notifications from step 0 to see what actually finished and with what status. Compare expected vs actual notification count.
+Review published notifications to see what actually finished and with what status:
+
+```bash
+# Check ntfy logs or notification history
+# Compare expected vs actual notification count
+```
 
 ### 3. Identify Gaps
 
