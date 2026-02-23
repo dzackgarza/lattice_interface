@@ -1,6 +1,6 @@
 # flatter Method Test Gap Checklist
 
-Tracks flatter-relevant methods/commands documented in `docs/flatter/lattice/flatter_lattice_reference.md`.
+Tracks flatter-relevant methods/commands documented in `docs/flatter/lattice/research_readme.md`.
 Check a box when there is at least one `method:` tagged test covering that method.
 
 ---
