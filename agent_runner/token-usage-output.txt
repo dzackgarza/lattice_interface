@@ -1,0 +1,113 @@
+═══════════════════════════════════════════════════════════════════════════
+Token Analysis: Session ses_37410b209ffedixQsgB9ueDE7m
+Model: gemini-3.1-pro-preview
+═══════════════════════════════════════════════════════════════════════════
+
+TOKEN BREAKDOWN BY CATEGORY
+─────────────────────────────────────────────────────────────────────────
+Estimated using tokenizer analysis of message content:
+
+Input Categories:
+  SYSTEM    ██████████████████████████████    99.9% (26,985)
+  USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.1% (19)
+
+  Subtotal: 27,004 estimated input tokens
+
+Output Categories:
+  ASSISTANT █████░░░░░░░░░░░░░░░░░░░░░░░░░        16.0% (26)
+  REASONING █████████████████████████░░░░░       84.0% (137)
+
+  Subtotal: 163 estimated output tokens
+
+Local Total: 27,167 tokens (estimated)
+
+TOOL USAGE BREAKDOWN
+─────────────────────────────────────────────────────────────────────────
+
+TOP CONTRIBUTORS
+─────────────────────────────────────────────────────────────────────────
+• System (inferred from API)   26,985 tokens (99.3%)
+• Reasoning#2                  76 tokens (0.3%)
+• Reasoning#1                  61 tokens (0.2%)
+• User#3                       16 tokens (0.1%)
+• Assistant#1                  14 tokens (0.1%)
+
+═══════════════════════════════════════════════════════════════════════════
+MOST RECENT API CALL
+─────────────────────────────────────────────────────────────────────────
+
+Raw telemetry from last API response:
+  Input (fresh):          2,777 tokens
+  Cache read:            24,227 tokens
+  Output:                    11 tokens
+  Reasoning:                314 tokens
+  ─────────────────────────────────────
+  Total:                 27,329 tokens
+
+═══════════════════════════════════════════════════════════════════════════
+SESSION TOTALS (All 3 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+Total tokens processed across the entire session (for cost calculation):
+
+  Input tokens:          29,717 (fresh tokens across all calls)
+  Cache read:            24,227 (cached tokens across all calls)
+  Cache write:                0 (tokens written to cache)
+  Output tokens:             24 (all model responses)
+  Reasoning tokens:         459 (thinking/reasoning)
+  ─────────────────────────────────────
+  Session Total:         54,427 tokens (for billing)
+
+═══════════════════════════════════════════════════════════════════════════
+ESTIMATED SESSION COST (API Key Pricing)
+─────────────────────────────────────────────────────────────────────────
+
+You appear to be on a subscription plan (API cost is $0).
+Here's what this session would cost with direct API access:
+
+  Input tokens:          29,717 × $1.00/M  = $0.0297
+  Output tokens:            483 × $3.00/M  = $0.0014
+─────────────────────────────────────────────────────────────────────────
+ESTIMATED TOTAL: $0.0312
+
+Note: This estimate uses standard API pricing from models.json.
+Actual API costs may vary based on provider and context size.
+
+═══════════════════════════════════════════════════════════════════════════
+TOOL DEFINITION COSTS (Estimated from argument analysis)
+─────────────────────────────────────────────────────────────────────────
+
+  Tool                Est. Tokens   Args   Complexity
+  ───────────────────────────────────────────────────────────────────
+  tokenscope                 ~280       0   simple
+  ───────────────────────────────────────────────────────────────────
+  Total:             ~        280 tokens (1 enabled tools)
+
+  Note: Estimates inferred from tool call arguments in this session.
+        Actual schema tokens may vary +/-20%.
+
+═══════════════════════════════════════════════════════════════════════════
+CACHE EFFICIENCY
+─────────────────────────────────────────────────────────────────────────
+
+  Token Distribution:
+    Cache Read:            24,227 tokens   █████████████░░░░░░░░░░░░░░░░░  44.9%
+    Fresh Input:           29,717 tokens   █████████████████░░░░░░░░░░░░░  55.1%
+  ───────────────────────────────────────────────────────────────────
+  Cache Hit Rate:      44.9%
+
+  Cost Analysis (gemini-3.1-pro-preview @ $1.00/M input, $0.00/M cache read):
+    Without caching:   $0.0539  (53,944 tokens x $1.00/M)
+    With caching:      $0.0297  (fresh x $1.00/M + cached x $0.00/M)
+  ───────────────────────────────────────────────────────────────────
+  Cost Savings:        $0.0242  (44.9% reduction)
+  Effective Rate:      $0.55/M tokens  (vs. $1.00/M standard)
+
+═══════════════════════════════════════════════════════════════════════════
+SUMMARY
+─────────────────────────────────────────────────────────────────────────
+
+                          Cost        Tokens          API Calls
+  Session:           $    0.0312        54,427             3
+
+═══════════════════════════════════════════════════════════════════════════
