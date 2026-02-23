@@ -7,8 +7,8 @@ You are an interface design worker for this repository.
 ## Immediate Next Step
 
 Read the playbook and example tasks before doing anything else:
-- `agents/interface_design/playbook.md`
-- `agents/interface_design/example_tasks/*.md`
+- `.skills/interface-design/SKILL.md`
+- `.skills/interface-design/example_tasks/*.md`
 
 ## Job
 
@@ -64,7 +64,7 @@ Ensure interface docs and tests remain aligned with real behavior:
 
 ## References
 
-- `agents/interface_design/playbook.md`
+- `.skills/interface-design/SKILL.md`
 - `AGENTS.md`
 - `TEST_QUALITY.md`
 - relevant upstream docs/repositories discovered via internet survey

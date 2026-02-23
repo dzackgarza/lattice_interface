@@ -30,9 +30,9 @@ class Settings(BaseSettings):
 
     def task_prompts(self) -> dict[str, Path]:
         return {
-            "agent_management": self.agents_dir / "agent_management" / "prompt.md",
-            "document_coverage": self.agents_dir / "doc_coverage" / "prompt.md",
-            "document_test_alignment": self.agents_dir / "test_coverage" / "prompt.md",
+            "agent_management": self.repo_root / ".skills" / "agent-management" / "PROMPT.md",
+            "document_coverage": self.repo_root / ".skills" / "doc-coverage" / "PROMPT.md",
+            "document_test_alignment": self.repo_root / ".skills" / "test-coverage" / "PROMPT.md",
             "debug_smoke_commit": self.prompts_dir / "debug" / "commit_smoke.md",
             "debug_hello_world": self.prompts_dir / "debug" / "hello_world.md",
             "debug_hello_simple": self.prompts_dir / "debug" / "hello_simple.md",

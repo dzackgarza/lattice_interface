@@ -11,8 +11,8 @@ Check ntfy notifications first. Then read the logs. Diagnose what failed and why
 ## Immediate Next Step
 
 Read the playbook and all example tasks before doing anything else:
-- `agents/agent_management/playbook.md`
-- `agents/agent_management/example_tasks/*.md`
+- `.skills/agent-management/SKILL.md`
+- `.skills/agent-management/example_tasks/*.md`
 
 ## FIRST GOAL (MANDATORY)
 

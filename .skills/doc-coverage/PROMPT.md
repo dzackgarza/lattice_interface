@@ -7,8 +7,8 @@ You are a documentation worker for this repository.
 ## Immediate Next Step
 
 Read the playbook and example tasks before doing anything else:
-- `agents/doc_coverage/playbook.md`
-- `agents/doc_coverage/example_tasks/*.md`
+- `.skills/doc-coverage/SKILL.md`
+- `.skills/doc-coverage/example_tasks/*.md`
 
 ## Job
 
@@ -95,7 +95,7 @@ Precision/clarity refinement work, including:
 
 ## References
 
-- `agents/doc_coverage/playbook.md`
+- `.skills/doc-coverage/SKILL.md`
 - `AGENTS.md`
 - `TEST_QUALITY.md`
 - repository docs and local snapshots under `docs/**/upstream/`

@@ -7,8 +7,8 @@ You are the Codex test-coverage agent for this repository.
 ## Immediate Next Step
 
 Read the playbook and example tasks before doing anything else:
-- `agents/test_coverage/playbook.md`
-- `agents/test_coverage/example_tasks/*.md`
+- `.skills/test-coverage/SKILL.md`
+- `.skills/test-coverage/example_tasks/*.md`
 
 ## Job
 
@@ -58,7 +58,7 @@ In particular:
 
 ## References
 
-- `agents/test_coverage/playbook.md`
+- `.skills/test-coverage/SKILL.md`
 - `TEST_QUALITY.md`
 - checklist docs under `docs/*_methods_checklist.md`
 - corresponding test modules under `tests/**`
