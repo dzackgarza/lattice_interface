@@ -2,6 +2,96 @@
 
 Centralized Python app for running agents with consistent logging and notifications.
 
+## Organization
+
+```
+agent_runner/
+├── src/agent_runner/
+│   ├── orchestrator.py      # Main CLI entry point, run logic, error classification
+│   ├── agents.py            # Agent classes (KiloAgent, ClaudeAgent, etc.)
+│   ├── tasks.py             # Task definitions
+│   ├── config.py            # Paths, binaries, settings
+│   ├── errors.py            # Error classes (AgentConnectivityError, etc.)
+│   ├── agent_errors.py      # Rate limit detection
+│   ├── logging.py           # Logging utilities
+│   ├── notifications.py     # ntfy notification sending
+│   └── harness.py           # Subprocess execution with timeout
+├── prompts/
+│   └── debug/               # Debug prompts (hello_world, smoke, etc.)
+└── logs/                    # Run logs (see below)
+```
+
+## Monitoring Live Runs
+
+### Is an Agent Currently Working?
+
+```bash
+# Check heartbeat (runs every minute)
+tail -f logs/heartbeat/task.log
+
+# Check if any agent logs were created in the last few minutes
+find logs -name "transcript.log" -mmin -5
+
+# List recent runs by task
+ls -lt logs/document_coverage/ | head -5
+```
+
+### Monitor Live Output
+
+Runs stream output to `transcript.log` in real-time:
+
+```bash
+# Watch live output of a running agent
+tail -f logs/document_coverage/<agent>/<run_id>/transcript.log
+
+# Watch all document_coverage runs
+tail -f logs/document_coverage/task.log
+```
+
+The agent writes output as it runs, so you can see progress in real-time.
+
+### Recent Runs
+
+```bash
+# List recent runs by agent
+ls -lt logs/document_coverage/opencode/ | head -10
+ls -lt logs/document_coverage/kilo/ | head -10
+
+# Check ntfy notifications (last 30 minutes)
+curl -s "https://ntfy.sh/dzg-lattice-doc-updates/json?poll=1&since=30m"
+
+# View crontab to see scheduled jobs
+crontab -l
+```
+
+## Agent Slugs
+
+Agent slugs are defined in `src/agent_runner/agents.py`:
+
+```python
+class AgentName(StrEnum):
+    codex = "codex"
+    claude = "claude"
+    gemini = "gemini"
+    kilo = "kilo"
+    ollama = "ollama"
+    opencode = "opencode"
+    qwen = "qwen"
+    auto = "auto"  # Auto-select best available agent
+```
+
+Binary paths and models are configured in `src/agent_runner/config.py`:
+
+| Agent | Binary Config | Default Model |
+|-------|--------------|---------------|
+| `codex` | `codex_bin` | Configurable via `--config model_reasoning_effort` |
+| `claude` | `claude_bin` | `sonnet` |
+| `gemini` | `gemini_bin` | `auto` (via `AGENT_RUNNER_GEMINI_MODEL`) |
+| `kilo` | `kilo_bin` | `kilo/minimax/minimax-m2.5:free` |
+| `ollama` | `ollama_bin` | Configurable via `OLLAMA_MODEL` |
+| `opencode` | `opencode_bin` | `opencode/glm-5-free` |
+| `qwen` | `qwen_bin` | `coder-model` |
+
 ## Quick Start
 
 ```bash
@@ -14,15 +104,17 @@ uv run python -m agent_runner run --agent kilo --task debug_hello_simple
 
 ### Available Agents
 
-| Agent | Binary | Model |
-|-------|--------|-------|
-| `codex` | `codex` | Configurable via `--config model_reasoning_effort` |
-| `claude` | `claude` | `sonnet` |
-| `gemini` | `gemini` | `auto` (configurable via `AGENT_RUNNER_GEMINI_MODEL`) |
-| `kilo` | `kilo` | `kilo/minimax/minimax-m2.5:free` |
-| `ollama` | `ollama` | Configurable via `OLLAMA_MODEL` env var |
-| `opencode` | `opencode` | `opencode/glm-5-free` (via `OPENCODE_MODEL`) |
-| `qwen` | `qwen` | `coder-model` (via `QWEN_MODEL`) |
+| Agent | Binary Config | Model |
+|-------|--------------|-------|
+| `codex` | `codex_bin` | Configurable |
+| `claude` | `claude_bin` | `sonnet` |
+| `gemini` | `gemini_bin` | `auto` |
+| `kilo` | `kilo_bin` | `minimax-m2.5:free` |
+| `ollama` | `ollama_bin` | Configurable |
+| `opencode` | `opencode_bin` | `glm-5-free` |
+| `qwen` | `qwen_bin` | `coder-model` |
+
+Use `--agent auto` to auto-select the best available agent.
 
 ### Available Tasks
 
@@ -53,111 +145,47 @@ logs/
 ## Architecture
 
 Key source files:
-- `src/agent_runner/orchestrator.py` - Main entry point, CLI, run logic
-- `src/agent_runner/agents.py` - Agent definitions (KiloAgent, ClaudeAgent, etc.)
+- `src/agent_runner/orchestrator.py` - Main entry point, CLI, run logic, error classification
+- `src/agent_runner/agents.py` - Agent implementations (KiloAgent, ClaudeAgent, etc.)
 - `src/agent_runner/tasks.py` - Task definitions
 - `src/agent_runner/config.py` - Paths, binaries, settings
+- `src/agent_runner/errors.py` - Error classes
+- `src/agent_runner/notifications.py` - ntfy notification sending
+- `src/agent_runner/logging.py` - Logging utilities
 
 ## Adding a New Agent
 
 1. **Test the CLI manually** - Determine non-interactive flags:
    ```bash
    <binary> --help                    # Check available flags
-   <binary> --yolo "say hello"        # Test auto-approve mode (common pattern)
+   <binary> --yolo "say hello"        # Test auto-approve mode
    ```
 
-2. **Add agent class** in `src/agent_runner/agents.py`:
+2. **Add to AgentName enum** in `src/agent_runner/agents.py`:
    ```python
-   class NewAgent(AgentInterface):
-       def _run_with_prompt(
-           self, prompt_string: str, task: AgentTask, run_ctx: RunContext
-       ) -> ProcessResult:
-           args = ["--flag1", "--flag2", "-m", "model-name"]
-           return self._run_command(
-               args=args,
-               prompt_string=prompt_string,
-               run_ctx=run_ctx,
-               cwd=config.settings.repo_root,
-           )
+   class AgentName(StrEnum):
+       # ... existing agents ...
+       newagent = "newagent"
    ```
 
-3. **Add binary path** in `src/agent_runner/config.py`:
+3. **Add binary config** in `src/agent_runner/config.py`:
    ```python
-   newagent_bin: str = "/path/to/binary"
+   newagent_bin: str = "/path/to/newagent"
    ```
 
-4. **Register in orchestrator** - `src/agent_runner/orchestrator.py`:
-   - Add import: `from .agents import NewAgent`
-   - Add to `AgentName` literal: `Literal[..., "newagent"]`
+4. **Add agent builder** in `src/agent_runner/orchestrator.py`:
+   - Import: `from .agents import NewAgentAgent`
    - Add case in `_build_agent()`:
-     ```python
-     case "newagent":
-         return NewAgent(
-             name="newagent",
-             binary=config.settings.newagent_bin,
-             subcommand=None,
-             base_args=[],
-             env=env,
-         )
-     ```
-
-5. **Create tests**:
-   ```bash
-   mkdir -p tests/newagent
-   ```
-   
-   `tests/newagent/__init__.py`: (empty)
-   
-   `tests/newagent/test_direct.py`:
    ```python
-   import warnings
-   import pytest
-   from agent_runner import config
-   from agent_runner.agents import NewAgent
-   from agent_runner.errors import RateLimitUsageError
-   from agent_runner.logging import build_run_context
-   from agent_runner.tasks import DebugSmokeCommitTask
-
-   def test_newagent_direct():
-       agent = NewAgent(
-           name="newagent",
+   case AgentName.newagent:
+       return NewAgentAgent(
+           name=AgentName.newagent,
            binary=config.settings.newagent_bin,
-           subcommand=None,
-           base_args=[],
-           env={"PATH": config.settings.path_prefix},
        )
-       run_ctx = build_run_context(
-           agent_name=agent.name, task_name="debug_hello_simple", run_id="test"
-       )
-       task = DebugSmokeCommitTask(
-           name="debug_hello_simple",
-           task_key="debug_hello_simple",
-           prompt_path=config.settings.task_prompts()["debug_hello_simple"],
-           requires_commit=False,
-       )
-       try:
-           result = agent.run_task(task, run_ctx)
-           assert result.exit_code == 0
-       except RateLimitUsageError as exc:
-           with pytest.warns(RuntimeWarning):
-               warnings.warn(str(exc), RuntimeWarning)
    ```
 
-   Add to `tests/test_agents_direct.py`:
-   ```python
-   from agent_runner.agents import NewAgent
-   
-   def test_newagent_direct():
-       agent = NewAgent(...)
-       _assert_agent(agent)
-   ```
-
-6. **Update this README** - Add row to Available Agents table.
-
-7. **Run type check and tests**:
+5. **Test it**:
    ```bash
-   uv run pyright src/
-   uv run pytest tests/newagent/ tests/test_agents_direct.py::test_newagent_direct -v
    uv run python -m agent_runner run --agent newagent --task debug_hello_simple
    ```
 
@@ -176,9 +204,27 @@ The notification includes the agent name, task, run_id, and log directory.
 
 Exit codes:
 - `0` - success
-- `1` - agent error
-- `10` - rate limit
+- `1` - agent/process error
+- `2` - unhandled error
+- `10` - rate limit (usage_limit)
 - `11` - timeout
+- `12` - connectivity error (model connection failed)
+- `13` - agent selection error
+- `14` - model/harness error
+
+### Error Classification
+
+Errors are classified based on symptoms:
+
+| Classification | Meaning | Cause | Action |
+|---------------|---------|-------|--------|
+| `usage_limit` | Rate limit hit | API quota exceeded | Wait or use different agent |
+| `timeout` | Process killed (>15min) | Agent hung | Check for infinite loops |
+| `connectivity` | Model connection failed | Network/model issues | Check model availability |
+| `commit_missing` | No commits made | Agent found nothing to do | May be expected |
+| `process_error` | Agent crashed/exited non-zero | Internal error | Check transcript |
+
+**Short run detection**: Runs completing in <3 minutes or with <10 lines of output are classified as `connectivity` errors (not `commit_missing`), since they indicate the model failed to connect/process properly.
 
 ## ntfy
 
