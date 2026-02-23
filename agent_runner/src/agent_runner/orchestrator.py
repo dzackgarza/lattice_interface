@@ -85,7 +85,10 @@ class Orchestrator(BaseModel):
         connectivity_verified = False
         if self.args.agent is AgentName.auto:
             if self.args.session is not None:
-                typer.echo("--continue requires an explicit --agent; session IDs are model-specific", err=True)
+                typer.echo(
+                    "--continue requires an explicit --agent; session IDs are model-specific",
+                    err=True,
+                )
                 return 1
             try:
                 agent_obj, run_ctx = _select_auto_agent(task_obj, run_id)
@@ -139,6 +142,9 @@ class Orchestrator(BaseModel):
             if exit_code != 0:
                 raise AgentProcessError(agent_obj.name, task_obj.name, exit_code)
 
+            end_time = datetime.now(timezone.utc)
+            elapsed = end_time - start_time
+
             head_after = git.get_head()
             commit_summary = git.summarize_commits(head_before, head_after)
             if (
@@ -147,6 +153,8 @@ class Orchestrator(BaseModel):
                 and len(commit_summary.commits) == 0
             ):
                 raise AgentCommitMissingError(agent_obj.name, task_obj.name)
+
+            self._detect_short_run_error(stdout, elapsed, agent_obj.name, task_obj.name)
 
             end_time = datetime.now(timezone.utc)
             elapsed = end_time - start_time
@@ -416,6 +424,32 @@ def _format_elapsed(elapsed: float | timedelta) -> str:
         total_seconds = elapsed
     minutes, secs = divmod(int(total_seconds), 60)
     return f"{minutes}m{secs:02d}s"
+
+
+_SHORT_RUN_LINES_THRESHOLD = 10
+_SHORT_RUN_TIME_THRESHOLD_SECONDS = 180  # 3 minutes
+
+
+def _detect_short_run_error(stdout: str, elapsed: timedelta, agent: str, task: str) -> None:
+    """Detect connectivity issues from very short runs with minimal output or time.
+
+    When runs complete in < 3 minutes or have < 10 lines of output,
+    this indicates a connectivity problem rather than a legitimate no-commit run.
+    """
+    line_count = stdout.count("\n")
+    elapsed_seconds = elapsed.total_seconds()
+
+    if line_count < _SHORT_RUN_LINES_THRESHOLD:
+        raise AgentConnectivityError(
+            agent,
+            f"short_run: only {line_count} lines in {elapsed_seconds:.0f}s - likely model connectivity issue",
+        )
+
+    if elapsed_seconds < _SHORT_RUN_TIME_THRESHOLD_SECONDS:
+        raise AgentConnectivityError(
+            agent,
+            f"short_run: completed in {elapsed_seconds:.0f}s (< 3min) with {line_count} lines - likely model connectivity issue",
+        )
 
 
 def _notify_success(
