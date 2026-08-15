@@ -1,3 +1,23 @@
 version = 1
 revision = 3
 requires-python = ">=3.13"
+
+[[package]]
+name = "lattice-interface"
+version = "0.0.0"
+source = { virtual = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "sage-stubs" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [{ name = "sage-stubs", git = "https://github.com/dzackgarza/sage-stubs.git" }]
+
+[[package]]
+name = "sage-stubs"
+version = "10.7.0"
+source = { git = "https://github.com/dzackgarza/sage-stubs.git#fd0b149b720fb2f7e89c0fbcb1f19cc8e7390ef7" }
